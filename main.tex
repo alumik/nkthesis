@@ -20,17 +20,40 @@
 % OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 % SOFTWARE.
 
-\documentclass[headingmode=2]{nkthesis-graduate}
+\documentclass[headingmode=2]{nkthesis}
 
 % 下列宏包仅用于本示例文档，请根据实际需要添加或删除
 \usepackage{float}  % 用于控制浮动体位置
 \usepackage{array}  % 用于调整表格行距
 
 \addbibresource{main.bib}
+\nktset{
+    中图分类号 = {},
+    学校代码 = 10055,
+    UDC = {},
+    题名页/密级 = 公开,
+    题名页/论文类别 = 博士学位论文,  % 硕士学位论文/博士学位论文/硕士专业学位论文/博士专业学位论文
+    题名页/论文题目字号 = 3,  % 字号最大为2，可根据标题长度适当缩小标题字号
+    论文题目（中文） = {现代绿色化学中的物理有机问题——酵母菌催化反应机理和咪唑类离子液体酸度的研究},
+    论文副标题 = {},
+    论文题目（英文） = {Physical Organic Concerns in Green Chemistry: Mechanistic Aspects of Baker's Yeast Mediated Reduction and Measurements of Acidity of Imidazolium Ionic Liquids},
+    论文作者 = {某某},
+    指导教师 = {某某某},
+    指导教师职称 = {教授},
+    申请学位 = {理学博士},
+    培养单位 = {化学学院},
+    学科专业 = {有机化学},
+    研究方向 = {物理有机化学},
+    答辩委员会主席 = {×××},
+    评阅人 = {××× ××× ×××},
+    论文完成时间 = {二〇〇七年五月},
+}
 
 \begin{document}
 
-\input{frontmatter/cover}
+% 常规题名页和匿名评审封面，可根据需要选择使用
+\titlepage
+\anonymoustitlepage
 
 \frontmatter
 
