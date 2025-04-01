@@ -3,6 +3,9 @@
 ![version 1.0.0](https://img.shields.io/badge/version-1.0.0-blue)
 ![License LPPL 1.3c](https://img.shields.io/badge/License-LPPL%201.3c-blue?logo=latex&logoColor=white)
 
+> [!TIP]
+> 这个模板是根据规范从零开始编写的全新模板，和现有模板的实现方式大有不同，欢迎使用！
+
 编译支持矩阵
 
 |  | Windows | Overleaf | Ubuntu | MacOS |
