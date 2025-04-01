@@ -50,6 +50,7 @@
 ]{biblatex}
 \RequirePackage{subcaption}
 \RequirePackage{tikz}
+\RequirePackage{array}
 
 % ============================================================
 % 页面尺寸（LaTeX尺寸以文字基线计算，与Microsoft Word不同，因此视觉效果上会有差异）
@@ -499,7 +500,7 @@
 % ------------------------------------------------------------
 % 匿名评阅封面
 % ------------------------------------------------------------
-\newcommand*{\anonymousreviewcover}{%
+\newcommand*{\anonymoustitlepage}{%
     \clearpage%
     {%
         \parindent 0pt%
@@ -705,3 +706,7 @@
         如已批准为非公开学位论文，须向图书馆提供批准通过的《南开大学研究生申请非公开学位论文审批表》复印件和“非公开学位论文标注说明”页原件。\par%
     }%
 }
+% ------------------------------------------------------------
+% 参考文献
+% ------------------------------------------------------------
+\newcommand*\bibliographypage{\printbibliography[heading=bibintoc, title=\bibname]}

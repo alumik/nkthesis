@@ -3,11 +3,8 @@
 
 \documentclass[headingmode=2]{nkthesis}
 
-% 下列宏包仅用于本示例文档，请根据实际需要添加或删除
-\usepackage{float}  % 用于控制浮动体位置
-\usepackage{array}  % 用于调整表格行距
+\usepackage{float}  % 用于控制浮动体位置，仅用于本示例文档，请根据实际需要添加或删除
 
-\addbibresource{main.bib}
 \nktset{
     中图分类号 = {},
     学校代码 = 10055,
@@ -31,7 +28,7 @@
     评阅人 = ××× ××× ×××,
     论文完成时间 = 二〇〇七年五月,
     论文编号 = {},
-    非公开论文/申请密级 = 限制,  % 申请密级（公开/限制/秘密/机密）
+    非公开论文/申请密级 = 公开,  % 申请密级（公开/限制/秘密/机密）
     非公开论文/保密期限/起始日期 = 20\qquad{}年\qquad{}月\qquad{}日,
     非公开论文/保密期限/结束日期 = 20\qquad{}年\qquad{}月\qquad{}日,
     非公开论文/审批表编号 = {},
@@ -44,12 +41,13 @@
     通讯地址 = 天津市南开区卫津路94号，300071,
     作者信息/备注 = {},
 }
+\addbibresource{main.bib}
 
 \begin{document}
 
 % 以下页面可根据需要（匿名/非匿名等）选择使用
 \titlepage
-\anonymousreviewcover
+\anonymoustitlepage
 \declarationpage
 \authorizationpage
 
@@ -73,9 +71,7 @@
 
 \appendix
 \input{backmatter/appendix}
-
-\printbibliography[heading=bibintoc, title=\bibname]
-
+\bibliographypage
 \input{backmatter/errata}
 \input{backmatter/acknowledgements}
 \input{backmatter/resume}
