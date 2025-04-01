@@ -11,6 +11,8 @@
 | pdfLaTeX | ❌ | ❌ | ❌ | ❌ |
 | 其他 | 未测试 | 未测试 | 未测试 | 未测试 |
 
+模板预览和写作规范可以[从 Release 中下载](https://github.com/alumik/nkthesis/releases/latest) `main.pdf`。
+
 ## 历史来源
 
 > [!NOTE]
