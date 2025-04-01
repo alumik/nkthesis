@@ -25,7 +25,7 @@
 
 \RequirePackage{xfp}
 
-\PassOptionsToPackage{AutoFakeBold=true}{xeCJK}  % 自动伪粗体
+\PassOptionsToPackage{AutoFakeBold=true}{xeCJK}  % 启用自动伪粗体
 \LoadClass[
     openany,  % 双面打印时允许章节开始于偶数页
     zihao=-4,  % 默认字号小四
@@ -61,25 +61,25 @@
 \RequirePackage{subcaption}
 
 % ============================================================
-% 页边距
+% 页面尺寸（LaTeX尺寸以文字基线计算，与Microsoft Word不同，因此视觉效果上会有差异）
 % ============================================================
-\setlength{\textwidth}{14.6cm}
-\setlength{\textheight}{22.1cm}
-\setlength{\footskip}{0.53cm}
-\setlength{\headsep}{0.5cm}
-\setlength{\topskip}{0pt}
-\setlength{\topmargin}{\dimexpr 3cm-1in\relax}
-\setlength{\headheight}{14.8bp}
-\setlength{\oddsidemargin}{\dimexpr 3.2cm-1in\relax}
+\setlength{\oddsidemargin}{\dimexpr 32mm-1in\relax}
 \setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\topmargin}{\dimexpr 30mm-1in\relax}
+\setlength{\headheight}{14.8bp}
+\setlength{\headsep}{\dimexpr 8mm-14.8bp\relax}
+\setlength{\textheight}{221mm}
+\setlength{\textwidth}{146mm}
+\setlength{\footskip}{8mm}
+\setlength{\topskip}{0pt}
 
 % ============================================================
-% 模板参数
+% 本模板参数
 % ============================================================
 \SetupKeyvalOptions{
     prefix=nkthesis@
 }
-\DeclareStringOption[2]{headingmode}  % 可填1或者2，表示使用模式1或者模式2，默认为2
+\DeclareStringOption[2]{headingmode}  % 可填1或者2，表示使用模式1或者模式2标题，默认为2
 \ProcessKeyvalOptions*
 
 % ============================================================
@@ -87,6 +87,10 @@
 % ============================================================
 \setcounter{secnumdepth}{3}  % 允许三级标题（subsubsection）编号
 \raggedbottom  % 允许页面底部不齐
+
+% ============================================================
+% 字体
+% ============================================================
 \setmainfont{Times New Roman}
 \newfontfamily{\arial}{Arial}
 \newfontfamily{\segoeui}{Segoe UI Symbol}
@@ -94,40 +98,30 @@
 % ============================================================
 % 自定义宏
 % ============================================================
-\newcommand{\mslinespread}[1]{\linespread{\fpeval{#1 * 1.296875 / 1.2}}}  % 模仿 Word 多倍行距
-\newcommand{\mslinespreadbp}[2]{\linespread{\fpeval{#1 / #2 / 1.2}}}  % 模仿 Word 固定行距（bp 单位）
-\renewcommand{\frontmatter}{%
+\newcommand*{\msbaselinespread}{1.296875}  % Microsoft Word 基础行距（中易字库）
+\newcommand*{\mslinespread}[1]{\linespread{\fpeval{#1 * 1.296875 / 1.2}}}  % 模仿 Microsoft Word 多倍行距
+\newcommand*{\mslinespreadbp}[2]{\linespread{\fpeval{#1 / #2 / 1.2}}}  % 模仿 Microsoft Word 固定行距（磅）
+\renewcommand*{\frontmatter}{%
     \pagenumbering{Roman}%
     \setcounter{page}{1}%
-    \ctexset{
-        chapter={
-            format = {\mslinespread{1}\zihao{3}\bfseries\heiti\centering},
-        },
-    }%
+    \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
 }
-\renewcommand{\mainmatter}{%
+\renewcommand*{\mainmatter}{%
     \clearpage%
     \pagenumbering{arabic}%
     \setcounter{page}{1}%
     \ifnum\strcmp{\nkthesis@headingmode}{1}=0%
-        \ctexset{
-            chapter={
-                format = {\mslinespread{1}\zihao{3}\bfseries\heiti},
-            },
-        }%
+        \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries}%
     \fi%
 }
-\renewcommand{\backmatter}{%
+\renewcommand*{\backmatter}{%
     \clearpage%
-    \ctexset{
-        chapter={
-            format = {\mslinespread{1}\zihao{3}\bfseries\heiti\centering},
-        },
-    }%
+    \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
 }
-% ------------------------------------------------------------
-% 智能交叉引用
-% ------------------------------------------------------------
+
+% ============================================================
+% 交叉引用
+% ============================================================
 \labelformat{figure}{\figurename\thefigure}
 \labelformat{subfigure}{\figurename\thefigure（\alph{subfigure}）}
 \labelformat{table}{\tablename\thetable}
@@ -143,54 +137,51 @@
 % 页眉页脚
 % ============================================================
 \pagestyle{fancy}
-\fancyhfoffset{1.428571pt} 
-\renewcommand{\headrulewidth}{0.7bp}
+\fancyhfoffset{1.428571pt}  % 加宽页眉横线以匹配 Microsoft Word 样式
+\renewcommand*{\headrulewidth}{0.7bp}
 \fancyhf{}
-\fancyhead[C]{\mslinespread{1}\zihao{5}\songti\leftmark}
-\fancyfoot[C]{\mslinespread{1}\zihao{5}\songti\thepage}
+\fancyhead[C]{\mslinespread{1}\songti\zihao{5}\leftmark}
+\fancyfoot[C]{\mslinespread{1}\songti\zihao{5}\thepage}
 
 % ============================================================
 % 目录
 % ============================================================
-% ------------------------------------------------------------
-% 通用
-% ------------------------------------------------------------
 \tocloftpagestyle{fancy}  % 目录页使用 fancy 页眉页脚
-\renewcommand{\cftdotsep}{1}  % 点间距
+\renewcommand*{\cftdotsep}{1}  % 点间距
 % ------------------------------------------------------------
 % 章标题
 % ------------------------------------------------------------
-\setlength{\cftbeforechapskip}{2bp}  % 段前间距（设置为2磅以匹配6磅在Word中的样式）
-\renewcommand{\cftchapfont}{\zihao{4}\songti}  % 字体
-\renewcommand{\cftchappagefont}{\cftchapfont}  % 页码字体
-\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}  % 点线
+\setlength{\cftbeforechapskip}{2bp}  % 段前间距（设置为2磅以匹配6磅在 Microsoft Word 中的样式）
+\renewcommand*{\cftchapfont}{\mslinespread{1}\songti\zihao{4}}  % 字体
+\renewcommand*{\cftchappagefont}{\cftchapfont}  % 页码字体
+\renewcommand*{\cftchapleader}{\cftdotfill{\cftdotsep}}  % 增加点线
 % ------------------------------------------------------------
 % 节标题
 % ------------------------------------------------------------
-\setlength{\cftbeforesecskip}{2bp}  % 段前间距（设置为2磅以匹配6磅在Word中的样式）
+\setlength{\cftbeforesecskip}{2bp}  % 段前间距（设置为2磅以匹配6磅在 Microsoft Word 中的样式）
 \setlength{\cftsecindent}{\ccwd}  % 缩进
-\renewcommand{\cftsecfont}{\zihao{-4}\songti}  % 字体
-\renewcommand{\cftsecpagefont}{\cftsecfont}  % 页码字体
+\renewcommand*{\cftsecfont}{\mslinespread{1}\songti\zihao{-4}}  % 字体
+\renewcommand*{\cftsecpagefont}{\cftsecfont}  % 页码字体
 % ------------------------------------------------------------
 % 小节标题
 % ------------------------------------------------------------
-\setlength{\cftbeforesubsecskip}{2bp}  % 段前间距（设置为2磅以匹配6磅在Word中的样式）
+\setlength{\cftbeforesubsecskip}{2bp}  % 段前间距（设置为2磅以匹配6磅在 Microsoft Word 中的样式）
 \setlength{\cftsubsecindent}{2\ccwd}  % 缩进
-\renewcommand{\cftsubsecfont}{\zihao{5}\songti}  % 字体
-\renewcommand{\cftsubsecpagefont}{\cftsubsecfont}  % 页码字体
+\renewcommand*{\cftsubsecfont}{\mslinespread{1}\songti\zihao{5}}  % 字体
+\renewcommand*{\cftsubsecpagefont}{\cftsubsecfont}  % 页码字体
 % ------------------------------------------------------------
 % 图表标题
 % ------------------------------------------------------------
-\setlength{\cftbeforefigskip}{2bp}  % 图段前间距（设置为2磅以匹配6磅在Word中的样式）
-\setlength{\cftbeforetabskip}{2bp}  % 表段前间距（设置为2磅以匹配6磅在Word中的样式）
-\renewcommand{\cftfigfont}{\zihao{-4}\songti}  % 图字体
-\renewcommand{\cfttabfont}{\zihao{-4}\songti}  % 表字体
-\renewcommand{\cftfigpresnum}{\zihao{-4}\songti\figurename}  % 图序号前缀
-\renewcommand{\cfttabpresnum}{\zihao{-4}\songti\tablename}  % 表序号前缀
+\setlength{\cftbeforefigskip}{2bp}  % 图段前间距（设置为2磅以匹配6磅在 Microsoft Word 中的样式）
+\setlength{\cftbeforetabskip}{2bp}  % 表段前间距（设置为2磅以匹配6磅在 Microsoft Word 中的样式）
 \setlength{\cftfignumwidth}{3.5\ccwd}  % 图序号宽度
 \setlength{\cfttabnumwidth}{3.5\ccwd}  % 表序号宽度
 \setlength{\cftfigindent}{0pt}  % 图缩进
 \setlength{\cfttabindent}{0pt}  % 表缩进
+\renewcommand*{\cftfigfont}{\mslinespread{1}\songti\zihao{-4}}  % 图字体
+\renewcommand*{\cfttabfont}{\mslinespread{1}\songti\zihao{-4}}  % 表字体
+\renewcommand*{\cftfigpresnum}{\figurename}  % 图序号前缀
+\renewcommand*{\cfttabpresnum}{\tablename}  % 表序号前缀
 
 % ============================================================
 % CTeX
@@ -198,7 +189,7 @@
 \ctexset{
     listfigurename = 插图清单,
     listtablename = 附表清单,
-    chapter={
+    chapter = {
         beforeskip = 24bp,
         afterskip = 18bp,
         aftername = \hspace{\ccwd},
@@ -212,14 +203,14 @@
         tocline = \CTEXifname{\protect{\csname CTEXthe#1\endcsname\hspace{\ccwd}}}{}#2,
     },
     subsection = {
-        format = {\mslinespread{1}\heiti\fontsize{13bp}{15.6bp}\selectfont},
+        format = \mslinespread{1}\heiti\fontsize{13bp}{15.6bp}\selectfont,
         beforeskip = 12bp,
         afterskip = 6bp,
         aftername = {},
         tocline = \CTEXifname{\protect{\csname CTEXthe#1\endcsname}}{}#2,
     },
     subsubsection = {
-        format = {\mslinespread{1}\zihao{-4}\heiti},
+        format = \mslinespread{1}\heiti\zihao{-4},
         beforeskip = 12bp,
         afterskip = 6bp,
         aftername = {},
@@ -230,28 +221,22 @@
         chapter = {
             name = {},
             number = \arabic{chapter},
-            format = {\mslinespread{1}\zihao{3}\bfseries\heiti},
+            format = \mslinespread{1}\heiti\zihao{3}\bfseries,
         },
         section = {
             number = \arabic{chapter}.\arabic{section},
-            format = {\mslinespread{1}\zihao{4}\bfseries\heiti},
+            format = \mslinespread{1}\heiti\zihao{4}\bfseries,
         },
-        subsection = {
-            number = \arabic{chapter}.\arabic{section}.\arabic{subsection},
-        },
-        subsubsection = {
-            number = \arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection},
-        },
+        subsection/number = \arabic{chapter}.\arabic{section}.\arabic{subsection},
+        subsubsection/number = \arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection},
     }
 \else
     \ctexset{
-        chapter={
-            format = {\mslinespread{1}\zihao{3}\bfseries\heiti\centering},
-        },
+        chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering,
         section = {
             name = {第,节},
             number = \chinese{section},
-            format = {\mslinespread{1}\zihao{4}\bfseries\heiti\centering},
+            format = \mslinespread{1}\heiti\zihao{4}\bfseries\centering,
         },
         subsection = {
             name = {,、},
@@ -267,12 +252,12 @@
 \fi
 
 % ============================================================
-% 图注、表注
+% 图表
 % ============================================================
 \DeclareCaptionLabelFormat{nkthesis}{#1#2}
-\DeclareCaptionLabelFormat{nkthesis-subcaption}{（#2）}
+\DeclareCaptionLabelFormat{nkthesissub}{（#2）}
 \DeclareCaptionLabelSeparator{nkthesis}{\hspace{\ccwd}}
-\DeclareCaptionFont{nkthesis}{\mslinespread{1}\zihao{5}\songti}
+\DeclareCaptionFont{nkthesis}{\mslinespread{1}\songti\zihao{5}}
 \captionsetup{
     labelsep=nkthesis,
     labelformat=nkthesis,
@@ -281,7 +266,7 @@
 }
 \subcaptionsetup{
     labelsep=none,
-    labelformat=nkthesis-subcaption,
+    labelformat=nkthesissub,
     font=nkthesis,
     skip=6bp,
 }
@@ -293,11 +278,11 @@
 % 公式
 % ============================================================
 \makeatletter
-\renewcommand\tagform@[1]{\maketag@@@{\ignorespaces\mslinespread{1}\zihao{5}（#1）\unskip\@@italiccorr}}  % 标签格式
+\renewcommand*\tagform@[1]{\maketag@@@{\ignorespaces\mslinespread{1}\songti\zihao{5}（#1）\unskip\@@italiccorr}}  % 标签格式
 \makeatother
 \let\oldequation\equation
 \let\endoldequation\endequation
-\renewenvironment{equation}{\singlespace\oldequation}{\endoldequation}  % 行距
+\renewenvironment*{equation}{\singlespace\oldequation}{\endoldequation}  % 减小公式行距
 
 % ============================================================
 % 列表
@@ -306,99 +291,95 @@
 \setlist[itemize]{noitemsep, nolistsep, wide}
 
 % ============================================================
-% 附录
-% ============================================================
-
-% ============================================================
 % 参考文献
 % ============================================================
-\AtBeginBibliography{\mslinespreadbp{16}{10.5}\zihao{5}\songti}
+\AtBeginBibliography{\mslinespreadbp{16}{10.5}\songti\zihao{5}}
 
 % ============================================================
 % 自定义环境
 % ============================================================
-\newcommand{\enabstractname}{Abstract}
-\newcommand{\prefacename}{前言}
-\newcommand{\symbolsandabbreviationsname}{符号和缩略语说明}
-\newcommand{\acknowledgementsname}{致谢}
-\newcommand{\resumename}{个人简历、在学期间发表的学术论文及研究成果}
+\newcommand*{\enabstractname}{Abstract}
+\newcommand*{\prefacename}{前言}
+\newcommand*{\symbolsandabbreviationsname}{符号和缩略语说明}
+\newcommand*{\errataname}{勘误表}
+\newcommand*{\acknowledgementsname}{致谢}
+\newcommand*{\resumename}{个人简历、在学期间发表的学术论文及研究成果}
 % ------------------------------------------------------------
 % 摘要
 % ------------------------------------------------------------
-\newenvironment{abstract}{%
-    \ctexset{
-        chapter={
-            format = {\mslinespread{1}\zihao{-2}\bfseries\heiti\centering},
-        },
-    }%
+\newenvironment*{abstract}{%
+    \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{-2}\bfseries\centering}%
     \chapter*{\abstractname}%
     \markboth{\abstractname}{\abstractname}%
+    \ignorespaces%
 }{}
-\newenvironment{enabstract}{%
-    \ctexset{
-        chapter={
-            format = {\mslinespread{1}\zihao{-2}\bfseries\centering},
-        },
-    }%
-    \chapter*{\arial{}\enabstractname}%
+\newenvironment*{enabstract}{%
+    \ctexset{chapter/format = \mslinespread{1}\arial\zihao{-2}\bfseries\centering}%
+    \chapter*{\enabstractname}%
     \markboth{\enabstractname}{\enabstractname}%
+    \ignorespaces%
 }{}
-\newenvironment{keywords}{\songti\textbf{关键词：}}{}
-\newenvironment{enkeywords}{\textbf{Keywords:}}{}
+\newenvironment*{keywords}{\songti\textbf{关键词：}\ignorespaces}{}
+\newenvironment*{enkeywords}{\textbf{Keywords: }\ignorespaces}{}
 % ------------------------------------------------------------
 % 前言
 % ------------------------------------------------------------
-\newenvironment{preface}{%
-    \ctexset{
-        chapter={
-            format = {\mslinespread{1}\zihao{3}\bfseries\heiti\centering},
-        },
-    }%
+\newenvironment*{preface}{%
+    \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
     \chapter*{\prefacename}%
     \markboth{\prefacename}{\prefacename}%
+    \ignorespaces%
 }{}
 % ------------------------------------------------------------
 % 符号与缩略语
 % ------------------------------------------------------------
-\newenvironment{symbolsandabbreviations}{%
-    \ctexset{
-        chapter={
-            format = {\mslinespread{1}\zihao{3}\bfseries\heiti\centering},
-        },
-    }%
+\newenvironment*{symbolsandabbreviations}{%
+    \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
     \chapter*{\symbolsandabbreviationsname}%
     \markboth{\symbolsandabbreviationsname}{\symbolsandabbreviationsname}%
-    \mslinespreadbp{16}{10.5}\zihao{5}\songti%
+    \mslinespreadbp{16}{10.5}\songti\zihao{5}%
+    \ignorespaces%
+}{}
+% ------------------------------------------------------------
+% 勘误表
+% ------------------------------------------------------------
+\newenvironment*{errata}{%
+    \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
+    \chapter*{\errataname}%
+    \markboth{\errataname}{\errataname}%
+    \mslinespreadbp{16}{12}\songti\zihao{-4}%
+    \addcontentsline{toc}{chapter}{\errataname}%
+    \ignorespaces%
 }{}
 % ------------------------------------------------------------
 % 致谢
 % ------------------------------------------------------------
-\newenvironment{acknowledgements}{%
-    \ctexset{
-        chapter={
-            format = {\mslinespread{1}\zihao{3}\bfseries\heiti\centering},
-        },
-    }%
+\newenvironment*{acknowledgements}{%
+    \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
     \chapter*{\acknowledgementsname}%
     \markboth{\acknowledgementsname}{\acknowledgementsname}%
-    \mslinespreadbp{16}{12}\zihao{-4}\songti%
+    \mslinespreadbp{16}{12}\songti\zihao{-4}%
     \addcontentsline{toc}{chapter}{\acknowledgementsname}%
+    \ignorespaces%
 }{}
 % ------------------------------------------------------------
 % 个人简历、在学期间发表的学术论文及研究成果
 % ------------------------------------------------------------
-\newenvironment{resume}{%
-    \ctexset{
-        chapter={
-            format = {\mslinespread{1}\zihao{3}\bfseries\heiti\centering},
-        },
-    }%
+\newenvironment*{resume}{%
+    \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
     \chapter*{\resumename}%
     \markboth{\resumename}{\resumename}%
-    \mslinespreadbp{16}{10.5}\zihao{5}\songti%
+    \mslinespreadbp{16}{10.5}\songti\zihao{5}%
     \addcontentsline{toc}{chapter}{\resumename}%
+    \ignorespaces%
 }{}
 
+% ============================================================
+% 自定义页面
+% ============================================================
+% ------------------------------------------------------------
+% 中文封面
+% ------------------------------------------------------------
 \newcommand{\coverpage}{
   \clearpage
   \bgroup
@@ -452,3 +433,12 @@
 %   \NKT@keyvalue{lunwenwanchengshijian}
 %   \end{center}
   \egroup}
+% ------------------------------------------------------------
+% 题名页
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% 学位论文原创性声明和非公开学位论文标注说明
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% 学位论文使用授权书
+% ------------------------------------------------------------
