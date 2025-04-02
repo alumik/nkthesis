@@ -464,14 +464,14 @@
         \end{tabular}%
         \par%
     }%
-    
+
     \vspace{0.6mm}%
     \begin{center}%
         \nankai@logo{1}%
 
         \vspace{-1.5mm}%
         {%
-            \mslinespread{1}\songti\zihao{2}\bfseries\ziju{0.5}% 
+            \mslinespread{1}\songti\zihao{2}\bfseries\ziju{0.5}%
             \nkthesis@lunwenleibie{}学位论文%
             \par%
         }%
@@ -527,21 +527,21 @@
     \vspace*{5mm}%
     \begin{center}%
         \nankai@logo{1.97}%
-        
+
         \vspace{5.5mm}%
         {%
-            \mslinespread{1}\heiti\fontsize{28}{33.6}\bfseries% 
+            \mslinespread{1}\heiti\fontsize{28}{33.6}\bfseries%
             南开大学\nkthesis@lunwenleibie{}毕业（学位）论文%
             \par%
         }%
-        
+
         \vspace{10mm}%
         {%
-            \mslinespread{1}\fangsong\zihao{-2}% 
+            \mslinespread{1}\fangsong\zihao{-2}%
             （匿名评阅封面）%
             \par%
         }%
-        
+
         \vspace{21mm}%
         {%
             \mslinespread{1.53}\kaishu\zihao{3}%
@@ -552,15 +552,17 @@
             \begin{minipage}[t][54.9mm]{\linewidth}%
                 \centering%
                 \nktget{论文题目（中文）}%
-                
+
                 \nktget{论文副标题}%
-                
+
                 \nktget{论文题目（英文）}%
             \end{minipage}%
 
             \begin{minipage}{0.73\linewidth}
-                一级学科：\nktget{学科专业}\par%
-                二级学科：\nktget{二级学科}\par%
+                一级学科：\nktget{学科专业}%
+
+                二级学科：\nktget{二级学科}%
+
                 \vspace{11mm}%
                 论文编号：\nktget{论文编号}\par%
             \end{minipage}%
@@ -580,66 +582,81 @@
         chapter/pagestyle = empty,
     }%
     \chapter*{南开大学学位论文原创性声明}%
-    
-    \vspace{2mm}%
+
+    \vspace{0.8mm}%
     {%
-        \mslinespread{2}\songti\zihao{-4}%
+        \mslinespread{1.5}\songti\zihao{-4}%
         本人郑重声明：所呈交的学位论文，是本人在导师指导下进行研究工作所取得的研究成果。
         除文中已经注明引用的内容外，本学位论文的研究成果不包含任何他人创作的、已公开发表或者没有公开发表的作品的内容。
         对本论文所涉及的研究工作做出贡献的其他个人和集体，均已在文中以明确方式标明。
-        本学位论文原创性声明的法律责任由本人承担。\par%
+        本学位论文原创性声明的法律责任由本人承担。%
+        \par%
     }%
-    
 
-    \vspace{10mm}%
+    \vspace{13.5mm}%
     学位论文作者签名：\hspace{0.5em}\underline{\hbox to 40mm{}}%
     \hfill{}年\qquad{}月\qquad{}日\hspace*{\ccwd}%
-    \par\vspace{\dimexpr-\baselineskip/3\relax}%
+
+    \vspace{-0.4\baselineskip}%
     \noindent%
-    \begin{tikzpicture}
+    \begin{tikzpicture}%
     \foreach \x in {0,0.2,...,14.4} {
         \draw[thick] (\x,0) -- ++(0.1,0);
     }
     \end{tikzpicture}%
-    \par\vspace{2mm}%
+
+    \vspace{1mm}%
     \begin{center}
         {%
-            \mslinespread{1.5}\heiti\zihao{3}%
+            \mslinespread{1}\heiti\zihao{3}%
             非公开学位论文标注说明%
+            \par%
         }%
-        \par%
+
+        \vspace{2.4mm}%
         {%
             \mslinespread{1}\kaishu\zihao{-4}%
             （本页表中填写内容须打印）%
+            \par%
         }%
     \end{center}%
-    \par%
-    根据南开大学有关规定，非公开学位论文须经指导教师同意、作者本人申请和相关部门批准方能标注。
-    \textbf{未经批准的均为公开学位论文，公开学位论文本说明为空白}。
-    \par\vspace{2mm}%
+
+    \vspace{-6mm}%
+    {%
+        \mslinespread{1.5}\songti\zihao{-4}%
+        根据南开大学有关规定，非公开学位论文须经指导教师同意、作者本人申请和相关部门批准方能标注。
+        {\heiti{}未经批准的均为公开学位论文，公开学位论文本说明为空白}。%
+        \par%
+    }%
+
+    \vspace{2mm}%
     {%
         \mslinespread{1}\zihao{-4}%
-        \renewcommand*\arraystretch{1.7}%
+        \renewcommand*\arraystretch{1.78}%
         \noindent%
         \begin{tabular}{|c|c|}
             \hline
-            \vbox to 13mm{\vspace{6mm}\hbox to 26mm{\hfill\textbf{论文题目}\hfill}} & \hbox to 111mm{} \\
+            \vbox to 14mm{\vspace{6.5mm}\hbox to 26mm{\hfill{\heiti{}论文题目}\hfill}} & \hbox to 111mm{} \\
             \hline
-            \textbf{申请密级} & \nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{限制}~限制($\leq 2$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{秘密}~秘密($\leq 10$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{机密}~机密($\leq 20$年) \\
+            {\heiti{}申请密级} & \nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{限制}~限制($\leq 2$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{秘密}~秘密($\leq 10$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{机密}~机密($\leq 20$年) \\
             \hline
-            \textbf{保密期限} & \nktget{非公开论文/保密期限/起始日期}至\nktget{非公开论文/保密期限/结束日期} \\
+            {\heiti{}保密期限} & \nktget{非公开论文/保密期限/起始日期}至\nktget{非公开论文/保密期限/结束日期} \\
             \hline
-            \textbf{审批表编号} & \hbox to 42mm{\nktget{非公开论文/审批表编号}}\vline\hbox to 24mm{\hfill\textbf{批准日期}\hfill}\vline\hfill\nktget{非公开论文/批准日期} \\
+            {\heiti{}审批表编号} & \hbox to 42mm{\nktget{非公开论文/审批表编号}}\vline\hbox to 24mm{\hfill{\heiti{}批准日期}\hfill}\vline\hfill\nktget{非公开论文/批准日期} \\
             \hline
         \end{tabular}%
+        \par%
     }%
-    \par\vspace{2mm}%
-    \hfill{\textbf{南开大学学位评定委员会办公室盖章（有效）}}%
-    \par\vspace{10mm}%
+
+    \vspace{1.7mm}%
+    \hfill{}{\heiti{}南开大学学位评定委员会办公室盖章（有效）}%
+
+    \vspace{9.5mm}%
     {%
-        \mslinespread{1}\heiti\zihao{5}%
+        \mslinespread{1}\songti\zihao{5}%
         \noindent%
-        注：限制{\segoeui{}★}2年（可少于2年）；秘密{\segoeui{}★}10年（可少于10年）；机密{\segoeui{}★}20年（可少于20年）
+        {\heiti{}注：}限制{\segoeui{}★}2年（可少于2年）；秘密{\segoeui{}★}10年（可少于10年）；机密{\segoeui{}★}20年（可少于20年）%
+        \par%
     }%
     \egroup%
 }
@@ -654,7 +671,7 @@
     {
         \mslinespread{1.07}\zihao{5}\selectfont
         \setlength{\parskip}{9.3pt}
-        
+
         本人完全了解《南开大学关于研究生学位论文收藏和利用管理办法》关于南开大学（简称“学校”）研究生学位论文收藏和利用的管理规定，即：
 
         南开大学拥有在著作权法规定范围内学位论文的使用权，其中包括：
@@ -666,7 +683,7 @@
         非公开学位论文在解密后的使用权同公开论文。
 
         本人承诺：本人的学位论文是在南开大学学习期间创作完成的作品，并已通过论文答辩；提交的学位论文电子版与纸质本论文的内容一致，如因不同造成不良后果由本人自负。
-        
+
         本人签署本授权书一份（此授权书为论文中一页），交图书馆留存。
 
         \vspace{2em}\hfill{}学位论文作者暨授权人（亲笔）签字：\hbox to 35mm{}
