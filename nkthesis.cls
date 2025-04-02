@@ -258,30 +258,32 @@
     listfigurename = 插图清单,
     listtablename = 附表清单,
     chapter = {
+        fixskip = true,
         beforeskip = 24bp,
-        afterskip = 18bp,
+        afterskip = 26bp,
         aftername = \hspace{\ccwd},
         pagestyle = fancy,
         tocline = \CTEXifname{\protect{\csname CTEXthe#1\endcsname\hspace{\ccwd}}}{}#2,
     },
     section = {
-        beforeskip = 24bp,
-        afterskip = 6bp,
+        fixskip = true,
+        beforeskip = 32bp,
+        afterskip = 14bp,
         aftername = \hspace{\ccwd},
         tocline = \CTEXifname{\protect{\csname CTEXthe#1\endcsname\hspace{\ccwd}}}{}#2,
     },
     subsection = {
+        fixskip = true,
         format = \mslinespread{1}\heiti\fontsize{13bp}{15.6bp}\selectfont,
-        beforeskip = 12bp,
-        afterskip = 6bp,
-        aftername = {},
+        beforeskip = 20bp,
+        afterskip = 14bp,
         tocline = \CTEXifname{\protect{\csname CTEXthe#1\endcsname}}{}#2,
     },
     subsubsection = {
+        fixskip = true,
         format = \mslinespread{1}\heiti\zihao{-4},
-        beforeskip = 12bp,
-        afterskip = 6bp,
-        aftername = {},
+        beforeskip = 20bp,
+        afterskip = 14bp,
     },
 }
 \ifnum\strcmp{\nkthesis@headingmode}{1}=0
@@ -295,8 +297,14 @@
             number = \arabic{chapter}.\arabic{section},
             format = \mslinespread{1}\heiti\zihao{4}\bfseries,
         },
-        subsection/number = \arabic{chapter}.\arabic{section}.\arabic{subsection},
-        subsubsection/number = \arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection},
+        subsection = {
+            number = \arabic{chapter}.\arabic{section}.\arabic{subsection},
+            aftername = \hspace{\ccwd},
+        },
+        subsubsection = {
+            number = \arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection},
+            aftername = \hspace{\ccwd},
+        },
     }
 \else
     \ctexset{
@@ -310,11 +318,13 @@
             name = {,、},
             number = \chinese{subsection},
             indent = \parindent,
+            aftername = {},
         },
         subsubsection = {
             name = {（,）},
             number = \chinese{subsection},
             indent = \parindent,
+            aftername = {},
         },
     }
 \fi
@@ -338,9 +348,9 @@
     font=nkthesis,
     skip=6bp,
 }
-\setlength{\textfloatsep}{12bp}
-\setlength{\floatsep}{12bp}
-\setlength{\intextsep}{12bp}
+\setlength{\textfloatsep}{20bp}
+\setlength{\floatsep}{20bp}
+\setlength{\intextsep}{20bp}
 
 % ============================================================
 % 公式
