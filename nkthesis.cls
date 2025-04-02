@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/02 1.1.5 Template for Master's and Doctorall Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/02 1.2.0 Template for Master's and Doctorall Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -715,7 +715,7 @@
             \hline
             \hbox to 22mm{\hspace{0.3em}\textbf{论文题目}}
             \vrule
-            \hbox to 144.9mm{\hspace{0.3em}\nktget{论文题目（中文）}\hfill} \\
+            \hbox to 144.9mm{\hspace{0.3em}\nktget{论文题目（中文）}\nktget{论文副标题}\hfill} \\
             \hline
             \hbox to 22mm{\hspace{0.3em}\textbf{姓名}}
             \vrule
