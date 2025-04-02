@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/02 1.2.1 Template for Master's and Doctorall Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/03 1.2.2 Template for Master's and Doctorall Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -36,7 +36,7 @@
 \RequirePackage{kvoptions}
 \RequirePackage{xfp}
 \RequirePackage{fontspec}
-\RequirePackage{enumitem}
+\RequirePackage[inline,shortlabels]{enumitem}
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{multirow}
 \RequirePackage{makecell}
