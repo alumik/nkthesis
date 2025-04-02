@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/02 1.1.2 Template for Master's and Doctorall Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/02 1.1.3 Template for Master's and Doctorall Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -448,6 +448,7 @@
 \renewcommand*{\titlepage}{%
     \clearpage%
     \thispagestyle{empty}%
+    \bgroup%
     \setlength{\parindent}{0pt}%
     \begin{center}%
         \mslinespread{1}\songti\zihao{5}%
@@ -508,6 +509,7 @@
             \nktget{论文完成时间}\par%
         }%
     \end{center}%
+    \egroup%
 }
 % ------------------------------------------------------------
 % 匿名评阅封面
@@ -515,6 +517,7 @@
 \newcommand*{\anonymoustitlepage}{%
     \clearpage%
     \thispagestyle{empty}%
+    \bgroup%
     \setlength{\parindent}{0pt}%
     \vspace*{5mm}%
     \begin{center}%
@@ -556,6 +559,7 @@
             \end{minipage}%
         }%
     \end{center}%
+    \egroup%
 }
 % ------------------------------------------------------------
 % 学位论文原创性声明和非公开学位论文标注说明
