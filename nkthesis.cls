@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/02 1.1.4 Template for Master's and Doctorall Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/02 1.1.5 Template for Master's and Doctorall Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -151,6 +151,7 @@
 \newcommand*{\mslinespread}[1]{\linespread{\fpeval{#1 * 1.296875 / 1.2}}}  % 模仿 Microsoft Word 多倍行距
 \newcommand*{\mslinespreadbp}[2]{\linespread{\fpeval{#1 / #2 / 1.2}}}  % 模仿 Microsoft Word 固定行距（磅）
 \renewcommand*{\frontmatter}{%
+    \clearpage%
     \pagenumbering{Roman}%
     \setcounter{page}{1}%
     \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
@@ -385,7 +386,7 @@
     \ignorespaces%
 }{}
 \newenvironment*{keywords}{\songti\textbf{关键词：}\ignorespaces}{}
-\newenvironment*{enkeywords}{\textbf{Keywords: }\ignorespaces}{}
+\newenvironment*{enkeywords}{\textbf{Key Words: }\ignorespaces}{}  % 似乎 Keywords 更常见，但模板中使用的是 Key Words
 % ------------------------------------------------------------
 % 前言
 % ------------------------------------------------------------
@@ -769,6 +770,7 @@
         如已批准为非公开学位论文，须向图书馆提供批准通过的《南开大学研究生申请非公开学位论文审批表》复印件和“非公开学位论文标注说明”页原件。%
         \par%
     }%
+    \egroup%
 }
 % ------------------------------------------------------------
 % 参考文献
