@@ -450,31 +450,34 @@
     \thispagestyle{empty}%
     \bgroup%
     \setlength{\parindent}{0pt}%
-    \begin{center}%
+    {%
         \mslinespread{1}\songti\zihao{5}%
         \renewcommand*{\arraystretch}{1.25}%
         \begin{tabular}{%
             >{\raggedleft\arraybackslash}p{20.7mm}%
-            >{\raggedright\arraybackslash\hspace{2.2mm}}p{62.7mm}%
+            >{\raggedright\arraybackslash\hspace{2.3mm}}p{62.7mm}%
             >{\raggedleft\arraybackslash}p{20.7mm}%
             >{\raggedright\arraybackslash\hspace{2.3mm}}p{25mm}%
         }%
             中图分类号： & \nktget{中图分类号} & 学校代码： & \nktget{学校代码}    \\
             UDC：       & \nktget{UDC}       & 密级：     & \nktget{题名页/密级} \\
         \end{tabular}%
-    \end{center}%
-    \vspace{-4mm}%
+        \par%
+    }%
+    
+    \vspace{0.6mm}%
     \begin{center}%
         \nankai@logo{1}%
 
-        \vspace{1.5mm}%
+        \vspace{-1.5mm}%
         {%
             \mslinespread{1}\songti\zihao{2}\bfseries\ziju{0.5}% 
             \nkthesis@lunwenleibie{}学位论文%
+            \par%
         }%
 
         \vspace{11.5mm}%
-        \begin{minipage}[t][91mm]{\linewidth}%
+        \begin{minipage}[t][80mm]{\linewidth}%
             \centering%
             \mslinespread{1.5}\songti\zihao{\nktget{题名页/论文题目字号}}%
             \nktget{论文题目（中文）}%
@@ -499,14 +502,16 @@
                 \nkthesis@item{学科专业}{\nktget{学科专业}}{38.2mm} & \nkthesis@item{研究方向}{\nktget{研究方向}}{38.2mm} \\
                 \nkthesis@item{答辩委员会主席}{\nktget{答辩委员会主席}}{25.5mm} & \nkthesis@item{评阅人}{\nktget{评阅人}}{42.4mm} \\
             \end{tabular}%
+            \par%
         }%
 
         \vspace{14.5mm}%
         {%
-            \mslinespread{1.74}\songti\zihao{4}%
+            \mslinespread{1.69}\songti\zihao{4}%
             南开大学研究生院%
 
-            \nktget{论文完成时间}\par%
+            \nktget{论文完成时间}%
+            \par%
         }%
     \end{center}%
     \egroup%
@@ -523,16 +528,18 @@
     \begin{center}%
         \nankai@logo{1.97}%
         
-        \vspace{10mm}%
+        \vspace{5.5mm}%
         {%
             \mslinespread{1}\heiti\fontsize{28}{33.6}\bfseries% 
             南开大学\nkthesis@lunwenleibie{}毕业（学位）论文%
+            \par%
         }%
         
-        \vspace{11mm}%
+        \vspace{10mm}%
         {%
             \mslinespread{1}\fangsong\zihao{-2}% 
             （匿名评阅封面）%
+            \par%
         }%
         
         \vspace{21mm}%
@@ -542,7 +549,7 @@
                 论文题目：%
             \end{minipage}%
 
-            \begin{minipage}[t][54.5mm]{\linewidth}%
+            \begin{minipage}[t][54.9mm]{\linewidth}%
                 \centering%
                 \nktget{论文题目（中文）}%
                 
@@ -557,6 +564,7 @@
                 \vspace{11mm}%
                 论文编号：\nktget{论文编号}\par%
             \end{minipage}%
+            \par%
         }%
     \end{center}%
     \egroup%
@@ -565,13 +573,25 @@
 % 学位论文原创性声明和非公开学位论文标注说明
 % ------------------------------------------------------------
 \newcommand*{\declarationpage}{%
+    \clearpage%
+    \bgroup%
+    \ctexset{
+        chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering,
+        chapter/pagestyle = empty,
+    }%
     \chapter*{南开大学学位论文原创性声明}%
-    \thispagestyle{empty}%
-    本人郑重声明：所呈交的学位论文，是本人在导师指导下进行研究工作所取得的研究成果。
-    除文中已经注明引用的内容外，本学位论文的研究成果不包含任何他人创作的、已公开发表或者没有公开发表的作品的内容。
-    对本论文所涉及的研究工作做出贡献的其他个人和集体，均已在文中以明确方式标明。
-    本学位论文原创性声明的法律责任由本人承担。
-    \par\vspace{10mm}%
+    
+    \vspace{2mm}%
+    {%
+        \mslinespread{2}\songti\zihao{-4}%
+        本人郑重声明：所呈交的学位论文，是本人在导师指导下进行研究工作所取得的研究成果。
+        除文中已经注明引用的内容外，本学位论文的研究成果不包含任何他人创作的、已公开发表或者没有公开发表的作品的内容。
+        对本论文所涉及的研究工作做出贡献的其他个人和集体，均已在文中以明确方式标明。
+        本学位论文原创性声明的法律责任由本人承担。\par%
+    }%
+    
+
+    \vspace{10mm}%
     学位论文作者签名：\hspace{0.5em}\underline{\hbox to 40mm{}}%
     \hfill{}年\qquad{}月\qquad{}日\hspace*{\ccwd}%
     \par\vspace{\dimexpr-\baselineskip/3\relax}%
@@ -621,6 +641,7 @@
         \noindent%
         注：限制{\segoeui{}★}2年（可少于2年）；秘密{\segoeui{}★}10年（可少于10年）；机密{\segoeui{}★}20年（可少于20年）
     }%
+    \egroup%
 }
 % ------------------------------------------------------------
 % 学位论文使用授权书
