@@ -28,18 +28,13 @@
 % ============================================================
 \RequirePackage[a4paper]{geometry}
 \RequirePackage[titles]{tocloft}
-\RequirePackage{graphicx}
 \RequirePackage{caption}
-\RequirePackage{booktabs}
 \RequirePackage{etoolbox}
 \RequirePackage{fancyhdr}
 \RequirePackage{kvoptions}
-\RequirePackage{xfp}
 \RequirePackage{fontspec}
 \RequirePackage[inline,shortlabels]{enumitem}
 \RequirePackage[hidelinks]{hyperref}
-\RequirePackage{multirow}
-\RequirePackage{makecell}
 \RequirePackage{amsmath, amsthm, amssymb}
 \RequirePackage{setspace}
 \RequirePackage[
