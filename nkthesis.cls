@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/02 1.1.3 Template for Master's and Doctorall Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/02 1.1.4 Template for Master's and Doctorall Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -577,7 +577,7 @@
 \newcommand*{\declarationpage}{%
     \clearpage%
     \bgroup%
-    \ctexset{
+    \ctexset{%
         chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering,
         chapter/pagestyle = empty,
     }%
@@ -663,43 +663,51 @@
 % ------------------------------------------------------------
 % 学位论文使用授权书
 % ------------------------------------------------------------
-\newcommand*{\authorizationpage}{
-    \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\centering}%
+\newcommand*{\authorizationpage}{%
+    \clearpage%
+    \bgroup%
+    \ctexset{%
+        chapter/format = \mslinespread{1}\heiti\zihao{3}\centering,
+        chapter/pagestyle = empty,
+    }%
     \chapter*{南开大学学位论文使用授权书}%
-    \thispagestyle{empty}%
-    \vspace{-1.5em}%
-    {
-        \mslinespread{1.07}\zihao{5}\selectfont
-        \setlength{\parskip}{9.3pt}
 
-        本人完全了解《南开大学关于研究生学位论文收藏和利用管理办法》关于南开大学（简称“学校”）研究生学位论文收藏和利用的管理规定，即：
-
-        南开大学拥有在著作权法规定范围内学位论文的使用权，其中包括：
-
-        已获学位的研究生必须按学校规定提交学位论文，学校可以采用影印、缩印或其他复制手段保存学位论文；学校根据规定向教育部指定的收藏和存档单位提交学位论文；
-
-        为教学和科研目的，学校可以将公开的学位论文作为资料在图书馆、资料室等场所供校内师生阅读，或在校园网范围内供师生检索、浏览；
-
-        非公开学位论文在解密后的使用权同公开论文。
-
-        本人承诺：本人的学位论文是在南开大学学习期间创作完成的作品，并已通过论文答辩；提交的学位论文电子版与纸质本论文的内容一致，如因不同造成不良后果由本人自负。
-
-        本人签署本授权书一份（此授权书为论文中一页），交图书馆留存。
-
-        \vspace{2em}\hfill{}学位论文作者暨授权人（亲笔）签字：\hbox to 35mm{}
-
-        \vspace{-0.4em}\hfill{}\nktget{授权书/签字日期}
-    }%
-    \par\vspace{62pt}%
+    \vspace{-6.1mm}%
     {%
-        \centering
-        \mslinespread{1}\heiti\zihao{4}%
-        南开大学研究生学位论文作者信息\par%
+        \mslinespread{1.16}\songti\zihao{5}%
+        \setlength{\parskip}{2.6mm}%
+
+        本人完全了解《南开大学关于研究生学位论文收藏和利用管理办法》关于南开大学（简称“学校”）研究生学位论文收藏和利用的管理规定，即：%
+
+        南开大学拥有在著作权法规定范围内学位论文的使用权，其中包括：%
+
+        已获学位的研究生必须按学校规定提交学位论文，学校可以采用影印、缩印或其他复制手段保存学位论文；学校根据规定向教育部指定的收藏和存档单位提交学位论文；%
+
+        为教学和科研目的，学校可以将公开的学位论文作为资料在图书馆、资料室等场所供校内师生阅读，或在校园网范围内供师生检索、浏览；%
+
+        非公开学位论文在解密后的使用权同公开论文。%
+
+        本人承诺：本人的学位论文是在南开大学学习期间创作完成的作品，并已通过论文答辩；提交的学位论文电子版与纸质本论文的内容一致，如因不同造成不良后果由本人自负。%
+
+        本人签署本授权书一份（此授权书为论文中一页），交图书馆留存。%
+
+        \vspace{8.3mm}%
+        \hfill{}学位论文作者暨授权人（亲笔）签字：\hbox to 35.2mm{}%
+
+        \hfill{}\nktget{授权书/签字日期}%
+        \par%
     }%
-    \par\vspace{5pt}%
+
+    \vspace{16mm}%
+    \begin{center}%
+        \mslinespread{1}\heiti\zihao{4}%
+        南开大学研究生学位论文作者信息%
+    \end{center}%
+
+    \vspace{-3.6mm}%
     {%
         \mslinespread{1}\songti\zihao{5}%
-        \renewcommand*{\arraystretch}{1.5}%
+        \renewcommand*{\arraystretch}{1.343}%
         \hspace{-18.5mm}%
         \setlength{\tabcolsep}{0pt}%
         \begin{tabular}{|l|}
@@ -710,53 +718,56 @@
             \hline
             \hbox to 22mm{\hspace{0.3em}\textbf{姓名}}
             \vrule
-            \hbox to 30.4mm{\hspace{0.3em}\nktget{论文作者}\hfill}
+            \hbox to 30.2mm{\hspace{0.3em}\nktget{论文作者}\hfill}
             \vrule
-            \hbox to 20mm{\hspace{0.3em}\textbf{学号}}
+            \hbox to 18.7mm{\hspace{0.3em}\textbf{学号}}
             \vrule
-            \hbox to 25.5mm{\hspace{0.3em}\nktget{学号}\hfill}
+            \hbox to 24.6mm{\hspace{0.3em}\nktget{学号}\hfill}
             \vrule
-            \hbox to 18mm{\hspace{0.3em}\textbf{答辩日期}}
+            \hbox to 19.5mm{\hspace{0.3em}\textbf{答辩日期}}
             \vrule
             \hbox to 40mm{\hspace{0.3em}\nktget{答辩日期}\hfill} \\
             \hline
             \hbox to 22mm{\hspace{0.3em}\textbf{论文类别}}
             \vrule
-            \hbox to 144.9mm{\hspace{0.3em}博士~\nkthesis@ifcheckbox{\nkthesis@lunwenleibiealt}{博士}\qquad{}学历硕士~\nkthesis@ifcheckbox{\nkthesis@lunwenleibiealt}{学历硕士}\qquad{}专业学位硕士~\nkthesis@ifcheckbox{\nkthesis@lunwenleibiealt}{专业学位硕士}\qquad{}同等学力硕士~\nkthesis@ifcheckbox{\nkthesis@lunwenleibiealt}{同等学力硕士}\hfill{}划$\checkmark$选择\hspace{0.3em}} \\
+            \hbox to 144.9mm{\hspace{2em}博士~\nkthesis@ifcheckbox{\nkthesis@lunwenleibiealt}{博士}\qquad{}学历硕士~\nkthesis@ifcheckbox{\nkthesis@lunwenleibiealt}{学历硕士}\qquad{}专业学位硕士~\nkthesis@ifcheckbox{\nkthesis@lunwenleibiealt}{专业学位硕士}\qquad{}同等学力硕士~\nkthesis@ifcheckbox{\nkthesis@lunwenleibiealt}{同等学力硕士}\hfill{}划\nkthesis@ifcheckbox{true}{true}选择\hspace{0.3em}} \\
             \hline
             \hbox to 22mm{\hspace{0.3em}\textbf{学院（单位）}}
             \vrule
-            \hbox to 47mm{\hspace{0.3em}\nktget{培养单位}\hfill}
+            \hbox to 47.9mm{\hspace{0.3em}\nktget{培养单位}\hfill}
             \vrule
-            \hbox to 44mm{\hspace{0.3em}\textbf{学科/专业（专业学位）名称}}
+            \hbox to 47.6mm{\hspace{0.3em}\textbf{学科/专业（专业学位）名称}}
             \vrule
             \hbox to 34mm{\hspace{0.3em}\nktget{学科专业}\hfill} \\
             \hline
             \hbox to 22mm{\hspace{0.3em}\textbf{联系电话}}
             \vrule
-            \hbox to 47mm{\hspace{0.3em}\nktget{联系电话}\hfill}
+            \hbox to 47.9mm{\hspace{0.3em}\nktget{联系电话}\hfill}
             \vrule
-            \hbox to 16.5mm{\hspace{0.3em}\textbf{电子邮箱}}
+            \hbox to 20mm{\hspace{0.3em}\textbf{电子邮箱}}
             \vrule
             \hbox to 34mm{\hspace{0.3em}\nktget{电子邮箱}\hfill} \\
             \hline
             \hspace{0.3em}\textbf{通讯地址（邮编）：}\nktget{通讯地址}\hfill \\
             \hline
-            \hbox to 32mm{\hspace{0.3em}\textbf{非公开论文编号}}
+            \hbox to 31.3mm{\hspace{0.3em}\textbf{非公开论文编号}}
             \vrule
-            \hbox to 37mm{\hspace{0.3em}\nktget{非公开论文/审批表编号}\hfill}
+            \hbox to 40.7mm{\hspace{0.3em}\nktget{非公开论文/审批表编号}\hfill}
             \vrule
-            \hbox to 12mm{\hspace{0.3em}\textbf{备注}}
+            \hbox to 10.3mm{\hspace{0.3em}\textbf{备注}}
             \vrule
             \hbox to 32mm{\hspace{0.3em}\nktget{作者信息/备注}\hfill}\\
             \hline
         \end{tabular}%
+        \par%
     }%
-    \par\vspace{10pt}%
+
+    \vspace{2.8mm}%
     {%
-        \mslinespread{1}\heiti\zihao{-5}\centering%
+        \mslinespread{1.3}\heiti\zihao{-5}\centering%
         注：本授权书适用我校授予的所有博士、硕士的学位论文。
-        如已批准为非公开学位论文，须向图书馆提供批准通过的《南开大学研究生申请非公开学位论文审批表》复印件和“非公开学位论文标注说明”页原件。\par%
+        如已批准为非公开学位论文，须向图书馆提供批准通过的《南开大学研究生申请非公开学位论文审批表》复印件和“非公开学位论文标注说明”页原件。%
+        \par%
     }%
 }
 % ------------------------------------------------------------
