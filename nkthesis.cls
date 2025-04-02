@@ -20,7 +20,7 @@
     zihao=-4,  % 默认字号小四
     UTF8,
     linespread=\fpeval{20 / 12 / 1.2},  % 固定20磅行间距（20bp / 12bp / 1.2）
-    fontset=nkthesis,
+    fontset=nkthesis,  % 支持宋体、仿宋、楷体、黑体四种字体
 ]{ctexbook}
 
 % ============================================================
@@ -53,7 +53,7 @@
 \RequirePackage{array}
 
 % ============================================================
-% 页面尺寸（LaTeX尺寸以文字基线计算，与Microsoft Word不同，因此视觉效果上会有差异）
+% 页面尺寸（LaTeX尺寸计算方式与边距规则与Microsoft Word不同，因此视觉效果上会有差异）
 % ============================================================
 \setlength{\oddsidemargin}{\dimexpr 32mm-1in\relax}
 \setlength{\evensidemargin}{\oddsidemargin}
@@ -80,7 +80,7 @@
     UDC/.initial = {},
     题名页/密级/.initial = 公开,
     题名页/论文类别/.code = \def\nkthesis@lunwenleibie{#1},
-    题名页/论文类别 = 硕士,  % 硕士/博士/硕士专业/博士专业
+    题名页/论文类别 = 硕士,  % 可选项：硕士/博士/硕士专业/博士专业
     题名页/论文类别/.is choice,
     题名页/论文类别/硕士/.code = \def\nkthesis@lunwenleibie{硕士},
     题名页/论文类别/博士/.code = \def\nkthesis@lunwenleibie{博士},
@@ -103,7 +103,7 @@
     论文完成时间/.initial = {\ctexset{today=big}\today},
     论文编号/.initial = {},
     非公开论文/申请密级/.code = \def\nkthesis@shenqingmiji{#1},
-    非公开论文/申请密级 = 公开,  % 申请密级（公开/限制/秘密/机密）
+    非公开论文/申请密级 = 公开,  % 申请密级（可选项：公开/限制/秘密/机密）
     非公开论文/申请密级/.is choice,
     非公开论文/申请密级/公开/.code = \def\nkthesis@shenqingmiji{公开},
     非公开论文/申请密级/限制/.code = \def\nkthesis@shenqingmiji{限制},
@@ -121,7 +121,7 @@
     通讯地址/.initial = {},
     作者信息/备注/.initial = {},
     作者信息/论文类别/.code = \def\nkthesis@lunwenleibiealt{#1},
-    作者信息/论文类别 = 学历硕士,  % 博士/学历硕士/专业学位硕士/同等学力硕士
+    作者信息/论文类别 = 学历硕士,  % 可选项：博士/学历硕士/专业学位硕士/同等学力硕士
     作者信息/论文类别/.is choice,
     作者信息/论文类别/博士/.code = \def\nkthesis@lunwenleibiealt{博士},
     作者信息/论文类别/学历硕士/.code = \def\nkthesis@lunwenleibiealt{学历硕士},
@@ -145,7 +145,7 @@
 \newfontfamily{\segoeui}[Path=fonts/]{seguisym.ttf}
 
 % ============================================================
-% 自定义宏
+% 自定义命令
 % ============================================================
 \newcommand*{\msbaselinespread}{1.296875}  % Microsoft Word 基础行距（中易字库）
 \newcommand*{\mslinespread}[1]{\linespread{\fpeval{#1 * 1.296875 / 1.2}}}  % 模仿 Microsoft Word 多倍行距
