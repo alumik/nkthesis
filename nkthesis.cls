@@ -194,7 +194,7 @@
 \labelformat{subfigure}{\figurename\thefigure（\alph{subfigure}）}
 \labelformat{table}{\tablename\thetable}
 \labelformat{equation}{式（\arabic{chapter}.\arabic{equation}）}
-\unless\ifnum\strcmp{\nkthesis@headingmode}{1}=0
+\ifnum\strcmp{\nkthesis@headingmode}{2}=0
     \labelformat{chapter}{\CTEXthechapter}
     \labelformat{section}{\CTEXthechapter{}\CTEXthesection}
     \labelformat{subsection}{\CTEXthechapter{}\CTEXthesection{}第\chinese{subsection}小节}
@@ -637,13 +637,20 @@
         \noindent%
         \begin{tabular}{|c|c|}
             \hline
-            \vbox to 14mm{\vspace{6.5mm}\hbox to 26mm{\hfill{\heiti{}论文题目}\hfill}} & \hbox to 111mm{} \\
+            \vbox to 14mm{\vspace{6.5mm}\hbox to 26mm{\hfill{\heiti{}论文题目}\hfill}} &
+            \hbox to 111mm{} \\
             \hline
-            {\heiti{}申请密级} & \nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{限制}~限制($\leq 2$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{秘密}~秘密($\leq 10$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{机密}~机密($\leq 20$年) \\
+            {\heiti{}申请密级} &
+            \nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{限制}~限制($\leq 2$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{秘密}~秘密($\leq 10$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{机密}~机密($\leq 20$年) \\
             \hline
-            {\heiti{}保密期限} & \nktget{非公开论文/保密期限/起始日期}至\nktget{非公开论文/保密期限/结束日期} \\
+            {\heiti{}保密期限} &
+            \ifnum\strcmp{\nkthesis@shenqingmiji}{公开}=0{20\qquad{}年\qquad{}月\qquad{}日至20\qquad{}年\qquad{}月\qquad{}日}\else{\nktget{非公开论文/保密期限/起始日期}至\nktget{非公开论文/保密期限/结束日期}}\fi \\
             \hline
-            {\heiti{}审批表编号} & \hbox to 42mm{\nktget{非公开论文/审批表编号}}\vline\hbox to 24mm{\hfill{\heiti{}批准日期}\hfill}\vline\hfill\nktget{非公开论文/批准日期} \\
+            {\heiti{}审批表编号} & \hbox to 42mm{\unless\ifnum\strcmp{\nkthesis@shenqingmiji}{公开}=0\nktget{非公开论文/审批表编号}\fi}%
+            \vline%
+            \hbox to 24mm{\hfill{\heiti{}批准日期}\hfill}%
+            \vline%
+            \hfill{\ifnum\strcmp{\nkthesis@shenqingmiji}{公开}=0{20\qquad{}年\qquad{}月\qquad{}日}\else{\nktget{非公开论文/批准日期}}\fi} \\
             \hline
         \end{tabular}%
         \par%
