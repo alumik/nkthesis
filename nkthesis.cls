@@ -596,7 +596,7 @@
     }%
     \chapter*{南开大学学位论文原创性声明}%
 
-    \vspace{0.8mm}%
+    \vspace{2mm}%
     {%
         \mslinespread{1.5}\songti\zihao{-4}%
         本人郑重声明：所呈交的学位论文，是本人在导师指导下进行研究工作所取得的研究成果。
@@ -692,7 +692,7 @@
     }%
     \chapter*{南开大学学位论文使用授权书}%
 
-    \vspace{-6.1mm}%
+    \vspace{-7.1mm}%
     {%
         \mslinespread{1.16}\songti\zihao{5}%
         \setlength{\parskip}{2.6mm}%
