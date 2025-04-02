@@ -365,6 +365,8 @@
 % ============================================================
 \setlist[enumerate]{noitemsep, nolistsep, wide}
 \setlist[itemize]{noitemsep, nolistsep, wide}
+\newlist{worklist}{enumerate}{1}
+\setlist[worklist]{label=[\arabic*], noitemsep}
 
 % ============================================================
 % 参考文献
