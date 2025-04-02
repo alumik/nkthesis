@@ -1,6 +1,6 @@
 # 南开大学硕士/博士毕业（学位）论文模板（2025）
 
-![version 1.1.0](https://img.shields.io/badge/version-1.1.0-blue)
+![version 1.1.1](https://img.shields.io/badge/version-1.1.1-blue)
 ![License LPPL 1.3c](https://img.shields.io/badge/License-LPPL%201.3c-blue?logo=latex&logoColor=white)
 
 > [!TIP]

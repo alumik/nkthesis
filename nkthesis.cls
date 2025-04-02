@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/02 1.0.0 Template for Master's and Doctorall Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/02 1.1.1 Template for Master's and Doctorall Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -447,55 +447,67 @@
 % ------------------------------------------------------------
 \renewcommand*{\titlepage}{%
     \clearpage%
-    {%
-        \parindent 0pt%
-        \thispagestyle{empty}%
+    \thispagestyle{empty}%
+    \setlength{\parindent}{0pt}%
+    \begin{center}%
+        \mslinespread{1}\songti\zihao{5}%
+        \renewcommand*{\arraystretch}{1.25}%
+        \begin{tabular}{%
+            >{\raggedleft\arraybackslash}p{20.7mm}%
+            >{\raggedright\arraybackslash\hspace{2.2mm}}p{62.7mm}%
+            >{\raggedleft\arraybackslash}p{20.7mm}%
+            >{\raggedright\arraybackslash\hspace{2.3mm}}p{25mm}%
+        }%
+            中图分类号： & \nktget{中图分类号} & 学校代码： & \nktget{学校代码}    \\
+            UDC：       & \nktget{UDC}       & 密级：     & \nktget{题名页/密级} \\
+        \end{tabular}%
+    \end{center}%
+    \vspace{-4mm}%
+    \begin{center}%
+        \nankai@logo{1}%
+
+        \vspace{1.5mm}%
         {%
-            \mslinespread{1}\songti\zihao{5}%
-            \begin{tabular}{rlrl}%
-                中图分类号： & \hbox to 75mm{\nktget{中图分类号}\hfill} & 学校代码： & \nktget{学校代码} \\
-                UDC： & \nktget{UDC} & 密级： & \nktget{题名页/密级} \\
+            \mslinespread{1}\songti\zihao{2}\bfseries\ziju{0.5}% 
+            \nkthesis@lunwenleibie{}学位论文%
+        }%
+
+        \vspace{11.5mm}%
+        \begin{minipage}[t][91mm]{\linewidth}%
+            \centering%
+            \mslinespread{1.5}\songti\zihao{\nktget{题名页/论文题目字号}}%
+            \nktget{论文题目（中文）}%
+
+            \nktget{论文副标题}%
+
+            \nktget{论文题目（英文）}%
+        \end{minipage}%
+
+        \vspace{10mm}%
+        {%
+            \mslinespread{1}\songti\zihao{-4}%
+            \renewcommand*\arraystretch{2}%
+            \setlength{\tabcolsep}{0pt}%
+            % \begin{tabular}{p{76.3mm}p{69.7mm}}%  % 和 Microsoft Word 一致的参数，但是偏左
+            \begin{tabular}{%
+                >{\centering\arraybackslash}p{70mm}%
+                >{\centering\arraybackslash}p{70mm}%
+            }%  % 表格居中，更加美观
+                \nkthesis@item{论文作者}{\nktget{论文作者}}{38.2mm} & \nkthesis@item{指导教师}{\nktget{指导教师}\quad\nktget{指导教师职称}}{38.2mm} \\
+                \nkthesis@item{申请学位}{\nktget{申请学位}}{38.2mm} & \nkthesis@item{培养单位}{\nktget{培养单位}}{38.2mm} \\
+                \nkthesis@item{学科专业}{\nktget{学科专业}}{38.2mm} & \nkthesis@item{研究方向}{\nktget{研究方向}}{38.2mm} \\
+                \nkthesis@item{答辩委员会主席}{\nktget{答辩委员会主席}}{25.5mm} & \nkthesis@item{评阅人}{\nktget{评阅人}}{42.4mm} \\
             \end{tabular}%
         }%
-        \par\vspace{10mm}%
-        \begin{center}%
-            \nankai@logo{1}%
-            \par\vspace{1.5mm}%
-            {%
-                \mslinespread{1}\songti\zihao{2}\bfseries\ziju{0.5}% 
-                \nkthesis@lunwenleibie{}学位论文%
-            }%
-            \par\vspace{25mm}%
-            {%
-                \mslinespread{1}\songti\zihao{\nktget{题名页/论文题目字号}}%
-                \setlength{\baselineskip}{30pt}%
-                \vbox to 70mm{%
-                    \nktget{论文题目（中文）}\par%
-                    \nktget{论文副标题}\par%
-                    \nktget{论文题目（英文）}\par%
-                    \vfill%
-                }%
-            }%
-            \par\vspace{10mm}%
-            {%
-                \mslinespread{1}\songti\zihao{-4}%
-                \renewcommand*\arraystretch{1.5}%
-                \setlength{\tabcolsep}{0.1em}%
-                \begin{tabular}{lcl}%
-                    \nkthesis@item{论文作者}{\nktget{论文作者}}{40mm}  & \hbox to 10mm{} & \nkthesis@item{指导教师}{\nktget{指导教师}\quad\nktget{指导教师职称}}{40mm} \\
-                    \nkthesis@item{申请学位}{\nktget{申请学位}}{40mm} & \hbox to 10mm{} & \nkthesis@item{培养单位}{\nktget{培养单位}}{40mm} \\
-                    \nkthesis@item{学科专业}{\nktget{学科专业}}{40mm} & \hbox to 10mm{} & \nkthesis@item{研究方向}{\nktget{研究方向}}{40mm} \\
-                    \nkthesis@item{答辩委员会主席}{\nktget{答辩委员会主席}}{27.3mm} & \hbox to 10mm{} & \nkthesis@item{评阅人}{\nktget{评阅人}}{44.2mm} \\
-                \end{tabular}%
-            }%
-            \par\vspace{15mm}%
-            {%
-                \mslinespread{1.5}\songti\zihao{4}%
-                南开大学研究生院\par%
-                \nktget{论文完成时间}\par%
-            }%
-        \end{center}%
-    }%
+
+        \vspace{14.5mm}%
+        {%
+            \mslinespread{1.74}\songti\zihao{4}%
+            南开大学研究生院%
+
+            \nktget{论文完成时间}\par%
+        }%
+    \end{center}%
 }
 % ------------------------------------------------------------
 % 匿名评阅封面
