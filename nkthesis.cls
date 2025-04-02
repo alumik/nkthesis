@@ -95,7 +95,7 @@
     指导教师职称/.initial = {},
     申请学位/.initial = {},
     培养单位/.initial = {},
-    学科专业/.initial = {},
+    一级学科/.initial = {},
     二级学科/.initial = {},
     研究方向/.initial = {},
     答辩委员会主席/.initial = {},
@@ -500,7 +500,7 @@
             }%  % 表格居中，更加美观
                 \nkthesis@item{论文作者}{\nktget{论文作者}}{38.2mm} & \nkthesis@item{指导教师}{\nktget{指导教师}\quad\nktget{指导教师职称}}{38.2mm} \\
                 \nkthesis@item{申请学位}{\nktget{申请学位}}{38.2mm} & \nkthesis@item{培养单位}{\nktget{培养单位}}{38.2mm} \\
-                \nkthesis@item{学科专业}{\nktget{学科专业}}{38.2mm} & \nkthesis@item{研究方向}{\nktget{研究方向}}{38.2mm} \\
+                \nkthesis@item{学科专业}{\ifnum\strcmp{\nktget{二级学科}}{}=0\nktget{一级学科}\else\nktget{二级学科}\fi}{38.2mm} & \nkthesis@item{研究方向}{\nktget{研究方向}}{38.2mm} \\
                 \nkthesis@item{答辩委员会主席}{\nktget{答辩委员会主席}}{25.5mm} & \nkthesis@item{评阅人}{\nktget{评阅人}}{42.4mm} \\
             \end{tabular}%
             \par%
@@ -560,7 +560,7 @@
             \end{minipage}%
 
             \begin{minipage}{0.73\linewidth}
-                一级学科：\nktget{学科专业}%
+                一级学科：\nktget{一级学科}%
 
                 二级学科：\nktget{二级学科}%
 
@@ -739,7 +739,7 @@
             \vrule
             \hbox to 47.6mm{\hspace{0.3em}\textbf{学科/专业（专业学位）名称}}
             \vrule
-            \hbox to 34mm{\hspace{0.3em}\nktget{学科专业}\hfill} \\
+            \hbox to 34mm{\hspace{0.3em}\ifnum\strcmp{\nktget{二级学科}}{}=0\nktget{一级学科}\else\nktget{二级学科}\fi\hfill} \\
             \hline
             \hbox to 22mm{\hspace{0.3em}\textbf{联系电话}}
             \vrule
