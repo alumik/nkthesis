@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/02 1.2.0 Template for Master's and Doctorall Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/02 1.2.1 Template for Master's and Doctorall Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -770,11 +770,14 @@
         \par%
     }%
 
-    \vspace{2.8mm}%
+    \vspace{1.8mm}%
     {%
-        \mslinespread{1.3}\heiti\zihao{-5}\centering%
-        注：本授权书适用我校授予的所有博士、硕士的学位论文。
-        如已批准为非公开学位论文，须向图书馆提供批准通过的《南开大学研究生申请非公开学位论文审批表》复印件和“非公开学位论文标注说明”页原件。%
+        \mslinespread{1.3}\heiti\zihao{-5}%
+        \hspace{-18.5mm}%
+        \setlength{\tabcolsep}{0pt}%
+        \begin{tabular}{>{\raggedleft\arraybackslash}p{7.1mm}p{1.3mm}p{160mm}}
+            注：& & 本授权书适用我校授予的所有博士、硕士的学位论文。如已批准为非公开学位论文，须向图书馆提供批准通过的《南开大学研究生申请非公开学位论文审批表》复印件和“非公开学位论文标注说明”页原件。\\
+        \end{tabular}%
         \par%
     }%
     \egroup%
