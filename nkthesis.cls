@@ -370,6 +370,7 @@
 \newcommand*{\errataname}{勘误表}
 \newcommand*{\acknowledgementsname}{致谢}
 \newcommand*{\resumename}{个人简历、在学期间发表的学术论文及研究成果}
+\newcommand*{\anonymousresume}{在学期间发表的学术论文及研究成果}
 % ------------------------------------------------------------
 % 摘要
 % ------------------------------------------------------------
@@ -431,13 +432,19 @@
 % ------------------------------------------------------------
 % 个人简历、在学期间发表的学术论文及研究成果
 % ------------------------------------------------------------
-\newenvironment*{resume}{%
+\newcommand*{\nkthesis@resume}[1]{
     \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
-    \chapter*{\resumename}%
-    \markboth{\resumename}{\resumename}%
+    \chapter*{#1}%
+    \markboth{#1}{#1}%
     \mslinespreadbp{16}{10.5}\songti\zihao{5}%
-    \addcontentsline{toc}{chapter}{\resumename}%
+    \addcontentsline{toc}{chapter}{#1}%
     \ignorespaces%
+}
+\newenvironment*{resume}{%
+    \nkthesis@resume{\resumename}%
+}{}
+\newenvironment*{resume*}{%
+    \nkthesis@resume{\anonymousresume}%
 }{}
 
 % ============================================================
