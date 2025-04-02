@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/02 1.1.1 Template for Master's and Doctorall Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/02 1.1.2 Template for Master's and Doctorall Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -514,49 +514,48 @@
 % ------------------------------------------------------------
 \newcommand*{\anonymoustitlepage}{%
     \clearpage%
-    {%
-        \parindent 0pt%
-        \thispagestyle{empty}%
-        \vspace*{5mm}%
-        \begin{center}%
-            \nankai@logo{1.9}%
-            \par\vspace{10mm}%
-            {%
-                \mslinespread{1}\heiti\fontsize{28}{33.6}\bfseries% 
-                南开大学\nkthesis@lunwenleibie{}毕业（学位）论文%
-            }%
-            \par\vspace{11mm}%
-            {%
-                \mslinespread{1}\fangsong\zihao{-2}% 
-                （匿名评阅封面）%
-            }%
-            \par\vspace{21mm}%
-            {%
-                \mslinespread{1}\kaishu\zihao{3}%
-                \setlength{\baselineskip}{31pt}%
-                \begin{minipage}{0.73\linewidth}
-                    \setlength{\baselineskip}{31pt}%
-                    论文题目：%
-                \end{minipage}%
-                \par%
-                \vbox to 59.6mm{%
-                    \centering%
-                    \vspace{\dimexpr\baselineskip / 2\relax}%
-                    \nktget{论文题目（中文）}\par%
-                    \nktget{论文副标题}\par%
-                    \nktget{论文题目（英文）}\par%
-                    \vfill%
-                }%
-                \begin{minipage}{0.73\linewidth}
-                    \setlength{\baselineskip}{31pt}%
-                    一级学科：\nktget{学科专业}\par%
-                    二级学科：\nktget{二级学科}\par%
-                    \vspace{11mm}%
-                    论文编号：\nktget{论文编号}\par%
-                \end{minipage}%
-            }%
-        \end{center}%
-    }%
+    \thispagestyle{empty}%
+    \setlength{\parindent}{0pt}%
+    \vspace*{5mm}%
+    \begin{center}%
+        \nankai@logo{1.97}%
+        
+        \vspace{10mm}%
+        {%
+            \mslinespread{1}\heiti\fontsize{28}{33.6}\bfseries% 
+            南开大学\nkthesis@lunwenleibie{}毕业（学位）论文%
+        }%
+        
+        \vspace{11mm}%
+        {%
+            \mslinespread{1}\fangsong\zihao{-2}% 
+            （匿名评阅封面）%
+        }%
+        
+        \vspace{21mm}%
+        {%
+            \mslinespread{1.53}\kaishu\zihao{3}%
+            \begin{minipage}{0.73\linewidth}%
+                论文题目：%
+            \end{minipage}%
+
+            \begin{minipage}[t][54.5mm]{\linewidth}%
+                \centering%
+                \nktget{论文题目（中文）}%
+                
+                \nktget{论文副标题}%
+                
+                \nktget{论文题目（英文）}%
+            \end{minipage}%
+
+            \begin{minipage}{0.73\linewidth}
+                一级学科：\nktget{学科专业}\par%
+                二级学科：\nktget{二级学科}\par%
+                \vspace{11mm}%
+                论文编号：\nktget{论文编号}\par%
+            \end{minipage}%
+        }%
+    \end{center}%
 }
 % ------------------------------------------------------------
 % 学位论文原创性声明和非公开学位论文标注说明
