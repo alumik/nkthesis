@@ -1,6 +1,6 @@
 # 南开大学硕士/博士毕业（学位）论文模板（2025）
 
-![version 1.3.0](https://img.shields.io/badge/version-1.3.0-blue)
+![version 1.3.1](https://img.shields.io/badge/version-1.3.1-blue)
 ![License LPPL 1.3c](https://img.shields.io/badge/License-LPPL%201.3c-blue?logo=latex&logoColor=white)
 
 > [!TIP]
@@ -17,7 +17,7 @@
 | pdfLaTeX | ❌ | ❌ | ❌ | ❌ |
 | 其他 | 未测试 | 未测试 | 未测试 | 未测试 |
 
-模板预览和写作规范可以[从 Release 中下载](https://github.com/alumik/nkthesis/releases/latest) `main.pdf`。
+模板预览和写作规范可以从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载 `main.pdf`。
 
 ## 有问题？
 
@@ -32,7 +32,7 @@
 
 南开大学毕业论文模板在互联网上有非常多版本，其最早的来源应是数学院孙文昌老师制作的，可惜原始的数院个人网页已经无法访问。孙老师是早期 xeCJK 包的作者，也基本是南开数学院学生 LaTeX 语言的启蒙人，大部分数学院本科生的 LaTeX 大概是孙老师的暑期小学期课程教授的。
 
-互联网上的大部分显存模板仓库主要修改自南开大学图书馆发布的2023年版本模板，其来源也是陈所的学长提供。[该仓库](https://github.com/qianchd/NKU_thesis_graduate)初始的第一个 commit 即为该版本。
+互联网上的大部分显存模板仓库主要修改自[南开大学图书馆发布的2023年版本模板](https://libpaper.nankai.edu.cn/newlist.action?encid=58)。[该仓库](https://github.com/qianchd/NKU_thesis_graduate)的第一个 commit 即为该版本。
 
 ## 本模板新特性
 
@@ -44,7 +44,8 @@
 2. 符合《研究生学位论文写作规范（2025版）》。目前仅支持中文论文。
 3. 添加需要的中文字体和符号字体。
 4. 支持 Windows 与 Overleaf 使用 XeLaTeX 编译，其他环境未测试。
-5. 避免重复造轮子，使用下列宏包实现大多数自定义功能：
+5. 实现了中文和数字两种标题编号样式。
+6. 避免重复造轮子，使用下列宏包实现大多数自定义功能：
     - 使用 `pgfkeys` 红包管理模板参数。
     - 使用 `ctex` 宏包提供高阶中文支持。
     - 使用 `tocloft` 宏包自定义目录样式。
@@ -55,19 +56,18 @@
     - 使用 `biblatex` 宏包及其自带的 `gb7714-2015` 样式自定义参考文献样式
     - 使用 `subcaption` 宏包自定义子图样式。
     - 使用 `tikz` 宏包绘制矢量版的南开大学文字 Logo。
-7. 实现了中文和数字两种标题编号样式，可以通过 `headingmode=1` 或 `headingmode=2` 切换编号模式，添加了标题编号深度。
 
 ## 使用说明
 
 ### 引入模板
 
 ```latex
-\documentclass[headingmode=1]{nkthesis}
+\documentclass[headingmode=2]{nkthesis}
 ```
 
 `headingmode=1` 表示使用数字编号模式，`headingmode=2` 表示使用中文编号模式。
 
-### 模板参数
+### 设置和读取模板参数
 
 使用 `\nktset` 命令设置模板参数，参数名称和参数值之间用 `=` 连接，多个参数用逗号分隔。如果参数值内部含有逗号，需要使用大括号包裹，例如 `参数名 = 参数值前半部分{,}参数值后半部分,`。
 
@@ -112,7 +112,7 @@
 }
 ```
 
-可以使用 `\nktget` 命令获取参数值，例如
+可以使用 `\nktget` 命令获取参数值。例如：
 
 ```latex
 \nktget{学校代码}
@@ -120,9 +120,11 @@
 
 ### 设置字体字号
 
+根据写作规范，正文默认为宋体小四号字，行距为20磅。
+
 本模板支持以下字体：
 
-| 字体名称 | 命令 |
+| 字体 | 命令 |
 | ------- | ------- |
 | 宋体 | `\songti` |
 | 黑体 | `\heiti` |
@@ -131,7 +133,7 @@
 | Arial | `\arial` |
 | Segoe UI Symbol | `\segoeui` |
 
-切换字体字号方式示例
+切换字体字号方式示例如下。最外侧的大括号可以限制字体设置的作用范围。
 
 ```latex
 {\heiti{}\zihao{3}这是黑体三号字}
@@ -142,13 +144,37 @@
 
 有以下几种特殊情况：
 
-文章默认为宋体，由于宋体本身没有原生粗体和斜体，如果使用 `\textbf{}` 命令加粗，得到的会是黑体，使用 `\textit{}` 命令斜体，得到的会是楷书。如果想得到宋体的粗体，可以使用 `\songti\textbf{}` 命令得到伪粗体。
+- 由于宋体没有原生粗体，使用 `\textbf` 命令加粗，得到的会是黑体。
+- 如果想得到宋体的**伪**粗体，可以使用 `\songti\textbf` 命令。
+- 由于宋体本身没有斜体，使用 `\textit` 得到的会是楷书。
+- 如果想得到宋体的**伪**斜体，可以使用 `\songti\textit` 命令。
 
-### 标题宏
+### 设置行间距
 
-本模板提供了一些标题宏，一般情况下不需要改动，但如果需要，可以使用 `\renewcommand*` 命令重新定义这些变量。
+模板提供以下两个命令调整行间距：
 
-| 宏名 | 默认值 |
+| 命令 | 用途 |
+| ------- | ------- |
+| `\mslinespread` | 设置 Microsoft Word 中的“多倍行距” |
+| `\mslinespreadbp` | 设置 Microsoft Word 中的“固定行距”（单位：磅） |
+
+例如：
+
+```latex
+{
+    \mslinespread{1.5}\selectfont  % 设置1.5倍行距
+    这是正文内容
+    \par  % <- 如果文字在大括号中，结尾需要加上 \par 行距设置才会生效
+}
+```
+
+### 标题名称
+
+本模板提供了一些命令存储预定义的标题名称。这些名称已经按照写作规范设置好，一般情况下不需要改动。如果需要，可以使用相应命令重新定义这些名称。
+
+####  可以使用 `\renewcommand*` 命令重新定义的标题名称
+
+| 命令 | 默认值 |
 | ------- | ------- |
 | `\enabstractname` | Abstract |
 | `\prefacename` | 前言 |
@@ -158,6 +184,31 @@
 | `\resumename` | 个人简历、在学期间发表的学术论文及研究成果 |
 | `\anonymousresumename` | 在学期间发表的学术论文及研究成果 |
 
+例如：
+
+```latex
+\renewcommand*{\enabstractname}{English Abstract}
+```
+
+#### 可以使用 `\ctexset` 命令重新定义的标题名称
+
+| 名称 | 默认值 |
+| ------- | ------- |
+| `contentsname` | 目录 |
+| `figurename` | 图 |
+| `tablename` | 表 |
+| `listfigurename` | 插图清单 |
+| `listtablename` | 附表清单 |
+| `abstractname` | 摘要 |
+| `appendixname` | 附录 |
+| `bibname` | 参考文献 |
+
+例如：
+
+```latex
+\ctexset{contentsname = 目录}
+```
+
 ### 交叉引用
 
 无论哪种编号模式，对小节的交叉引用可以如下进行：
@@ -165,7 +216,7 @@
 > [!NOTE]
 > 标签内容可自定义，`chap:`、`sec:` 等标签前缀仅为了理解方便。
 
-#### 使用 `\ref` 命令引用
+#### 方式一：使用 `\ref` 命令引用
 
 `\ref` 命令可以输出格式化后的引用。
 
@@ -180,7 +231,7 @@
 | table | `\ref{tab:a}` | 表1.1 | 表1.1 |
 | equation | `\ref{eqn:a}` | 式（1.1） | 式（1.1） |
 
-#### 使用 `\simpleref` 命令引用
+#### 方式二：使用 `\simpleref` 命令引用
 
 `\simpleref` 命令也可以输出格式化后的引用，但是对于章、节标题仅输出当前章、节编号。这样，方便在文中使用类似“本章第二节”这样的表达。
 
