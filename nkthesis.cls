@@ -14,7 +14,7 @@
 
 \RequirePackage{xfp}
 
-\PassOptionsToPackage{AutoFakeBold=true}{xeCJK}  % 启用自动伪粗体
+\PassOptionsToPackage{AutoFakeBold=true, AutoFakeSlant=true}{xeCJK}  % 启用自动伪粗体
 \LoadClass[
     openany,  % 双面打印时允许章节开始于偶数页
     zihao=-4,  % 默认字号小四
@@ -33,7 +33,7 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{kvoptions}
 \RequirePackage{fontspec}
-\RequirePackage[inline,shortlabels]{enumitem}
+\RequirePackage[inline, shortlabels]{enumitem}
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{amsmath, amsthm, amssymb}
 \RequirePackage{setspace}
@@ -645,8 +645,8 @@
     \vspace{-0.4\baselineskip}%
     \noindent%
     \begin{tikzpicture}%
-    \foreach \x in {0,0.2,...,14.4} {
-        \draw[thick] (\x,0) -- ++(0.1,0);
+    \foreach \x in {0, 0.2, ..., 14.4} {
+        \draw[thick] (\x, 0) -- ++(0.1, 0);
     }
     \end{tikzpicture}%
 
