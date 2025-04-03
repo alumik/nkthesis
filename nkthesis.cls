@@ -162,11 +162,30 @@
     }%
 }  % 南开大学 Logo
 \newcommand{\nkthesis@item}[3]{#1\hspace{0.5em}\underline{\hbox to #3{\hfill{#2}\hfill}}}  % 带下划线的键值对样式，#1 是键，#2 是值，#3 是下划线宽度
+\newcommand*{\nkthesis@simpleref}[1]{%
+    \IfEndWith{#1}{小节}{%
+        \StrBehind{#1}{节}%
+    }{%
+        \IfEndWith{#1}{节}{%
+            \StrBehind{#1}{章}%
+        }{%
+            \IfEndWith{#1}{）}{%
+                \StrBehind[2]{#1}{节}%
+            }{%
+                #1%
+            }%
+        }%
+    }%
+}  % 禁用自动引用格式化
 % ------------------------------------------------------------
 % 公有命令
 % ------------------------------------------------------------
+%%
+% 字体相关命令
 \newcommand*{\mslinespread}[1]{\linespread{\fpeval{#1 * \nkthesis@msbaselinespread / 1.2}}}  % 模仿 Microsoft Word 多倍行距
 \newcommand*{\mslinespreadbp}[2]{\linespread{\fpeval{#1 / #2 / 1.2}}}  % 模仿 Microsoft Word 固定行距（磅），#1 为目标磅数，#2 为当前字体大小
+%%
+% 文档结构相关命令
 \renewcommand*{\frontmatter}{%
     \clearpage%
     \pagenumbering{Roman}%
@@ -185,8 +204,12 @@
     \clearpage%
     \ctexset{chapter/format = \mslinespread{1}\heiti\zihao{3}\bfseries\centering}%
 }
+%%
+% 模板参数相关命令
 \newcommand{\nktset}[1]{\pgfkeys{/nkthesis/.cd,#1}}  % 设置模板参数
 \newcommand*{\nktget}[1]{\pgfkeysvalueof{/nkthesis/#1}}  % 获取模板参数
+%%
+% 标题相关命令
 \newcommand*{\enabstractname}{Abstract}
 \newcommand*{\prefacename}{前言}
 \newcommand*{\symbolsandabbreviationsname}{符号和缩略语说明}
@@ -194,6 +217,9 @@
 \newcommand*{\acknowledgementsname}{致谢}
 \newcommand*{\resumename}{个人简历、在学期间发表的学术论文及研究成果}
 \newcommand*{\anonymousresumename}{在学期间发表的学术论文及研究成果}
+%%
+% 交叉引用相关命令
+\newcommand*{\simpleref}[1]{\hyperref[#1]{\nkthesis@simpleref{\getrefnumber{#1}}}}  % 禁用自动引用格式化
 
 % ============================================================
 % 交叉引用
