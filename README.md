@@ -9,7 +9,7 @@
 > [!WARNING]
 > 生成出的 PDF 在使用 Microsoft Edge 浏览时会出现字体重影等错误，请尽量使用 Adobe Acrobat 或其他软件打开 PDF 文件。
 
-编译环境与支持情况表
+编译环境与支持情况表：
 
 |  | Windows | Overleaf | Ubuntu | MacOS |
 |:--:|:--:|:--:|:--:|:--:|
@@ -59,6 +59,105 @@
 
 ## 使用说明
 
+### 引入模板
+
+```latex
+\documentclass[headingmode=1]{nkthesis}
+```
+
+`headingmode=1` 表示使用数字编号模式，`headingmode=2` 表示使用中文编号模式。
+
+### 模板参数
+
+使用 `\nktset` 命令设置模板参数，参数名称和参数值之间用 `=` 连接，多个参数用逗号分隔。如果参数值内部含有逗号，需要使用大括号包裹，例如 `参数名 = 参数值前半部分{,}参数值后半部分,`。
+
+可选参数如下：
+
+```latex
+\nktset{
+    中图分类号 = {},
+    学校代码 = 10055,
+    UDC = {},
+    题名页/密级 = {},
+    题名页/论文类别 = 硕士,  % 可选项：硕士/博士/硕士专业/博士专业
+    作者信息/论文类别 = 硕士,  % 可选项：博士/学历硕士/专业学位硕士/同等学力硕士
+    题名页/论文题目字号 = 2,  % 字号最大为2，可根据标题长度适当缩小标题字号
+    论文题目（中文） = {},
+    论文副标题 = {},
+    论文题目（英文） = {},
+    论文作者 = {},
+    指导教师 = {},
+    指导教师职称 = {},
+    申请学位 = {},
+    培养单位 = {},
+    一级学科 = {},
+    二级学科 = {},
+    研究方向 = {},
+    答辩委员会主席 = {},
+    评阅人 = {},
+    论文完成时间 = {},
+    论文编号 = {},
+    非公开论文/申请密级 = 公开,  % 申请密级（可选项：公开/限制/秘密/机密）
+    非公开论文/保密期限/起始日期 = {},
+    非公开论文/保密期限/结束日期 = {},
+    非公开论文/审批表编号 = {},
+    非公开论文/批准日期 = {},
+    授权书/签字日期 = {},
+    学号 = {},
+    答辩日期 = {},
+    联系电话 = {},
+    电子邮箱 = {},
+    通讯地址 = {},
+    作者信息/备注 = {},
+}
+```
+
+可以使用 `\nktget` 命令获取参数值，例如
+
+```latex
+\nktget{学校代码}
+```
+
+### 设置字体字号
+
+本模板支持以下字体：
+
+| 字体名称 | 命令 |
+| ------- | ------- |
+| 宋体 | `\songti` |
+| 黑体 | `\heiti` |
+| 仿宋 | `\fangsong` |
+| 楷书 | `\kaishu` |
+| Arial | `\arial` |
+| Segoe UI Symbol | `\segoeui` |
+
+切换字体字号方式示例
+
+```latex
+{\heiti{}\zihao{3}这是黑体三号字}
+{\songti{}\zihao{-4}这是宋体小四号字}
+{\fangsong{}\zihao{12}这是仿宋12磅字}
+{\kaishu{}\zihao{5}这是楷书五号字}
+```
+
+有以下几种特殊情况：
+
+文章默认为宋体，由于宋体本身没有原生粗体和斜体，如果使用 `\textbf{}` 命令加粗，得到的会是黑体，使用 `\textit{}` 命令斜体，得到的会是楷书。如果想得到宋体的粗体，可以使用 `\songti\textbf{}` 命令得到伪粗体。
+
+### 标题宏
+
+本模板提供了一些标题宏，一般情况下不需要改动，但如果需要，可以使用 `\renewcommand*` 命令重新定义这些变量。
+
+| 宏名 | 默认值 |
+| ------- | ------- |
+| `\enabstractname` | Abstract |
+| `\prefacename` | 前言 |
+| `\symbolsandabbreviationsname` | 符号和缩略语说明 |
+| `\errataname` | 勘误表 |
+| `\acknowledgementsname` | 致谢 |
+| `\resumename` | 个人简历、在学期间发表的学术论文及研究成果 |
+| `\anonymousresumename` | 在学期间发表的学术论文及研究成果 |
+
 ### 交叉引用
 
 无论哪种编号模式，对小节的交叉引用可以如下进行：
@@ -67,6 +166,8 @@
 > 标签内容可自定义，`chap:`、`sec:` 等标签前缀仅为了理解方便。
 
 #### 使用 `\ref` 命令引用
+
+`\ref` 命令可以输出格式化后的引用。
 
 | 引用对象 | 引用方式 | 引用样式（模式一，数字） | 引用样式（模式二，中文） |
 | ------- | ------- | -------- | -------- |
@@ -78,6 +179,92 @@
 | subfigure | `\ref{subfig:a}` | 图1.1（a） | 图1.1（a） |
 | table | `\ref{tab:a}` | 表1.1 | 表1.1 |
 | equation | `\ref{eqn:a}` | 式（1.1） | 式（1.1） |
+
+#### 使用 `\simpleref` 命令引用
+
+`\simpleref` 命令也可以输出格式化后的引用，但是对于章、节标题仅输出当前章、节编号。这样，方便在文中使用类似“本章第二节”这样的表达。
+
+| 引用对象 | 引用方式 | 引用样式（模式一，数字） | 引用样式（模式二，中文） |
+| ------- | ------- | -------- | -------- |
+| chapter | `\simpleref{chap:a}` | 1 | 第一章 |
+| section | `\simpleref{sec:a}` | 1.1 | 第一节 |
+| subsection | `\simpleref{subsec:a}` | 1.1.1 | 第一小节 |
+| subsubsection | `\simpleref{subsubsec:a}` | 1.1.1.1 | （一） |
+| figure | `\simpleref{fig:a}` | 图1.1 | 图1.1 |
+| subfigure | `\simpleref{subfig:a}` | 图1.1（a） | 图1.1（a） |
+| table | `\simpleref{tab:a}` | 表1.1 | 表1.1 |
+| equation | `\simpleref{eqn:a}` | 式（1.1） | 式（1.1） |
+
+### 插入图片
+
+#### 插入单张图片
+
+```latex
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{example-image-a}
+    \caption{这是图片的标题}
+    \label{fig:example}
+\end{figure}
+```
+
+#### 插入含子图的图片
+
+```latex
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-a}
+        \caption{子图1}
+        \label{subfig:example-a}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-b}
+        \caption{子图2}
+        \label{subfig:example-b}
+    \end{subfigure}
+    \caption{这是图片的标题}
+    \label{fig:example}
+\end{figure}
+```
+
+### 模板提供的自定义环境
+
+自定义环境可以通过以下方式使用，以在文中插入相应页面。
+
+```latex
+\begin{环境名称}
+    % 环境内容
+\end{环境名称}
+```
+
+| 环境名称 | 用途 |
+| ------- | ------- |
+| `abstract` | 中文摘要 |
+| `enabstract` | 英文摘要 |
+| `keywords` | 中文关键词 |
+| `enkeywords` | 英文关键词 |
+| `preface` | 前言 |
+| `symbolsandabbreviations` | 符号和缩略语说明 |
+| `errata` | 勘误表 |
+| `acknowledgements` | 致谢 |
+| `resume` | 个人简历、在学期间发表的学术论文及研究成果 |
+| `resume*` | 在学期间发表的学术论文及研究成果（用于匿名评阅版论文） |
+
+### 模板提供的自定义页面
+
+使用以下命令可以在文中插入相应页面。
+
+| 命令 | 用途 |
+| ------- | ------- |
+| `\titlepage` | 题名页 |
+| `\anonymoustitlepage` | 匿名评阅封面 |
+| `\declarationpage` | 学位论文原创性声明和非公开学位论文标注说明 |
+| `\authorizationpage` | 学位论文使用授权书 |
+| `\bibliographypage` | 参考文献 |
 
 ## 待办
 
