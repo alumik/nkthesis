@@ -397,8 +397,12 @@
 % ============================================================
 % 列表
 % ============================================================
-\setlist[enumerate]{noitemsep, nolistsep, wide}
-\setlist[itemize]{noitemsep, nolistsep, wide}
+\setlist[enumerate]{nosep, wide}
+\setlist[itemize]{nosep, wide}
+\newlist{inlineenumerate}{enumerate*}{1}
+\setlist*[inlineenumerate]{mode=unboxed,label=（\arabic*）}
+\newlist{inlineitemize}{itemize*}{1}
+\setlist*[inlineitemize]{label=\textbullet}
 
 % ============================================================
 % 参考文献

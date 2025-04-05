@@ -282,6 +282,24 @@
 \end{figure}
 ```
 
+### 列表
+
+由于 `enumitem` 宏包的一个[已知问题](https://tex.stackexchange.com/questions/533118/enumitem-get-rid-of-extra-space-between-label-and-content-in-inline-list/533137#533137)，在本模板中无法使用 `itemize*` 和 `enumerate*` 环境创建行内列表。请使用以下替换命令：
+
+```latex
+\being{inlineitemize}
+    \item 这是列表项1
+    \item 这是列表项2
+\end{inlineitemize}
+```
+
+```latex
+\begin{inlineenumerate}
+    \item 这是列表项1
+    \item 这是列表项2
+\end{inlineenumerate}
+```
+
 ### 模板提供的自定义环境
 
 自定义环境可以通过以下方式使用，以在文中插入相应页面。
