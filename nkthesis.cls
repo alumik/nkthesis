@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/03 1.3.1 Template for Master's and Doctoral Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/03 1.3.2 Template for Master's and Doctoral Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -356,7 +356,7 @@
         },
         subsubsection = {
             name = {（,）},
-            number = \chinese{subsection},
+            number = \chinese{subsubsection},
             indent = \parindent,
             aftername = {},
         },
