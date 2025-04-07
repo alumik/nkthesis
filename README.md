@@ -28,11 +28,11 @@
 
 互联网上的大部分显存模板仓库主要修改自[南开大学图书馆发布的2023年版本模板](https://libpaper.nankai.edu.cn/newlist.action?encid=58)。[该仓库](https://github.com/qianchd/NKU_thesis_graduate)的第一个 commit 即为该版本。
 
-## 本模板新特性
+## 本模板特点
 
 为了简化类定义，精简模板文件，避免重复造轮子，我**从零开始**按照规范制作了这一份新的学位论文模板。
 
-该版本主要特点如下：
+本模板主要特点如下：
 
 1. 真正从零开始编写模板。卸掉了许多历史包袱（当然也可能丢掉了一些好东西，欢迎提交PR😀！）
 2. 符合《研究生学位论文写作规范（2025版）》。目前仅支持中文论文。
@@ -265,7 +265,7 @@
 \end{figure}
 ```
 
-### 列表
+### 行内列表
 
 由于 `enumitem` 宏包的一个[已知问题](https://tex.stackexchange.com/questions/533118/enumitem-get-rid-of-extra-space-between-label-and-content-in-inline-list/533137#533137)，在本模板中无法使用 `itemize*` 和 `enumerate*` 环境创建行内列表。请使用以下替换命令：
 
