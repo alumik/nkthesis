@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/07 1.4.0 Template for Master's and Doctoral Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/10 1.4.1 Template for Master's and Doctoral Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -31,7 +31,7 @@
 \RequirePackage{caption}
 \RequirePackage{etoolbox}
 \RequirePackage{fancyhdr}
-\RequirePackage{kvoptions}
+\RequirePackage{pgfopts}
 \RequirePackage{fontspec}
 \RequirePackage[inline, shortlabels]{enumitem}
 \RequirePackage[hidelinks]{hyperref}
@@ -63,13 +63,15 @@
 % ============================================================
 % 本模板参数
 % ============================================================
-\SetupKeyvalOptions{
-    prefix=nkthesis@
-}
-\DeclareStringOption[2]{headingmode}  % 可填1或者2，表示使用模式1或者模式2标题，默认为2
-\ProcessKeyvalOptions*
+\newcommand*{\nkthesis@headingmode}{2}  % 默认使用模式2标题
 \pgfkeys{
-    /nkthesis/.is family, /nkthesis,
+    /nkthesis/options/.cd,
+    headingmode/.store in=\nkthesis@headingmode,  % 可填1或者2，表示使用模式1或者模式2标题，默认为2
+    uppercasehead/.store in=\nkthesis@uppercasehead,  % 将章节页眉转换为大写
+}
+\ProcessPgfPackageOptions{/nkthesis/options}
+\pgfkeys{
+    /nkthesis/info/.cd,
     中图分类号/.initial = {},
     学校代码/.initial = 10055,
     UDC/.initial = {},
@@ -206,8 +208,8 @@
 }
 %%
 % 模板参数相关命令
-\newcommand{\nktset}[1]{\pgfkeys{/nkthesis/.cd,#1}}  % 设置模板参数
-\newcommand*{\nktget}[1]{\pgfkeysvalueof{/nkthesis/#1}}  % 获取模板参数
+\newcommand{\nktset}[1]{\pgfkeys{/nkthesis/info/.cd,#1}}  % 设置模板参数
+\newcommand*{\nktget}[1]{\pgfkeysvalueof{/nkthesis/info/#1}}  % 获取模板参数
 %%
 % 标题相关命令
 \newcommand*{\enabstractname}{Abstract}
@@ -242,7 +244,7 @@
 \fancyhfoffset{1.428571pt}  % 加宽页眉横线以匹配 Microsoft Word 样式
 \renewcommand*{\headrulewidth}{0.7bp}
 \fancyhf{}
-\fancyhead[C]{\mslinespread{1}\songti\zihao{5}\leftmark}
+\fancyhead[C]{\mslinespread{1}\songti\zihao{5}\ifdefined\nkthesis@uppercasehead\leftmark\else\nouppercase\leftmark\fi}
 \fancyfoot[C]{\mslinespread{1}\songti\zihao{5}\thepage}
 
 % ============================================================
