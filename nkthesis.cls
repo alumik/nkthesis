@@ -10,7 +10,7 @@
 % version 2008 or later.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nkthesis}[2025/04/10 1.4.1 Template for Master's and Doctoral Thesis of Nankai University]
+\ProvidesClass{nkthesis}[2025/04/10 1.4.2 Template for Master's and Doctoral Thesis of Nankai University]
 
 \RequirePackage{xfp}
 
@@ -687,8 +687,8 @@
         \noindent%
         \begin{tabular}{|c|c|}
             \hline
-            \vbox to 14mm{\vspace{6.5mm}\hbox to 26mm{\hfill{\heiti{}论文题目}\hfill}} &
-            \hbox to 111mm{} \\
+            \begin{minipage}[c][17.7mm]{26mm}\centering{\heiti{}论文题目}\end{minipage} &
+            \ifnum\strcmp{\nkthesis@shenqingmiji}{公开}=0{\begin{minipage}{111mm}~\end{minipage}}\else{\begin{minipage}{111mm}\nktget{论文题目（中文）}\nktget{论文副标题}\end{minipage}}\fi \\
             \hline
             {\heiti{}申请密级} &
             \nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{限制}~限制($\leq 2$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{秘密}~秘密($\leq 10$年)\qquad\nkthesis@ifcheckbox{\nkthesis@shenqingmiji}{机密}~机密($\leq 20$年) \\

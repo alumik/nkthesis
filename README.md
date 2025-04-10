@@ -1,6 +1,6 @@
 # 南开大学硕士/博士毕业（学位）论文模板（2025）
 
-![version 1.4.1](https://img.shields.io/badge/version-1.4.1-blue)
+![version 1.4.2](https://img.shields.io/badge/version-1.4.2-blue)
 ![License LPPL 1.3c](https://img.shields.io/badge/License-LPPL%201.3c-blue?logo=latex&logoColor=white)
 
 > [!TIP]
@@ -339,10 +339,6 @@
 2. 编写 `.dtx` 和 `.ins` 文件。
 3. 精细化调整元素间距，更好地模仿 Microsoft Word 模板样式。注意，由于实现方式不同，LaTeX 并不能完全复刻 Microsoft Word 文档的样式，追求100%的相同是无意义的。
 4. 添加英文论文支持。
-
-### 已知 BUG
-
-1. 《非公开学位论文标注说明》表格中论文题目不能自动填充。
 
 ### 待确认的问题
 
