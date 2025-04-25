@@ -1,7 +1,7 @@
 # 南开大学硕士/博士毕业（学位）论文模板（2025）
 
 ![version 1.4.2](https://img.shields.io/badge/version-1.4.2-blue)
-![license LPPL 1.3c](https://img.shields.io/badge/license-LPPL%201.3c-blue?logo=latex&logoColor=white)
+![license LPPL 1.3c](https://img.shields.io/github/license/alumik/nkthesis)
 
 > [!TIP]
 > 这个模板是根据规范从零开始编写的全新模板，和现有模板的实现方式大有不同，欢迎使用！
