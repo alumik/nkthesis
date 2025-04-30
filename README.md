@@ -25,8 +25,33 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 ## 使用方法
 
 1. 将本仓库所有文件克隆/下载到本地。
-2. 从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载最新版本的 `nkthesis.cls` 文件，放入仓库文件夹中。
-3. 在本地打开 `main.tex` 文件，使用 XeLaTeX 编译器编译该文件。
+2. 获取 `nkthesis.cls` 文件。
+   以下两种方法可任选其一：
+    - 方法一：从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载最新版本的 `nkthesis.cls` 文件，放入模板文件夹中。
+    - 方法二：使用以下命令从 `nkthesis.dtx` 文件中提取 `nkthesis.cls` 文件。
+      ```
+      xelatex nkthesis.ins
+      ```
+3. 使用 XeLaTeX 编译器编译 `main.tex` 文件。
+   本模板已经提供了 `latexmk` 配置文件，使用 `latexmk` 命令编译时会自动调用 XeLaTeX 编译器。
+    ```
+    latexmk main.tex
+    ```
+
+## 构建说明文档
+
+如果你想构建本模板的说明文档，可以参照以下步骤：
+
+1. 将本仓库所有文件克隆/下载到本地。
+2. 确保本地有 `zhmakeindex` 可执行文件。
+   可以从[这里](https://github.com/leo-liu/zhmakeindex/releases/latest)下载，并放置于模板文件夹或系统 `Path` 环境变量中。
+3. 在模板文件夹下执行
+
+    ```
+    latexmk nkthesis.dtx
+    ```
+    
+    即可在目录下生成 `nkthesis.pdf` 文件，即模板的说明文档。
 
 ## 有问题？
 
