@@ -6,4 +6,10 @@ $makeindex = "zhmakeindex -s gind.ist %O -o %D %S";
 
 $bibtex_use = 1.5;
 
-$clean_ext = "glo gls hd";
+$clean_ext = "hd";
+
+add_cus_dep('glo', 'gls', 0, 'glo2gls');
+sub glo2gls {
+    system("zhmakeindex -s gglo.ist -o \"$_[0].gls\" \"$_[0].glo\"");
+}
+push @generated_exts, 'glo', 'gls';
