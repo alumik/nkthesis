@@ -287,3 +287,7 @@ TSWLatexianTemp*
 
 # VScode settings
 .vscode/
+
+# DocTex
+*.hd
+*.cls
