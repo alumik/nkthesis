@@ -16,9 +16,17 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 使用者可通过简单的命令设置和获取论文基本信息，调整字体字号和行间距，实现交叉引用和插入图片。
 本模板代码开源，在 GitHub 上提供完整使用说明和持续更新，为南开大学研究生提供了便捷高效的学位论文排版工具。
 
-模板预览和写作规范可以从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载 `main.pdf`。
+[Release](https://github.com/alumik/nkthesis/releases/latest) 中可下载最新版本的模板类文件和使用说明：
 
-详细的模板使用说明可以从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载 `documentation.pdf`。
+- `nkthesis.cls`：导出完毕的模板类文件，可直接使用。
+- `main.pdf`：由 `main.tex` 生成的 PDF 文件，包含模板预览和写作规范。
+- `documentation.pdf`：由 `nkthesis.dtx` 生成的 PDF 文件，包含详细的模板使用说明。
+
+## 使用方法
+
+1. 将本仓库所有文件克隆/下载到本地。
+2. 从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载最新版本的 `nkthesis.cls` 文件，放入仓库文件夹中。
+3. 在本地打开 `main.tex` 文件，使用 XeLaTeX 编译器编译该文件。
 
 ## 有问题？
 
