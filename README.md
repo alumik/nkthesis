@@ -20,7 +20,7 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 
 - `nkthesis.cls`：导出完毕的模板类文件，可直接使用。
 - `main.pdf`：由 `main.tex` 生成的 PDF 文件，包含模板预览和写作规范。
-- `documentation.pdf`：由 `nkthesis.dtx` 生成的 PDF 文件，包含详细的模板使用说明。
+- `nkthesis.pdf`：由 `nkthesis.dtx` 生成的 PDF 文件，包含详细的模板使用说明。
 
 ## 使用方法
 
