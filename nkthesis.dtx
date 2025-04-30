@@ -21,7 +21,7 @@
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
 %<class>    {2025/04/30}
-%<class>    {v2.0.0}
+%<class>    {v2.0.1}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -78,12 +78,13 @@
 %     \vline, \vrule, \vspace, \x, \zihao, \ziju
 % }
 % \DoNotIndex{\int_compare:nNnTF, \int_compare:nNnT, \str_if_eq:eeTF, \str_if_eq:eeF}
+% \DoNotIndex{\RenewExpandableDocumentCommand, \apptocmd}
 %
 % \changes{v2.0.0}{2025/04/30}{重构为 \LaTeXiii 文档类，并以 \texttt{.dtx} 格式发布。}
 %
 % \title{\bfseries nkthesis：南开大学硕士/博士毕业（学位）论文模板\thanks{适用于《研究生学位论文写作规范（2025版）》。}}
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/04/30\qquad v2.0.0}
+% \date{2025/04/30\qquad v2.0.1}
 % \maketitle
 %
 % \begin{abstract}
@@ -653,7 +654,7 @@
 %     后置部分包含附录、参考文献、勘误页、致谢以及个人简历、在学期间发表的学术论文及研究成果等。
 % \end{function}
 %
-% \begin{function}{\appendix}
+% \begin{function}[updated=2025/05/01]{\appendix}
 %     声明附录部分开始。
 %     附录放在正文之后。
 % \end{function}
@@ -1448,10 +1449,10 @@
 % \subsection{交叉引用}
 %
 %    \begin{macrocode}
-\labelformat { figure    } { \figurename\thefigure                     }
-\labelformat { subfigure } { \figurename\thefigure（\alph{subfigure}） }
-\labelformat { table     } { \tablename\thetable                       }
-\labelformat { equation  } { 式（\arabic{chapter}.\arabic{equation}）  }
+\labelformat { figure    } { \figurename\thefigure                  }
+\labelformat { subfigure } { \figurename\thefigure（\thesubfigure） }
+\labelformat { table     } { \tablename\thetable                    }
+\labelformat { equation  } { 式（\theequation）                     }
 \int_compare:nNnT \c_@@_headingmode_int = 2 {
     \labelformat { chapter       } { \CTEXthechapter                  }
     \labelformat { section       } { \CTEXthechapter{}\CTEXthesection }
@@ -1477,7 +1478,7 @@
 %
 %    \begin{macrocode}
 \fancyhfoffset { 1.428571pt }
-\RenewDocumentCommand \headrulewidth { } { 0.7bp }
+\RenewExpandableDocumentCommand \headrulewidth { } { 0.7bp }
 \fancyhf { }
 \fancyhead [ C ] {
     \mslinespread{1}\songti\zihao{5}
@@ -1499,16 +1500,19 @@
 % 设置点间距。
 %
 %    \begin{macrocode}
-\RenewDocumentCommand \cftdotsep { } { 1 }
+\RenewExpandableDocumentCommand \cftdotsep { } { 1 }
 %    \end{macrocode}
 %
 % 设置章标题格式。
 %
 %    \begin{macrocode}
 \dim_set:Nn \cftbeforechapskip { 2bp }
-\RenewDocumentCommand \cftchapfont     { } { \mslinespread{1}\songti\zihao{4} }
-\RenewDocumentCommand \cftchappagefont { } { \cftchapfont                     }
-\RenewDocumentCommand \cftchapleader   { } { \cftdotfill{\cftdotsep}          }
+\RenewExpandableDocumentCommand \cftchapfont     { }
+    { \mslinespread{1}\songti\zihao{4} }
+\RenewExpandableDocumentCommand \cftchappagefont { }
+    { \cftchapfont                     }
+\RenewExpandableDocumentCommand \cftchapleader   { }
+    { \cftdotfill{\cftdotsep}          }
 %    \end{macrocode}
 %
 % 设置节标题格式。
@@ -1516,8 +1520,10 @@
 %    \begin{macrocode}
 \dim_set:Nn \cftbeforesecskip { 2bp   }
 \dim_set:Nn \cftsecindent     { \ccwd }
-\RenewDocumentCommand \cftsecfont     { } { \mslinespread{1}\songti\zihao{-4} }
-\RenewDocumentCommand \cftsecpagefont { } { \cftsecfont                       }
+\RenewExpandableDocumentCommand \cftsecfont     { }
+    { \mslinespread{1}\songti\zihao{-4} }
+\RenewExpandableDocumentCommand \cftsecpagefont { }
+    { \cftsecfont                       }
 %    \end{macrocode}
 %
 % 设置小节标题格式。
@@ -1525,8 +1531,10 @@
 %    \begin{macrocode}
 \dim_set:Nn \cftbeforesubsecskip { 2bp    }
 \dim_set:Nn \cftsubsecindent     { 2\ccwd }
-\RenewDocumentCommand \cftsubsecfont     { } { \mslinespread{1}\songti\zihao{5} }
-\RenewDocumentCommand \cftsubsecpagefont { } { \cftsubsecfont                   }
+\RenewExpandableDocumentCommand \cftsubsecfont     { }
+    { \mslinespread{1}\songti\zihao{5} }
+\RenewExpandableDocumentCommand \cftsubsecpagefont { }
+    { \cftsubsecfont                   }
 %    \end{macrocode}
 %
 % 设置图表标题格式。
@@ -1538,10 +1546,14 @@
 \dim_set:Nn \cfttabnumwidth   { 3.5\ccwd }
 \dim_set:Nn \cftfigindent     { 0pt      }
 \dim_set:Nn \cfttabindent     { 0pt      }
-\RenewDocumentCommand \cftfigfont    { } { \mslinespread{1}\songti\zihao{-4} }
-\RenewDocumentCommand \cfttabfont    { } { \mslinespread{1}\songti\zihao{-4} }
-\RenewDocumentCommand \cftfigpresnum { } { \figurename                       }
-\RenewDocumentCommand \cfttabpresnum { } { \tablename                        }
+\RenewExpandableDocumentCommand \cftfigfont    { }
+    { \mslinespread{1}\songti\zihao{-4} }
+\RenewExpandableDocumentCommand \cfttabfont    { }
+    { \mslinespread{1}\songti\zihao{-4} }
+\RenewExpandableDocumentCommand \cftfigpresnum { }
+    { \figurename                       }
+\RenewExpandableDocumentCommand \cfttabpresnum { }
+    { \tablename                        }
 %    \end{macrocode}
 %
 % \subsection{\CTeX 设置}
@@ -1699,6 +1711,30 @@
 \setlist* [ inlineitemize   ] { label = \textbullet                  }
 %    \end{macrocode}
 % \end{environment}
+%
+% \subsection{附录}
+%
+% \begin{macro}{\appendix}
+%
+% \changes{v2.0.1}{2025/05/01}{修正附录中图、表、公式标签格式。从A.1改为A1。}
+%
+% 更改附录中图、表、公式标签格式。
+% 从A.1改为A1。
+%
+%    \begin{macrocode}
+\apptocmd { \appendix }
+    {
+        \RenewExpandableDocumentCommand \thefigure { }
+            { \thechapter \arabic { figure } }
+        \RenewExpandableDocumentCommand \thetable { }
+            { \thechapter \arabic { table } }
+        \RenewExpandableDocumentCommand \theequation { }
+            { \thechapter \arabic { equation } }
+    }
+    { }
+    { }
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsection{参考文献}
 %
@@ -1861,7 +1897,7 @@
         \mslinespread { 1 }
         \songti
         \zihao { 5 }
-        \RenewDocumentCommand \arraystretch { } { 1.25 }
+        \RenewExpandableDocumentCommand \arraystretch { } { 1.25 }
         \begin { tabular } {
             > { \raggedleft  \arraybackslash                   } p { 20.7mm }
             > { \raggedright \arraybackslash \hspace { 2.3mm } } p { 62.7mm }
@@ -1916,7 +1952,7 @@
             \mslinespread { 1 }
             \songti
             \zihao { -4 }
-            \RenewDocumentCommand \arraystretch { } { 2 }
+            \RenewExpandableDocumentCommand \arraystretch { } { 2 }
             \dim_set:Nn \tabcolsep { 0pt }
             \begin { tabular } {
                 > { \centering \arraybackslash } p { 70mm }
@@ -2134,7 +2170,7 @@
     {
         \mslinespread { 1 }
         \zihao { -4 }
-        \RenewDocumentCommand \arraystretch { } { 1.78 }
+        \RenewExpandableDocumentCommand \arraystretch { } { 1.78 }
         \noindent
         \begin { tabular } { | c | c | }
             \hline
@@ -2293,7 +2329,7 @@
         \mslinespread { 1 }
         \songti
         \zihao { 5 }
-        \RenewDocumentCommand \arraystretch { } { 1.343 }
+        \RenewExpandableDocumentCommand \arraystretch { } { 1.343 }
         \hspace { -18.5mm }
         \dim_set:Nn \tabcolsep { 0pt }
         \begin { tabular } { | l | }
