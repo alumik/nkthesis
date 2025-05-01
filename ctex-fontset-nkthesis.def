@@ -15,13 +15,25 @@
     {}
     {}
     {
-        \setCJKmainfont { simsun.ttc } [ Path = fonts/, BoldFont = simhei.ttf , ItalicFont = simkai.ttf ]
-        \setCJKsansfont { simhei.ttf } [ Path = fonts/ ]
-        \setCJKmonofont { simkai.ttf } [ Path = fonts/ ]
-        \setCJKfamilyfont { zhsong  } [ Path = fonts/ ] { simsun.ttc  }
-        \setCJKfamilyfont { zhhei   } [ Path = fonts/ ] { simhei.ttf  }
-        \setCJKfamilyfont { zhfs    } [ Path = fonts/ ] { simfang.ttf }
-        \setCJKfamilyfont { zhkai   } [ Path = fonts/ ] { simkai.ttf  }
+        \fontspec_font_if_exist:nTF { SimSun }
+            {
+                \setCJKmainfont { SimSun   } [ BoldFont = SimHei , ItalicFont = KaiTi ]
+                \setCJKsansfont { SimHei   }
+                \setCJKmonofont { FangSong }
+                \setCJKfamilyfont { zhsong } { SimSun   }
+                \setCJKfamilyfont { zhhei  } { SimHei   }
+                \setCJKfamilyfont { zhfs   } { FangSong }
+                \setCJKfamilyfont { zhkai  } { KaiTi    }
+            }
+            {
+                \setCJKmainfont { simsun.ttc  } [ Path = fonts/, BoldFont = simhei.ttf , ItalicFont = simkai.ttf ]
+                \setCJKsansfont { simhei.ttf  } [ Path = fonts/ ]
+                \setCJKmonofont { simfang.ttf } [ Path = fonts/ ]
+                \setCJKfamilyfont { zhsong } [ Path = fonts/ ] { simsun.ttc  }
+                \setCJKfamilyfont { zhhei  } [ Path = fonts/ ] { simhei.ttf  }
+                \setCJKfamilyfont { zhfs   } [ Path = fonts/ ] { simfang.ttf }
+                \setCJKfamilyfont { zhkai  } [ Path = fonts/ ] { simkai.ttf  }
+            }
     }
 \NewDocumentCommand \songti   { } { \CJKfamily { zhsong  } }
 \NewDocumentCommand \heiti    { } { \CJKfamily { zhhei   } }

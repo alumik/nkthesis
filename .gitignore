@@ -291,3 +291,6 @@ TSWLatexianTemp*
 # DocTex
 *.hd
 *.cls
+
+# Fonts
+fonts/
