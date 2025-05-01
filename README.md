@@ -1,6 +1,6 @@
 # nkthesis：南开大学硕士/博士毕业（学位）论文模板（2025）
 
-![version 2.1.0](https://img.shields.io/badge/version-2.1.0-blue)
+![version 2.1.1](https://img.shields.io/badge/version-2.1.1-blue)
 ![license-LPPL-1.3c](https://img.shields.io/github/license/alumik/nkthesis)
 
 > [!TIP]
@@ -54,11 +54,17 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 
 ## 可选步骤：放置字体文件
 本模板使用的“宋体”、“仿宋”、“楷书”、“黑体”字体文件为 Microsoft Windows 系统自带的中易字体。
-在 Windows 系统中，由于字体文件已经存在，因此不需要额外放置字体文件就可以直接编译本模板。
+此外，还使用了 Times New Roman 和 Arial 等非开源字体。
+在 Windows 系统中，由于这些字体文件已经存在，因此不需要额外放置字体文件就可以直接编译本模板。
 但在 Overleaf 等其他非 Windows 环境下，可能会缺少这些字体文件。
 
-由于中易字体为非开源字体，因此本模板不附带这些字体。
-缺少字体文件时，用户需要手动将 `simsun.ttc`、`simfang.ttf`、`simkai.ttf` 和 `simhei.ttf` 四个字体文件放置在论文文件夹下的 `fonts/` 文件夹中。
+本模板不附带非开源字体。
+缺少字体文件时，用户需要手动将以下字体文件放置在论文文件夹下的 `fonts/` 文件夹中。
+
+- 中易字体：`simsun.ttc`、`simfang.ttf`、`simhei.ttf`、`simkai.ttf`
+- Times New Roman 字体：`times.ttf`、`timesbd.ttf`、`timesi.ttf`、`timesbi.ttf`
+- Arial 字体：`arial.ttf`、`arialbd.ttf`、`ariali.ttf`、`arialbi.ttf`
+
 一般情况下，这些字体文件可以在 Windows 系统的 `C:\Windows\Fonts` 目录下找到。
 
 ## 构建说明文档
