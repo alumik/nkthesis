@@ -94,7 +94,8 @@
 % }
 % \DoNotIndex{
 %     \RenewExpandableDocumentCommand, \apptocmd, \thechapter, \theequation,
-%     \thesubfigure, \newunicodechar
+%     \thesubfigure, \newunicodechar, \CJKfamily, \fontspec_font_if_exist:nTF,
+%     \setCJKfamilyfont, \setCJKmainfont, \setCJKmonofont, \setCJKsansfont
 % }
 %
 % \changes{v2.0.0}{2025/04/30}
@@ -1113,7 +1114,7 @@
 % 双面打印时允许章节开始于偶数页。
 % 默认字号小四，支持宋体、仿宋、楷体、黑体四种字体。
 %
-% \changes{v2.1.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到本文件中。}
+% \changes{v2.1.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。}
 %
 %    \begin{macrocode}
 \LoadClass [
@@ -1360,7 +1361,7 @@
 %
 % \subsection{字体设置}
 %
-% \changes{v2.1.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到本文件中。}
+% \changes{v2.1.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。}
 %
 %    \begin{macrocode}
 \fontspec_font_if_exist:nTF { SimSun }
