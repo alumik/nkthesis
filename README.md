@@ -29,15 +29,20 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
     以下两种方法可任选其一：
     - 方法一：从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载最新版本的 `nkthesis.cls` 文件，放入论文文件夹中。
     - 方法二：使用以下命令从 `nkthesis.dtx` 文件中提取 `nkthesis.cls` 文件。
+
       ```
       xelatex nkthesis.ins
       ```
+
 3. 使用 XeLaTeX 编译 `main.tex` 文件。
    本模板已经提供了 `latexmk` 配置文件，使用 `latexmk` 命令编译时会自动调用 XeLaTeX。
+
     ```
     latexmk main.tex
     ```
+
     如果编译时出现如下所示的缺少字体错误，请参考下一节解决。
+
     ```
     Package fontspec Error:
     (fontspec) The font "simsun" cannot be found; this may be but
