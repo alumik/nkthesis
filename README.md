@@ -1,6 +1,6 @@
 # nkthesis：南开大学硕士/博士毕业（学位）论文模板（2025）
 
-![version 2.0.1](https://img.shields.io/badge/version-2.0.1-blue)
+![version 2.1.0](https://img.shields.io/badge/version-2.1.0-blue)
 ![license-LPPL-1.3c](https://img.shields.io/github/license/alumik/nkthesis)
 
 > [!TIP]
@@ -9,12 +9,12 @@
 > [!WARNING]
 > 生成出的 PDF 在使用 Microsoft Edge 浏览时会出现字体重影等错误，请尽量使用 Adobe Acrobat 或其他软件打开 PDF 文件。
 
-nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论文LaTeX 模板，符合《研究生学位论文写作规范（2025版）》要求，支持 Windows 和 Overleaf 平台使用 XeLaTeX 编译。
+nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论文 LaTeX 模板，符合《研究生学位论文写作规范（2025 版）》要求，支持 Windows 和 Overleaf 平台使用 XeLaTeX 编译。
 该模板摒弃了现有模板的历史包袱，精简了类定义，同时保证了编译结果的一致性和规范性。
-它提供了中文和数字两种标题编号样式选择，内置了必要的中文字体和符号字体，利用多个宏包协同工作实现定制化功能。
+它提供了中文和数字两种标题编号样式选择，利用多个宏包协同工作实现定制化功能。
 本模板提供了完善的中英文摘要、关键词、前言、符号说明、勘误表、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
 使用者可通过简单的命令设置和获取论文基本信息，调整字体字号和行间距，实现交叉引用和插入图片。
-本模板代码开源，在 GitHub 上提供完整使用说明和持续更新，为南开大学研究生提供了便捷高效的学位论文排版工具。
+本模板代码开源，在 GitHub 上提供完整使用说明和持续更新。
 
 [Release](https://github.com/alumik/nkthesis/releases/latest) 中可下载最新版本的模板类文件和使用说明：
 
@@ -24,19 +24,37 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 
 ## 使用方法
 
-1. 将本仓库所有文件克隆/下载到本地。
+1. 将本模板所有文件克隆/下载到本地。
 2. 获取 `nkthesis.cls` 文件。
-   以下两种方法可任选其一：
-    - 方法一：从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载最新版本的 `nkthesis.cls` 文件，放入模板文件夹中。
+    以下两种方法可任选其一：
+    - 方法一：从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载最新版本的 `nkthesis.cls` 文件，放入论文文件夹中。
     - 方法二：使用以下命令从 `nkthesis.dtx` 文件中提取 `nkthesis.cls` 文件。
       ```
       xelatex nkthesis.ins
       ```
-3. 使用 XeLaTeX 编译器编译 `main.tex` 文件。
-   本模板已经提供了 `latexmk` 配置文件，使用 `latexmk` 命令编译时会自动调用 XeLaTeX 编译器。
+3. 使用 XeLaTeX 编译 `main.tex` 文件。
+   本模板已经提供了 `latexmk` 配置文件，使用 `latexmk` 命令编译时会自动调用 XeLaTeX。
     ```
     latexmk main.tex
     ```
+    如果编译时出现如下所示的缺少字体错误，请参考下一节解决。
+    ```
+    Package fontspec Error:
+    (fontspec) The font "simsun" cannot be found; this may be but
+    (fontspec) usually is not a fontspec bug. Either there is a
+    (fontspec) typo in the font name/file, the font is not
+    (fontspec) installed (correctly), or there is a bug in the
+    (fontspec) underlying font loading engine (XeTeX/luaotfload).
+    ```
+
+## 可选步骤：放置字体文件
+本模板使用的“宋体”、“仿宋”、“楷书”、“黑体”字体文件为 Microsoft Windows 系统自带的中易字体。
+在 Windows 系统中，由于字体文件已经存在，因此不需要额外放置字体文件就可以直接编译本模板。
+但在 Overleaf 等其他非 Windows 环境下，可能会缺少这些字体文件。
+
+由于中易字体为非开源字体，因此本模板不附带这些字体。
+缺少字体文件时，用户需要手动将 `simsun.ttc`、`simfang.ttf`、`simkai.ttf` 和 `simhei.ttf` 四个字体文件放置在论文文件夹下的 `fonts/` 文件夹中。
+一般情况下，这些字体文件可以在 Windows 系统的 `C:\Windows\Fonts` 目录下找到。
 
 ## 构建说明文档
 
@@ -50,7 +68,7 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
     ```
     latexmk nkthesis.dtx
     ```
-    
+
     即可在目录下生成 `nkthesis.pdf` 文件，即模板的说明文档。
 
 ## 有问题？
@@ -177,14 +195,14 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 
 本模板还支持以下字体：
 
-| 字体            | 命令        |
-| --------------- | ----------- |
-| 宋体            | `\songti`   |
-| 黑体            | `\heiti`    |
-| 仿宋            | `\fangsong` |
-| 楷书            | `\kaishu`   |
-| Arial           | `\arial`    |
-| Segoe UI Symbol | `\segoeui`  |
+| 字体        | 命令          |
+| ----------- | ------------- |
+| 宋体        | `\songti`     |
+| 黑体        | `\heiti`      |
+| 仿宋        | `\fangsong`   |
+| 楷书        | `\kaishu`     |
+| Arial       | `\arial`      |
+| DejaVu Sans | `\dejavusans` |
 
 切换字体字号命令的使用示例如下。最外侧的大括号可以限制字体设置的作用范围。
 

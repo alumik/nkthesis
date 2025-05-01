@@ -21,7 +21,7 @@
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
 %<class>    {2025/05/01}
-%<class>    {v2.0.1}
+%<class>    {v2.1.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -32,8 +32,18 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{newunicodechar}
-\newfontfamily{\segoeui}[Path=fonts/]{seguisym.ttf}
-\newunicodechar{★}{{\segoeui ★}}
+\newfontfamily{\dejavusans}{DejaVu Sans}
+\newunicodechar{★}{{\dejavusans ★}}
+\DefineVerbatimEnvironment{nkthesisexam}{Verbatim}{
+    gobble=6,
+    frame=single,
+    framesep=10pt,
+    label=\rule{0pt}{12pt}\textnormal{\textbf{例 \arabic{nkthesisexam}}},
+    listparameters=
+        \setlength{\topsep}{\bigskipamount}
+        \refstepcounter{nkthesisexam}
+}
+\newcounter{nkthesisexam}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -47,14 +57,15 @@
 %     \\, \addcontentsline, \alph, \arabic, \arraybackslash, \arraystretch,
 %     \AtBeginBibliography, \baselineskip, \begin, \bfseries, \bool_if:NTF,
 %     \bool_new:N, \captionsetup, \ccwd, \centering, \cftbeforechapskip,
-%     \cftbeforefigskip, \cftbeforesecskip, \cftbeforesubsecskip, \cftbeforetabskip,
-%     \cftchapfont, \cftchapleader, \cftchappagefont, \cftdotfill, \cftdotsep,
-%     \cftfigfont, \cftfigindent, \cftfignumwidth, \cftfigpresnum, \cftsecfont,
-%     \cftsecindent, \cftsecpagefont, \cftsubsecfont, \cftsubsecindent, \cftsubsecpagefont,
-%     \cfttabfont, \cfttabindent, \cfttabnumwidth, \cfttabpresnum, \chapter,
+%     \cftbeforefigskip, \cftbeforesecskip, \cftbeforesubsecskip,
+%     \cftbeforetabskip, \cftchapfont, \cftchapleader, \cftchappagefont,
+%     \cftdotfill, \cftdotsep, \cftfigfont, \cftfigindent, \cftfignumwidth,
+%     \cftfigpresnum, \cftsecfont, \cftsecindent, \cftsecpagefont,
+%     \cftsubsecfont, \cftsubsecindent, \cftsubsecpagefont, \cfttabfont,
+%     \cfttabindent, \cfttabnumwidth, \cfttabpresnum, \chapter, \CTEXthesection,
 %     \checkmark, \chinese, \clearpage, \clist_map_inline:nn, \cs_new:Nn,
-%     \cs_set:Npn, \csname, \CTEXifname, \ctexset, \CTEXthechapter, \CTEXthesection,
-%     \DeclareCaptionFont, \DeclareCaptionLabelFormat, \DeclareCaptionLabelSeparator,
+%     \cs_set:Npn, \csname, \CTEXifname, \ctexset, \CTEXthechapter,
+%     \DeclareCaptionFont, \DeclareCaptionLabelFormat, \PassOptionsToPackage,
 %     \dim_eval:n, \dim_set:Nn, \draw, \end, \endcsname, \evensidemargin,
 %     \fancyfoot, \fancyhead, \fancyhf, \fancyhfoffset, \floatsep, \fontsize,
 %     \footskip, \foreach, \fp_eval:n, \fp_new:N, \fp_set:Nn, \getrefnumber,
@@ -65,38 +76,46 @@
 %     \NewDocumentCommand, \NewDocumentEnvironment, \NewEnvironmentCopy,
 %     \NewExpandableDocumentCommand, \newfontfamily, \newlist, \nobreakspace,
 %     \noindent, \nouppercase, \oddsidemargin, \oldendequation, \oldequation,
-%     \pagenumbering, \pagestyle, \par, \parindent, \parskip, \PassOptionsToPackage,
-%     \path, \printbibliography, \ProcessKeyOptions, \prop_if_in:NnTF, \prop_item:Nn,
+%     \pagenumbering, \pagestyle, \par, \parindent, \parskip, \prop_item:Nn,
+%     \path, \printbibliography, \ProcessKeyOptions, \prop_if_in:NnTF,
 %     \prop_new:N, \prop_put:Nnn, \protect, \qquad, \quad, \raggedbottom,
-%     \raggedleft, \raggedright, \raisebox, \RenewDocumentCommand, \RenewDocumentEnvironment,
-%     \RequirePackage, \scalebox, \selectfont, \setcounter, \setlist, \setmainfont,
-%     \singlespace, \square, \StrBehind, \subcaptionsetup,
+%     \raggedleft, \raggedright, \raisebox, \RenewDocumentCommand,
+%     \RequirePackage, \scalebox, \selectfont, \setcounter, \setlist,
+%     \singlespace, \square, \StrBehind, \subcaptionsetup, \setmainfont,
 %     \tabcolsep, \@@italiccorr, \maketag@@@, \tagform@, \textbf, \textbullet,
 %     \textfloatsep, \textheight, \textwidth, \thefigure, \thepage, \thetable,
 %     \thispagestyle, \tl_if_empty:nTF, \tl_new:N, \tl_set:Nn, \tl_use:N,
 %     \tocloftpagestyle, \today, \topmargin, \topskip, \underline, \unskip,
-%     \vline, \vrule, \vspace, \x, \zihao, \ziju
+%     \vline, \vrule, \vspace, \x, \zihao, \ziju, \DeclareCaptionLabelSeparator,
+%     \RenewDocumentEnvironment
 % }
-% \DoNotIndex{\int_compare:nNnTF, \int_compare:nNnT, \str_if_eq:eeTF, \str_if_eq:eeF}
+% \DoNotIndex{
+%     \int_compare:nNnTF, \int_compare:nNnT, \str_if_eq:eeTF, \str_if_eq:eeF
+% }
 % \DoNotIndex{
 %     \RenewExpandableDocumentCommand, \apptocmd, \thechapter, \theequation,
-%     \thesubfigure
+%     \thesubfigure, \newunicodechar
 % }
 %
-% \changes{v2.0.0}{2025/04/30}{重构为 \LaTeXiii 文档类，并以 \texttt{.dtx} 格式发布。}
+% \changes{v2.0.0}{2025/04/30}
+%     {重构为 \LaTeXiii 文档类，并以 \texttt{.dtx} 格式发布。}
+% \changes{v2.1.0}{2025/05/01}{不再默认提供非开源字体文件。}
 %
-% \title{\bfseries nkthesis：南开大学硕士/博士毕业（学位）论文模板\thanks{适用于《研究生学位论文写作规范（2025版）》。}}
+% \title{^^A
+%     \textbf{nkthesis：南开大学硕士/博士毕业（学位）论文模板}^^A
+%     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
+% }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/05/01\qquad v2.0.1}
+% \date{2025/05/01\qquad v2.1.0}
 % \maketitle
 %
 % \begin{abstract}
-%     \cls{nkthesis} 是一个全新编写的南开大学硕士/博士毕业（学位）论文 \LaTeX 模板，符合《研究生学位论文写作规范（2025版）》要求，支持 Windows 和 Overleaf 平台使用 \XeLaTeX 编译。
+%     \cls{nkthesis} 是一个全新编写的南开大学硕士/博士毕业（学位）论文 \LaTeX 模板，符合《研究生学位论文写作规范（2025版）》要求，支持 Windows 和 Overleaf平台使用 \XeLaTeX 编译。
 %     该模板摒弃了现有模板的历史包袱，精简了类定义，同时保证了编译结果的一致性和规范性。
-%     它提供了中文和数字两种标题编号样式选择，内置了必要的中文字体和符号字体，利用多个宏包协同工作实现定制化功能。
+%     它提供了中文和数字两种标题编号样式选择，利用多个宏包协同工作实现定制化功能。
 %     本模板提供了完善的中英文摘要、关键词、前言、符号说明、勘误表、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
 %     使用者可通过简单的命令设置和获取论文基本信息，调整字体字号和行间距，实现交叉引用和插入图片。
-%     本模板代码开源，在 GitHub 上提供完整使用说明和持续更新，为南开大学研究生提供了便捷高效的学位论文排版工具。
+%     本模板代码开源，在 GitHub 上提供完整使用说明和持续更新。
 % \end{abstract}
 %
 % \tableofcontents
@@ -111,7 +130,8 @@
 %
 % 南开大学毕业论文模板在互联网上有非常多版本，其最早的来源应是数学院孙文昌老师制作的，可惜原始的数院个人网页已经无法访问。
 % 孙老师是早期 \pkg{xeCJK} 包的作者，也基本是南开数学院学生 \LaTeX 语言的启蒙人，大部分数学院本科生的 \LaTeX 大概是孙老师的暑期小学期课程教授的。
-% 互联网上的大部分现存模板仓库主要修改自南开大学图书馆发布的2023年版本模板\footnote{本段文字摘录自 \url{https://github.com/qianchd/NKU\_thesis\_graduate}，有改动。}。
+% 互联网上的大部分现存模板仓库主要修改自南开大学图书馆发布的2023年版本模板。
+% \footnote{本段文字摘录自\url{https://github.com/qianchd/NKU\_thesis\_graduate}，有改动。}
 %
 % \subsection{本模板特点}
 %
@@ -148,53 +168,107 @@
 %
 % \subsection{\cls{nkthesis} 的主要组成部分}
 %
-% 本模板主要包含核心文档类、示例模板文件、自定义字体、许可证、使用说明等几个部分，其具体组成见表~\ref{tab:components-of-nkthesis}。
+% 本模板主要包含核心文档类（表~\ref{tab:components-of-nkthesis-1}）和
+% 示例文件（表~\ref{tab:components-of-nkthesis-2}）两个部分。
 %
 % \begin{table}[H]
 %     \centering
-%     \caption{\cls{nkthesis} 的主要组成部分}
-%     \label{tab:components-of-nkthesis}
+%     \caption{\cls{nkthesis} 核心文档类}
+%     \label{tab:components-of-nkthesis-1}
 %     \begin{tabular}{ll}
 %         \toprule
 %         文件 & 功能说明 \\
 %         \midrule
-%         backmatter/  & 模板后置部分，包含附录、勘误页、致谢、个人简历 \\
-%         chapters/ & 模板主体部分，包含示例章节 \\
-%         fonts/ & 自定义字体文件 \\
-%         frontmatter/ & 模板前置部分，包含中英文摘要、序言、符号缩略语注释表 \\
-%         ctex-fontset-nkthesis.def & \CTeX 中文字体定义 \\
-%         latexmkrc & 自动化编译配置 \\
-%         LICENSE & 许可证 \\
-%         main.bib & 参考文献数据库 \\
-%         main.tex & 模板主文档 \\
-%         nkthesis.dtx & 文档类文件 \\
-%         nkthesis.ins & 文档类安装文件 \\
-%         README.md & 使用说明 \\
+%         fonts/                    & 自定义字体，详见~\ref{subsec:fonts} 节 \\
+%         ctex-fontset-nkthesis.def & \CTeX 中文字体定义                     \\
+%         LICENSE                   & 许可证                                 \\
+%         nkthesis.dtx              & 文档类文件                             \\
+%         nkthesis.ins              & 文档类安装文件                         \\
+%         README.md                 & 简易使用说明                           \\
 %         \bottomrule
 %     \end{tabular}
 % \end{table}
+%
+% \begin{table}[H]
+%     \centering
+%     \caption{\cls{nkthesis} 示例文件}
+%     \label{tab:components-of-nkthesis-2}
+%     \begin{tabular}{ll}
+%         \toprule
+%         文件         & 功能说明                                             \\
+%         \midrule
+%         backmatter/  & 模板后置部分，包含附录、勘误页、致谢、个人简历       \\
+%         chapters/    & 模板主体部分，包含示例章节                           \\
+%         frontmatter/ & 模板前置部分，包含中英文摘要、序言、符号缩略语注释表 \\
+%         latexmkrc    & 自动化编译配置                                       \\
+%         main.bib     & 参考文献数据库                                       \\
+%         main.tex     & 模板主文档                                           \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+%
+% \subsection{下载并安装 \cls{nkthesis}}
+%
+% \begin{enumerate}
+%     \item 将本模板所有文件克隆/下载到本地。
+%     \item 获取 nkthesis.cls 文件。
+%           以下两种方法可任选其一：
+%           \begin{enumerate}
+%               \item[a）] 从 GitHub Release\footnote{\url{https://github.com/alumik/nkthesis/releases/latest}} 中下载最新版本的 nkthesis.cls 文件，放入论文文件夹中。
+%               \item[b）] 使用以下命令从 nkthesis.dtx 文件中提取 nkthesis.cls 文件。
+%                               \begin{nkthesisexam}
+%     xelatex nkthesis.ins
+%                               \end{nkthesisexam}
+%           \end{enumerate}
+%     \item 使用 \XeLaTeX 编译 main.tex 示例文件。
+%           本模板已经提供了 \pkg{latexmk} 配置文件，使用 |latexmk| 命令编译时会自动调用 \XeLaTeX。
+%           \begin{nkthesisexam}
+%     latexmk main.tex
+%           \end{nkthesisexam}
+%           如果编译时出现如下所示的缺少字体错误，请参考~\ref{subsec:fonts} 节解决。
+%           \begin{nkthesisexam}
+%     Package fontspec Error:
+%     (fontspec)	The font "simsun" cannot be found; this may be but
+%     (fontspec)	usually is not a fontspec bug. Either there is a
+%     (fontspec)	typo in the font name/file, the font is not
+%     (fontspec)	installed (correctly), or there is a bug in the
+%     (fontspec)	underlying font loading engine (XeTeX/luaotfload).
+%           \end{nkthesisexam}
+% \end{enumerate}
+%
+% \subsection{可选步骤：放置字体文件}
+% \label{subsec:fonts}
+%
+% 本模板使用的“宋体”、“仿宋”、“楷书”、“黑体”字体文件为 Microsoft Windows 系统自带的中易字体。
+% 在 Windows 系统中，由于字体文件已经存在，因此不需要额外放置字体文件就可以直接编译本模板。
+% 但在 Overleaf 等其他非 Windows 环境下，可能会缺少这些字体文件。
+%
+% 由于中易字体为非开源字体，因此本模板不附带这些字体。
+% 缺少字体文件时，用户需要手动将 simsun.ttc、simfang.ttf、simkai.ttf 和 simhei.ttf 四个字体文件放置在论文文件夹下的 fonts/ 文件夹中。
+%
+% 一般情况下，这些字体文件可以在 Windows 系统的 C:\textbackslash Windows\textbackslash Fonts 目录下找到。
 %
 % \subsection{使用 \cls{nkthesis} 文档类}
 %
 % 本模板提供了一个中文文档类：\cls{nkthesis}。
 % 使用它的时候，需要将涉及到的所有源文件使用 UTF-8 编码保存。
 %
-% \begin{ctexexam}
-%   \documentclass{nkthesis}
-%   \begin{document}
-%   中文文档类测试。你需要将所有源文件保存为 UTF-8 编码。
+% \begin{nkthesisexam}
+%     \documentclass{nkthesis}
+%     \begin{document}
+%     中文文档类测试。你需要将所有源文件保存为 UTF-8 编码。
 %
-%   你可以使用 XeLaTeX 编译。
-%   \end{document}
-% \end{ctexexam}
+%     你可以使用 XeLaTeX 编译。
+%     \end{document}
+% \end{nkthesisexam}
 %
 % \subsection{文档类选项}
 %
 % 本模板提供了以下文档类选项，可以作为可选参数传入 |\documentclass| 命令中。
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %     \documentclass[<文档类选项>]{nkthesis}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % \begin{function}{headingmode}
 %     \begin{syntax}
@@ -245,12 +319,12 @@
 %     如果值内部含有逗号，需要使用大括号包裹逗号。
 %     例如，设置论文标题与作者姓名就可以使用：
 %
-%     \begin{ctexexam}
+%     \begin{nkthesisexam}
 %         \nktset{
 %             论文题目（中文） = {现代绿色化学中的物理有机问题},
 %             论文作者         = {张三}
 %         }
-%     \end{ctexexam}
+%     \end{nkthesisexam}
 % \end{function}
 %
 % \cs{nktset} 采用 \LaTeXiii 风格的键值设置，支持不同类型的选项与层次化的选项设置。
@@ -543,26 +617,26 @@
 %
 % 以下是获取学校代码的示例：
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %     \nktget{学校代码}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % \section{论文结构}
 %
 % 本文档类提供了多个自定义环境和自定义页面。
 % 自定义环境可以通过以下方式使用，以在文中插入相应页面。
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %     \begin{acknowledgements}
 %         这是致谢内容
 %     \end{acknowledgements}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % 自定义页面可以通过以下方式直接使用，以在文中插入相应页面。
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %     \titlepage
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % 论文结构可以参考 main.tex 文件中的内容。
 % 论文可以分为四个部分，即封面材料、前置部分（frontmatter）、主体部分（mainmatter）和后置部分（backmatter）。
@@ -710,19 +784,19 @@
 %     英文无衬线字体，对应字体 Arial。
 % \end{function}
 %
-% \begin{function}{\segoeui}
-%     符号字体，对应字体 Segoe UI Symbol。
+% \begin{function}[added=2025/05/01]{\dejavusans}
+%     符号字体，对应字体 DejaVu Sans。
 % \end{function}
 %
 % 切换字体字号命令的使用示例如下。
 % 最外侧的大括号可以限制字体设置的作用范围。
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %     {\heiti{}\zihao{3}这是黑体三号字}
 %     {\songti{}\zihao{-4}这是宋体小四号字}
 %     {\fangsong{}\zihao{12}这是仿宋12磅字}
 %     {\kaishu{}\zihao{5}这是楷书五号字}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % 有以下几种特殊情况：
 %
@@ -753,13 +827,13 @@
 %     文档类正文行间距默认为固定20磅。
 % \end{function}
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %    {
 %        \mslinespread{1.5}\selectfont  % 设置1.5倍行距
 %        这是正文内容
 %        \par  % 如果文字在大括号中，结尾需要加上 \par 行距设置才会生效
 %    }
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % \subsection{标题名称}
 %
@@ -798,9 +872,9 @@
 %     省去了个人简历的在学期间发表的学术论文及研究成果，用于匿名审阅论文，默认值为“在学期间发表的学术论文及研究成果”。
 % \end{function}
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %    \renewcommand*{\enabstractname}{Abstract}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % 只能使用 |\ctexset| 命令重新定义的标题名称如下：
 %
@@ -844,9 +918,9 @@
 %     会设置 \cs{bibname} 的值，默认值为“参考文献”。
 % \end{function}
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %    \ctexset{contentsname = 目录}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % \section{写作实用工具}
 %
@@ -917,14 +991,14 @@
 %
 % 推荐使用以下方式插入单张图片：
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %     \begin{figure}
 %         \centering
 %         \includegraphics[width=0.4\textwidth]{example-image-a}
 %         \caption{这是图片的标题}
 %         \label{fig:example}
 %     \end{figure}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % \begin{figure}[H]
 %     \centering
@@ -934,7 +1008,7 @@
 %
 % 推荐使用以下方式插入含子图的图片：
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %     \begin{figure}
 %         \centering
 %         \begin{subfigure}{0.45\textwidth}
@@ -953,7 +1027,7 @@
 %         \caption{这是图片的标题}
 %         \label{fig:example}
 %     \end{figure}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % \begin{figure}[H]
 %     \centering
@@ -973,28 +1047,28 @@
 %
 % \subsection{行内列表}
 %
-% 由于 \pkg{enumitem} 宏包的一个已知问题\footnote{详见 \url{https://tex.stackexchange.com/questions/533118/enumitem-get-rid-of-extra-space-between-label-and-content-in-inline-list/533137\#533137}}，在本模板中无法使用 |itemize*| 和 |enumerate*| 环境创建行内列表。
+% 由于 \pkg{enumitem} 宏包的一个已知问题\footnote{\url{https://tex.stackexchange.com/questions/533118/enumitem-get-rid-of-extra-space-between-label-and-content-in-inline-list}}，在本模板中无法使用 |itemize*| 和 |enumerate*| 环境创建行内列表。
 % 请使用以下替换环境：
 %
 % \noindent\DescribeEnv{inlineitemize}
 % 行内无编号列表环境，类似于 |itemize*|。
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %     \begin{inlineitemize}
 %         \item 这是列表项1
 %         \item 这是列表项2
 %     \end{inlineitemize}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % \noindent\DescribeEnv{inlineenumerate}
 % 行内有编号列表环境，类似于 |enumerate*|。
 %
-% \begin{ctexexam}
+% \begin{nkthesisexam}
 %     \begin{inlineenumerate}
 %         \item 这是列表项1
 %         \item 这是列表项2
 %     \end{inlineenumerate}
-% \end{ctexexam}
+% \end{nkthesisexam}
 %
 % \end{documentation}
 %
@@ -1062,6 +1136,7 @@
 \RequirePackage { subcaption }
 \RequirePackage { tikz }
 \RequirePackage { array }
+\RequirePackage { newunicodechar }
 %    \end{macrocode}
 %
 % \subsection{页面尺寸设置}
@@ -1121,7 +1196,11 @@
 %
 % \subsubsection{论文基本信息}
 %
-% \begin{variable}{\g_@@_lunwenleibie_tl, \g_@@_lunwenleibiealt_tl, \g_@@_shenqingmiji_tl}
+% \begin{variable}{
+%     \g_@@_lunwenleibie_tl,
+%     \g_@@_lunwenleibiealt_tl,
+%     \g_@@_shenqingmiji_tl
+% }
 %    \begin{macrocode}
 \tl_new:N \g_@@_lunwenleibie_tl
 \tl_new:N \g_@@_lunwenleibiealt_tl
@@ -1244,7 +1323,8 @@
         { \tl_set:Nn \g_@@_lunwenleibie_tl {#1} },
     作者信息/论文类别 .tl_set:N     = \g_@@_lunwenleibiealt_tl,
     作者信息/论文类别 .initial:n    = 学历硕士,
-    作者信息/论文类别 .choices:nn   = { 博士, 学历硕士, 专业学位硕士, 同等学力硕士 }
+    作者信息/论文类别 .choices:nn   =
+        { 博士, 学历硕士, 专业学位硕士, 同等学力硕士 }
         { \tl_set:Nn \g_@@_lunwenleibiealt_tl {#1} },
     非公开论文/申请密级 .tl_set:N   = \g_@@_shenqingmiji_tl,
     非公开论文/申请密级 .initial:n  = 公开,
@@ -1271,8 +1351,33 @@
 %
 %    \begin{macrocode}
 \setmainfont { Times~New~Roman }
-\newfontfamily { \arial   } { Arial        }
-\newfontfamily { \segoeui } { seguisym.ttf } [ Path = fonts/ ]
+%    \end{macrocode}
+%
+% \begin{macro}{\arial}
+%    \begin{macrocode}
+\newfontfamily { \arial      } { Arial       }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\dejavusans}
+%
+% \changes{v2.1.0}{2025/05/01}
+%     {将 Segoe UI Symbol替换为 DejaVu Sans。\cs{segoeui} 命令不再可用。}
+%
+%    \begin{macrocode}
+\newfontfamily { \dejavusans } { DejaVu Sans }
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v2.1.0}{2025/05/01}{
+%     定义★符号字体。
+%     此前，在文中插入★需要使用 \texttt{\{\textbackslash segoeui ★\}} 语句，现在直接键入★即可。
+% }
+%
+% 定义★符号字体。
+%
+%    \begin{macrocode}
+\newunicodechar { ★ } { { \dejavusans ★ } }
 %    \end{macrocode}
 %
 % \subsection{私有命令定义}
@@ -1290,7 +1395,10 @@
 %    \begin{macrocode}
 \cs_new:Nn \@@_ifcheckbox:nn {
     \str_if_eq:eeTF {#1} {#2}
-        { \makebox[0pt][l]{$\square$}\raisebox{0.15ex}{\hspace{0.1em}$\checkmark$} }
+        {
+            \makebox[0pt][l]{$\square$}
+            \raisebox{0.15ex}{\hspace{0.1em}$\checkmark$}
+        }
         { $\square$ }
 }
 %    \end{macrocode}
@@ -2246,13 +2354,7 @@
         \zihao { 5 }
         \noindent
         { \heiti 注： }
-        限制
-        { \segoeui ★ }
-        2年（可少于2年）；秘密
-        { \segoeui ★ }
-        10年（可少于10年）；机密
-        { \segoeui ★ }
-        20年（可少于20年）
+        限制★2年（可少于2年）；秘密★10年（可少于10年）；机密★20年（可少于20年）
         \par
     }
     \group_end:
