@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2025/05/02}
-%<class>    {v2.1.5}
+%<class>    {2025/05/03}
+%<class>    {v2.1.6}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -108,7 +108,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/05/02\qquad v2.1.5}
+% \date{2025/05/03\qquad v2.1.6}
 % \maketitle
 %
 % \begin{abstract}
@@ -179,6 +179,7 @@
 % \end{table}
 %
 % \changes{v2.1}{2025/05/02}{将示例文件从 main 重命名为 nkthesis-sample。}
+% \changes{v2.1}{2025/05/03}{将示例文件从 chapters 重命名为 mainmatter。}
 %
 % \begin{table}[H]
 %     \centering
@@ -189,8 +190,8 @@
 %         文件                & 功能说明                                             \\
 %         \midrule
 %         backmatter/         & 模板后置部分，包含附录、勘误页、致谢、个人简历       \\
-%         chapters/           & 模板主体部分，包含示例章节                           \\
 %         frontmatter/        & 模板前置部分，包含中英文摘要、序言、符号缩略语注释表 \\
+%         mainmatter/         & 模板主体部分，包含示例章节                           \\
 %         latexmkrc           & 自动化编译配置                                       \\
 %         nkthesis-sample.bib & 参考文献数据库                                       \\
 %         nkthesis-sample.tex & 模板示例文档                                         \\
@@ -638,10 +639,93 @@
 %     \titlepage
 % \end{nkthesisexam}
 %
+% \subsection{整体结构}
+%
 % \changes{v2.1}{2025/05/02}{将示例文件从 main 重命名为 nkthesis-sample。}
+% \changes{v2.1}{2025/05/03}{在文档中介绍论文的整体结构。}
 %
 % 论文结构可以参考 nkthesis-sample.tex 文件中的内容。
 % 论文可以分为四个部分，即封面材料、前置部分（frontmatter）、主体部分（mainmatter）和后置部分（backmatter）。
+% 推荐的整体结构如下：
+%
+% \begin{nkthesisexam}
+%     \begin{document}
+%
+%     % 以下页面可根据需要（匿名/非匿名等）选择使用
+%     \titlepage  % （非匿名）题名页
+%     \anonymoustitlepage  % 匿名评阅封面
+%     \declarationpage
+%     \authorizationpage
+%
+%     \frontmatter
+%
+%     \begin{abstract}
+%         中文摘要。
+%     \end{abstract}
+%
+%     \begin{keywords}
+%         中文关键词。
+%     \end{keywords}
+%
+%     \begin{enabstract}
+%         英文摘要。
+%     \end{enabstract}
+%
+%     \begin{enkeywords}
+%         英文关键词。
+%     \end{enkeywords}
+%
+%     \begin{preface}
+%         序言或前言。
+%     \end{preface}
+%
+%     \tableofcontents
+%     \listoffigures
+%     \listoftables
+%
+%     \begin{symabbr}
+%         符号、标志、缩略语等的注释表。
+%     \end{symabbr}
+%
+%     \mainmatter
+%
+%     \chapter{章标题}
+%     章内容。
+%     \section{节标题}
+%     节内容。
+%     \subsection{小节标题}
+%     小节内容。
+%     \subsubsection{小小节标题}
+%     小小节内容。
+%
+%     \backmatter
+%
+%     \appendix
+%
+%     \chapter{附录标题}
+%     附录内容。
+%
+%     \bibliographypage
+%
+%     \begin{errata}
+%         勘误页。
+%     \end{errata}
+%
+%     \begin{acknowledgements}
+%         致谢。
+%     \end{acknowledgements}
+%
+%     % 以下页面可根据需要（匿名/非匿名等）选择使用
+%     \begin{resume}
+%         个人简历。
+%     \end{resume}
+%
+%     \begin{resume*}
+%         （匿名）个人简历。
+%     \end{resume*}
+%
+%     \end{document}
+% \end{nkthesisexam}
 %
 % \subsection{封面材料}
 %
