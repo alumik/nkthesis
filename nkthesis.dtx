@@ -178,20 +178,22 @@
 %     \end{tabular}
 % \end{table}
 %
+% \changes{v2.1}{2025/05/02}{将示例文件从 main 重命名为 nkthesis-sample。}
+%
 % \begin{table}[H]
 %     \centering
 %     \caption{\cls{nkthesis} 示例文件}
 %     \label{tab:components-of-nkthesis-2}
 %     \begin{tabular}{ll}
 %         \toprule
-%         文件         & 功能说明                                             \\
+%         文件                & 功能说明                                             \\
 %         \midrule
-%         backmatter/  & 模板后置部分，包含附录、勘误页、致谢、个人简历       \\
-%         chapters/    & 模板主体部分，包含示例章节                           \\
-%         frontmatter/ & 模板前置部分，包含中英文摘要、序言、符号缩略语注释表 \\
-%         latexmkrc    & 自动化编译配置                                       \\
-%         main.bib     & 参考文献数据库                                       \\
-%         main.tex     & 模板主文档                                           \\
+%         backmatter/         & 模板后置部分，包含附录、勘误页、致谢、个人简历       \\
+%         chapters/           & 模板主体部分，包含示例章节                           \\
+%         frontmatter/        & 模板前置部分，包含中英文摘要、序言、符号缩略语注释表 \\
+%         latexmkrc           & 自动化编译配置                                       \\
+%         nkthesis-sample.bib & 参考文献数据库                                       \\
+%         nkthesis-sample.tex & 模板示例文档                                         \\
 %         \bottomrule
 %     \end{tabular}
 % \end{table}
@@ -209,10 +211,10 @@
 %     xelatex nkthesis.ins
 %                               \end{nkthesisexam}
 %           \end{enumerate}
-%     \item 使用 \XeLaTeX 编译 main.tex 示例文件。
+%     \item 使用 \XeLaTeX 编译 nkthesis-sample.tex 示例文件。
 %           本模板已经提供了 \pkg{latexmk} 配置文件，使用 |latexmk| 命令编译时会自动调用 \XeLaTeX。
 %           \begin{nkthesisexam}
-%     latexmk main.tex
+%     latexmk nkthesis-sample.tex
 %           \end{nkthesisexam}
 %           如果编译时出现如下所示的缺少字体错误，请参考~\ref{subsec:fonts} 节解决。
 %           \begin{nkthesisexam}
@@ -636,7 +638,9 @@
 %     \titlepage
 % \end{nkthesisexam}
 %
-% 论文结构可以参考 main.tex 文件中的内容。
+% \changes{v2.1}{2025/05/02}{将示例文件从 main 重命名为 nkthesis-sample。}
+%
+% 论文结构可以参考 nkthesis-sample.tex 文件中的内容。
 % 论文可以分为四个部分，即封面材料、前置部分（frontmatter）、主体部分（mainmatter）和后置部分（backmatter）。
 %
 % \subsection{封面材料}
