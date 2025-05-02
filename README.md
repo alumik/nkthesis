@@ -1,16 +1,16 @@
 # nkthesis：南开大学硕士/博士毕业（学位）论文模板（2025）
 
-![version 2.1.4](https://img.shields.io/badge/version-2.1.4-blue)
+![version 2.1.5](https://img.shields.io/badge/version-2.1.5-blue)
 ![license-LPPL-1.3c](https://img.shields.io/github/license/alumik/nkthesis)
 
 > [!TIP]
-> 这个模板是根据规范从零开始编写的全新模板，和现有模板的实现方式大有不同，欢迎使用！
+> 这个模板是根据规范编写的全新模板，和现有模板的实现方式大有不同，欢迎使用！
 
 > [!WARNING]
 > 生成出的 PDF 在使用 Microsoft Edge 浏览时会出现字体重影等错误，请尽量使用 Adobe Acrobat 或其他软件打开 PDF 文件。
 
 nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论文 LaTeX 模板，符合《研究生学位论文写作规范（2025 版）》要求，支持 Windows 和 Overleaf 平台使用 XeLaTeX 编译。
-该模板摒弃了现有模板的历史包袱，精简了类定义，同时保证了编译结果的一致性和规范性。
+该模板精简了类定义，同时保证了编译结果的一致性和规范性。
 它提供了中文和数字两种标题编号样式选择，利用多个宏包协同工作实现定制化功能。
 本模板提供了完善的中英文摘要、关键词、前言、符号说明、勘误表、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
 使用者可通过简单的命令设置和获取论文基本信息，调整字体字号和行间距，实现交叉引用和插入图片。
@@ -22,7 +22,47 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 - `main.pdf`：由 `main.tex` 生成的 PDF 文件，包含模板预览和写作规范。
 - `nkthesis.pdf`：由 `nkthesis.dtx` 生成的 PDF 文件，包含详细的模板使用说明。
 
-## 使用方法
+## 历史
+
+> [!NOTE]
+> 本段文字摘录自[https://github.com/qianchd/NKU_thesis_graduate](https://github.com/qianchd/NKU_thesis_graduate)，有改动。
+
+南开大学毕业论文模板在互联网上有非常多版本，其最早的来源应是数学院孙文昌老师制作的，可惜原始的数院个人网页已经无法访问。
+孙老师是早期 xeCJK 包的作者，也基本是南开数学院学生 LaTeX 语言的启蒙人，大部分数学院本科生的 LaTeX 大概是孙老师的暑期小学期课程教授的。
+互联网上的大部分现存模板仓库主要修改自[南开大学图书馆发布的2023年版本模板](https://libpaper.nankai.edu.cn/newlist.action?encid=58)。
+[该仓库](https://github.com/qianchd/NKU_thesis_graduate)的第一个 commit 即为该版本。
+
+本模板的其他实现：
+
+- [https://github.com/NewFuture/NKThesis](https://github.com/NewFuture/NKThesis)
+- [https://github.com/qianchd/NKU_thesis_graduate](https://github.com/qianchd/NKU_thesis_graduate)
+
+## 介绍
+
+本模板主要特点如下：
+
+1. 使用 LaTeX3 接口编写模板。
+2. 符合《研究生学位论文写作规范（2025版）》。目前仅支持中文论文。
+3. 可按需添加需要的字体，保证不同平台编译结果的一致性。
+4. 支持 Windows（TeX Live 2025）与 Overleaf 使用 XeLaTeX 编译，其他环境未测试。
+5. 实现了中文和数字两种标题编号样式。
+6. 使用下列宏包实现大多数自定义功能：
+    - 使用 CTeX 提供高阶中文支持。
+    - 使用 `geometry` 自定义纸张大小。
+    - 使用 `tocloft` 自定义目录样式。
+    - 使用 `caption` 自定义图注、表注样式。
+    - 使用 `fancyhdr` 自定义页眉页脚样式。
+    - 使用 `fontspec` 设置自定义字体。
+    - 使用 `enumitem` 自定义列表样式。
+    - 使用 `hyperref` 自定义超链接样式。
+    - 使用 `bibLaTeX` 及其自带的 `gb7714-2015` 样式自定义参考文献样式。
+    - 使用 `subcaption` 自定义子图样式。
+    - 使用 `tikz` 绘制矢量版的南开大学文字 Logo。
+    - 使用 `array` 自定义表格样式。
+
+## 简明教程
+
+### 下载并安装 `nkthesis`
 
 1. 将本模板所有文件克隆/下载到本地。
 2. 获取 `nkthesis.cls` 文件。
@@ -52,7 +92,8 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
     (fontspec) underlying font loading engine (XeTeX/luaotfload).
     ```
 
-## 可选步骤：放置字体文件
+### 可选步骤：放置字体文件
+
 本模板使用的“宋体”、“仿宋”、“楷书”、“黑体”字体文件为 Microsoft Windows 系统自带的中易字体。
 此外，还使用了 Times New Roman 和 Arial 等非开源字体。
 在 Windows 系统中，由于这些字体文件已经存在，因此不需要额外放置字体文件就可以直接编译本模板。
@@ -67,7 +108,7 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 
 一般情况下，这些字体文件可以在 Windows 系统的 `C:\Windows\Fonts` 目录下找到。
 
-## 构建说明文档
+### 可选步骤：构建说明文档
 
 如果你想构建本模板的说明文档，可以参照以下步骤：
 
@@ -82,48 +123,6 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 
     即可在目录下生成 `nkthesis.pdf` 文件，即模板的说明文档。
 
-## 有问题？
-
-如果是代码 BUG，格式错误等问题，请创建 [Issue](https://github.com/alumik/nkthesis/issues)。
-
-如果是使用方法咨询，改进建议等，请到 [Discussions](https://github.com/alumik/nkthesis/discussions) 中创建新的讨论。
-
-## 历史
-
-> [!NOTE]
-> 本段文字摘录自[https://github.com/qianchd/NKU_thesis_graduate](https://github.com/qianchd/NKU_thesis_graduate)，有改动。
-
-南开大学毕业论文模板在互联网上有非常多版本，其最早的来源应是数学院孙文昌老师制作的，可惜原始的数院个人网页已经无法访问。
-孙老师是早期 xeCJK 包的作者，也基本是南开数学院学生 LaTeX 语言的启蒙人，大部分数学院本科生的 LaTeX 大概是孙老师的暑期小学期课程教授的。
-互联网上的大部分现存模板仓库主要修改自[南开大学图书馆发布的2023年版本模板](https://libpaper.nankai.edu.cn/newlist.action?encid=58)。
-[该仓库](https://github.com/qianchd/NKU_thesis_graduate)的第一个 commit 即为该版本。
-
-## 本模板特点
-
-为了简化类定义，精简模板文件，避免重复造轮子，本模板作者从零开始按照规范制作了这一份新的学位论文模板。
-
-本模板主要特点如下：
-
-1. 使用 LaTeX3 接口编写模板。卸掉了许多历史包袱（当然也可能丢掉了一些好东西）。
-2. 符合《研究生学位论文写作规范（2025版）》。目前仅支持中文论文。
-3. 添加需要的中文字体和符号字体，保证不同平台编译结果的一致性。
-4. 支持 Windows（TeX Live 2025）与 Overleaf 使用 XeLaTeX 编译，其他环境未测试。
-5. 实现了中文和数字两种标题编号样式。
-6. 使用下列宏包实现大多数自定义功能：
-    - 使用 CTeX 提供高阶中文支持。
-    - 使用 `geometry` 自定义纸张大小。
-    - 使用 `tocloft` 自定义目录样式。
-    - 使用 `caption` 自定义图注、表注样式。
-    - 使用 `fancyhdr` 自定义页眉页脚样式。
-    - 使用 `fontspec` 设置自定义字体。
-    - 使用 `enumitem` 自定义列表样式。
-    - 使用 `hyperref` 自定义超链接样式。
-    - 使用 `bibLaTeX` 及其自带的 `gb7714-2015` 样式自定义参考文献样式。
-    - 使用 `subcaption` 自定义子图样式。
-    - 使用 `tikz` 绘制矢量版的南开大学文字 Logo。
-    - 使用 `array` 自定义表格样式。
-
-
 ## 使用 nkthesis 文档类
 
 ```LaTeX
@@ -137,6 +136,12 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 | `headingmode`   | 2      | 标题编号模式（数字/中文）。`headingmode=1` 表示使用数字编号模式，`headingmode=2` 表示使用中文编号模式。 |
 | `uppercasehead` |        | 当该选项存在时，将章节页眉转换为全大写。否则，保留原始大小写。                                          |
 
+
+## 有问题？
+
+如果是代码 BUG，格式错误等问题，请创建 [Issue](https://github.com/alumik/nkthesis/issues)。
+
+如果是使用方法咨询，改进建议等，请到 [Discussions](https://github.com/alumik/nkthesis/discussions) 中创建新的讨论。
 
 ## 设置和读取论文基本信息
 
