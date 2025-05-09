@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2025/05/03}
-%<class>    {v2.1.6}
+%<class>    {2025/05/09}
+%<class>    {v2.1.7}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -84,7 +84,7 @@
 %     \singlespace, \square, \StrBehind, \subcaptionsetup, \setmainfont,
 %     \tabcolsep, \@@italiccorr, \maketag@@@, \tagform@, \textbf, \textbullet,
 %     \textfloatsep, \textheight, \textwidth, \thefigure, \thepage, \thetable,
-%     \thispagestyle, \tl_if_empty:nTF, \tl_new:N, \tl_set:Nn, \tl_use:N,
+%     \thispagestyle, \tl_if_empty:eTF, \tl_new:N, \tl_set:Nn, \tl_use:N,
 %     \tocloftpagestyle, \today, \topmargin, \topskip, \underline, \unskip,
 %     \vline, \vrule, \vspace, \x, \zihao, \ziju, \DeclareCaptionLabelSeparator,
 % }
@@ -95,7 +95,7 @@
 %     \RenewExpandableDocumentCommand, \apptocmd, \thechapter, \theequation,
 %     \thesubfigure, \newunicodechar, \CJKfamily, \fontspec_font_if_exist:nTF,
 %     \setCJKfamilyfont, \setCJKmainfont, \setCJKmonofont, \setCJKsansfont,
-%     \AtBeginEnvironment, \int_gset:Nn, \c@secnumdepth, \c@page,
+%     \AtBeginEnvironment, \int_gset:Nn, \c@secnumdepth, \c@page, \rule,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -108,7 +108,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/05/03\qquad v2.1.6}
+% \date{2025/05/09\qquad v2.1.7}
 % \maketitle
 %
 % \begin{abstract}
@@ -390,12 +390,14 @@
 %     如果字数过多可适当调整。
 % \end{function}
 %
-% \begin{function}{论文题目（中文）}
+% \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
+%
+% \begin{function}[updated=2025/05/09]{论文题目（中文）}
 %     \begin{syntax}
 %         论文题目（中文） = <名称>
 %     \end{syntax}
 %     论文中文标题。
-%     默认值为“未命名”。
+%     默认值为空。
 % \end{function}
 %
 % \begin{function}{论文副标题}
@@ -407,12 +409,14 @@
 %     如论文题目内容层次很多，难以简化时，可采用论文题目和论文副标题相结合的方法，其中副标题起补充、阐明题目的作用。
 % \end{function}
 %
-% \begin{function}{论文题目（英文）}
+% \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
+%
+% \begin{function}[updated=2025/05/09]{论文题目（英文）}
 %     \begin{syntax}
 %         论文题目（英文） = <名称>
 %     \end{syntax}
 %     论文英文标题。
-%     默认值为“Untitled”。
+%     默认值为空。
 % \end{function}
 %
 % \begin{function}{论文作者,指导教师,指导教师职称}
@@ -817,7 +821,7 @@
 %     后置部分包含附录、参考文献、勘误页、致谢以及个人简历、在学期间发表的学术论文及研究成果等。
 % \end{function}
 %
-% \begin{function}[updated=2025/05/01]{\appendix}
+% \begin{function}{\appendix}
 %     声明附录部分开始。
 %     附录放在正文之后。
 % \end{function}
@@ -937,7 +941,6 @@
 % \begin{function}{\prefacename}
 %     序言或前言，默认值为“前言”。
 % \end{function}
-%
 % \begin{function}[updated=2025/04/30]{\symabbrname}
 %     符号、标志、缩略语等的注释表，默认值为“符号和缩略语说明”。
 % \end{function}
@@ -1394,6 +1397,8 @@
 }
 %    \end{macrocode}
 %
+% \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
+%
 % 设置默认值。
 %
 %    \begin{macrocode}
@@ -1401,8 +1406,6 @@
     学校代码                     = 10055,
     题名页/密级                  = 公开,
     题名页/论文题目字号          = 2,
-    论文题目（中文）             = 未命名,
-    论文题目（英文）             = Untitled,
     论文完成时间                 = { \ctexset { today = big } \today },
     非公开论文/保密期限/起始日期 = 20 \qquad 年 \qquad 月 \qquad 日,
     非公开论文/保密期限/结束日期 = 20 \qquad 年 \qquad 月 \qquad 日,
@@ -1618,7 +1621,10 @@
 % \makeatother
 %
 % \begin{macro}{\@@_item:nnn}
-%     带下划线的键值对样式。
+%
+% \changes{v2.1}{2025/05/09}{如果题名页键值对中某个条目为空，则显示空的下划线。}
+%
+%     带下划线的题名页键值对样式。
 %    \begin{macrocode}
 \cs_new:Nn \@@_item:nnn {
     #1
@@ -1626,6 +1632,7 @@
     \underline {
         \begin { minipage } [ b ] {#3}
             \centering
+            \rule{0pt}{0pt}
             #2
         \end { minipage }
     }
@@ -2323,6 +2330,9 @@
 % \subsubsection{题名页}
 %
 % \begin{macro}{\titlepage}
+%
+% \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
+%
 %    \begin{macrocode}
 \RenewDocumentCommand \titlepage { } {
     \clearpage
@@ -2412,7 +2422,7 @@
 
                 \@@_item:nnn { 学科专业 }
                     {
-                        \tl_if_empty:nTF { \nktget { 二级学科 } }
+                        \tl_if_empty:eTF { \nktget { 二级学科 } }
                             { \nktget { 一级学科 } }
                             { \nktget { 二级学科 } }
                     }
@@ -2619,7 +2629,7 @@
             \str_if_eq:eeTF { \tl_use:N \g_@@_shenqingmiji_tl } {公开}
                 {
                     \begin { minipage } { 111mm }
-                        \nobreakspace
+                        \rule{0pt}{0pt}
                     \end { minipage }
                 }
                 {
@@ -2692,6 +2702,9 @@
 % \subsubsection{学位论文使用授权书}
 %
 % \begin{macro}{\authorizationpage}
+%
+% \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
+%
 %    \begin{macrocode}
 \NewDocumentCommand \authorizationpage { } {
     \clearpage
@@ -2815,7 +2828,7 @@
             \vrule
             \hbox to 34mm {
                 \hspace { 0.3em }
-                \tl_if_empty:nTF { \nktget { 二级学科 } }
+                \tl_if_empty:eTF { \nktget { 二级学科 } }
                     { \nktget { 一级学科 } }
                     { \nktget { 二级学科 } }
                 \hfill
