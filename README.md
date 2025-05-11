@@ -3,11 +3,8 @@
 ![version 2.1.7](https://img.shields.io/badge/version-2.1.7-blue)
 ![license-LPPL-1.3c](https://img.shields.io/github/license/alumik/nkthesis)
 
-> [!TIP]
-> 这个模板是根据规范编写的全新模板，和现有模板的实现方式大有不同，欢迎使用！
-
-> [!WARNING]
-> 生成出的 PDF 在使用 Microsoft Edge 浏览时会出现字体重影等错误，请尽量使用 Adobe Acrobat 或其他软件打开 PDF 文件。
+> [!CAUTION]
+> 本模板仅支持 TeX Live 2025 及以上版本。
 
 nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论文 LaTeX 模板，符合《研究生学位论文写作规范（2025 版）》要求，支持 Windows 和 Overleaf 平台使用 XeLaTeX 编译。
 该模板精简了类定义，同时保证了编译结果的一致性和规范性。
@@ -524,3 +521,7 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 ### 待确认的问题
 
 1. 附录标题是否要和附录编号在同一行？附录标题是否要和附录编号一起出现在目录中？
+
+### 已知问题
+
+1. 生成出的 PDF 在使用 Microsoft Edge 浏览时会出现字体重影等错误（疑似 Microsoft Edge 端的问题），请尽量使用 Adobe Acrobat 或其他软件打开 PDF 文件。
