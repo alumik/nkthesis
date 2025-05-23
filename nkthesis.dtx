@@ -96,8 +96,8 @@
 %     \thesubfigure, \newunicodechar, \CJKfamily, \fontspec_font_if_exist:nTF,
 %     \setCJKfamilyfont, \setCJKmainfont, \setCJKmonofont, \setCJKsansfont,
 %     \AtBeginEnvironment, \int_gset:Nn, \c@secnumdepth, \c@page, \rule,
-%     \bool_set_true:N, \bool_if:NF, \cleardoublepage,
-%     \PassOptionsToClass, \MakeUppercase,
+%     \bool_set_true:N, \bool_if:NF, \cleardoublepage, \cs_generate_variant:Nn,
+%     \PassOptionsToClass, \MakeUppercase, \str_if_eq:nnTF,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -1598,17 +1598,20 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{macro}{\@@_ifcheckbox:nn}
-%     根据选项为复选框打勾。
+% \begin{macro}{\@@_ifcheckbox:, \@@_ifcheckbox:nn, \@@_ifcheckbox:en}
+% \changes{v2.2}{2025/05/23}{修复命令参数类型标记。}
+% 根据选项为复选框打勾。
 %    \begin{macrocode}
+\cs_new:Nn \@@_ifcheckbox: {
+    \makebox [ 0pt ] [ l ] { $\square$ }
+    \raisebox { 0.15ex } { \hspace { 0.1em } $\checkmark$ }
+}
 \cs_new:Nn \@@_ifcheckbox:nn {
-    \str_if_eq:eeTF {#1} {#2}
-        {
-            \makebox [ 0pt ] [ l ] { $\square$ }
-            \raisebox { 0.15ex } { \hspace { 0.1em } $\checkmark$ }
-        }
+    \str_if_eq:nnTF {#1} {#2}
+        { \@@_ifcheckbox: }
         { $\square$ }
 }
+\cs_generate_variant:Nn \@@_ifcheckbox:nn { e }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2727,13 +2730,13 @@
                 } \\
             \hline
             { \heiti 申请密级 } &
-            \@@_ifcheckbox:nn { \tl_use:N \g_@@_shenqingmiji_tl } { 限制 }
+            \@@_ifcheckbox:en { \tl_use:N \g_@@_shenqingmiji_tl } { 限制 }
                 ~限制（$\leq 2$年）
                 \quad
-            \@@_ifcheckbox:nn { \tl_use:N \g_@@_shenqingmiji_tl } { 秘密 }
+            \@@_ifcheckbox:en { \tl_use:N \g_@@_shenqingmiji_tl } { 秘密 }
                 ~秘密（$\leq 10$年）
                 \quad
-            \@@_ifcheckbox:nn { \tl_use:N \g_@@_shenqingmiji_tl } { 机密 }
+            \@@_ifcheckbox:en { \tl_use:N \g_@@_shenqingmiji_tl } { 机密 }
                 ~机密（$\leq 20$年） \\
             \hline
             { \heiti 保密期限 } &
@@ -2890,23 +2893,23 @@
             \vrule
             \hbox to 144.9mm {
                 \hspace { 2em }
-                博士~\@@_ifcheckbox:nn
+                博士~\@@_ifcheckbox:en
                     { \tl_use:N \g_@@_lunwenleibiealt_tl }
                     { 博士 }
                 \qquad
-                学历硕士~\@@_ifcheckbox:nn
+                学历硕士~\@@_ifcheckbox:en
                     { \tl_use:N \g_@@_lunwenleibiealt_tl }
                     { 学历硕士 }
                 \qquad
-                专业学位硕士~\@@_ifcheckbox:nn
+                专业学位硕士~\@@_ifcheckbox:en
                     { \tl_use:N \g_@@_lunwenleibiealt_tl }
                     { 专业学位硕士 }
                 \qquad
-                同等学力硕士~\@@_ifcheckbox:nn
+                同等学力硕士~\@@_ifcheckbox:en
                     { \tl_use:N \g_@@_lunwenleibiealt_tl }
                     { 同等学力硕士 }
                 \hfill
-                划 \@@_ifcheckbox:nn {true} {true} 选择
+                划 \@@_ifcheckbox: 选择
                 \hspace { 0.3em }
             } \\
             \hline
