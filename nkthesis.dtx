@@ -1751,6 +1751,7 @@
         { \cleardoublepage }
         { \clearpage }
     \pagenumbering { arabic }
+    \pagestyle { fancy }
     \int_gset:Nn \c@page { 1 }
     \int_compare:nNnT \c_@@_headingmode_int = 1 {
         \ctexset {
@@ -1775,6 +1776,7 @@
     \bool_if:NTF \c_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
+    \pagestyle { fancy }
     \ctexset {
         chapter/format = {
             \mslinespread { 1 }
