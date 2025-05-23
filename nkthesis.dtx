@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2025/05/09}
-%<class>    {v2.1.7}
+%<class>    {2025/05/23}
+%<class>    {v2.2.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -97,7 +97,7 @@
 %     \setCJKfamilyfont, \setCJKmainfont, \setCJKmonofont, \setCJKsansfont,
 %     \AtBeginEnvironment, \int_gset:Nn, \c@secnumdepth, \c@page, \rule,
 %     \bool_set_true:N, \bool_if:NF, \bool_if:NTF, \cleardoublepage,
-%     \PassOptionsToClass,
+%     \PassOptionsToClass, \MakeUppercase,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -110,7 +110,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/05/09\qquad v2.1.7}
+% \date{2025/05/23\qquad v2.2.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -2167,6 +2167,9 @@
 % \subsubsection{摘要}
 %
 % \begin{environment}{abstract, enabstract}
+%
+% \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+%
 %    \begin{macrocode}
 \NewDocumentEnvironment { abstract } { }
     {
@@ -2180,7 +2183,9 @@
             },
         }
         \chapter* { \abstractname }
-        \markboth { \abstractname } { \abstractname }
+        \markboth
+            { \MakeUppercase { \abstractname } }
+            { \MakeUppercase { \abstractname } }
         \ignorespaces
     }
     { }
@@ -2196,7 +2201,9 @@
             },
         }
         \chapter* { \enabstractname }
-        \markboth { \enabstractname } { \enabstractname }
+        \markboth
+            { \MakeUppercase { \enabstractname  } }
+            { \MakeUppercase { \enabstractname  } }
         \ignorespaces
     }
     { }
@@ -2221,6 +2228,9 @@
 % \subsubsection{序言或前言}
 %
 % \begin{environment}{preface}
+%
+% \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+%
 %    \begin{macrocode}
 \NewDocumentEnvironment { preface } { }
     {
@@ -2234,7 +2244,9 @@
             },
         }
         \chapter* { \prefacename }
-        \markboth { \prefacename } { \prefacename }
+        \markboth
+            { \MakeUppercase { \prefacename  } }
+            { \MakeUppercase { \prefacename  } }
         \ignorespaces
     }
     { }
@@ -2246,6 +2258,7 @@
 % \begin{environment}{symabbr}
 %
 % \changes{v2.0}{2025/04/30}{将《符号、标志、缩略语等的注释表》的环境从 \env{symbolsandabbreviations} 改为 \env{symabbr}。}
+% \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
 %
 %    \begin{macrocode}
 \NewDocumentEnvironment { symabbr } { }
@@ -2260,7 +2273,9 @@
             },
         }
         \chapter* { \symabbrname }
-        \markboth { \symabbrname } { \symabbrname }
+        \markboth
+            { \MakeUppercase { \symabbrname  } }
+            { \MakeUppercase { \symabbrname  } }
         \mslinespreadbp { 16 } { 10.5 }
         \songti
         \zihao { 5 }
@@ -2273,6 +2288,9 @@
 % \subsubsection{勘误页}
 %
 % \begin{environment}{errata}
+%
+% \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+%
 %    \begin{macrocode}
 \NewDocumentEnvironment { errata } { }
     {
@@ -2286,7 +2304,9 @@
             },
         }
         \chapter* { \errataname }
-        \markboth { \errataname } { \errataname }
+        \markboth
+            { \MakeUppercase { \errataname } }
+            { \MakeUppercase { \errataname } }
         \mslinespreadbp { 16 } { 12 } \songti \zihao { -4 }
         \addcontentsline { toc } { chapter } { \errataname }
         \ignorespaces
@@ -2298,6 +2318,9 @@
 % \subsubsection{致谢}
 %
 % \begin{environment}{acknowledgements}
+%
+% \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+%
 %    \begin{macrocode}
 \NewDocumentEnvironment { acknowledgements } { }
     {
@@ -2311,7 +2334,9 @@
             },
         }
         \chapter* { \acknowledgementsname }
-        \markboth { \acknowledgementsname } { \acknowledgementsname }
+        \markboth
+            { \MakeUppercase { \acknowledgementsname } }
+            { \MakeUppercase { \acknowledgementsname } }
         \mslinespreadbp { 16 } { 12 }
         \songti
         \zihao { -4 }
@@ -2325,6 +2350,9 @@
 % \subsubsection{个人简历、在学期间发表的学术论文及研究成果}
 %
 % \begin{macro}{\@@_resume:n}
+%
+% \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+%
 %    \begin{macrocode}
 \cs_new:Nn \@@_resume:n {
     \ctexset{
@@ -2337,7 +2365,9 @@
         },
     }
     \chapter* {#1}
-    \markboth {#1} {#1}
+    \markboth
+        { \MakeUppercase {#1} }
+        { \MakeUppercase {#1} }
     \mslinespreadbp { 16 } { 10.5 }
     \songti
     \zihao { 5 }
