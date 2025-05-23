@@ -1,6 +1,6 @@
 # nkthesis：南开大学硕士/博士毕业（学位）论文模板（2025）
 
-![version 2.1.7](https://img.shields.io/badge/version-2.1.7-blue)
+![version 2.2.0](https://img.shields.io/badge/version-2.2.0-blue)
 ![license-LPPL-1.3c](https://img.shields.io/github/license/alumik/nkthesis)
 
 > [!CAUTION]
