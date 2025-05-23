@@ -96,6 +96,8 @@
 %     \thesubfigure, \newunicodechar, \CJKfamily, \fontspec_font_if_exist:nTF,
 %     \setCJKfamilyfont, \setCJKmainfont, \setCJKmonofont, \setCJKsansfont,
 %     \AtBeginEnvironment, \int_gset:Nn, \c@secnumdepth, \c@page, \rule,
+%     \bool_set_true:N, \bool_if:NF, \bool_if:NTF, \cleardoublepage,
+%     \PassOptionsToClass,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -304,6 +306,13 @@
 % \begin{function}{uppercasehead}
 %     当该选项存在时，将章节页眉转换为全大写。
 %     否则，保留原始大小写。
+% \end{function}
+%
+% \changes{v2.2}{2025/05/23}{添加使章节必须从奇数页开始的选项。}
+%
+% \begin{function}[added=2025/05/23]{openright}
+%     当该选项存在时，章节开始时强制在右页开始。
+%     该选项通常用于双面打印。
 % \end{function}
 %
 % \section{设置和读取论文基本信息}
@@ -1173,6 +1182,66 @@
 %<@@=nkthesis>
 %    \end{macrocode}
 %
+% \subsection{文档类参数定义}
+%
+% \subsubsection{文档类选项}
+%
+% \begin{variable}{\c_@@_uppercasehead_bool}
+%    \begin{macrocode}
+\bool_new:N \c_@@_uppercasehead_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_headingmode_int}
+%    \begin{macrocode}
+\int_new:N \c_@@_headingmode_int
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_openright_bool}
+%    \begin{macrocode}
+\bool_new:N \c_@@_openright_bool
+%    \end{macrocode}
+% \end{variable}
+%
+% 定义文档类选项。
+%
+%    \begin{macrocode}
+\keys_define:nn { nkthesis / options } {
+%    \end{macrocode}
+%
+% \begin{macro}{headingmode}
+%     可填1或者2，表示使用模式一或者模式二标题，默认为2。
+%    \begin{macrocode}
+    headingmode .int_set:N = \c_@@_headingmode_int,
+    headingmode .initial:n = 2,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{uppercasehead}
+%     若存在 |uppercasehead| 选项，将章节页眉转换为大写。
+%    \begin{macrocode}
+    uppercasehead .code:n = \bool_set_true:N \c_@@_uppercasehead_bool,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{openright}
+%
+% \changes{v2.2}{2025/05/23}{添加使章节必须从奇数页开始的选项。}
+%
+%     若存在 |openright| 选项，章节必须从奇数页开始。
+%    \begin{macrocode}
+    openright .code:n = \bool_set_true:N \c_@@_openright_bool,
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% 处理文档类选项。
+%
+%    \begin{macrocode}
+\ProcessKeyOptions [ nkthesis / options ]
+%    \end{macrocode}
+%
 % \subsection{载入基础类和包}
 %
 % 启用 \pkg{xeCJK} 宏包的自动伪粗体和伪斜体功能。
@@ -1196,13 +1265,15 @@
 % \changes{v2.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。}
 %
 %    \begin{macrocode}
-\LoadClass [
-    openany,
-    zihao = -4,
-    UTF8,
+\PassOptionsToClass {
+    zihao      = -4,
     linespread = \c_@@_linespread_fp,
-    fontset = none,
-] { ctexbook }
+    fontset    = none,
+    UTF8,
+} { ctexbook }
+\bool_if:NF \c_@@_openright_bool
+    { \PassOptionsToClass { openany } { ctexbook } }
+\LoadClass { ctexbook }
 %    \end{macrocode}
 %
 % 载入宏包。
@@ -1242,52 +1313,6 @@
 \dim_set:Nn \textwidth      { 146mm                        }
 \dim_set:Nn \footskip       { 8mm                          }
 \dim_set:Nn \topskip        { 0pt                          }
-%    \end{macrocode}
-%
-% \subsection{文档类参数定义}
-%
-% \subsubsection{文档类选项}
-%
-% \begin{variable}{\c_@@_uppercasehead_bool}
-%    \begin{macrocode}
-\bool_new:N \c_@@_uppercasehead_bool
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_headingmode_int}
-%    \begin{macrocode}
-\int_new:N \c_@@_headingmode_int
-%    \end{macrocode}
-% \end{variable}
-%
-% 定义文档类选项。
-%
-%    \begin{macrocode}
-\keys_define:nn { nkthesis / options } {
-%    \end{macrocode}
-%
-% \begin{macro}{headingmode}
-%     可填1或者2，表示使用模式一或者模式二标题，默认为2。
-%    \begin{macrocode}
-    headingmode .int_set:N = \c_@@_headingmode_int,
-    headingmode .initial:n = 2,
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{uppercasehead}
-%     可填 |true| 或者 |false| ，表示是否将章节页眉转换为大写，默认为 |false|。
-%    \begin{macrocode}
-    uppercasehead .bool_set:N = \c_@@_uppercasehead_bool,
-    uppercasehead .default:n  = true,
-    uppercasehead .initial:n  = false,
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% 处理文档类选项。
-%
-%    \begin{macrocode}
-\ProcessKeyOptions [ nkthesis / options ]
 %    \end{macrocode}
 %
 % \subsubsection{论文基本信息}
@@ -1691,10 +1716,17 @@
 % \subsection{文档结构}
 %
 % \begin{macro}{\frontmatter}
+%
+% \changes{v2.2}{2025/05/23}{将前置部分的页面风格设置为 \texttt{fancy}。}
+% \changes{v2.2}{2025/05/23}{允许章节从奇数页开始。}
+%
 %    \begin{macrocode}
 \RenewDocumentCommand \frontmatter { } {
-    \clearpage
+    \bool_if:NTF \c_@@_openright_bool
+        { \cleardoublepage }
+        { \clearpage }
     \pagenumbering { Roman }
+    \pagestyle { fancy }
     \int_gset:Nn \c@page { 1 }
     \ctexset {
         chapter/format = {
@@ -1710,9 +1742,14 @@
 % \end{macro}
 %
 % \begin{macro} {\mainmatter}
+%
+% \changes{v2.2}{2025/05/23}{允许章节从奇数页开始。}
+%
 %    \begin{macrocode}
 \RenewDocumentCommand \mainmatter { } {
-    \clearpage
+    \bool_if:NTF \c_@@_openright_bool
+        { \cleardoublepage }
+        { \clearpage }
     \pagenumbering { arabic }
     \int_gset:Nn \c@page { 1 }
     \int_compare:nNnT \c_@@_headingmode_int = 1 {
@@ -1730,9 +1767,14 @@
 % \end{macro}
 %
 % \begin{macro}{\backmatter}
+%
+% \changes{v2.2}{2025/05/23}{允许章节从奇数页开始。}
+%
 %    \begin{macrocode}
 \RenewDocumentCommand \backmatter { } {
-    \clearpage
+    \bool_if:NTF \c_@@_openright_bool
+        { \cleardoublepage }
+        { \clearpage }
     \ctexset {
         chapter/format = {
             \mslinespread { 1 }
@@ -2332,11 +2374,14 @@
 % \begin{macro}{\titlepage}
 %
 % \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
+% \changes{v2.2}{2025/05/23}{允许章节从奇数页开始。}
 %
 %    \begin{macrocode}
 \RenewDocumentCommand \titlepage { } {
-    \clearpage
-    \thispagestyle { empty }
+    \bool_if:NTF \c_@@_openright_bool
+        { \cleardoublepage }
+        { \clearpage }
+    \pagestyle { empty }
     \group_begin:
     \dim_set:Nn \parindent { 0pt }
     \par
@@ -2462,10 +2507,15 @@
 % \subsubsection{匿名评阅封面}
 %
 % \begin{macro}{\anonymoustitlepage}
+%
+% \changes{v2.2}{2025/05/23}{允许章节从奇数页开始。}
+%
 %    \begin{macrocode}
 \NewDocumentCommand \anonymoustitlepage { } {
-    \clearpage
-    \thispagestyle { empty }
+    \bool_if:NTF \c_@@_openright_bool
+        { \cleardoublepage }
+        { \clearpage }
+    \pagestyle { empty }
     \group_begin:
     \dim_set:Nn \parindent { 0pt }
     \vspace* { 5mm }
@@ -2539,9 +2589,14 @@
 % \subsubsection{学位论文原创性声明和非公开学位论文标注说明}
 %
 % \begin{macro}{\declarationpage}
+%
+% \changes{v2.2}{2025/05/23}{允许章节从奇数页开始。}
+%
 %    \begin{macrocode}
 \NewDocumentCommand \declarationpage { } {
-    \clearpage
+    \bool_if:NTF \c_@@_openright_bool
+        { \cleardoublepage }
+        { \clearpage }
     \group_begin:
     \ctexset {
         chapter/format    = \mslinespread{1}\heiti\zihao{3}\bfseries\centering,
@@ -2704,10 +2759,13 @@
 % \begin{macro}{\authorizationpage}
 %
 % \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
+% \changes{v2.2}{2025/05/23}{允许章节从奇数页开始。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \authorizationpage { } {
-    \clearpage
+    \bool_if:NTF \c_@@_openright_bool
+        { \cleardoublepage }
+        { \clearpage }
     \group_begin:
     \ctexset {
         chapter/format    = \mslinespread{1}\heiti\zihao{3}\centering,
