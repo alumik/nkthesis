@@ -1432,6 +1432,8 @@
 %    \end{macrocode}
 %
 % \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
+% \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
+% \changes{v2.2}{2025/05/29}{将答辩日期加粗。}
 %
 % 设置默认值。
 %
@@ -1440,12 +1442,12 @@
     学校代码                     = 10055,
     题名页/密级                  = 公开,
     题名页/论文题目字号          = 2,
-    论文完成时间                 = { \ctexset { today = big } \today },
+    论文完成时间                 = \qquad 年 \qquad 月,
     非公开论文/保密期限/起始日期 = 20 \qquad 年 \qquad 月 \qquad 日,
     非公开论文/保密期限/结束日期 = 20 \qquad 年 \qquad 月 \qquad 日,
     非公开论文/批准日期          = 20 \qquad 年 \qquad 月 \qquad 日,
     授权书/签字日期              = 20 \qquad 年 \qquad 月 \qquad 日,
-    答辩日期                     = 20 \qquad 年 \qquad 月 \qquad 日,
+    答辩日期                     = \textbf { 20 \qquad 年 \qquad 月 \qquad 日 },
 }
 %    \end{macrocode}
 %
@@ -2787,6 +2789,7 @@
 %
 % \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
+% \changes{v2.2}{2025/05/29}{加粗论文类别选项。}
 %
 % \begin{macro}{\authorizationpage}
 %    \begin{macrocode}
@@ -2886,23 +2889,23 @@
             \vrule
             \hbox to 144.9mm {
                 \hspace { 2em }
-                博士~\@@_ifcheckbox:en
+                \textbf { 博士 } ~ \@@_ifcheckbox:en
                     { \tl_use:N \g_@@_lunwenleibiealt_tl }
                     { 博士 }
                 \qquad
-                学历硕士~\@@_ifcheckbox:en
+                \textbf { 学历硕士 } ~ \@@_ifcheckbox:en
                     { \tl_use:N \g_@@_lunwenleibiealt_tl }
                     { 学历硕士 }
                 \qquad
-                专业学位硕士~\@@_ifcheckbox:en
+                \textbf { 专业学位硕士 } ~ \@@_ifcheckbox:en
                     { \tl_use:N \g_@@_lunwenleibiealt_tl }
                     { 专业学位硕士 }
                 \qquad
-                同等学力硕士~\@@_ifcheckbox:en
+                \textbf { 同等学力硕士 } ~ \@@_ifcheckbox:en
                     { \tl_use:N \g_@@_lunwenleibiealt_tl }
                     { 同等学力硕士 }
                 \hfill
-                划 \@@_ifcheckbox: 选择
+                \textbf { 划 } \@@_ifcheckbox: \textbf { 选择 }
                 \hspace { 0.3em }
             } \\
             \hline
