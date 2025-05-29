@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2025/05/23}
-%<class>    {v2.2.1}
+%<class>    {2025/05/29}
+%<class>    {v2.2.2}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -110,7 +110,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/05/23\qquad v2.2.1}
+% \date{2025/05/29\qquad v2.2.2}
 % \maketitle
 %
 % \begin{abstract}
@@ -1302,6 +1302,14 @@
 \RequirePackage { newunicodechar }
 %    \end{macrocode}
 %
+% \changes{v2.2}{2025/05/29}{如果当前页面为空白页，则不打印页眉页脚。}
+%
+% 如果当前页面为空白页，则不打印页眉页脚。
+%
+%    \begin{macrocode}
+\RequirePackage { emptypage }
+%    \end{macrocode}
+%
 % \subsection{页面尺寸设置}
 %
 %    \begin{macrocode}
@@ -2404,7 +2412,7 @@
     \bool_if:NTF \c_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
-    \pagestyle { empty }
+    \thispagestyle { empty }
     \group_begin:
     \dim_set:Nn \parindent { 0pt }
     \par
@@ -2537,7 +2545,7 @@
     \bool_if:NTF \c_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
-    \pagestyle { empty }
+    \thispagestyle { empty }
     \group_begin:
     \dim_set:Nn \parindent { 0pt }
     \vspace* { 5mm }
