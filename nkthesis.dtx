@@ -507,13 +507,15 @@
 %     默认值为空。
 % \end{function}
 %
+% \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
+%
 % \begin{function}{论文完成时间}
 %     \begin{syntax}
 %         论文完成时间 = <日期>
 %     \end{syntax}
 %     中文大写格式的论文完成时间。
 %     展示于题名页最下方。
-%     默认值为当前日期。
+%     默认值为“|\qquad{}|年|\qquad{}|月”。
 %     应填写论文提交评审的时间。
 % \end{function}
 %
@@ -567,6 +569,18 @@
 %     |\qquad{}| 仅用于默认值排版，实际填写时请写成例如“2025年06月29日”的形式。
 % \end{function}
 %
+% \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
+%
+% \begin{function}[added=2025/05/29]{原创性声明/签字日期}
+%     \begin{syntax}
+%         原创性声明/签字日期 = <日期>
+%     \end{syntax}
+%     《南开大学学位论文原创性声明》中的签字日期。
+%
+%     默认值为“年|\qquad{}|月|\qquad{}|日”。
+%     |\qquad{}| 仅用于默认值排版，实际填写时请写成例如“2025年06月29日”的形式。
+% \end{function}
+%
 % \begin{function}{授权书/签字日期}
 %     \begin{syntax}
 %         授权书/签字日期 = <日期>
@@ -588,13 +602,22 @@
 %     默认值为空。
 % \end{function}
 %
+% \changes{v2.2}{2025/05/29}{加粗答辩日期。}
+%
 % \begin{function}{答辩日期}
 %     \begin{syntax}
 %         答辩日期 = <日期>
 %     \end{syntax}
 %     答辩日期。
 %
-%     默认值为“20|\qquad{}|年|\qquad{}|月|\qquad{}|日”。
+%     默认值为“|\textbf{|20|\qquad{}|年|\qquad{}|月|\qquad{}|日|}|”。
+%     实际填写时的格式如下：
+%
+%     \begin{nkthesisexam}
+%     \textbf{20}~XX\textbf{年}XX\textbf{月}XX\textbf{日}
+%     \end{nkthesisexam}
+%
+%     注意其中的空格和字体加粗。
 %     |\qquad{}| 仅用于默认值排版，实际填写时请写成例如“2025年06月29日”的形式。
 % \end{function}
 %
@@ -1393,6 +1416,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
+%
 % 注册论文基本信息选项。
 %
 %    \begin{macrocode}
@@ -1421,6 +1446,7 @@
     非公开论文/保密期限/结束日期,
     非公开论文/审批表编号,
     非公开论文/批准日期,
+    原创性声明/签字日期,
     授权书/签字日期,
     学号,
     答辩日期,
@@ -1433,7 +1459,7 @@
 %
 % \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
 % \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
-% \changes{v2.2}{2025/05/29}{将答辩日期加粗。}
+% \changes{v2.2}{2025/05/29}{加粗答辩日期。}
 %
 % 设置默认值。
 %
@@ -1446,6 +1472,7 @@
     非公开论文/保密期限/起始日期 = 20 \qquad 年 \qquad 月 \qquad 日,
     非公开论文/保密期限/结束日期 = 20 \qquad 年 \qquad 月 \qquad 日,
     非公开论文/批准日期          = 20 \qquad 年 \qquad 月 \qquad 日,
+    原创性声明/签字日期          = 年 \qquad 月 \qquad 日,
     授权书/签字日期              = 20 \qquad 年 \qquad 月 \qquad 日,
     答辩日期                     = \textbf { 20 \qquad 年 \qquad 月 \qquad 日 },
 }
@@ -2407,6 +2434,7 @@
 %
 % \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
+% \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
 %
 % \begin{macro}{\titlepage}
 %    \begin{macrocode}
@@ -2528,7 +2556,9 @@
             南开大学研究生院
             \par
 
-            \nktget { 论文完成时间 }
+            \tl_if_empty:eTF { \nktget { 论文完成时间 } }
+                { \qquad 年 \qquad 月 }
+                { \nktget { 论文完成时间 } }
             \par
         }
     \end { center }
@@ -2621,6 +2651,7 @@
 % \subsubsection{学位论文原创性声明和非公开学位论文标注说明}
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
+% \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
 %
 % \begin{macro}{\declarationpage}
 %    \begin{macrocode}
@@ -2654,7 +2685,11 @@
     学位论文作者签名：
     \hspace { 0.5em }
     \underline { \hbox to 40mm { } }
-    \hfill 年 \qquad 月 \qquad 日 \hspace* { \ccwd }
+    \hfill
+    \tl_if_empty:eTF { \nktget { 原创性声明/签字日期 } }
+        { 年 \qquad 月 \qquad 日 }
+        { \nktget { 原创性声明/签字日期 } }
+    \hspace* { \ccwd }
     \par
 
     \vspace { -0.4\baselineskip }
@@ -2790,6 +2825,7 @@
 % \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{加粗论文类别选项。}
+% \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
 %
 % \begin{macro}{\authorizationpage}
 %    \begin{macrocode}
@@ -2844,7 +2880,10 @@
         \hfill 学位论文作者暨授权人（亲笔）签字：\hbox to 35.2mm { }
         \par
 
-        \hfill \nktget { 授权书/签字日期 }
+        \hfill
+        \tl_if_empty:eTF { \nktget { 授权书/签字日期 } }
+            { 20 \qquad 年 \qquad 月 \qquad 日 }
+            { \nktget { 授权书/签字日期 } }
         \par
     }
     \par
@@ -2883,7 +2922,13 @@
             \vrule
             \hbox to 19.5mm { \hspace { 0.3em } \textbf { 答辩日期 } }~
             \vrule
-            \hbox to 40mm { \hspace { 0.3em } \nktget { 答辩日期 } \hfill } \\
+            \hbox to 40mm {
+                \hspace { 0.3em }
+                \tl_if_empty:eTF { \nktget { 答辩日期 } }
+                    { \textbf { 20 \qquad 年 \qquad 月 \qquad 日 } }
+                    { \nktget { 答辩日期 } }
+                \hfill
+            } \\
             \hline
             \hbox to 22mm { \hspace { 0.3em } \textbf { 论文类别 } }~
             \vrule
