@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2025/05/29}
-%<class>    {v2.2.2}
+%<class>    {2025/12/24}
+%<class>    {v2.3.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -33,7 +33,7 @@
 \usepackage{subcaption}
 \usepackage{newunicodechar}
 \newfontfamily{\dejavusans}{DejaVu Sans}
-\newunicodechar{★}{{\dejavusans ★}}
+\newunicodechar{★}{{\dejavusans\symbol{"2605}}}
 \DefineVerbatimEnvironment{nkthesisexam}{Verbatim}{
     gobble=6,
     frame=single,
@@ -97,7 +97,7 @@
 %     \setCJKfamilyfont, \setCJKmainfont, \setCJKmonofont, \setCJKsansfont,
 %     \AtBeginEnvironment, \int_gset:Nn, \c@secnumdepth, \c@page, \rule,
 %     \bool_set_true:N, \bool_if:NF, \cleardoublepage, \cs_generate_variant:Nn,
-%     \PassOptionsToClass, \MakeUppercase, \str_if_eq:nnTF,
+%     \PassOptionsToClass, \MakeUppercase, \str_if_eq:nnTF, \char_generate:nn,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -110,7 +110,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/05/29\qquad v2.2.2}
+% \date{2025/12/24\qquad v2.3.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -920,15 +920,6 @@
 %     {\kaishu{}\zihao{5}这是楷书五号字}
 % \end{nkthesisexam}
 %
-% 有以下几种特殊情况：
-%
-% \begin{itemize}
-%     \item 由于宋体没有原生粗体，使用 |\textbf| 或 |\bfseries| 命令得到的会是黑体。
-%     \item 如果想得到宋体的{\songti\textbf{伪粗体}}，可以使用 |\songti\textbf| 命令。
-%     \item 由于宋体本身没有斜体，使用 |\textit| 或 |\itshape| 命令得到的会是楷书。
-%     \item 如果想得到宋体的{\songti\textit{伪斜体}}，可以使用 |\songti\textit| 命令。
-% \end{itemize}
-%
 % \subsection{行间距}
 %
 % 模板提供以下两个命令调整行间距。
@@ -1267,9 +1258,11 @@
 % \subsection{载入基础类和包}
 %
 % 启用 \pkg{xeCJK} 宏包的自动伪粗体和伪斜体功能。
+% 
+% \changes{v2.3}{2025/12/24}{调整伪粗体和伪斜体的参数，使其效果更接近 Microsoft Word。}
 %
 %    \begin{macrocode}
-\PassOptionsToPackage { AutoFakeBold = true, AutoFakeSlant = true } { xeCJK }
+\PassOptionsToPackage { AutoFakeBold = 3.0, AutoFakeSlant = 0.333 } { xeCJK }
 %    \end{macrocode}
 %
 % \begin{variable}{\c_@@_linespread_fp}
@@ -1516,35 +1509,41 @@
 %
 % \subsection{字体设置}
 %
-% \changes{v2.1}{2025/05/01}{
-%     将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。
-% }
+% \changes{v2.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。}
+% \changes{v2.3}{2025/12/24}{独立检查每个字体是否存在。}
+% \changes{v2.3}{2025/12/24}{对于宋体，不再提供粗体和斜体的替代字体，统一使用伪粗体和伪斜体。}
 %
 %    \begin{macrocode}
 \fontspec_font_if_exist:nTF { SimSun }
     {
-        \setCJKmainfont { SimSun   } [ BoldFont = SimHei, ItalicFont = KaiTi ]
-        \setCJKsansfont { SimHei   }
-        \setCJKmonofont { FangSong }
-        \setCJKfamilyfont { zhsong } { SimSun   }
-        \setCJKfamilyfont { zhhei  } { SimHei   }
-        \setCJKfamilyfont { zhfs   } { FangSong }
-        \setCJKfamilyfont { zhkai  } { KaiTi    }
+        \setCJKmainfont   { SimSun      }
+        \setCJKfamilyfont { zhsong      } { SimSun }
     }
     {
-        \setCJKmainfont { simsun.ttc  }
-            [
-                Path = fonts/,
-                BoldFont = simhei.ttf,
-                ItalicFont = simkai.ttf,
-            ]
-        \setCJKsansfont { simhei.ttf  } [ Path = fonts/ ]
-        \setCJKmonofont { simfang.ttf } [ Path = fonts/ ]
-        \setCJKfamilyfont { zhsong } [ Path = fonts/ ] { simsun.ttc  }
-        \setCJKfamilyfont { zhhei  } [ Path = fonts/ ] { simhei.ttf  }
-        \setCJKfamilyfont { zhfs   } [ Path = fonts/ ] { simfang.ttf }
-        \setCJKfamilyfont { zhkai  } [ Path = fonts/ ] { simkai.ttf  }
+        \setCJKmainfont   { simsun.ttc  } [ Path = fonts/ ]
+        \setCJKfamilyfont { zhsong      } [ Path = fonts/ ] { simsun.ttc }
     }
+\fontspec_font_if_exist:nTF { SimHei }
+    {
+        \setCJKsansfont   { SimHei      }
+        \setCJKfamilyfont { zhhei       } { SimHei }
+    }
+    {
+        \setCJKsansfont   { simhei.ttf  } [ Path = fonts/ ]
+        \setCJKfamilyfont { zhhei       } [ Path = fonts/ ] { simhei.ttf }
+    }
+\fontspec_font_if_exist:nTF { FangSong }
+    {
+        \setCJKmonofont   { FangSong    }
+        \setCJKfamilyfont { zhfs        } { FangSong }
+    }
+    {
+        \setCJKmonofont   { simfang.ttf } [ Path = fonts/ ]
+        \setCJKfamilyfont { zhfs        } [ Path = fonts/ ] { simfang.ttf }
+    }
+\fontspec_font_if_exist:nTF { KaiTi }
+    { \setCJKfamilyfont { zhkai } { KaiTi } }
+    { \setCJKfamilyfont { zhkai } [ Path = fonts/ ] { simkai.ttf } }
 %    \end{macrocode}
 %
 % \begin{macro}{\songti}
@@ -1575,9 +1574,7 @@
 %
 %    \begin{macrocode}
 \fontspec_font_if_exist:nTF { Times~New~Roman }
-    {
-        \setmainfont { Times~New~Roman }
-    }
+    { \setmainfont { Times~New~Roman } }
     {
         \setmainfont { times }
             [
@@ -1592,9 +1589,7 @@
 % \begin{macro}{\arial}
 %    \begin{macrocode}
 \fontspec_font_if_exist:nTF { Arial }
-    {
-        \newfontfamily { \arial } { Arial }
-    }
+    { \newfontfamily { \arial } { Arial } }
     {
         \newfontfamily { \arial } { arial }
             [
@@ -1621,11 +1616,12 @@
 %     定义★符号字体。
 %     此前，在文中插入★需要使用 \texttt{\{\textbackslash segoeui ★\}} 语句，现在直接键入★即可。
 % }
+% \changes{v2.3}{2025/12/24}{使用基于显式码点的字符替换。}
 %
 % 定义★符号字体。
 %
 %    \begin{macrocode}
-\newunicodechar { ★ } { { \dejavusans ★ } }
+\newunicodechar{★}{{\dejavusans\char_generate:nn { "2605 } { 12 }}}
 %    \end{macrocode}
 %
 % \subsection{私有命令定义}
@@ -2245,18 +2241,16 @@
     { }
 %    \end{macrocode}
 % \end{environment}
+% 
+% \changes{v2.3}{2025/12/24}{对于宋体，不再提供粗体和斜体的替代字体，统一使用伪粗体和伪斜体。}
 %
 % \begin{environment}{keywords, enkeywords}
 %    \begin{macrocode}
 \NewDocumentEnvironment { keywords } { }
-    {
-        \songti \textbf { 关键词： } \ignorespaces
-    }
+    { \textbf { 关键词： } \ignorespaces }
     { }
 \NewDocumentEnvironment { enkeywords } { }
-    {
-        \textbf { Key~Words:~ } \ignorespaces
-    }
+    { \textbf { Key~Words:~ } \ignorespaces }
     { }
 %    \end{macrocode}
 % \end{environment}

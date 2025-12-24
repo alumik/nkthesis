@@ -1,6 +1,6 @@
 # nkthesis：南开大学硕士/博士毕业（学位）论文模板（2025）
 
-![version 2.2.2](https://img.shields.io/badge/version-2.2.2-blue)
+![version 2.3.0](https://img.shields.io/badge/version-2.3.0-blue)
 ![license-LPPL-1.3c](https://img.shields.io/github/license/alumik/nkthesis)
 
 > [!CAUTION]
@@ -336,13 +336,6 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 {\fangsong{}\zihao{12}这是仿宋12磅字}
 {\kaishu{}\zihao{5}这是楷书五号字}
 ```
-
-有以下几种特殊情况：
-
-- 由于宋体没有原生粗体，使用 `\textbf` 或 `\bfseries` 命令得到的会是黑体。
-- 如果想得到宋体的**伪粗体**，可以使用 `\songti\textbf` 命令。
-- 由于宋体本身没有斜体，使用 `\textit` 或 `\itshape` 命令得到的会是楷书。
-- 如果想得到宋体的*伪斜体*，可以使用 `\songti\textit` 命令。
 
 ### 行间距
 
