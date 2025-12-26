@@ -98,6 +98,7 @@
 %     \AtBeginEnvironment, \int_gset:Nn, \c@secnumdepth, \c@page, \rule,
 %     \bool_set_true:N, \bool_if:NF, \cleardoublepage, \cs_generate_variant:Nn,
 %     \PassOptionsToClass, \MakeUppercase, \str_if_eq:nnTF, \char_generate:nn,
+%     \fp_const:Nn,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -1207,8 +1208,6 @@
 %
 % \subsection{文档类参数定义}
 %
-% \subsubsection{文档类选项}
-%
 % \begin{variable}{\l_@@_uppercasehead_bool}
 %
 % \changes{v2.3}{2025/12/26}{重命名变量以符合命名规范。}
@@ -1285,6 +1284,37 @@
 \ProcessKeyOptions [ nkthesis / options ]
 %    \end{macrocode}
 %
+% \changes{v2.3}{2025/12/26}{将文档类里的部分魔法数字提取为常量，以提高代码可维护性。}
+%
+% \subsection{文档类常量定义}
+%
+% \begin{variable}{\c_@@_fake_bold_fp}
+%
+% 伪粗体参数，默认为 3.0。
+%
+%    \begin{macrocode}
+\fp_const:Nn \c_@@_fake_bold_fp { 3.0 }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_fake_slant_fp}
+%
+% 伪斜体参数，默认为 0.333。
+%
+%    \begin{macrocode}
+\fp_const:Nn \c_@@_fake_slant_fp { 0.333 }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_default_linespread_fp}
+%
+% 正文默认固定20磅行间距（20bp / 12bp / 1.2）。
+%
+%    \begin{macrocode}
+\fp_const:Nn \c_@@_default_linespread_fp { 20 / 12 / 1.2 }
+%    \end{macrocode}
+% \end{variable}
+%
 % \subsection{载入基础类和包}
 %
 % 启用 \pkg{xeCJK} 宏包的自动伪粗体和伪斜体功能。
@@ -1292,29 +1322,22 @@
 % \changes{v2.3}{2025/12/24}{调整伪粗体和伪斜体的参数，使其效果更接近 Microsoft Word。}
 %
 %    \begin{macrocode}
-\PassOptionsToPackage { AutoFakeBold = 3.0, AutoFakeSlant = 0.333 } { xeCJK }
+\PassOptionsToPackage {
+        AutoFakeBold  = \c_@@_fake_bold_fp,
+        AutoFakeSlant = \c_@@_fake_slant_fp,
+} { xeCJK }
 %    \end{macrocode}
-%
-% \begin{variable}{\c_@@_linespread_fp}
-% 固定20磅行间距（20bp / 12bp / 1.2）。
-%    \begin{macrocode}
-\fp_new:N \c_@@_linespread_fp
-\fp_set:Nn \c_@@_linespread_fp { 20 / 12 / 1.2 }
-%    \end{macrocode}
-% \end{variable}
 %
 % 载入 \cls{ctexbook} 文档类。
 % 双面打印时允许章节开始于偶数页。
 % 默认字号小四，支持宋体、仿宋、楷体、黑体四种字体。
 %
-% \changes{v2.1}{2025/05/01}{
-%     将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。
-% }
+% \changes{v2.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。}
 %
 %    \begin{macrocode}
 \PassOptionsToClass {
     zihao      = -4,
-    linespread = \c_@@_linespread_fp,
+    linespread = \c_@@_default_linespread_fp,
     fontset    = none,
     UTF8,
 } { ctexbook }
@@ -1338,9 +1361,9 @@
 \RequirePackage { setspace }
 \RequirePackage [
     backend = biber,
-    style = gb7714-2015,
-    url = false,
-    gbpub = true,
+    style   = gb7714-2015,
+    url     = false,
+    gbpub   = true,
 ] { biblatex }
 \RequirePackage { subcaption }
 \RequirePackage { tikz }
