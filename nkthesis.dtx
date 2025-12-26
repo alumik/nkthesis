@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2025/12/24}
-%<class>    {v2.3.0}
+%<class>    {2025/12/26}
+%<class>    {v2.3.1}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -110,7 +110,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/12/24\qquad v2.3.0}
+% \date{2025/12/26\qquad v2.3.1}
 % \maketitle
 %
 % \begin{abstract}
@@ -303,15 +303,24 @@
 %                  （一）××××（根据需要，也可设三级标题，左缩进2个汉字）
 %     \end{optdesc}
 %
-% \begin{function}{uppercasehead}
-%     当该选项存在时，将章节页眉转换为全大写。
+% \changes{v2.3}{2025/12/26}{允许显式设置选项为 \texttt{true} 或 \texttt{false}。}
+%
+% \begin{function}[updated=2025/12/26]{uppercasehead}
+%     \begin{syntax}
+%         uppercasehead[ = <true|(false)> ]
+%     \end{syntax}
+%     当该选项存在时，或设置为真时，将章节页眉转换为全大写。
 %     否则，保留原始大小写。
 % \end{function}
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
+% \changes{v2.3}{2025/12/26}{允许显式设置选项为 \texttt{true} 或 \texttt{false}。}
 %
-% \begin{function}[added=2025/05/23]{openright}
-%     当该选项存在时，章节开始时强制在右页开始。
+% \begin{function}[added=2025/05/23,updated=2025/12/26]{openright}
+%     \begin{syntax}
+%         openright[ = <true|(false)> ]
+%     \end{syntax}
+%     当该选项存在时，或设置为真时，章节开始时强制在右页开始。
 %     该选项通常用于双面打印。
 % \end{function}
 %
@@ -1200,21 +1209,30 @@
 %
 % \subsubsection{文档类选项}
 %
-% \begin{variable}{\c_@@_uppercasehead_bool}
+% \begin{variable}{\l_@@_uppercasehead_bool}
+%
+% \changes{v2.3}{2025/12/26}{重命名变量以符合命名规范。}
+%
 %    \begin{macrocode}
-\bool_new:N \c_@@_uppercasehead_bool
+\bool_new:N \l_@@_uppercasehead_bool
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_headingmode_int}
+% \begin{variable}{\l_@@_headingmode_int}
+%
+% \changes{v2.3}{2025/12/26}{重命名变量以符合命名规范。}
+%
 %    \begin{macrocode}
-\int_new:N \c_@@_headingmode_int
+\int_new:N \l_@@_headingmode_int
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\c_@@_openright_bool}
+% \begin{variable}{\l_@@_openright_bool}
+%
+% \changes{v2.3}{2025/12/26}{重命名变量以符合命名规范。}
+%
 %    \begin{macrocode}
-\bool_new:N \c_@@_openright_bool
+\bool_new:N \l_@@_openright_bool
 %    \end{macrocode}
 % \end{variable}
 %
@@ -1225,26 +1243,38 @@
 %    \end{macrocode}
 %
 % \begin{macro}{headingmode}
+%
 % 可填1或者2，表示使用模式一或者模式二标题，默认为2。
+%
 %    \begin{macrocode}
-    headingmode .int_set:N = \c_@@_headingmode_int,
+    headingmode .int_set:N = \l_@@_headingmode_int,
     headingmode .initial:n = 2,
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{uppercasehead}
-% 若存在 |uppercasehead| 选项，将章节页眉转换为大写。
+%
+% \changes{v2.3}{2025/12/26}{允许显式设置选项为 \texttt{true} 或 \texttt{false}。}
+%
+% 若存在 |uppercasehead| 选项，或选项设置为真，将章节页眉转换为大写。
+%
 %    \begin{macrocode}
-    uppercasehead .code:n = \bool_set_true:N \c_@@_uppercasehead_bool,
+    uppercasehead .bool_set:N = \l_@@_uppercasehead_bool,
+    uppercasehead .initial:n  = false,
 %    \end{macrocode}
 % \end{macro}
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 %
 % \begin{macro}{openright}
-% 若存在 |openright| 选项，章节必须从奇数页开始。
+%
+% \changes{v2.3}{2025/12/26}{允许显式设置选项为 \texttt{true} 或 \texttt{false}。}
+%
+% 若存在 |openright| 选项，或选项设置为真，章节必须从奇数页开始。
+%
 %    \begin{macrocode}
-    openright .code:n = \bool_set_true:N \c_@@_openright_bool,
+    openright .bool_set:N = \l_@@_openright_bool,
+    openright .initial:n  = false,
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1258,7 +1288,7 @@
 % \subsection{载入基础类和包}
 %
 % 启用 \pkg{xeCJK} 宏包的自动伪粗体和伪斜体功能。
-% 
+%
 % \changes{v2.3}{2025/12/24}{调整伪粗体和伪斜体的参数，使其效果更接近 Microsoft Word。}
 %
 %    \begin{macrocode}
@@ -1288,7 +1318,7 @@
     fontset    = none,
     UTF8,
 } { ctexbook }
-\bool_if:NF \c_@@_openright_bool
+\bool_if:NF \l_@@_openright_bool
     { \PassOptionsToClass { openany } { ctexbook } }
 \LoadClass { ctexbook }
 %    \end{macrocode}
@@ -1757,7 +1787,7 @@
 % \changes{v2.2}{2025/05/23}{将前置部分的页面风格设置为 \texttt{fancy}。}
 %    \begin{macrocode}
 \RenewDocumentCommand \frontmatter { } {
-    \bool_if:NTF \c_@@_openright_bool
+    \bool_if:NTF \l_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
     \pagenumbering { Roman }
@@ -1781,13 +1811,13 @@
 % \begin{macro} {\mainmatter}
 %    \begin{macrocode}
 \RenewDocumentCommand \mainmatter { } {
-    \bool_if:NTF \c_@@_openright_bool
+    \bool_if:NTF \l_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
     \pagenumbering { arabic }
     \pagestyle { fancy }
     \int_gset:Nn \c@page { 1 }
-    \int_compare:nNnT \c_@@_headingmode_int = 1 {
+    \int_compare:nNnT \l_@@_headingmode_int = 1 {
         \ctexset {
             chapter/format = {
                 \mslinespread { 1 }
@@ -1806,7 +1836,7 @@
 % \begin{macro}{\backmatter}
 %    \begin{macrocode}
 \RenewDocumentCommand \backmatter { } {
-    \bool_if:NTF \c_@@_openright_bool
+    \bool_if:NTF \l_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
     \pagestyle { fancy }
@@ -1877,7 +1907,7 @@
 \labelformat { subfigure } { \figurename\thefigure（\thesubfigure） }
 \labelformat { table     } { \tablename\thetable                    }
 \labelformat { equation  } { 式（\theequation）                     }
-\int_compare:nNnT \c_@@_headingmode_int = 2 {
+\int_compare:nNnT \l_@@_headingmode_int = 2 {
     \labelformat { chapter       } { \CTEXthechapter                  }
     \labelformat { section       } { \CTEXthechapter{}\CTEXthesection }
     \labelformat { subsection    }
@@ -1908,7 +1938,7 @@
     \mslinespread { 1 }
     \songti
     \zihao { 5 }
-    \bool_if:NTF \c_@@_uppercasehead_bool
+    \bool_if:NTF \l_@@_uppercasehead_bool
         { \leftmark }
         { \nouppercase \leftmark }
 }
@@ -2031,7 +2061,7 @@
 % 根据标题模式设置不同格式。
 %
 %    \begin{macrocode}
-\int_compare:nNnTF \c_@@_headingmode_int = 1
+\int_compare:nNnTF \l_@@_headingmode_int = 1
     {
         \ctexset {
             chapter = {
@@ -2241,7 +2271,7 @@
     { }
 %    \end{macrocode}
 % \end{environment}
-% 
+%
 % \changes{v2.3}{2025/12/24}{对于宋体，不再提供粗体和斜体的替代字体，统一使用伪粗体和伪斜体。}
 %
 % \begin{environment}{keywords, enkeywords}
@@ -2433,7 +2463,7 @@
 % \begin{macro}{\titlepage}
 %    \begin{macrocode}
 \RenewDocumentCommand \titlepage { } {
-    \bool_if:NTF \c_@@_openright_bool
+    \bool_if:NTF \l_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
     \thispagestyle { empty }
@@ -2568,7 +2598,7 @@
 % \begin{macro}{\anonymoustitlepage}
 %    \begin{macrocode}
 \NewDocumentCommand \anonymoustitlepage { } {
-    \bool_if:NTF \c_@@_openright_bool
+    \bool_if:NTF \l_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
     \thispagestyle { empty }
@@ -2650,7 +2680,7 @@
 % \begin{macro}{\declarationpage}
 %    \begin{macrocode}
 \NewDocumentCommand \declarationpage { } {
-    \bool_if:NTF \c_@@_openright_bool
+    \bool_if:NTF \l_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
     \group_begin:
@@ -2824,7 +2854,7 @@
 % \begin{macro}{\authorizationpage}
 %    \begin{macrocode}
 \NewDocumentCommand \authorizationpage { } {
-    \bool_if:NTF \c_@@_openright_bool
+    \bool_if:NTF \l_@@_openright_bool
         { \cleardoublepage }
         { \clearpage }
     \group_begin:
