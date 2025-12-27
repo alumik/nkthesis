@@ -1206,7 +1206,108 @@
 %<@@=nkthesis>
 %    \end{macrocode}
 %
-% \subsection{文档类参数定义}
+% \changes{v2.3}{2025/12/26}{将文档类里的部分魔法数字提取为常量，以提高代码可维护性。}
+% \changes{v2.3}{2025/12/27}{重构文档类属性处理代码，使用 \texttt{l3keys} 模块实现。}
+%
+% \subsection{文档类属性}
+%
+% \subsubsection{属性操作命令}
+%
+% \begin{variable}{\g_@@_config_prop}
+%
+% 创建属性列表。
+%
+%    \begin{macrocode}
+\prop_new:N \g_@@_config_prop
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_config_set:nn, \@@_config_get:n}
+%
+% 属性写入和读取命令。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_config_set:nn
+    { \prop_put:Nnn \g_@@_config_prop {#1} {#2} }
+\cs_new:Nn \@@_config_get:n
+    { \prop_item:Nn \g_@@_config_prop {#1} }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_keys_set:nn, \@@_keys_get:nn}
+%
+% 键值写入和读取命令。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_keys_set:nn
+    { \keys_set:nn { nkthesis / #1 } {#2} }
+\cs_new:Nn \@@_keys_get:nn
+    { \prop_item:Nn \g_@@_config_prop { #1 / #2 } }
+%    \end{macrocode}
+% \end{macro}
+%
+% 定义论文基本信息文档指令。
+%
+% \begin{macro}{\nktset}
+%    \begin{macrocode}
+\NewDocumentCommand \nktset { m } {
+    \@@_keys_set:nn { info } {#1}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\nktget}
+%    \begin{macrocode}
+\NewExpandableDocumentCommand \nktget { m } {
+    \@@_keys_get:nn { info } {#1}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% 接下来，定义文档类属性键值。
+%
+% \subsubsection{排版参数}
+%
+%    \begin{macrocode}
+\keys_define:nn { nkthesis / typesetting } {
+%    \end{macrocode}
+%
+% \begin{macro}{typesetting/fake-bold}
+%
+% 伪粗体参数，默认为 3.0。
+%
+%    \begin{macrocode}
+    fake-bold .code:n = \@@_config_set:nn { typesetting / fake-bold } { #1 },
+    fake-bold .initial:n = 3.0,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{typesetting/fake-slant}
+%
+% 伪斜体参数，默认为 0.333。
+%
+%    \begin{macrocode}
+    fake-slant .code:n = \@@_config_set:nn { typesetting / fake-slant } { #1 },
+    fake-slant .initial:n = 0.333,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{typesetting/default-linespread}
+%
+% 正文默认固定20磅行间距（20bp / 12bp / 1.2 = 1.388888889）。
+%
+%    \begin{macrocode}
+    default-linespread .code:n = \@@_config_set:nn
+        { typesetting / default-linespread } { #1 },
+    default-linespread .initial:n = 1.388888889,
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+}
+%    \end{macrocode}
+%
+% \subsubsection{文档类选项}
 %
 % \begin{variable}{\l_@@_uppercasehead_bool}
 %
@@ -1235,23 +1336,25 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% 定义文档类选项。
-%
 %    \begin{macrocode}
 \keys_define:nn { nkthesis / options } {
 %    \end{macrocode}
 %
-% \begin{macro}{headingmode}
+% \begin{macro}{options/headingmode}
+%
+% \changes{v2.3}{2025/12/27}{只允许设置选项为 1 或 2。}
 %
 % 可填1或者2，表示使用模式一或者模式二标题，默认为2。
 %
 %    \begin{macrocode}
-    headingmode .int_set:N = \l_@@_headingmode_int,
-    headingmode .initial:n = 2,
+    headingmode .choices:nn =
+        { 1, 2 }
+        { \int_set:Nn \l_@@_headingmode_int { #1 } },
+    headingmode .initial:n  = 2,
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{uppercasehead}
+% \begin{macro}{options/uppercasehead}
 %
 % \changes{v2.3}{2025/12/26}{允许显式设置选项为 \texttt{true} 或 \texttt{false}。}
 %
@@ -1265,7 +1368,7 @@
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 %
-% \begin{macro}{openright}
+% \begin{macro}{options/openright}
 %
 % \changes{v2.3}{2025/12/26}{允许显式设置选项为 \texttt{true} 或 \texttt{false}。}
 %
@@ -1284,36 +1387,127 @@
 \ProcessKeyOptions [ nkthesis / options ]
 %    \end{macrocode}
 %
-% \changes{v2.3}{2025/12/26}{将文档类里的部分魔法数字提取为常量，以提高代码可维护性。}
-%
-% \subsection{文档类常量定义}
-%
-% \begin{variable}{\c_@@_fake_bold_fp}
-%
-% 伪粗体参数，默认为 3.0。
+% \subsubsection{布局参数}
 %
 %    \begin{macrocode}
-\fp_const:Nn \c_@@_fake_bold_fp { 3.0 }
+\keys_define:nn { nkthesis / layout } {
+    paperwidth  .code:n     = \@@_config_set:nn { layout / paperwidth } { #1 },
+    paperwidth  .initial:n  = 210mm,
+    paperheight .code:n    = \@@_config_set:nn { layout / paperheight } { #1 },
+    paperheight .initial:n = 297mm,
+    left        .code:n     = \@@_config_set:nn { layout / left } { #1 },
+    left        .initial:n  = 32mm,
+    right       .code:n     = \@@_config_set:nn { layout / right } { #1 },
+    right       .initial:n  = 32mm,
+    top         .code:n     = \@@_config_set:nn { layout / top } { #1 },
+    top         .initial:n  = 30mm,
+    textwidth   .code:n     = \@@_config_set:nn { layout / textwidth } { #1 },
+    textwidth   .initial:n  = 146mm,
+    textheight  .code:n     = \@@_config_set:nn { layout / textheight } { #1 },
+    textheight  .initial:n  = 221mm,
+    headheight  .code:n     = \@@_config_set:nn { layout / headheight } { #1 },
+    headheight  .initial:n  = 14.8bp,
+    headsep     .code:n     = \@@_config_set:nn { layout / headsep } { #1 },
+    headsep     .initial:x  = \dim_eval:n { 8mm - 14.8bp },
+    footskip    .code:n     = \@@_config_set:nn { layout / footskip } { #1 },
+    footskip    .initial:n  = 8mm,
+}
 %    \end{macrocode}
-% \end{variable}
 %
-% \begin{variable}{\c_@@_fake_slant_fp}
+% \subsubsection{论文基本信息}
 %
-% 伪斜体参数，默认为 0.333。
+% \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
+% \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
+% \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
+% \changes{v2.2}{2025/05/29}{加粗答辩日期。}
+% \changes{v2.3}{2025/12/27}{移除冗余的 \texttt{tl_set:N} 命令。}
 %
 %    \begin{macrocode}
-\fp_const:Nn \c_@@_fake_slant_fp { 0.333 }
+\keys_define:nn { nkthesis / info } {
+    中图分类号 .code:n = \@@_config_set:nn { info / 中图分类号 } { #1 },
+
+    学校代码 .code:n    = \@@_config_set:nn { info / 学校代码 } { #1 },
+    学校代码 .initial:n = 10055,
+
+    UDC .code:n = \@@_config_set:nn { info / UDC } { #1 },
+
+    题名页/密级 .code:n    = \@@_config_set:nn { info / 题名页 / 密级 } { #1 },
+    题名页/密级 .initial:n = 公开,
+
+    题名页/论文题目字号 .code:n    = \@@_config_set:nn
+        { info / 题名页 / 论文题目字号 } { #1 },
+    题名页/论文题目字号 .initial:n = 2,
+
+    论文题目（中文） .code:n = \@@_config_set:nn
+        { info / 论文题目（中文） } { #1 },
+    论文副标题       .code:n = \@@_config_set:nn { info / 论文副标题 } { #1 },
+    论文题目（英文） .code:n = \@@_config_set:nn
+        { info / 论文题目（英文） } { #1 },
+    论文作者       .code:n = \@@_config_set:nn { info / 论文作者 } { #1 },
+    指导教师       .code:n = \@@_config_set:nn { info / 指导教师 } { #1 },
+    指导教师职称   .code:n = \@@_config_set:nn { info / 指导教师职称 } { #1 },
+    申请学位       .code:n = \@@_config_set:nn { info / 申请学位 } { #1 },
+    培养单位       .code:n = \@@_config_set:nn { info / 培养单位 } { #1 },
+    一级学科       .code:n = \@@_config_set:nn { info / 一级学科 } { #1 },
+    二级学科       .code:n = \@@_config_set:nn { info / 二级学科 } { #1 },
+    研究方向       .code:n = \@@_config_set:nn { info / 研究方向 } { #1 },
+    答辩委员会主席 .code:n = \@@_config_set:nn { info / 答辩委员会主席 } { #1 },
+    评阅人         .code:n = \@@_config_set:nn { info / 评阅人 } { #1 },
+
+    论文完成时间 .code:n    = \@@_config_set:nn { info / 论文完成时间 } { #1 },
+    论文完成时间 .initial:n = \qquad 年 \qquad 月,
+
+    论文编号 .code:n = \@@_config_set:nn { info / 论文编号 } { #1 },
+
+    非公开论文/保密期限/起始日期 .code:n    = \@@_config_set:nn
+        { info / 非公开论文 / 保密期限 / 起始日期 } { #1 },
+    非公开论文/保密期限/起始日期 .initial:n = 20 \qquad 年 \qquad 月 \qquad 日,
+
+    非公开论文/保密期限/结束日期 .code:n    = \@@_config_set:nn
+        { info / 非公开论文 / 保密期限 / 结束日期 } { #1 },
+    非公开论文/保密期限/结束日期 .initial:n = 20 \qquad 年 \qquad 月 \qquad 日,
+
+    非公开论文/审批表编号 .code:n = \@@_config_set:nn
+        { info / 非公开论文 / 审批表编号 } { #1 },
+
+    非公开论文/批准日期 .code:n    = \@@_config_set:nn
+        { info / 非公开论文 / 批准日期 } { #1 },
+    非公开论文/批准日期 .initial:n = 20 \qquad 年 \qquad 月 \qquad 日,
+
+    原创性声明/签字日期 .code:n    = \@@_config_set:nn
+        { info / 原创性声明 / 签字日期 } { #1 },
+    原创性声明/签字日期 .initial:n = 年 \qquad 月 \qquad 日,
+
+    授权书/签字日期 .code:n    = \@@_config_set:nn
+        { info / 授权书 / 签字日期 } { #1 },
+    授权书/签字日期 .initial:n = 20 \qquad 年 \qquad 月 \qquad 日,
+
+    学号 .code:n = \@@_config_set:nn { info / 学号 } { #1 },
+
+    答辩日期 .code:n    = \@@_config_set:nn { info / 答辩日期 } { #1 },
+    答辩日期 .initial:n = \textbf { 20 \qquad 年 \qquad 月 \qquad 日 },
+
+    联系电话      .code:n = \@@_config_set:nn { info / 联系电话 } { #1 },
+    电子邮箱      .code:n = \@@_config_set:nn { info / 电子邮箱 } { #1 },
+    通讯地址      .code:n = \@@_config_set:nn { info / 通讯地址 } { #1 },
+    作者信息/备注 .code:n = \@@_config_set:nn { info / 作者信息 / 备注 } { #1 },
+
+    题名页/论文类别 .choices:nn     =
+        { 硕士, 博士, 硕士专业, 博士专业 }
+        { \@@_config_set:nn { info / 题名页 / 论文类别 } { #1 } },
+    题名页/论文类别 .initial:n      = 硕士,
+
+    作者信息/论文类别 .choices:nn   =
+        { 博士, 学历硕士, 专业学位硕士, 同等学力硕士 }
+        { \@@_config_set:nn { info / 作者信息 / 论文类别 } { #1 } },
+    作者信息/论文类别 .initial:n    = 学历硕士,
+
+    非公开论文/申请密级 .choices:nn =
+        { 公开, 限制, 秘密, 机密 }
+        { \@@_config_set:nn { info / 非公开论文 / 申请密级 } { #1 } },
+    非公开论文/申请密级 .initial:n  = 公开,
+}
 %    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_default_linespread_fp}
-%
-% 正文默认固定20磅行间距（20bp / 12bp / 1.2）。
-%
-%    \begin{macrocode}
-\fp_const:Nn \c_@@_default_linespread_fp { 20 / 12 / 1.2 }
-%    \end{macrocode}
-% \end{variable}
 %
 % \subsection{载入基础类和包}
 %
@@ -1323,8 +1517,8 @@
 %
 %    \begin{macrocode}
 \PassOptionsToPackage {
-        AutoFakeBold  = \c_@@_fake_bold_fp,
-        AutoFakeSlant = \c_@@_fake_slant_fp,
+    AutoFakeBold  = \@@_keys_get:nn { typesetting } { fake-bold  },
+    AutoFakeSlant = \@@_keys_get:nn { typesetting } { fake-slant },
 } { xeCJK }
 %    \end{macrocode}
 %
@@ -1337,7 +1531,7 @@
 %    \begin{macrocode}
 \PassOptionsToClass {
     zihao      = -4,
-    linespread = \c_@@_default_linespread_fp,
+    linespread = \@@_keys_get:nn { typesetting } { default-linespread },
     fontset    = none,
     UTF8,
 } { ctexbook }
@@ -1379,174 +1573,30 @@
 \RequirePackage { emptypage }
 %    \end{macrocode}
 %
-% \subsection{页面尺寸设置}
+% \subsection{文档类设置}
+%
+% \subsubsection{布局设置}
+%
+% \changes{v2.3}{2025/12/27}{使用 \texttt{geometry} 设置页面尺寸，并放弃对 \texttt{\textbackslash topskip} 的改动。}
 %
 %    \begin{macrocode}
-\dim_set:Nn \oddsidemargin  { \dim_eval:n { 32mm - 1in }   }
-\dim_set:Nn \evensidemargin { \oddsidemargin               }
-\dim_set:Nn \topmargin      { \dim_eval:n { 30mm - 1in }   }
-\dim_set:Nn \headheight     { 14.8bp                       }
-\dim_set:Nn \headsep        { \dim_eval:n { 8mm - 14.8bp } }
-\dim_set:Nn \textheight     { 221mm                        }
-\dim_set:Nn \textwidth      { 146mm                        }
-\dim_set:Nn \footskip       { 8mm                          }
-\dim_set:Nn \topskip        { 0pt                          }
-%    \end{macrocode}
-%
-% \subsubsection{论文基本信息}
-%
-% \begin{variable}{\g_@@_lunwenleibie_tl}
-%    \begin{macrocode}
-\tl_new:N \g_@@_lunwenleibie_tl
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\g_@@_lunwenleibiealt_tl}
-%    \begin{macrocode}
-\tl_new:N \g_@@_lunwenleibiealt_tl
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\g_@@_shenqingmiji_tl}
-%    \begin{macrocode}
-\tl_new:N \g_@@_shenqingmiji_tl
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\g_@@_info_prop}
-% 定义论文基本信息选项。
-%    \begin{macrocode}
-\prop_new:N \g_@@_info_prop
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{macro}{\@@_register_info_keys:n}
-% 注册论文基本信息选项。
-%    \begin{macrocode}
-\cs_new:Nn \@@_register_info_keys:n {
-    \clist_map_inline:nn {#1} {
-        \keys_define:nn { nkthesis / info } {
-            ##1 .code:n = \prop_put:Nnn \g_@@_info_prop {##1} {####1},
-        }
-    }
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\@@_get_info:n}
-% 获取论文基本信息。
-%    \begin{macrocode}
-\cs_new:Nn \@@_get_info:n {
-    \prop_if_in:NnTF \g_@@_info_prop {#1}
-        { \prop_item:Nn \g_@@_info_prop {#1} }
-        { }
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% 定义论文基本信息快捷指令。
-%
-% \begin{macro}{\nktset}
-%    \begin{macrocode}
-\NewDocumentCommand \nktset { m } {
-    \keys_set:nn { nkthesis / info } {#1}
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\nktget}
-%    \begin{macrocode}
-\NewExpandableDocumentCommand \nktget { m } {
-    \@@_get_info:n {#1}
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
-%
-% 注册论文基本信息选项。
-%
-%    \begin{macrocode}
-\@@_register_info_keys:n {
-    中图分类号,
-    学校代码,
-    UDC,
-    题名页/密级,
-    题名页/论文题目字号,
-    论文题目（中文）,
-    论文副标题,
-    论文题目（英文）,
-    论文作者,
-    指导教师,
-    指导教师职称,
-    申请学位,
-    培养单位,
-    一级学科,
-    二级学科,
-    研究方向,
-    答辩委员会主席,
-    评阅人,
-    论文完成时间,
-    论文编号,
-    非公开论文/保密期限/起始日期,
-    非公开论文/保密期限/结束日期,
-    非公开论文/审批表编号,
-    非公开论文/批准日期,
-    原创性声明/签字日期,
-    授权书/签字日期,
-    学号,
-    答辩日期,
-    联系电话,
-    电子邮箱,
-    通讯地址,
-    作者信息/备注,
+\geometry {
+    paperwidth  = \@@_keys_get:nn { layout } { paperwidth  },
+    paperheight = \@@_keys_get:nn { layout } { paperheight },
+    left        = \@@_keys_get:nn { layout } { left        },
+    right       = \@@_keys_get:nn { layout } { right       },
+    top         = \@@_keys_get:nn { layout } { top         },
+    textwidth   = \@@_keys_get:nn { layout } { textwidth   },
+    textheight  = \@@_keys_get:nn { layout } { textheight  },
+    headheight  = \@@_keys_get:nn { layout } { headheight  },
+    headsep     = \@@_keys_get:nn { layout } { headsep     },
+    footskip    = \@@_keys_get:nn { layout } { footskip    },
+    includehead,
+    includefoot,
 }
 %    \end{macrocode}
 %
-% \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
-% \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
-% \changes{v2.2}{2025/05/29}{加粗答辩日期。}
-%
-% 设置默认值。
-%
-%    \begin{macrocode}
-\nktset{
-    学校代码                     = 10055,
-    题名页/密级                  = 公开,
-    题名页/论文题目字号          = 2,
-    论文完成时间                 = \qquad 年 \qquad 月,
-    非公开论文/保密期限/起始日期 = 20 \qquad 年 \qquad 月 \qquad 日,
-    非公开论文/保密期限/结束日期 = 20 \qquad 年 \qquad 月 \qquad 日,
-    非公开论文/批准日期          = 20 \qquad 年 \qquad 月 \qquad 日,
-    原创性声明/签字日期          = 年 \qquad 月 \qquad 日,
-    授权书/签字日期              = 20 \qquad 年 \qquad 月 \qquad 日,
-    答辩日期                     = \textbf { 20 \qquad 年 \qquad 月 \qquad 日 },
-}
-%    \end{macrocode}
-%
-% 选项设置。
-%
-%    \begin{macrocode}
-\keys_define:nn { nkthesis / info } {
-    题名页/论文类别 .tl_set:N       = \g_@@_lunwenleibie_tl,
-    题名页/论文类别 .initial:n      = 硕士,
-    题名页/论文类别 .choices:nn     =
-        { 硕士, 博士, 硕士专业, 博士专业 }
-        { \tl_set:Nn \g_@@_lunwenleibie_tl {#1} },
-    作者信息/论文类别 .tl_set:N     = \g_@@_lunwenleibiealt_tl,
-    作者信息/论文类别 .initial:n    = 学历硕士,
-    作者信息/论文类别 .choices:nn   =
-        { 博士, 学历硕士, 专业学位硕士, 同等学力硕士 }
-        { \tl_set:Nn \g_@@_lunwenleibiealt_tl {#1} },
-    非公开论文/申请密级 .tl_set:N   = \g_@@_shenqingmiji_tl,
-    非公开论文/申请密级 .initial:n  = 公开,
-    非公开论文/申请密级 .choices:nn =
-        { 公开, 限制, 秘密, 机密 }
-        { \tl_set:Nn \g_@@_shenqingmiji_tl {#1} },
-}
-%    \end{macrocode}
-%
-% \subsection{通用设置}
+% \subsubsection{通用设置}
 %
 % 允许三级标题（subsubsection）编号。
 %
@@ -1560,7 +1610,7 @@
 \raggedbottom
 %    \end{macrocode}
 %
-% \subsection{字体设置}
+% \subsubsection{字体设置}
 %
 % \changes{v2.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。}
 % \changes{v2.3}{2025/12/24}{独立检查每个字体是否存在。}
@@ -1656,10 +1706,9 @@
 % \end{macro}
 %
 % \begin{macro}{\dejavusans}
-% \changes{v2.1}{2025/05/01}{
-%      将 Segoe UI Symbol替换为 DejaVu Sans。
-%      \cs{segoeui} 命令不再可用。
-% }
+%
+% \changes{v2.1}{2025/05/01}{将 Segoe UI Symbol替换为 DejaVu Sans。\cs{segoeui} 命令不再可用。}
+%
 %    \begin{macrocode}
 \newfontfamily { \dejavusans } { DejaVu Sans }
 %    \end{macrocode}
@@ -1677,7 +1726,9 @@
 \newunicodechar{★}{{\dejavusans\char_generate:nn { "2605 } { 12 }}}
 %    \end{macrocode}
 %
-% \subsection{私有命令定义}
+% \subsection{辅助命令定义}
+%
+% \subsubsection{私有命令定义}
 %
 % \begin{variable}{\c_@@_msbaselinespread_fp}
 % Microsoft Word 基础行距（中易字库）。
@@ -1755,7 +1806,7 @@
 % \end{macro}
 %
 % \begin{macro}{\@@_simpleref:n}
-% 简化引用函数。
+% 简化引用命令。
 %    \begin{macrocode}
 \cs_new:Nn \@@_simpleref:n {
     \IfEndWith {#1} { 小节 }
@@ -1773,7 +1824,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{公有命令定义}
+% \subsubsection{公有命令定义}
 %
 % \begin{macro}{\mslinespread}
 % Microsoft Word 多倍行距模拟。
@@ -1794,7 +1845,7 @@
 % \end{macro}
 %
 % \begin{macro}{\simpleref}
-% 简化引用函数。
+% 简化引用命令。
 %    \begin{macrocode}
 \NewExpandableDocumentCommand \simpleref { m } {
     \hyperref [#1] { \@@_simpleref:n { \getrefnumber {#1} } }
@@ -2526,7 +2577,7 @@
             \zihao { 2 }
             \bfseries
             \ziju { 0.5 }
-            \tl_use:N \g_@@_lunwenleibie_tl 学位论文
+            \nktget { 题名页/论文类别 } 学位论文
             \par
         }
         \par
@@ -2638,7 +2689,7 @@
             \heiti
             \fontsize { 28 } { 33.6 }
             \bfseries
-            南开大学 \tl_use:N \g_@@_lunwenleibie_tl 毕业（学位）论文
+            南开大学 \nktget { 题名页/论文类别 } 毕业（学位）论文
             \par
         }
         \par
@@ -2794,7 +2845,7 @@
                 \centering
                 { \heiti 论文题目 }
             \end { minipage } &
-            \str_if_eq:eeTF { \tl_use:N \g_@@_shenqingmiji_tl } {公开}
+            \str_if_eq:eeTF { \nktget { 非公开论文/申请密级 } } {公开}
                 {
                     \begin { minipage } { 111mm }
                         \rule{0pt}{0pt}
@@ -2808,17 +2859,17 @@
                 } \\
             \hline
             { \heiti 申请密级 } &
-            \@@_ifcheckbox:en { \tl_use:N \g_@@_shenqingmiji_tl } { 限制 }
+            \@@_ifcheckbox:en { \nktget { 非公开论文/申请密级 } } { 限制 }
                 ~限制（$\leq 2$年）
                 \quad
-            \@@_ifcheckbox:en { \tl_use:N \g_@@_shenqingmiji_tl } { 秘密 }
+            \@@_ifcheckbox:en { \nktget { 非公开论文/申请密级 } } { 秘密 }
                 ~秘密（$\leq 10$年）
                 \quad
-            \@@_ifcheckbox:en { \tl_use:N \g_@@_shenqingmiji_tl } { 机密 }
+            \@@_ifcheckbox:en { \nktget { 非公开论文/申请密级 } } { 机密 }
                 ~机密（$\leq 20$年） \\
             \hline
             { \heiti 保密期限 } &
-            \str_if_eq:eeTF { \tl_use:N \g_@@_shenqingmiji_tl } { 公开 }
+            \str_if_eq:eeTF { \nktget { 非公开论文/申请密级 } } { 公开 }
                 {
                     20 \qquad 年 \qquad 月 \qquad 日
                     至20 \qquad 年 \qquad 月 \qquad 日
@@ -2830,14 +2881,14 @@
             \hline
             { \heiti 审批表编号 } &
             \hbox to 42mm {
-                \str_if_eq:eeF { \tl_use:N \g_@@_shenqingmiji_tl } { 公开 }
+                \str_if_eq:eeF { \nktget { 非公开论文/申请密级 } } { 公开 }
                     { \nktget { 非公开论文/审批表编号 } }
             }
             \vline
             \hbox to 24mm { \hfill \heiti 批准日期 \hfill }
             \vline
             \hfill{
-                \str_if_eq:eeTF { \tl_use:N \g_@@_shenqingmiji_tl } { 公开 }
+                \str_if_eq:eeTF { \nktget { 非公开论文/申请密级 } } { 公开 }
                     { 20 \qquad 年 \qquad 月 \qquad 日 }
                     { \nktget { 非公开论文/批准日期 } }
             } \\
@@ -2982,19 +3033,19 @@
             \hbox to 144.9mm {
                 \hspace { 2em }
                 \textbf { 博士 } ~ \@@_ifcheckbox:en
-                    { \tl_use:N \g_@@_lunwenleibiealt_tl }
+                    { \nktget { 作者信息/论文类别 } }
                     { 博士 }
                 \qquad
                 \textbf { 学历硕士 } ~ \@@_ifcheckbox:en
-                    { \tl_use:N \g_@@_lunwenleibiealt_tl }
+                    { \nktget { 作者信息/论文类别 } }
                     { 学历硕士 }
                 \qquad
                 \textbf { 专业学位硕士 } ~ \@@_ifcheckbox:en
-                    { \tl_use:N \g_@@_lunwenleibiealt_tl }
+                    { \nktget { 作者信息/论文类别 } }
                     { 专业学位硕士 }
                 \qquad
                 \textbf { 同等学力硕士 } ~ \@@_ifcheckbox:en
-                    { \tl_use:N \g_@@_lunwenleibiealt_tl }
+                    { \nktget { 作者信息/论文类别 } }
                     { 同等学力硕士 }
                 \hfill
                 \textbf { 划 } \@@_ifcheckbox: \textbf { 选择 }
