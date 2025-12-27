@@ -1231,7 +1231,7 @@
 % \subsection{文档类属性}
 %
 % \changes{v2.3}{2025/12/26}{将文档类里的部分魔法数字提取为常量，以提高代码可维护性。}
-% \changes{v2.3}{2025/12/27}{重构文档类属性处理代码，使用 \texttt{l3keys} 模块实现。}
+% \changes{v2.3}{2025/12/27}{重构文档类属性处理代码，使用 \pkg{l3keys} 模块实现。}
 %
 % \subsubsection{属性操作命令}
 %
@@ -1461,7 +1461,7 @@
 % \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
 % \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
 % \changes{v2.2}{2025/05/29}{加粗答辩日期。}
-% \changes{v2.3}{2025/12/27}{移除冗余的 \texttt{tl_set:N} 命令。}
+% \changes{v2.3}{2025/12/27}{移除冗余的 \cs{tl_set:N} 命令。}
 %
 %    \begin{macrocode}
 \keys_define:nn { nkthesis / info } {
@@ -1619,7 +1619,7 @@
 %
 % \subsubsection{布局设置}
 %
-% \changes{v2.3}{2025/12/27}{使用 \texttt{geometry} 设置页面尺寸，并放弃对 \texttt{\textbackslash topskip} 的改动。}
+% \changes{v2.3}{2025/12/27}{使用 \pkg{geometry} 设置页面尺寸，并放弃对 \cs{topskip} 的改动。}
 %
 %    \begin{macrocode}
 \geometry {
@@ -2288,7 +2288,7 @@
 %
 % \subsection{公式}
 % 
-% \changes{v2.3}{2025/12/27}{使用 \texttt{mathtools} 自定义公式标签格式。}
+% \changes{v2.3}{2025/12/27}{使用 \pkg{mathtools} 自定义公式标签格式。}
 %
 % 设置公式标签格式。
 %
