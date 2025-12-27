@@ -1206,10 +1206,22 @@
 %<@@=nkthesis>
 %    \end{macrocode}
 %
-% \changes{v2.3}{2025/12/26}{将文档类里的部分魔法数字提取为常量，以提高代码可维护性。}
-% \changes{v2.3}{2025/12/27}{重构文档类属性处理代码，使用 \texttt{l3keys} 模块实现。}
+% \changes{v2.3}{2025/12/27}{强制要求使用 \XeLaTeX 编译}
+%
+% 强制要求使用 \XeLaTeX 编译。
+%
+%    \begin{macrocode}
+\msg_new:nnn { nkthesis } { xetex-required }
+    { This~document~class~requires~XeTeX.~Please~compile~with~XeLaTeX. }
+\sys_if_engine_xetex:F {
+    \msg_fatal:nn { nkthesis } { xetex-required }
+}
+%    \end{macrocode}
 %
 % \subsection{文档类属性}
+%
+% \changes{v2.3}{2025/12/26}{将文档类里的部分魔法数字提取为常量，以提高代码可维护性。}
+% \changes{v2.3}{2025/12/27}{重构文档类属性处理代码，使用 \texttt{l3keys} 模块实现。}
 %
 % \subsubsection{属性操作命令}
 %
