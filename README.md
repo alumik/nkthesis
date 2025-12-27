@@ -504,7 +504,9 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 
 ## 相关链接
 
-本模板的其他实现：
+南开大学硕博毕业论文模板的其他历史实现：
 
 - [https://github.com/NewFuture/NKThesis](https://github.com/NewFuture/NKThesis)
 - [https://github.com/qianchd/NKU_thesis_graduate](https://github.com/qianchd/NKU_thesis_graduate)
+- [https://github.com/MCG-NKU/NKU-Thesis](https://github.com/MCG-NKU/NKU-Thesis)
+- [https://github.com/benhaotang/NKThesis](https://github.com/benhaotang/NKThesis)
