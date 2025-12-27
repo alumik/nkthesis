@@ -154,6 +154,7 @@
 %               \item 使用 \pkg{subcaption} 自定义子图样式。
 %               \item 使用 \pkg{tikz} 绘制矢量版的南开大学文字 Logo。
 %               \item 使用 \pkg{array} 自定义表格样式。
+%               \item 使用 \pkg{mathtools} 自定义数学公式样式。
 %           \end{itemize}
 % \end{enumerate}
 %
@@ -1575,6 +1576,7 @@
 \RequirePackage [ inline, shortlabels ] { enumitem }
 \RequirePackage [ hidelinks ] { hyperref }
 \RequirePackage { amsmath, amsthm, amssymb }
+\RequirePackage { mathtools }
 \RequirePackage { setspace }
 \RequirePackage [
     backend = biber,
@@ -2269,21 +2271,16 @@
 %    \end{macrocode}
 %
 % \subsection{公式}
+% 
+% \changes{v2.3}{2025/12/27}{使用 \texttt{mathtools} 自定义公式标签格式。}
 %
 % 设置公式标签格式。
 %
 %    \begin{macrocode}
-\cs_set:Npn \tagform@ #1 {
-    \maketag@@@@@ {
-        \ignorespaces
-        \mslinespread { 1 }
-        \songti
-        \zihao { 5 }
-        （#1）
-        \unskip
-        \@@@@italiccorr
-    }
-}
+\newtagform { nkthesis }
+    { \mslinespread { 1 } \songti \zihao { 5 } （ }
+    { ） }
+\usetagform { nkthesis }
 %    \end{macrocode}
 %
 % 减小公式行距。
