@@ -656,11 +656,12 @@
 %
 % \subsection{获取论文基本信息}
 %
-% \begin{function}{\nktget}
+% \begin{function}[updated=2025/12/27]{\nktget}
 %     \begin{syntax}
 %         \cs{nktget} \marg{键名}
 %     \end{syntax}
 %     用来获取论文基本信息。
+%     当键名不存在时直接报错。
 % \end{function}
 %
 % 以下是获取学校代码的示例：
@@ -1249,13 +1250,22 @@
 %
 % \begin{macro}{\@@_keys_set:nn, \@@_keys_get:nn}
 %
+% \changes{v2.3}{2025/12/27}{当键名不存在时直接报错而不是返回空值。}
+%
 % 键值写入和读取命令。
 %
 %    \begin{macrocode}
+\msg_new:nnn { nkthesis } { invalid-key }
+    { The~key~'#1'~is~not~defined~in~the~nkthesis~class. }
 \cs_new_protected:Nn \@@_keys_set:nn
     { \keys_set:nn { nkthesis / #1 } {#2} }
-\cs_new:Nn \@@_keys_get:nn
-    { \prop_item:Nn \g_@@_config_prop { #1 / #2 } }
+\cs_new:Nn \@@_keys_get:nn {
+    \keys_if_exist:nnTF
+        { nkthesis / #1 }
+        {#2}
+        { \prop_item:Nn \g_@@_config_prop { #1 / #2 } }
+        { \msg_fatal:nnn { nkthesis } { invalid-key } { #1 / #2 } }
+}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1270,6 +1280,7 @@
 % \end{macro}
 %
 % \begin{macro}{\nktget}
+%
 %    \begin{macrocode}
 \NewExpandableDocumentCommand \nktget { m } {
     \@@_keys_get:nn { info } {#1}
