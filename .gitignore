@@ -294,3 +294,6 @@ TSWLatexianTemp*
 
 # Fonts
 fonts/
+
+# Utility scripts
+*.py
