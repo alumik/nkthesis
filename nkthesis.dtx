@@ -1771,20 +1771,20 @@
 %
 % \subsubsection{私有命令定义}
 %
-% \begin{macro}{\@@_checkedcheckbox:, \@@_checkbox:nn, \@@_checkbox:en}
+% \begin{macro}{\@@_checked_checkbox:, \@@_checkbox:nn, \@@_checkbox:en}
 %
 % \changes{v2.2}{2025/05/23}{修复命令参数类型标记。}
 %
 % 根据选项值为复选框打勾。
 %
 %    \begin{macrocode}
-\cs_new:Nn \@@_checkedcheckbox: {
+\cs_new:Nn \@@_checked_checkbox: {
     \makebox [ 0pt ] [ l ] { $\square$ }
     \raisebox { 0.15ex } { \hspace { 0.1em } $\checkmark$ }
 }
 \cs_new:Nn \@@_checkbox:nn {
     \str_if_eq:nnTF {#1} {#2}
-        { \@@_checkedcheckbox: }
+        { \@@_checked_checkbox: }
         { $\square$ }
 }
 \cs_generate_variant:Nn \@@_checkbox:nn { e }
@@ -2287,7 +2287,7 @@
 %    \end{macrocode}
 %
 % \subsection{公式}
-% 
+%
 % \changes{v2.3}{2025/12/27}{使用 \pkg{mathtools} 自定义公式标签格式。}
 %
 % 设置公式标签格式。
@@ -3105,7 +3105,7 @@
                     { \nktget { 作者信息/论文类别 } }
                     { 同等学力硕士 }
                 \hfill
-                \textbf { 划 } \@@_checkedcheckbox: \textbf { 选择 }
+                \textbf { 划 } \@@_checked_checkbox: \textbf { 选择 }
                 \hspace { 0.3em }
             } \\
             \hline
