@@ -1,0 +1,346 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: 章
+============================================================
+> \box...=
+\hbox(9.88066+1.27036)x36.135
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(chapter.2)>>>>}
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 二
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 章
+.\kern -0.00017
+.\kern 0.00017
+.\special{pdf:eann}
+! OK.
+<argument> ...\hbox {\ref {chap:test}} \showbox 0 
+                                                  \setbox 0=\hbox {\simplere...
+l. ...}
+> \box...=
+\hbox(9.88066+1.27036)x36.135
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(chapter.2)>>>>}
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 二
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 章
+.\kern -0.00017
+.\kern 0.00017
+.\special{pdf:eann}
+! OK.
+<argument> ...{\simpleref {chap:test}} \showbox 0 
+l. ...}
+============================================================
+============================================================
+TEST 2: 节
+============================================================
+> \box...=
+\hbox(9.88066+1.27036)x72.26999
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(section.2.2)>>>>}
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 二
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 章
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 二
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 节
+.\kern -0.00017
+.\kern 0.00017
+.\special{pdf:eann}
+! OK.
+<argument> ...=\hbox {\ref {sec:test}} \showbox 0 
+                                                  \setbox 0=\hbox {\simplere...
+l. ...}
+> \box...=
+\hbox(9.83362+1.22331)x36.135
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(section.2.2)>>>>}
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 二
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 节
+.\kern -0.00017
+.\kern 0.00017
+.\special{pdf:eann}
+! OK.
+<argument> ... {\simpleref {sec:test}} \showbox 0 
+l. ...}
+============================================================
+============================================================
+TEST 3: 小节
+============================================================
+> \box...=
+\hbox(9.88066+1.27036)x120.44998
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(subsection.2.2.1)>>>>}
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 二
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 章
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 二
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 节
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 一
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 小
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 节
+.\kern -0.00017
+.\kern 0.00017
+.\special{pdf:eann}
+! OK.
+<argument> ...box {\ref {subsec:test}} \showbox 0 
+                                                  \setbox 0=\hbox {\simplere...
+l. ...}
+> \box...=
+\hbox(9.83362+1.22331)x48.18
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(subsection.2.2.1)>>>>}
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 一
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 小
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 节
+.\kern -0.00017
+.\kern 0.00017
+.\special{pdf:eann}
+! OK.
+<argument> ...simpleref {subsec:test}} \showbox 0 
+l. ...}
+============================================================
+============================================================
+TEST 4: 子小节
+============================================================
+> \box...=
+\hbox(9.88066+1.27036)x156.58498
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(subsubsection.2.2.1.3)>>>>}
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 二
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 章
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 二
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 节
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 第
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 一
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 小
+.\glue 0.0 plus 0.56017
+.\TU/SimSun(0)/m/n/12.045 节
+.\glue 0.0 plus 0.56017
+.\glue 6.82236 minus 5.08148
+.\rule(0.0+0.0)x-6.82236
+.\TU/SimSun(0)/m/n/12.045 （三
+.\penalty 10000
+.\TU/SimSun(0)/m/n/12.045 ）
+.\rule(0.0+0.0)x-6.82236
+.\kern 0.00041
+.\kern -0.00041
+.\kern -0.99623
+.\kern 0.99623
+.\glue 6.82236 minus 5.08148
+.\special{pdf:eann}
+! OK.
+<argument> ... {\ref {subsubsec:test}} \showbox 0 
+                                                  \setbox 0=\hbox {\simplere...
+l. ...}
+> \box...=
+\hbox(9.22195+0.42345)x36.135
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(subsubsection.2.2.1.3)>>>>}
+.\glue 6.82236 minus 5.08148
+.\rule(0.0+0.0)x-6.82236
+.\TU/SimSun(0)/m/n/12.045 （三
+.\penalty 10000
+.\TU/SimSun(0)/m/n/12.045 ）
+.\rule(0.0+0.0)x-6.82236
+.\kern 0.00041
+.\kern -0.00041
+.\kern -0.99623
+.\kern 0.99623
+.\glue 6.82236 minus 5.08148
+.\special{pdf:eann}
+! OK.
+<argument> ...pleref {subsubsec:test}} \showbox 0 
+l. ...}
+============================================================
+============================================================
+TEST 5: 图
+============================================================
+> \box...=
+\hbox(9.73952+1.1292)x30.11249
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(figure.caption.1)>>>>}
+.\TU/SimSun(0)/m/n/12.045 图
+.\glue 3.01125 plus 1.50562 minus 1.00374
+.\TU/TimesNewRoman(0)/m/n/12.045 2.1
+.\kern -0.0002
+.\kern 0.0002
+.\special{pdf:eann}
+! OK.
+<argument> ...=\hbox {\ref {fig:test}} \showbox 0 
+                                                  \setbox 0=\hbox {\simplere...
+l. ...}
+> \box...=
+\hbox(9.73952+1.1292)x30.11249
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(figure.caption.1)>>>>}
+.\TU/SimSun(0)/m/n/12.045 图
+.\glue 3.01125 plus 1.50562 minus 1.00374
+.\TU/TimesNewRoman(0)/m/n/12.045 2.1
+.\kern -0.0002
+.\kern 0.0002
+.\special{pdf:eann}
+! OK.
+<argument> ... {\simpleref {fig:test}} \showbox 0 
+l. ...}
+============================================================
+============================================================
+TEST 6: 表
+============================================================
+> \box...=
+\hbox(9.83362+1.1292)x30.11249
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(table.caption.2)>>>>}
+.\TU/SimSun(0)/m/n/12.045 表
+.\glue 3.01125 plus 1.50562 minus 1.00374
+.\TU/TimesNewRoman(0)/m/n/12.045 2.1
+.\kern -0.0002
+.\kern 0.0002
+.\special{pdf:eann}
+! OK.
+<argument> ...=\hbox {\ref {tab:test}} \showbox 0 
+                                                  \setbox 0=\hbox {\simplere...
+l. ...}
+> \box...=
+\hbox(9.83362+1.1292)x30.11249
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(table.caption.2)>>>>}
+.\TU/SimSun(0)/m/n/12.045 表
+.\glue 3.01125 plus 1.50562 minus 1.00374
+.\TU/TimesNewRoman(0)/m/n/12.045 2.1
+.\kern -0.0002
+.\kern 0.0002
+.\special{pdf:eann}
+! OK.
+<argument> ... {\simpleref {tab:test}} \showbox 0 
+l. ...}
+============================================================
+============================================================
+TEST 7: 公式
+============================================================
+> \box...=
+\hbox(9.83362+1.1292)x51.19124
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(equation.2.1)>>>>}
+.\TU/SimSun(0)/m/n/12.045 式
+.\glue 0.0 plus 0.56017
+.\glue 6.82236 minus 5.08148
+.\rule(0.0+0.0)x-6.82236
+.\TU/SimSun(0)/m/n/12.045 （
+.\penalty 10000
+.\glue 0.0
+.\TU/TimesNewRoman(0)/m/n/12.045 2.1
+.\penalty 10000
+.\TU/SimSun(0)/m/n/12.045 ）
+.\rule(0.0+0.0)x-6.82236
+.\kern 0.00041
+.\kern -0.00041
+.\kern -0.99623
+.\kern 0.99623
+.\glue 6.82236 minus 5.08148
+.\special{pdf:eann}
+! OK.
+<argument> ...0=\hbox {\ref {eq:test}} \showbox 0 
+                                                  \setbox 0=\hbox {\simplere...
+l. ...}
+> \box...=
+\hbox(9.83362+1.1292)x51.19124
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(equation.2.1)>>>>}
+.\TU/SimSun(0)/m/n/12.045 式
+.\glue 0.0 plus 0.56017
+.\glue 6.82236 minus 5.08148
+.\rule(0.0+0.0)x-6.82236
+.\TU/SimSun(0)/m/n/12.045 （
+.\penalty 10000
+.\glue 0.0
+.\TU/TimesNewRoman(0)/m/n/12.045 2.1
+.\penalty 10000
+.\TU/SimSun(0)/m/n/12.045 ）
+.\rule(0.0+0.0)x-6.82236
+.\kern 0.00041
+.\kern -0.00041
+.\kern -0.99623
+.\kern 0.99623
+.\glue 6.82236 minus 5.08148
+.\special{pdf:eann}
+! OK.
+<argument> ...x {\simpleref {eq:test}} \showbox 0 
+l. ...}
+============================================================
+============================================================
+TEST 8: 子图
+============================================================
+> \box...=
+\hbox(9.73952+1.1292)x60.22499
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(figure.caption.1)>>>>}
+.\TU/SimSun(0)/m/n/12.045 图
+.\glue 3.01125 plus 1.50562 minus 1.00374
+.\TU/TimesNewRoman(0)/m/n/12.045 2.1
+.\glue 6.82236 minus 5.08148
+.\rule(0.0+0.0)x-6.82236
+.\TU/SimSun(0)/m/n/12.045 （
+.\penalty 10000
+.\glue 0.0
+.\TU/TimesNewRoman(0)/m/n/12.045 b
+.\penalty 10000
+.\TU/SimSun(0)/m/n/12.045 ）
+.\rule(0.0+0.0)x-6.82236
+.\kern 0.00041
+.\kern -0.00041
+.\kern -0.99623
+.\kern 0.99623
+.\glue 6.82236 minus 5.08148
+.\special{pdf:eann}
+! OK.
+<argument> ...box {\ref {subfig:test}} \showbox 0 
+                                                  \setbox 0=\hbox {\simplere...
+l. ...}
+> \box...=
+\hbox(9.73952+1.1292)x60.22499
+.\special{pdf:bann<</Type/Annot/Subtype/Link/Border[0 0 0]/H/I/C[1 0 0]/A<</S/GoTo/D(figure.caption.1)>>>>}
+.\TU/SimSun(0)/m/n/12.045 图
+.\glue 3.01125 plus 1.50562 minus 1.00374
+.\TU/TimesNewRoman(0)/m/n/12.045 2.1
+.\glue 6.82236 minus 5.08148
+.\rule(0.0+0.0)x-6.82236
+.\TU/SimSun(0)/m/n/12.045 （
+.\penalty 10000
+.\glue 0.0
+.\TU/TimesNewRoman(0)/m/n/12.045 b
+.\penalty 10000
+.\TU/SimSun(0)/m/n/12.045 ）
+.\rule(0.0+0.0)x-6.82236
+.\kern 0.00041
+.\kern -0.00041
+.\kern -0.99623
+.\kern 0.99623
+.\glue 6.82236 minus 5.08148
+.\special{pdf:eann}
+! OK.
+<argument> ...simpleref {subfig:test}} \showbox 0 
+l. ...}
+============================================================

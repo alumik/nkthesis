@@ -78,7 +78,7 @@
 %     \foreach, \fp_eval:n, \geometry,
 %     \getrefnumber, \group_begin:, \group_end:, \hbox,
 %     \headrulewidth, \hfill, \hline,
-%     \hspace, \hyperref, \IfEndWith, \ignorespaces,
+%     \hspace, \hyperref, \IfBeginWith, \IfEndWith, \ignorespaces,
 %     \int_compare:nNnT, \int_compare:nNnTF, \int_gset:Nn,
 %     \int_new:N, \int_set:Nn, \intextsep, \keys_define:nn,
 %     \keys_if_exist:nnTF, \keys_set:nn,
@@ -210,7 +210,7 @@
 %         \bottomrule
 %     \end{tabular}
 % \end{table}
-% 
+%
 % \begin{table}[H]
 %     \centering
 %     \caption{\cls{nkthesis} 其他辅助文件}
@@ -219,7 +219,7 @@
 %         文件       & 功能说明                               \\
 %         \midrule
 %         testfiles/ & 测试文件夹，包含单元测试和集成测试脚本 \\
-%         .gitignore & Git 忽略文件                           \\ 
+%         .gitignore & Git 忽略文件                           \\
 %         build.lua  & \pkg{l3build} 构建脚本                 \\
 %         README.md  & 简易使用说明                           \\
 %         \bottomrule
@@ -1850,6 +1850,8 @@
 %
 % \begin{macro}{\@@_simpleref:n}
 %
+% \changes{v2.4}{2025/12/28}{修复简单引用子图和公式时返回为空的问题。}
+%
 % 简化引用命令。
 %
 %    \begin{macrocode}
@@ -1861,7 +1863,15 @@
                 { \StrBehind {#1} { 章 } }
                 {
                     \IfEndWith {#1} { ） }
-                        { \StrBehind [ 2 ] {#1} { 节 } }
+                        {
+                            \IfBeginWith {#1} { 式 }
+                                {#1}
+                                {
+                                    \IfBeginWith {#1} { 图 }
+                                        {#1}
+                                        { \StrBehind [ 2 ] {#1} { 节 } }
+                                }
+                        }
                         {#1}
                 }
         }

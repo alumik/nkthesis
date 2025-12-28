@@ -13,7 +13,7 @@ end
 
 cleanfiles = {"*.hd", "*.glo", "*.gls", "*.idx", "*.ind", "*.ilg"}
 
-typesetcmds = typesetcmds or "" 
+typesetcmds = typesetcmds or ""
 
 sourcefiles = {"nkthesis.dtx", "nkthesis.ins"}
 
@@ -32,3 +32,5 @@ typesetfiles = {"nkthesis.dtx", "nkthesis-sample.tex"}
 biberexe = "biber"
 
 checkengines = { "xetex" }
+
+checkruns = 3
