@@ -1,6 +1,6 @@
 # nkthesis：南开大学硕士/博士毕业（学位）论文模板（2025）
 
-![version 2.3.1](https://img.shields.io/badge/version-2.3.1-blue)
+![version 2.4.0](https://img.shields.io/badge/version-2.4.0-blue)
 ![license-LPPL-1.3c](https://img.shields.io/github/license/alumik/nkthesis)
 
 > [!CAUTION]
@@ -52,11 +52,13 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 2. 获取 `nkthesis.cls` 文件。
     以下两种方法可任选其一：
     - 方法一：从 [Release](https://github.com/alumik/nkthesis/releases/latest) 中下载最新版本的 `nkthesis.cls` 文件，放入论文文件夹中。
-    - 方法二：使用以下命令从 `nkthesis.dtx` 文件中提取 `nkthesis.cls` 文件。
+    - 方法二：从 `nkthesis.dtx` 文件中提取 `nkthesis.cls` 文件。
 
       ```
-      xelatex nkthesis.ins
+      l3build unpack
       ```
+
+      该命令会在 `build/unpacked` 目录下生成 `nkthesis.cls` 文件。可将该文件拷贝到论文文件夹中。
 
 3. 使用 XeLaTeX 编译 `nkthesis-sample.tex` 文件。
    本模板已经提供了 `latexmk` 配置文件，使用 `latexmk` 命令编译时会自动调用 XeLaTeX。
@@ -102,10 +104,10 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
 3. 在模板文件夹下执行
 
     ```
-    latexmk nkthesis.dtx
+    l3build doc
     ```
 
-    即可在目录下生成 `nkthesis.pdf` 文件，即模板的说明文档。
+    即可在目录下生成 `nkthesis.pdf` 与 `nkthesis-sample.pdf` 文件，即模板的说明文档与示例文档。
 
 ## 还有问题？
 
