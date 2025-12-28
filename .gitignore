@@ -297,3 +297,6 @@ fonts/
 
 # Utility scripts
 *.py
+
+# l3build
+build/

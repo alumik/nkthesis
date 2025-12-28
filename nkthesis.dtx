@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2025/12/27}
-%<class>    {v2.3.1}
+%<class>    {2025/12/28}
+%<class>    {v2.4.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -113,13 +113,14 @@
 %     {重构为 \LaTeXiii 文档类，并以 \texttt{.dtx} 格式发布。}
 % \changes{v2.1}{2025/05/01}{不再默认提供非开源字体文件。}
 % \changes{v2.1}{2025/05/01}{需要最新版本的 \LaTeX2e（2024/11/01）以确保功能正常。}
+% \changes{v2.4}{2025/12/28}{使用 \pkg{l3build} 打包和发布模板。}
 %
 % \title{^^A
 %     \textbf{nkthesis：南开大学硕士/博士毕业（学位）论文模板}^^A
 %     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/12/27\qquad v2.3.1}
+% \date{2025/12/28\qquad v2.4.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -179,13 +180,12 @@
 %     \label{tab:components-of-nkthesis-1}
 %     \begin{tabular}{ll}
 %         \toprule
-%         文件 & 功能说明 \\
+%         文件         & 功能说明                               \\
 %         \midrule
-%         fonts/                    & 自定义字体，详见~\ref{subsec:fonts} 节 \\
-%         LICENSE                   & 许可证                                 \\
-%         nkthesis.dtx              & 文档类文件                             \\
-%         nkthesis.ins              & 文档类安装文件                         \\
-%         README.md                 & 简易使用说明                           \\
+%         fonts/       & 自定义字体，详见~\ref{subsec:fonts} 节 \\
+%         LICENSE      & 许可证                                 \\
+%         nkthesis.dtx & 文档类文件                             \\
+%         nkthesis.ins & 文档类安装文件                         \\
 %         \bottomrule
 %     \end{tabular}
 % \end{table}
@@ -210,35 +210,34 @@
 %         \bottomrule
 %     \end{tabular}
 % \end{table}
+% 
+% \begin{table}[H]
+%     \centering
+%     \caption{\cls{nkthesis} 其他辅助文件}
+%     \begin{tabular}{ll}
+%         \toprule
+%         文件       & 功能说明                               \\
+%         \midrule
+%         testfiles/ & 测试文件夹，包含单元测试和集成测试脚本 \\
+%         .gitignore & Git 忽略文件                           \\ 
+%         build.lua  & \pkg{l3build} 构建脚本                 \\
+%         README.md  & 简易使用说明                           \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
 %
-% \subsection{下载并安装 \cls{nkthesis}}
+% \subsection{使用 \cls{nkthesis}}
 %
-% \begin{enumerate}
-%     \item 将本模板所有文件克隆/下载到本地。
-%     \item 获取 nkthesis.cls 文件。
-%           以下两种方法可任选其一：
-%           \begin{enumerate}
-%               \item[a）] 从 GitHub Release\footnote{\url{https://github.com/alumik/nkthesis/releases/latest}} 中下载最新版本的 nkthesis.cls 文件，放入论文文件夹中。
-%               \item[b）] 使用以下命令从 nkthesis.dtx 文件中提取 nkthesis.cls 文件。
-%                               \begin{nkthesisexam}
-%     xelatex nkthesis.ins
-%                               \end{nkthesisexam}
-%           \end{enumerate}
-%     \item 使用 \XeLaTeX 编译 nkthesis-sample.tex 示例文件。
-%           本模板已经提供了 \pkg{latexmk} 配置文件，使用 |latexmk| 命令编译时会自动调用 \XeLaTeX。
-%           \begin{nkthesisexam}
-%     latexmk nkthesis-sample.tex
-%           \end{nkthesisexam}
-%           如果编译时出现如下所示的缺少字体错误，请参考~\ref{subsec:fonts} 节解决。
-%           \begin{nkthesisexam}
+% 需要使用 \XeLaTeX 编译 nkthesis-sample.tex 示例文件。
+% 如果编译时出现如下所示的缺少字体错误，请参考~\ref{subsec:fonts} 节解决。
+% \begin{nkthesisexam}
 %     Package fontspec Error:
 %     (fontspec)	The font "simsun" cannot be found; this may be but
 %     (fontspec)	usually is not a fontspec bug. Either there is a
 %     (fontspec)	typo in the font name/file, the font is not
 %     (fontspec)	installed (correctly), or there is a bug in the
 %     (fontspec)	underlying font loading engine (XeTeX/luaotfload).
-%           \end{nkthesisexam}
-% \end{enumerate}
+% \end{nkthesisexam}
 %
 % \subsection{可选步骤：放置字体文件}
 % \label{subsec:fonts}
