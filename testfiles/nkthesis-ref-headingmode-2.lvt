@@ -1,0 +1,116 @@
+\input{regression-test.tex}
+\documentclass[headingmode=2]{nkthesis}
+
+\begin{document}
+
+\chapter{Test Chapter 1}
+
+\chapter{Test Chapter 2}
+\label{chap:test}
+
+\section{Test Section 2.1}
+
+\section{Test Section 2.2}
+\label{sec:test}
+
+\subsection{Test Subsection 2.2.1}
+\label{subsec:test}
+
+\subsubsection{Test Subsubsection 2.2.1.1}
+
+\subsubsection{Test Subsubsection 2.2.1.2}
+
+\subsubsection{Test Subsubsection 2.2.1.3}
+\label{subsubsec:test}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.4\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{example-image-a}
+        \caption{Test Subfigure A}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}[b]{0.4\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{example-image-b}
+        \caption{Test Subfigure B}
+        \label{subfig:test}
+    \end{subfigure}
+    \caption{Test Figure}
+    \label{fig:test}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cc}
+        \hline
+        A & B \\
+        \hline
+        1 & 2 \\
+        3 & 4 \\
+        \hline
+    \end{tabular}
+    \caption{Test Table}
+    \label{tab:test}
+\end{table}
+
+\begin{equation}
+    E = mc^2
+    \label{eq:test}
+\end{equation}
+
+\START
+
+\TEST{章}{
+    \setbox0=\hbox{\ref{chap:test}}
+    \showbox0
+    \setbox0=\hbox{\simpleref{chap:test}}
+    \showbox0
+}
+\TEST{节}{
+    \setbox0=\hbox{\ref{sec:test}}
+    \showbox0
+    \setbox0=\hbox{\simpleref{sec:test}}
+    \showbox0
+}
+\TEST{小节}{
+    \setbox0=\hbox{\ref{subsec:test}}
+    \showbox0
+    \setbox0=\hbox{\simpleref{subsec:test}}
+    \showbox0
+}
+\TEST{子小节}{
+    \setbox0=\hbox{\ref{subsubsec:test}}
+    \showbox0
+    \setbox0=\hbox{\simpleref{subsubsec:test}}
+    \showbox0
+}
+\TEST{图}{
+    \setbox0=\hbox{\ref{fig:test}}
+    \showbox0
+    \setbox0=\hbox{\simpleref{fig:test}}
+    \showbox0
+}
+\TEST{表}{
+    \setbox0=\hbox{\ref{tab:test}}
+    \showbox0
+    \setbox0=\hbox{\simpleref{tab:test}}
+    \showbox0
+}
+\TEST{公式}{
+    \setbox0=\hbox{\ref{eq:test}}
+    \showbox0
+    \setbox0=\hbox{\simpleref{eq:test}}
+    \showbox0
+}
+\TEST{子图}{
+    \setbox0=\hbox{\ref{subfig:test}}
+    \showbox0
+    \setbox0=\hbox{\simpleref{subfig:test}}
+    \showbox0
+}
+
+\OMIT
+
+\end{document}
