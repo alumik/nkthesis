@@ -296,7 +296,7 @@ TSWLatexianTemp*
 fonts/
 
 # Utility scripts
-*.py
+utilities/
 
 # l3build
 build/
