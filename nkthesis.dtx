@@ -111,8 +111,8 @@
 %
 % \changes{v2.0}{2025/04/30}
 %     {重构为 \LaTeXiii 文档类，并以 \texttt{.dtx} 格式发布。}
-% \changes{v2.1}{2025/05/01}{不再默认提供非开源字体文件。}
-% \changes{v2.1}{2025/05/01}{需要最新版本的 \LaTeX2e（2024/11/01）以确保功能正常。}
+% \changes{v2.1}{2025/05/01}{不再提供非开源字体文件。}
+% \changes{v2.1}{2025/05/01}{提示使用最新版本的 \LaTeX2e（2024/11/01）以确保功能正常。}
 % \changes{v2.4}{2025/12/28}{使用 \pkg{l3build} 打包和发布模板。}
 %
 % \title{^^A
@@ -314,7 +314,10 @@
 %                  （一）××××（根据需要，也可设三级标题，左缩进2个汉字）
 %     \end{optdesc}
 %
-% \changes{v2.3}{2025/12/26}{允许显式设置选项为 \texttt{true} 或 \texttt{false}。}
+% \changes{v2.3}{2025/12/26}{
+%     对于 \texttt{openright} 和 \texttt{uppercasehead} 选项允许显式设置选项为
+%     \texttt{true} 或 \texttt{false}。
+% }
 %
 % \begin{function}[updated=2025/12/26]{uppercasehead}
 %     \begin{syntax}
@@ -325,7 +328,10 @@
 % \end{function}
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
-% \changes{v2.3}{2025/12/26}{允许显式设置选项为 \texttt{true} 或 \texttt{false}。}
+% \changes{v2.3}{2025/12/26}{
+%     对于 \texttt{openright} 和 \texttt{uppercasehead} 选项允许显式设置选项为
+%     \texttt{true} 或 \texttt{false}。
+% }
 %
 % \begin{function}[added=2025/05/23,updated=2025/12/26]{openright}
 %     \begin{syntax}
@@ -1217,7 +1223,7 @@
 %<@@=nkthesis>
 %    \end{macrocode}
 %
-% \changes{v2.3}{2025/12/27}{强制要求使用 \XeLaTeX 编译}
+% \changes{v2.3}{2025/12/27}{强制要求使用 \XeLaTeX 编译。}
 %
 % 强制要求使用 \XeLaTeX 编译。
 %
@@ -1231,7 +1237,7 @@
 %
 % \subsection{文档类属性}
 %
-% \changes{v2.3}{2025/12/26}{将文档类里的部分魔法数字提取为常量，以提高代码可维护性。}
+% \changes{v2.3}{2025/12/26}{将文档类里的部分魔法数字提取为常量，提高代码可维护性。}
 % \changes{v2.3}{2025/12/27}{重构文档类属性处理代码，使用 \pkg{l3keys} 模块实现。}
 %
 % \subsubsection{属性操作命令}
@@ -1462,7 +1468,6 @@
 % \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
 % \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
 % \changes{v2.2}{2025/05/29}{加粗答辩日期。}
-% \changes{v2.3}{2025/12/27}{移除冗余的 \cs{tl_set:N} 命令。}
 %
 %    \begin{macrocode}
 \keys_define:nn { nkthesis / info } {
@@ -1655,8 +1660,8 @@
 % \subsubsection{字体设置}
 %
 % \changes{v2.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。}
-% \changes{v2.3}{2025/12/24}{独立检查每个字体是否存在。}
-% \changes{v2.3}{2025/12/24}{对于宋体，不再提供粗体和斜体的替代字体，统一使用伪粗体和伪斜体。}
+% \changes{v2.3}{2025/12/24}{独立检查每个字体是否存在，以允许补充个别缺失字体。}
+% \changes{v2.3}{2025/12/24}{对于宋体，不再为粗体和斜体使用替代字体，统一使用伪粗体和伪斜体。}
 %
 %    \begin{macrocode}
 \fontspec_font_if_exist:nTF { SimSun }
@@ -1760,7 +1765,7 @@
 %     定义★符号字体。
 %     此前，在文中插入★需要使用 \texttt{\{\textbackslash segoeui ★\}} 语句，现在直接键入★即可。
 % }
-% \changes{v2.3}{2025/12/24}{使用基于显式码点的字符替换。}
+% \changes{v2.3}{2025/12/24}{不再循环定义★符号，改为基于显式码点的字符替换。}
 %
 % 定义★符号字体。
 %
@@ -1852,7 +1857,7 @@
 %
 % \begin{macro}{\@@_simpleref:n}
 %
-% \changes{v2.4}{2025/12/28}{修复简单引用子图和公式时返回为空的问题。}
+% \changes{v2.4}{2025/12/28}{修复使用 \cs{simpleref} 引用子图和公式时显示为空的问题。}
 %
 % 简化引用命令。
 %
@@ -1924,9 +1929,9 @@
 %
 % \subsection{文档结构}
 %
-% \changes{v2.4}{2026/01/06}{对封面页采用不同的编码体系，以避免产生重复页码对象。}
+% \changes{v2.4}{2026/01/06}{使用大写字母作为封面页和声明页的页码编号，避免正文中产生重复页码对象。}
 %
-% 对封面页采用不同的编码体系，以避免产生重复页码对象。
+% 使用大写字母作为封面页和声明页的页码编号，避免正文中产生重复页码对象。
 %
 %    \begin{macrocode}
 \AtBeginDocument { \pagenumbering { Alph } }
@@ -2307,7 +2312,7 @@
 %
 % \subsection{公式}
 %
-% \changes{v2.3}{2025/12/27}{使用 \pkg{mathtools} 自定义公式标签格式。}
+% \changes{v2.3}{2025/12/27}{使用 \pkg{mathtools} 自定义公式标签格式，不再手动复写底层命令，提高代码鲁棒性。}
 %
 % 设置公式标签格式。
 %
@@ -2422,7 +2427,7 @@
 %    \end{macrocode}
 % \end{environment}
 %
-% \changes{v2.3}{2025/12/24}{对于宋体，不再提供粗体和斜体的替代字体，统一使用伪粗体和伪斜体。}
+% \changes{v2.3}{2025/12/24}{对于宋体，不再为粗体和斜体使用替代字体，统一使用伪粗体和伪斜体。}
 %
 % \begin{environment}{keywords, enkeywords}
 %    \begin{macrocode}
