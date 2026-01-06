@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-% Copyright 2025 Zhenyu Zhong
+% Copyright 2025-2026 Zhenyu Zhong
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2025/12/28}
-%<class>    {v2.4.0}
+%<class>    {2026/01/06}
+%<class>    {v2.4.1}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -55,7 +55,7 @@
 %
 % \DoNotIndex{
 %     \\, \addcontentsline, \apptocmd, \arabic,
-%     \arraybackslash, \arraystretch, \AtBeginBibliography,
+%     \arraybackslash, \arraystretch, \AtBeginBibliography, \AtBeginDocument,
 %     \AtBeginEnvironment, \baselineskip, \begin, \bfseries,
 %     \bool_if:NF, \bool_if:NTF, \bool_new:N,
 %     \captionsetup, \ccwd, \centering, \c@page, \c@secnumdepth,
@@ -120,7 +120,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2025/12/28\qquad v2.4.0}
+% \date{2026/01/06\qquad v2.4.1}
 % \maketitle
 %
 % \begin{abstract}
@@ -171,8 +171,9 @@
 %
 % \subsection{\cls{nkthesis} 的主要组成部分}
 %
-% 本模板主要包含核心文档类（表~\ref{tab:components-of-nkthesis-1}）和
-% 示例文件（表~\ref{tab:components-of-nkthesis-2}）两个部分。
+% 本模板主要包含核心文档类（表~\ref{tab:components-of-nkthesis-1}）、
+% 示例文件（表~\ref{tab:components-of-nkthesis-2}）和辅助文件
+% （表~\ref{tab:components-of-nkthesis-3}）三个部分。
 %
 % \begin{table}[H]
 %     \centering
@@ -214,6 +215,7 @@
 % \begin{table}[H]
 %     \centering
 %     \caption{\cls{nkthesis} 其他辅助文件}
+%     \label{tab:components-of-nkthesis-3}
 %     \begin{tabular}{ll}
 %         \toprule
 %         文件       & 功能说明                               \\
@@ -1921,6 +1923,14 @@
 % \end{macro}
 %
 % \subsection{文档结构}
+%
+% \changes{v2.4}{2026/01/06}{对封面页采用不同的编码体系，以避免产生重复页码对象。}
+%
+% 对封面页采用不同的编码体系，以避免产生重复页码对象。
+%
+%    \begin{macrocode}
+\AtBeginDocument { \pagenumbering { Alph } }
+%    \end{macrocode}
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 %
