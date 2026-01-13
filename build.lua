@@ -13,7 +13,12 @@ docfiles = {
   "nkthesis-sample.bib",
   "nkthesis-sample.tex",
 }
-typesetfiles = {"nkthesis.dtx", "nkthesis-sample.tex"}
+typesetfiles = {
+  "nkthesis.dtx",
+  "nkthesis-sample.tex",
+}
 
-checkengines = { "xetex" }
+checkengines = {
+  "xetex",
+}
 checkruns = 3
