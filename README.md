@@ -61,7 +61,7 @@ nkthesis 是一个全新编写的南开大学硕士/博士毕业（学位）论�
       该命令会在 `build/unpacked` 目录下生成 `nkthesis.cls` 文件。可将该文件拷贝到论文文件夹中。
 
 3. 使用 XeLaTeX 编译 `nkthesis-sample.tex` 文件。
-   本模板已经提供了 `latexmk` 配置文件，使用 `latexmk` 命令编译时会自动调用 XeLaTeX。
+   本模板已经提供了 `latexmkrc` 配置文件，使用 `latexmk` 命令编译时会自动调用 XeLaTeX。
 
     ```
     latexmk nkthesis-sample.tex
