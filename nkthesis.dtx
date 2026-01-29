@@ -32,6 +32,7 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{newunicodechar}
+\usepackage[most]{tcolorbox}
 \newfontfamily{\dejavusans}{DejaVu Sans}
 \newunicodechar{★}{{\dejavusans\symbol{"2605}}}
 \DefineVerbatimEnvironment{nkthesisexam}{Verbatim}{
@@ -44,6 +45,18 @@
         \refstepcounter{nkthesisexam}
 }
 \newcounter{nkthesisexam}
+\newtcolorbox{warningbox}{
+    colback=yellow!15,
+    colframe=red!60!black,
+    coltitle=white,
+    title=注意,
+    fonttitle=\bfseries,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    boxrule=1pt
+}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -124,7 +137,7 @@
 % \maketitle
 %
 % \begin{abstract}
-%     \cls{nkthesis} 是一个全新编写的南开大学硕士/博士毕业（学位）论文 \LaTeX 模板，符合《研究生学位论文写作规范（2025版）》要求，支持 Windows 和 Overleaf平台使用 \XeLaTeX 编译。
+%     \cls{nkthesis} 是一个南开大学硕士/博士毕业（学位）论文 \LaTeX 模板，符合《研究生学位论文写作规范（2025版）》要求，支持多平台使用 \XeLaTeX 编译。
 %     该模板精简了类定义，同时保证了编译结果的一致性和规范性。
 %     它提供了中文和数字两种标题编号样式选择，利用多个宏包协同工作实现定制化功能。
 %     本模板提供了完善的中英文摘要、关键词、前言、符号说明、勘误表、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
@@ -140,31 +153,20 @@
 %
 % \section{介绍}
 %
+% \begin{warningbox}
+%     本模板仅支持 TeX Live 2025 及以上版本。
+% \end{warningbox}
+%
 % 本模板主要特点如下：
 %
 % \begin{enumerate}
-%     \item 使用 \LaTeXiii 接口编写模板。
+%     \item 使用 \LaTeXiii 接口编写。
 %     \item 符合《研究生学位论文写作规范（2025版）》。
 %           目前仅支持中文论文。
+%     \item 支持本地与在线（Overleaf 等）编译。仅支持使用 \XeLaTeX 编译。
 %     \item 可按需添加需要的字体，保证不同平台编译结果的一致性。
-%     \item 支持 Windows（\TeX Live 2025） 与 Overleaf 使用 \XeLaTeX 编译，其他环境未测试。
 %     \item 实现了中文和数字两种标题编号样式。
-%     \item 使用下列宏包实现大多数自定义功能：
-%           \begin{itemize}
-%               \item 使用 \CTeX 提供高阶中文支持。
-%               \item 使用 \pkg{geometry} 自定义纸张大小。
-%               \item 使用 \pkg{tocloft} 自定义目录样式。
-%               \item 使用 \pkg{caption} 自定义图注、表注样式。
-%               \item 使用 \pkg{fancyhdr} 自定义页眉页脚样式。
-%               \item 使用 \pkg{fontspec} 设置自定义字体。
-%               \item 使用 \pkg{enumitem} 自定义列表样式。
-%               \item 使用 \pkg{hyperref} 自定义超链接样式。
-%               \item 使用 \pkg{biblatex} 及其自带的 \texttt{gb7714-2015} 样式自定义参考文献样式。
-%               \item 使用 \pkg{subcaption} 自定义子图样式。
-%               \item 使用 \pkg{tikz} 绘制矢量版的南开大学文字 Logo。
-%               \item 使用 \pkg{array} 自定义表格样式。
-%               \item 使用 \pkg{mathtools} 自定义数学公式样式。
-%           \end{itemize}
+%     \item 提供了完善的中英文摘要、关键词、前言、符号说明、勘误表、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
 % \end{enumerate}
 %
 % \section{简明教程}
@@ -228,10 +230,23 @@
 %     \end{tabular}
 % \end{table}
 %
-% \subsection{使用 \cls{nkthesis}}
+% \subsection{使用 \cls{nkthesis} 文档类}
+%
+% 本模板提供了一个中文文档类：\cls{nkthesis}。
+% 使用它的时候，需要将涉及到的所有源文件使用 UTF-8 编码保存。
+%
+% \begin{nkthesisexam}
+%     \documentclass{nkthesis}
+%     \begin{document}
+%     中文文档类测试。你需要将所有源文件保存为 UTF-8 编码。
+%
+%     你必须使用 XeLaTeX 编译。
+%     \end{document}
+% \end{nkthesisexam}
 %
 % 需要使用 \XeLaTeX 编译 nkthesis-sample.tex 示例文件。
 % 如果编译时出现如下所示的缺少字体错误，请参考~\ref{subsec:fonts} 节解决。
+%
 % \begin{nkthesisexam}
 %     Package fontspec Error:
 %     (fontspec)	The font "simsun" cannot be found; this may be but
@@ -261,20 +276,6 @@
 % \end{table}
 %
 % 一般情况下，这些字体文件可以在 Windows 系统的 C:\textbackslash Windows\textbackslash Fonts 目录下找到。
-%
-% \subsection{使用 \cls{nkthesis} 文档类}
-%
-% 本模板提供了一个中文文档类：\cls{nkthesis}。
-% 使用它的时候，需要将涉及到的所有源文件使用 UTF-8 编码保存。
-%
-% \begin{nkthesisexam}
-%     \documentclass{nkthesis}
-%     \begin{document}
-%     中文文档类测试。你需要将所有源文件保存为 UTF-8 编码。
-%
-%     你可以使用 XeLaTeX 编译。
-%     \end{document}
-% \end{nkthesisexam}
 %
 % \subsection{文档类选项}
 %
