@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/01/06}
-%<class>    {v2.4.1}
+%<class>    {2026/03/04}
+%<class>    {v3.0.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -127,20 +127,21 @@
 % \changes{v2.1}{2025/05/01}{不再提供非开源字体文件。}
 % \changes{v2.1}{2025/05/01}{提示使用最新版本的 \LaTeX2e（2024/11/01）以确保功能正常。}
 % \changes{v2.4}{2025/12/28}{使用 \pkg{l3build} 打包和发布模板。}
+% \changes{v3.0}{2026/03/04}{适配2026版写作规范。}
 %
 % \title{^^A
 %     \textbf{nkthesis：南开大学硕士/博士毕业（学位）论文模板}^^A
-%     \thanks{适用于《研究生学位论文写作规范（2025版）》。}^^A
+%     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/01/06\qquad v2.4.1}
+% \date{2026/03/04\qquad v3.0.0}
 % \maketitle
 %
 % \begin{abstract}
-%     \cls{nkthesis} 是一个南开大学硕士/博士毕业（学位）论文 \LaTeX 模板，符合《研究生学位论文写作规范（2025版）》要求，支持多平台使用 \XeLaTeX 编译。
+%     \cls{nkthesis} 是一个南开大学硕士/博士毕业（学位）论文 \LaTeX 模板，符合《研究生学位论文写作规范（2026版）》要求，支持多平台使用 \XeLaTeX 编译。
 %     该模板精简了类定义，同时保证了编译结果的一致性和规范性。
 %     它提供了中文和数字两种标题编号样式选择，利用多个宏包协同工作实现定制化功能。
-%     本模板提供了完善的中英文摘要、关键词、前言、符号说明、勘误表、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
+%     本模板提供了完善的中英文摘要、关键词、前言、符号说明、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
 %     使用者可通过简单的命令设置和获取论文基本信息，调整字体字号和行间距，实现交叉引用和插入图片。
 %     本模板代码开源，在 GitHub 上提供完整使用说明和持续更新。
 % \end{abstract}
@@ -161,12 +162,12 @@
 %
 % \begin{enumerate}
 %     \item 使用 \LaTeXiii 接口编写。
-%     \item 符合《研究生学位论文写作规范（2025版）》。
+%     \item 符合《研究生学位论文写作规范（2026版）》。
 %           目前仅支持中文论文。
 %     \item 支持本地与在线（Overleaf 等）编译。仅支持使用 \XeLaTeX 编译。
 %     \item 可按需添加需要的字体，保证不同平台编译结果的一致性。
 %     \item 实现了中文和数字两种标题编号样式。
-%     \item 提供了完善的中英文摘要、关键词、前言、符号说明、勘误表、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
+%     \item 提供了完善的中英文摘要、关键词、前言、符号说明、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
 % \end{enumerate}
 %
 % \section{简明教程}
@@ -204,7 +205,7 @@
 %         \toprule
 %         文件                & 功能说明                                             \\
 %         \midrule
-%         backmatter/         & 模板后置部分，包含附录、勘误页、致谢、个人简历       \\
+%         backmatter/         & 模板后置部分，包含附录、致谢、个人简历               \\
 %         frontmatter/        & 模板前置部分，包含中英文摘要、序言、符号缩略语注释表 \\
 %         mainmatter/         & 模板主体部分，包含示例章节                           \\
 %         latexmkrc           & 自动化编译配置                                       \\
@@ -400,7 +401,7 @@
 %     默认值为“公开”。
 %     按GB/T7156-2003《文献保密等级代码与标识》标注。
 %     公开论文可以标注“公开”，也可不标注。
-%     非公开论文标注“限制”、“秘密”或“机密”，同时还应注明相应的保密年限（具体标注要求见《研究生学位论文写作规范（2025版）》第三章第二节）。
+%     非公开论文标注“限制”、“秘密”或“机密”，同时还应注明相应的保密年限（具体标注要求见《研究生学位论文写作规范》）。
 % \end{function}
 %
 % \begin{function}{题名页/论文类别}
@@ -436,16 +437,8 @@
 %     默认值为空。
 % \end{function}
 %
-% \begin{function}{论文副标题}
-%     \begin{syntax}
-%         论文副标题 = <名称>
-%     \end{syntax}
-%     论文中文副标题。
-%     默认值为空。
-%     如论文题目内容层次很多，难以简化时，可采用论文题目和论文副标题相结合的方法，其中副标题起补充、阐明题目的作用。
-% \end{function}
-%
 % \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
+% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{function}[updated=2025/05/09]{论文题目（英文）}
 %     \begin{syntax}
@@ -656,16 +649,19 @@
 %     默认值为空。
 % \end{function}
 %
+% \changes{v3.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
+%
 % \begin{function}{作者信息/论文类别}
 %     \begin{syntax}
-%         作者信息/论文类别 = <博士|(学历硕士)|专业学位硕士|同等学力硕士>
+%         作者信息/论文类别 = <学术博士|专业学位博士|(学术硕士)|专业学位硕士|同等学力硕士>
 %     \end{syntax}
 %     《南开大学研究生学位论文作者信息》中的论文类别。
-%     默认值为“学历硕士”。
+%     默认值为“学术硕士”。
 % \end{function}
 %     \begin{optdesc}[itemsep=\medskipamount]
-%         \item[博士] 在《南开大学研究生学位论文作者信息》中勾选“博士”。
-%         \item[学历硕士] 在《南开大学研究生学位论文作者信息》中勾选“学历硕士”。
+%         \item[学术博士] 在《南开大学研究生学位论文作者信息》中勾选“学术博士”。
+%         \item[专业学位博士] 在《南开大学研究生学位论文作者信息》中勾选“专业学位博士”。
+%         \item[学术硕士] 在《南开大学研究生学位论文作者信息》中勾选“学术硕士”。
 %         \item[专业学位硕士] 在《南开大学研究生学位论文作者信息》中勾选“专业学位硕士”。
 %         \item[同等学力硕士] 在《南开大学研究生学位论文作者信息》中勾选“同等学力硕士”。
 %     \end{optdesc}
@@ -711,6 +707,8 @@
 % 论文结构可以参考 nkthesis-sample.tex 文件中的内容。
 % 论文可以分为四个部分，即封面材料、前置部分（frontmatter）、主体部分（mainmatter）和后置部分（backmatter）。
 % 推荐的整体结构如下：
+%
+% \changes{v3.0}{2026/03/03}{调换参考文献和附录的位置，使得附录位于参考文献之后。}
 %
 % \begin{nkthesisexam}
 %     \begin{document}
@@ -764,16 +762,12 @@
 %
 %     \backmatter
 %
+%     \bibliographypage
+%
 %     \appendix
 %
 %     \chapter{附录标题}
 %     附录内容。
-%
-%     \bibliographypage
-%
-%     \begin{errata}
-%         勘误页。
-%     \end{errata}
 %
 %     \begin{acknowledgements}
 %         致谢。
@@ -878,7 +872,7 @@
 %
 % \begin{function}{\backmatter}
 %     声明后置部分开始。
-%     后置部分包含附录、参考文献、勘误页、致谢以及个人简历、在学期间发表的学术论文及研究成果等。
+%     后置部分包含附录、参考文献、致谢以及个人简历、在学期间发表的学术论文及研究成果等。
 % \end{function}
 %
 % \begin{function}{\appendix}
@@ -890,10 +884,7 @@
 %     参考文献。
 % \end{function}
 %
-% \noindent\DescribeEnv{errata}
-% 勘误页。
-% 放在参考文献和分类索引、关键词索引后。
-% 在勘误页顶部应放置下列信息：题名、副题名（如有）、作者名。
+% \changes{v3.0}{2026/03/03}{去掉勘误页。}
 %
 % \noindent\DescribeEnv{acknowledgements}
 % 致谢。
@@ -996,9 +987,7 @@
 %     符号、标志、缩略语等的注释表，默认值为“符号和缩略语说明”。
 % \end{function}
 %
-% \begin{function}{\errataname}
-%     勘误页，默认值为“勘误表”。
-% \end{function}
+% \changes{v3.0}{2026/03/03}{去掉勘误页。}
 %
 % \begin{function}{\acknowledgementsname}
 %     致谢，默认值为“致谢”。
@@ -1469,6 +1458,8 @@
 % \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
 % \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
 % \changes{v2.2}{2025/05/29}{加粗答辩日期。}
+% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
+% \changes{v3.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
 %
 %    \begin{macrocode}
 \keys_define:nn { nkthesis / info } {
@@ -1488,7 +1479,6 @@
 
     论文题目（中文） .code:n = \@@_config_set:nn
         { info / 论文题目（中文） } {#1},
-    论文副标题       .code:n = \@@_config_set:nn { info / 论文副标题 } {#1},
     论文题目（英文） .code:n = \@@_config_set:nn
         { info / 论文题目（英文） } {#1},
     论文作者       .code:n = \@@_config_set:nn { info / 论文作者 } {#1},
@@ -1546,9 +1536,9 @@
     题名页/论文类别 .initial:n      = 硕士,
 
     作者信息/论文类别 .choices:nn   =
-        { 博士, 学历硕士, 专业学位硕士, 同等学力硕士 }
+        { 学术博士, 专业学位博士, 学术硕士, 专业学位硕士, 同等学力硕士 }
         { \@@_config_set:nn { info / 作者信息 / 论文类别 } {#1} },
-    作者信息/论文类别 .initial:n    = 学历硕士,
+    作者信息/论文类别 .initial:n    = 学术硕士,
 
     非公开论文/申请密级 .choices:nn =
         { 公开, 限制, 秘密, 机密 }
@@ -2035,11 +2025,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\errataname}
-%    \begin{macrocode}
-\NewExpandableDocumentCommand \errataname { } { 勘误表 }
-%    \end{macrocode}
-% \end{macro}
+% \changes{v3.0}{2026/03/03}{去掉勘误页。}
 %
 % \begin{macro}{\acknowledgementsname}
 %    \begin{macrocode}
@@ -2499,34 +2485,8 @@
 %    \end{macrocode}
 % \end{environment}
 %
-% \subsubsection{勘误页}
-%
-% \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
-%
-% \begin{environment}{errata}
-%    \begin{macrocode}
-\NewDocumentEnvironment { errata } { }
-    {
-        \ctexset{
-            chapter/format = {
-                \mslinespread { 1 }
-                \heiti
-                \zihao { 3 }
-                \bfseries
-                \centering
-            },
-        }
-        \chapter* { \errataname }
-        \markboth
-            { \MakeUppercase { \errataname } }
-            { \MakeUppercase { \errataname } }
-        \mslinespreadbp { 16 } { 12 } \songti \zihao { -4 }
-        \addcontentsline { toc } { chapter } { \errataname }
-        \ignorespaces
-    }
-    { }
-%    \end{macrocode}
-% \end{environment}
+% \changes{v3.0}{2026/03/03}{去掉勘误页。}
+% \changes{v3.0}{2026/03/03}{将致谢页字体改为仿宋。}
 %
 % \subsubsection{致谢}
 %
@@ -2550,7 +2510,7 @@
             { \MakeUppercase { \acknowledgementsname } }
             { \MakeUppercase { \acknowledgementsname } }
         \mslinespreadbp { 16 } { 12 }
-        \songti
+        \fangsong
         \zihao { -4 }
         \addcontentsline { toc } { chapter } { \acknowledgementsname }
         \ignorespaces
@@ -2615,6 +2575,7 @@
 % \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
+% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{macro}{\titlepage}
 %    \begin{macrocode}
@@ -2671,9 +2632,6 @@
             \songti
             \zihao { \nktget { 题名页/论文题目字号 } }
             \nktget { 论文题目（中文） }
-            \par
-
-            \nktget { 论文副标题 }
             \par
 
             \nktget { 论文题目（英文） }
@@ -2750,6 +2708,7 @@
 % \subsubsection{匿名评阅封面}
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
+% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{macro}{\anonymoustitlepage}
 %    \begin{macrocode}
@@ -2801,9 +2760,6 @@
                 \nktget { 论文题目（中文） }
                 \par
 
-                \nktget { 论文副标题 }
-                \par
-
                 \nktget { 论文题目（英文） }
                 \par
             \end { minipage }
@@ -2832,6 +2788,7 @@
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
+% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{macro}{\declarationpage}
 %    \begin{macrocode}
@@ -2936,7 +2893,6 @@
                 {
                     \begin { minipage } { 111mm }
                         \nktget { 论文题目（中文） }
-                        \nktget { 论文副标题 }
                     \end {minipage }
                 } \\
             \hline
@@ -3006,8 +2962,13 @@
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{加粗论文类别选项。}
 % \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
+% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{macro}{\authorizationpage}
+%
+% \changes{v3.0}{2026/03/03}{补充了学位论文使用授权书中的相关规定内容。}
+% \changes{v3.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
+%
 %    \begin{macrocode}
 \NewDocumentCommand \authorizationpage { } {
     \bool_if:NTF \l_@@_openright_bool
@@ -3038,7 +2999,7 @@
 
         已获学位的研究生必须按学校规定提交学位论文，学校可以采用影印、缩印或其他
         复制手段保存学位论文；学校根据规定向教育部指定的收藏和存档单位提交学位论
-        文；
+        文；并向教育主管部门提供包括但不限于内容复制等权限。
         \par
 
         为教学和科研目的，学校可以将公开的学位论文作为资料在图书馆、资料室等场所
@@ -3068,7 +3029,7 @@
     }
     \par
 
-    \vspace { 16mm }
+    \vspace { 13mm }
     \begin { center }
         \mslinespread { 1 }
         \heiti
@@ -3090,7 +3051,7 @@
             \hbox to 22mm { \hspace { 0.3em } \textbf { 论文题目 } }~
             \vrule
             \hbox to 144.9mm { \hspace { 0.3em } \nktget { 论文题目（中文） }
-            \nktget { 论文副标题 } \hfill } \\
+            \hfill } \\
             \hline
             \hbox to 22mm { \hspace { 0.3em } \textbf { 姓名 } }~
             \vrule
@@ -3110,27 +3071,40 @@
                 \hfill
             } \\
             \hline
-            \hbox to 22mm { \hspace { 0.3em } \textbf { 论文类别 } }~
+            \begin { tabular } { @ { } l @ { } }
+                \hbox to 22mm {
+                    \hspace { 0.3em }
+                    \textbf { 论文类别 }
+                }
+            \end { tabular }~
             \vrule
             \hbox to 144.9mm {
-                \hspace { 2em }
-                \textbf { 博士 } ~ \@@_checkbox:en
-                    { \nktget { 作者信息/论文类别 } }
-                    { 博士 }
-                \qquad
-                \textbf { 学历硕士 } ~ \@@_checkbox:en
-                    { \nktget { 作者信息/论文类别 } }
-                    { 学历硕士 }
-                \qquad
-                \textbf { 专业学位硕士 } ~ \@@_checkbox:en
-                    { \nktget { 作者信息/论文类别 } }
-                    { 专业学位硕士 }
-                \qquad
-                \textbf { 同等学力硕士 } ~ \@@_checkbox:en
-                    { \nktget { 作者信息/论文类别 } }
-                    { 同等学力硕士 }
                 \hfill
-                \textbf { 划 } \@@_checked_checkbox: \textbf { 选择 }
+                \begin { tabular } { @ { } c @ { } }
+                    \textbf { 学术博士 } ~ \@@_checkbox:en
+                        { \nktget { 作者信息/论文类别 } }
+                        { 学术博士 }
+                    \qquad
+                    \textbf { 专业学位博士 } ~ \@@_checkbox:en
+                        { \nktget { 作者信息/论文类别 } }
+                        { 专业学位博士 }
+                    \qquad
+                    \textbf { 学术硕士 } ~ \@@_checkbox:en
+                        { \nktget { 作者信息/论文类别 } }
+                        { 学术硕士 }
+                    \\ [ -3pt ]
+                    \textbf { 专业学位硕士 } ~ \@@_checkbox:en
+                        { \nktget { 作者信息/论文类别 } }
+                        { 专业学位硕士 }
+                    \qquad
+                    \textbf { 同等学力硕士 } ~ \@@_checkbox:en
+                        { \nktget { 作者信息/论文类别 } }
+                        { 同等学力硕士 }
+                \end { tabular }
+                \hfill
+                \begin { tabular } { @ { } c @ { } }
+                    \textbf { 划 } \@@_checked_checkbox: \textbf { 选择 }
+                \end { tabular }
                 \hspace { 0.3em }
             } \\
             \hline
