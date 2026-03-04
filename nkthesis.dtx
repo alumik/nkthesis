@@ -21,7 +21,7 @@
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
 %<class>    {2026/03/04}
-%<class>    {v3.0.0}
+%<class>    {v2026.0.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -127,14 +127,14 @@
 % \changes{v2.1}{2025/05/01}{不再提供非开源字体文件。}
 % \changes{v2.1}{2025/05/01}{提示使用最新版本的 \LaTeX2e（2024/11/01）以确保功能正常。}
 % \changes{v2.4}{2025/12/28}{使用 \pkg{l3build} 打包和发布模板。}
-% \changes{v3.0}{2026/03/04}{适配2026版写作规范。}
+% \changes{v2026.0}{2026/03/04}{适配2026版写作规范。}
 %
 % \title{^^A
 %     \textbf{nkthesis：南开大学硕士/博士毕业（学位）论文模板}^^A
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/04\qquad v3.0.0}
+% \date{2026/03/04\qquad v2026.0.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -438,7 +438,7 @@
 % \end{function}
 %
 % \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
-% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
+% \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{function}[updated=2025/05/09]{论文题目（英文）}
 %     \begin{syntax}
@@ -649,7 +649,7 @@
 %     默认值为空。
 % \end{function}
 %
-% \changes{v3.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
+% \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
 %
 % \begin{function}{作者信息/论文类别}
 %     \begin{syntax}
@@ -708,7 +708,7 @@
 % 论文可以分为四个部分，即封面材料、前置部分（frontmatter）、主体部分（mainmatter）和后置部分（backmatter）。
 % 推荐的整体结构如下：
 %
-% \changes{v3.0}{2026/03/03}{调换参考文献和附录的位置，使得附录位于参考文献之后。}
+% \changes{v2026.0}{2026/03/03}{调换参考文献和附录的位置，使得附录位于参考文献之后。}
 %
 % \begin{nkthesisexam}
 %     \begin{document}
@@ -884,7 +884,7 @@
 %     参考文献。
 % \end{function}
 %
-% \changes{v3.0}{2026/03/03}{去掉勘误页。}
+% \changes{v2026.0}{2026/03/03}{去掉勘误页。}
 %
 % \noindent\DescribeEnv{acknowledgements}
 % 致谢。
@@ -987,7 +987,7 @@
 %     符号、标志、缩略语等的注释表，默认值为“符号和缩略语说明”。
 % \end{function}
 %
-% \changes{v3.0}{2026/03/03}{去掉勘误页。}
+% \changes{v2026.0}{2026/03/03}{去掉勘误页。}
 %
 % \begin{function}{\acknowledgementsname}
 %     致谢，默认值为“致谢”。
@@ -1458,8 +1458,8 @@
 % \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
 % \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
 % \changes{v2.2}{2025/05/29}{加粗答辩日期。}
-% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
-% \changes{v3.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
+% \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
+% \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
 %
 %    \begin{macrocode}
 \keys_define:nn { nkthesis / info } {
@@ -2025,7 +2025,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v3.0}{2026/03/03}{去掉勘误页。}
+% \changes{v2026.0}{2026/03/03}{去掉勘误页。}
 %
 % \begin{macro}{\acknowledgementsname}
 %    \begin{macrocode}
@@ -2485,8 +2485,8 @@
 %    \end{macrocode}
 % \end{environment}
 %
-% \changes{v3.0}{2026/03/03}{去掉勘误页。}
-% \changes{v3.0}{2026/03/03}{将致谢页字体改为仿宋。}
+% \changes{v2026.0}{2026/03/03}{去掉勘误页。}
+% \changes{v2026.0}{2026/03/03}{将致谢页字体改为仿宋。}
 %
 % \subsubsection{致谢}
 %
@@ -2575,7 +2575,7 @@
 % \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
-% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
+% \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{macro}{\titlepage}
 %    \begin{macrocode}
@@ -2708,7 +2708,7 @@
 % \subsubsection{匿名评阅封面}
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
-% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
+% \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{macro}{\anonymoustitlepage}
 %    \begin{macrocode}
@@ -2788,7 +2788,7 @@
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
-% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
+% \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{macro}{\declarationpage}
 %    \begin{macrocode}
@@ -2962,12 +2962,12 @@
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{加粗论文类别选项。}
 % \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
-% \changes{v3.0}{2026/03/03}{去掉论文副标题。}
+% \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{macro}{\authorizationpage}
 %
-% \changes{v3.0}{2026/03/03}{补充了学位论文使用授权书中的相关规定内容。}
-% \changes{v3.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
+% \changes{v2026.0}{2026/03/03}{补充了学位论文使用授权书中的相关规定内容。}
+% \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \authorizationpage { } {
