@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/04}
-%<class>    {v2026.0.1}
+%<class>    {2026/03/12}
+%<class>    {v2026.0.2}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -134,7 +134,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/04\qquad v2026.0.1}
+% \date{2026/03/12\qquad v2026.0.2}
 % \maketitle
 %
 % \begin{abstract}
@@ -1579,17 +1579,18 @@
 %    \end{macrocode}
 %
 % 载入宏包。
+% 
+% \changes{v2026.0}{2026/03/12}{删除不必要或重复引入的宏包。}
 %
 %    \begin{macrocode}
 \RequirePackage [ a4paper ] { geometry }
 \RequirePackage [ titles ] { tocloft }
 \RequirePackage { caption }
-\RequirePackage { etoolbox }
 \RequirePackage { fancyhdr }
 \RequirePackage { fontspec }
 \RequirePackage [ inline, shortlabels ] { enumitem }
 \RequirePackage [ hidelinks ] { hyperref }
-\RequirePackage { amsmath, amsthm, amssymb }
+\RequirePackage { amssymb }
 \RequirePackage { mathtools }
 \RequirePackage { setspace }
 \RequirePackage [
