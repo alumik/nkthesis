@@ -21,7 +21,7 @@
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
 %<class>    {2026/03/12}
-%<class>    {v2026.0.2}
+%<class>    {v2026.1.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -134,7 +134,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/12\qquad v2026.0.2}
+% \date{2026/03/12\qquad v2026.1.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -941,17 +941,18 @@
 %
 % \subsection{行间距}
 %
-% 模板提供以下两个命令调整行间距。
-% 在命令后均需要加上 |\selectfont| 命令来生效。
+% \changes{v2026.1}{2026/03/12}{调整行间距时不再需要使用 \texttt{\textbackslash selectfont}。}
 %
-% \begin{function}{\mslinespread}
+% 模板提供以下两个命令调整行间距。
+%
+% \begin{function}[updated=2026/03/12]{\mslinespread}
 %     \begin{syntax}
 %         \cs{mslinespread} \marg{行间距（倍数）}
 %     \end{syntax}
 %     模仿 Microsoft Word 中的“多倍行距”设置行间距。
 % \end{function}
 %
-% \begin{function}{\mslinespreadbp}
+% \begin{function}[updated=2026/03/12]{\mslinespreadbp}
 %     \begin{syntax}
 %         \cs{mslinespreadbp} \marg{行间距（磅）}
 %     \end{syntax}
@@ -961,7 +962,7 @@
 %
 % \begin{nkthesisexam}
 %    {
-%        \mslinespread{1.5}\selectfont  % 设置1.5倍行距
+%        \mslinespread{1.5}  % 设置1.5倍行距
 %        这是正文内容
 %        \par  % 如果文字在大括号中，结尾需要加上 \par 行距设置才会生效
 %    }
@@ -1579,7 +1580,7 @@
 %    \end{macrocode}
 %
 % 载入宏包。
-% 
+%
 % \changes{v2026.0}{2026/03/12}{删除不必要或重复引入的宏包。}
 %
 %    \begin{macrocode}
@@ -1880,6 +1881,8 @@
 %
 % \subsubsection{公有命令定义}
 %
+% \changes{v2026.1}{2026/03/12}{调整行间距时不再需要使用 \texttt{\textbackslash selectfont}。}
+%
 % \begin{macro}{\mslinespread}
 %
 % Microsoft Word 多倍行距模拟。
@@ -1893,6 +1896,7 @@
             1.2
         }
     }
+    \selectfont
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1904,6 +1908,7 @@
 %    \begin{macrocode}
 \NewDocumentCommand \mslinespreadbp { m m } {
     \linespread { \fp_eval:n { #1 / #2 / 1.2 } }
+    \selectfont
 }
 %    \end{macrocode}
 % \end{macro}
