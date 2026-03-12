@@ -21,7 +21,7 @@
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
 %<class>    {2026/03/12}
-%<class>    {v2026.1.0}
+%<class>    {v2026.1.1}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -120,6 +120,7 @@
 %     \tocloftpagestyle,
 %     \underline, \usetagform, \vline, \vrule,
 %     \vspace, \x, \zihao, \ziju, \hfuzz, \hbadness, \maxdimen, \parbox, \mbox,
+%     \tl_if_empty:nTF, \str_case:nnF,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -134,7 +135,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/12\qquad v2026.1.0}
+% \date{2026/03/12\qquad v2026.1.1}
 % \maketitle
 %
 % \begin{abstract}
@@ -1881,21 +1882,43 @@
 %
 % \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现重构论文前置部分页面。}
 %
-% \begin{macro}{\@@_make_cell:nnn}
+% \begin{macro}{\@@_apply_align:nn}
 %
-% 南开大学研究生学位论文作者信息表辅助函数：统一处理带固定宽度的表格单元格。
-%
-% \begin{itemize}
-%     \item \texttt{\#1}：宽度
-%     \item \texttt{\#2}：左右对称的边距宽度
-%     \item \texttt{\#3}：内部对齐方式（s=分散对齐, l=左对齐, c=居中, r=右对齐）
-%     \item \texttt{\#4}：文本内容
-% \end{itemize}
+% 表辅助函数：根据指定的对齐方式应用相应的水平对齐命令。
 %
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_make_cell:nnnn {
+\cs_new_protected:Nn \@@_apply_align:nn {
+    \str_case:nnF {#1} {
+        { c } { \centering #2 }
+        { l } { \raggedright #2 }
+        { r } { \raggedleft #2 }
+        { s } { \makebox [ \linewidth ] [ s ] {#2} }
+    }
+    {#2}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_make_cell:nnn}
+%
+% 表辅助函数：统一处理带固定宽度的表格单元格。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_make_cell:nnnnn {
     \makebox [#1] [ c ] {
-        \makebox [ \dim_eval:n { #1 - #2 - #2 } ] [#3] {#4}
+        \tl_if_empty:nTF
+            {#2}
+            {
+                \parbox [ c ] { \dim_eval:n { #1 - #3 - #3 } } {
+                    \@@_apply_align:nn {#4} {#5}
+                }
+            }
+            {
+                \parbox [ c ] [#2] [ c ] { \dim_eval:n { #1 - #3 - #3 } }
+                {
+                    \@@_apply_align:nn {#4} {#5}
+                }
+            }
     }
 }
 %    \end{macrocode}
@@ -2903,28 +2926,25 @@
     {
         \mslinespread { 1 }
         \zihao { -4 }
-        \RenewExpandableDocumentCommand \arraystretch { } { 1.73 }
         \hspace { -12mm }
         \dim_set:Nn \tabcolsep { 0mm }
         \begin { tabular } { | l | }
             \hline
-            \@@_make_cell:nnnn { 32.2mm } { 0mm } { c } {
-                \parbox [ c ] [ 17.7mm ] [ c ] { 26mm } {
-                    \centering \heiti 论文题目
-                }
+            \@@_make_cell:nnnnn { 32.2mm } { 17.7mm } { 0mm } { c } {
+                \heiti 论文题目
             }
             \vrule
-            \@@_make_cell:nnnn { 120.2mm } { 1em } { l } {
-                \parbox [ c ] [ 17.7mm ] [ c ] { \dim_eval:n { 120.2mm - 2em } } {
-                    \str_if_eq:eeTF { \nktget { 非公开论文/申请密级 } } { 公开 }
-                        { }
-                        { \nktget { 论文题目（中文） } }
-                }
+            \@@_make_cell:nnnnn { 120.2mm } { 17.7mm } { 1em } { l } {
+                \str_if_eq:eeF
+                    { \nktget { 非公开论文/申请密级 } } { 公开 }
+                    { \nktget { 论文题目（中文） } }
             } \\
             \hline
-            \@@_make_cell:nnnn { 32.2mm } { 0mm } { c } { \heiti 申请密级 }
+            \@@_make_cell:nnnnn { 32.2mm } { 9.5mm } { 0mm } { c } {
+                \heiti 申请密级
+            }
             \vrule
-            \@@_make_cell:nnnn { 120.2mm } { 0mm } { c } {
+            \@@_make_cell:nnnnn { 120.2mm } { 9.5mm } { 0mm } { c } {
                 \@@_checkbox:en { \nktget { 非公开论文/申请密级 } } { 限制 }
                     ~限制（$\leq 2$年）
                 \quad
@@ -2935,10 +2955,13 @@
                     ~机密（$\leq 20$年）
             } \\
             \hline
-            \@@_make_cell:nnnn { 32.2mm } { 0mm } { c } { \heiti 保密期限 }
+            \@@_make_cell:nnnnn { 32.2mm } { 9.5mm } { 0mm } { c } {
+                \heiti 保密期限
+            }
             \vrule
-            \@@_make_cell:nnnn { 120.2mm } { 0mm } { c } {
-                \str_if_eq:eeTF { \nktget { 非公开论文/申请密级 } } { 公开 }
+            \@@_make_cell:nnnnn { 120.2mm } { 9.5mm } { 0mm } { c } {
+                \str_if_eq:eeTF
+                    { \nktget { 非公开论文/申请密级 } } { 公开 }
                     {
                         20 \qquad 年 \qquad 月 \qquad 日
                         至 20 \qquad 年 \qquad 月 \qquad 日
@@ -2949,17 +2972,23 @@
                     }
             } \\
             \hline
-            \@@_make_cell:nnnn { 32.2mm } { 0mm } { c } { \heiti 审批表编号 }
+            \@@_make_cell:nnnnn { 32.2mm } { 9.5mm } { 0mm } { c } {
+                \heiti 审批表编号
+            }
             \vrule
-            \@@_make_cell:nnnn { 44mm } { 0mm } { c } {
-                \str_if_eq:eeF { \nktget { 非公开论文/申请密级 } } { 公开 }
+            \@@_make_cell:nnnnn { 44mm } { 9.5mm } { 0mm } { c } {
+                \str_if_eq:eeF
+                    { \nktget { 非公开论文/申请密级 } } { 公开 }
                     { \nktget { 非公开论文/审批表编号 } }
             }
             \vrule
-            \@@_make_cell:nnnn { 25mm } { 0mm } { c } { \heiti 批准日期 }
+            \@@_make_cell:nnnnn { 25mm } { 9.5mm } { 0mm } { c } {
+                \heiti 批准日期
+            }
             \vrule
-            \@@_make_cell:nnnn { 51mm } { 0mm } { c } {
-                \str_if_eq:eeTF { \nktget { 非公开论文/申请密级 } } { 公开 }
+            \@@_make_cell:nnnnn { 51mm } { 9.5mm } { 0mm } { c } {
+                \str_if_eq:eeTF
+                    { \nktget { 非公开论文/申请密级 } } { 公开 }
                     { 20 \qquad 年 \qquad 月 \qquad 日 }
                     { \nktget { 非公开论文/批准日期 } }
             } \\
@@ -3091,36 +3120,51 @@
         \mslinespread { 1 }
         \songti
         \zihao { 5 }
-        \RenewExpandableDocumentCommand \arraystretch { } { 1.33 }
         \hspace { -18.5mm }
         \dim_set:Nn \tabcolsep { 0mm }
         \begin { tabular } { | l | }
             \hline
-            \@@_make_cell:nnnn { 23mm    } { 1.9mm } { s } { \textbf { 论文题目 }         }
+            \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 论文题目 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 144.7mm } { 1.9mm } { l } { \nktget { 论文题目（中文） } } \\
+            \@@_make_cell:nnnnn { 144.7mm } { 6.4mm } { 1.9mm } { l } {
+                \nktget { 论文题目（中文） }
+            } \\
             \hline
-            \@@_make_cell:nnnn { 23mm    } { 1.9mm } { s } { \textbf { 姓名 }             }
+            \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 姓名 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 30.9mm  } { 1.9mm } { l } { \nktget { 论文作者 }         }
+            \@@_make_cell:nnnnn { 30.9mm  } { 6.4mm } { 1.9mm } { l } {
+                \nktget { 论文作者 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 19.6mm  } { 1.9mm } { s } { \textbf { 学号 }             }
+            \@@_make_cell:nnnnn { 19.6mm  } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 学号 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 25.5mm  } { 1.9mm } { l } { \nktget { 学号 }             }
+            \@@_make_cell:nnnnn { 25.5mm  } { 6.4mm } { 1.9mm } { l } {
+                \nktget { 学号 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 20.5mm  } { 1.9mm } { s } { \textbf { 答辩日期 }         }
+            \@@_make_cell:nnnnn { 20.5mm  } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 答辩日期 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 40mm    } { 1.9mm } { s } {
+            \@@_make_cell:nnnnn { 40mm    } { 6.4mm } { 1.9mm } { s } {
                 \tl_if_empty:eTF { \nktget { 答辩日期 } }
                     { \textbf { 20 \qquad 年 \qquad 月 \qquad 日 } }
                     { \nktget { 答辩日期 } }
             } \\
             \hline
-            \@@_make_cell:nnnn { 23mm    } { 1.9mm } { s } { \textbf { 论文类别 } }
+            \@@_make_cell:nnnnn { 23mm    } { 10.8mm } { 1.9mm } { s } {
+                \textbf { 论文类别 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 144.7mm } { 1.9mm } { s } {
-                \hfill
-                \begin { tabular } { @ { } c @ { } }
+            \@@_make_cell:nnnnn { 144.7mm } { 10.8mm } { 1.9mm } { c } {
+                \parbox [ c ] { 0.85\linewidth } {
+                    \centering
                     \textbf { 学术博士 } ~ \@@_checkbox:en
                         { \nktget { 作者信息/论文类别 } }
                         { 学术博士 }
@@ -3132,7 +3176,7 @@
                     \textbf { 学术硕士 } ~ \@@_checkbox:en
                         { \nktget { 作者信息/论文类别 } }
                         { 学术硕士 }
-                    \\ [ -1.9mm ]
+                    \\
                     \textbf { 专业学位硕士 } ~ \@@_checkbox:en
                         { \nktget { 作者信息/论文类别 } }
                         { 专业学位硕士 }
@@ -3140,42 +3184,66 @@
                     \textbf { 同等学力硕士 } ~ \@@_checkbox:en
                         { \nktget { 作者信息/论文类别 } }
                         { 同等学力硕士 }
-                \end { tabular }
-                \hfill
-                \begin { tabular } { @ { } c @ { } }
+                }
+                \parbox [ c ] { 0.15\linewidth } {
+                    \raggedleft
                     \textbf { 划 } \@@_checked_checkbox: \textbf { 选择 }
-                \end { tabular }
+                }
             } \\
             \hline
-            \@@_make_cell:nnnn { 23mm   } { 1.9mm } { s } { \textbf { 学院（单位） } }
+            \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 学院（单位） }
+            }
             \vrule
-            \@@_make_cell:nnnn { 48.8mm } { 1.9mm } { l } { \nktget { 培养单位 } }
+            \@@_make_cell:nnnnn { 48.8mm  } { 6.4mm } { 1.9mm } { l } {
+                \nktget { 培养单位 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 48.3mm } { 1.9mm } { s } { \textbf { 学科/专业（专业学位）名称 } }
+            \@@_make_cell:nnnnn { 48.3mm  } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 学科/专业（专业学位）名称 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 47.4mm   } { 1.9mm } { l } {
+            \@@_make_cell:nnnnn { 47.4mm  } { 6.4mm } { 1.9mm } { l } {
                 \tl_if_empty:eTF { \nktget { 二级学科 } }
                     { \nktget { 一级学科 } }
                     { \nktget { 二级学科 } }
             } \\
             \hline
-            \@@_make_cell:nnnn { 23mm   } { 1.9mm } { s } { \textbf { 联系电话 } }
+            \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 联系电话 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 48.8mm } { 1.9mm } { l } { \nktget { 联系电话 } }
+            \@@_make_cell:nnnnn { 48.8mm  } { 6.4mm } { 1.9mm } { l } {
+                \nktget { 联系电话 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 20.8mm } { 1.9mm } { s } { \textbf { 电子邮箱 } }
+            \@@_make_cell:nnnnn { 20.8mm  } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 电子邮箱 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 74.9mm } { 1.9mm } { l } { \nktget { 电子邮箱 } } \\
+            \@@_make_cell:nnnnn { 74.9mm  } { 6.4mm } { 1.9mm } { l } {
+                \nktget { 电子邮箱 }
+            } \\
             \hline
-            \hspace* { 1.9mm } \textbf { 通讯地址（邮编）： } \nktget { 通讯地址 } \\
+            \@@_make_cell:nnnnn { 167.8mm } { 6.4mm } { 1.9mm } { l } {
+                \textbf { 通讯地址（邮编）： } \nktget { 通讯地址 }
+            } \\
             \hline
-            \@@_make_cell:nnnn { 32mm   } { 1.9mm } { s } { \textbf { 非公开论文编号 } }
+            \@@_make_cell:nnnnn { 32mm    } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 非公开论文编号 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 39.8mm } { 1.9mm } { l } { \nktget { 非公开论文/审批表编号 } }
+            \@@_make_cell:nnnnn { 39.8mm  } { 6.4mm } { 1.9mm } { l } {
+                \nktget { 非公开论文/审批表编号 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 12mm   } { 1.9mm } { s } { \textbf { 备注 } }
+            \@@_make_cell:nnnnn { 12mm    } { 6.4mm } { 1.9mm } { s } {
+                \textbf { 备注 }
+            }
             \vrule
-            \@@_make_cell:nnnn { 83.7mm } { 1.9mm } { l } { \nktget { 作者信息/备注 } } \\
+            \@@_make_cell:nnnnn { 83.7mm  } { 6.4mm } { 1.9mm } { l } {
+                \nktget { 作者信息/备注 }
+            } \\
             \hline
         \end { tabular }
         \par
