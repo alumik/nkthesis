@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/12}
-%<class>    {v2026.1.1}
+%<class>    {2026/03/13}
+%<class>    {v2026.1.2}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -135,7 +135,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/12\qquad v2026.1.1}
+% \date{2026/03/13\qquad v2026.1.2}
 % \maketitle
 %
 % \begin{abstract}
@@ -3033,6 +3033,7 @@
 %
 % \changes{v2026.0}{2026/03/03}{补充了学位论文使用授权书中的相关规定内容。}
 % \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
+% \changes{v2026.1}{2026/03/13}{将答辩日期的值设置为两端对齐。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \authorizationpage { } {
@@ -3154,7 +3155,7 @@
                 \textbf { 答辩日期 }
             }
             \vrule
-            \@@_make_cell:nnnnn { 40mm    } { 6.4mm } { 1.9mm } { s } {
+            \@@_make_cell:nnnnn { 47.8mm  } { 6.4mm } { 1.9mm } { s } {
                 \tl_if_empty:eTF { \nktget { 答辩日期 } }
                     { \textbf { 20 \qquad 年 \qquad 月 \qquad 日 } }
                     { \nktget { 答辩日期 } }
