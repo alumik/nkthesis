@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/13}
-%<class>    {v2026.1.2}
+%<class>    {2026/03/14}
+%<class>    {v2026.2.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -135,7 +135,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/13\qquad v2026.1.2}
+% \date{2026/03/14\qquad v2026.2.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -710,6 +710,7 @@
 % 推荐的整体结构如下：
 %
 % \changes{v2026.0}{2026/03/03}{调换参考文献和附录的位置，使得附录位于参考文献之后。}
+% \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
 %
 % \begin{nkthesisexam}
 %     \begin{document}
@@ -730,13 +731,13 @@
 %         中文关键词。
 %     \end{keywords}
 %
-%     \begin{enabstract}
+%     \begin{abstract}[en]
 %         英文摘要。
-%     \end{enabstract}
+%     \end{abstract}
 %
-%     \begin{enkeywords}
+%     \begin{keywords}[en]
 %         英文关键词。
-%     \end{enkeywords}
+%     \end{keywords}
 %
 %     \begin{preface}
 %         序言或前言。
@@ -819,19 +820,20 @@
 %     前置部分的页码采用大写罗马字母，并且与正文分开计数。
 % \end{function}
 %
+% \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
+%
 % \noindent\DescribeEnv{abstract}
-% 中文摘要。
+% 摘要环境。
+% 默认输出中文摘要。
+% 如果传入可选参数 \texttt{[en]}，即
+% \texttt{\textbackslash begin\{abstract\}[en]}，则输出英文摘要（Abstract）。
 %
 % \noindent\DescribeEnv{keywords}
-% 中文关键词。
-% 中文关键词在中文摘要内容后另起一行标明，一般3-5个，之间用中文分号分开。
-%
-% \noindent\DescribeEnv{enabstract}
-% 英文摘要（Abstract）。
-%
-% \noindent\DescribeEnv{enkeywords}
-% 英文关键词。
-% 英文关键词在英文摘要内容后另起一行标明，一般3-5个，之间用英文分号分开。
+% 关键词环境。
+% 默认输出中文关键词。
+% 在中文摘要内容后另起一行标明，一般3-5个，之间用中文分号分开。
+% 如果传入可选参数 \texttt{[en]}，即 \texttt{\textbackslash begin\{keywords\}[en]}，则输出英文关键词。
+% 一般3-5个，之间用英文分号分开。
 %
 % \noindent\DescribeEnv{preface}
 % 序言或前言。
@@ -977,7 +979,6 @@
 %
 % 只能使用 |\renewcommand*| 命令重新定义的标题名称如下：
 %
-%
 % \begin{function}{\enabstractname}
 %     英文摘要，默认值为“Abstract”。
 % \end{function}
@@ -1004,7 +1005,7 @@
 % \end{function}
 %
 % \begin{nkthesisexam}
-%    \renewcommand*{\enabstractname}{Abstract}
+%    \renewcommand*{\prefacename}{序言}
 % \end{nkthesisexam}
 %
 % 只能使用 |\ctexset| 命令重新定义的标题名称如下：
@@ -2423,42 +2424,43 @@
 % \subsubsection{摘要}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+% \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
 %
-% \begin{environment}{abstract, enabstract}
+% \begin{environment}{abstract}
 %    \begin{macrocode}
-\NewDocumentEnvironment { abstract } { }
+\NewDocumentEnvironment { abstract } { O{ } }
     {
-        \ctexset{
-            chapter/format = {
-                \mslinespread { 1 }
-                \heiti
-                \zihao { -2 }
-                \bfseries
-                \centering
-            },
-        }
-        \chapter* { \abstractname }
-        \markboth
-            { \MakeUppercase { \abstractname } }
-            { \MakeUppercase { \abstractname } }
-        \ignorespaces
-    }
-    { }
-\NewDocumentEnvironment { enabstract } { }
-    {
-        \ctexset{
-            chapter/format = {
-                \mslinespread { 1 }
-                \arial
-                \zihao { -2 }
-                \bfseries
-                \centering
-            },
-        }
-        \chapter* { \enabstractname }
-        \markboth
-            { \MakeUppercase { \enabstractname } }
-            { \MakeUppercase { \enabstractname } }
+        \str_if_eq:nnTF { #1 } { en }
+            {
+                \ctexset{
+                    chapter/format = {
+                        \mslinespread { 1 }
+                        \arial
+                        \zihao { -2 }
+                        \bfseries
+                        \centering
+                    },
+                }
+                \chapter* { \enabstractname }
+                \markboth
+                    { \MakeUppercase { \enabstractname } }
+                    { \MakeUppercase { \enabstractname } }
+            }
+            {
+                \ctexset{
+                    chapter/format = {
+                        \mslinespread { 1 }
+                        \heiti
+                        \zihao { -2 }
+                        \bfseries
+                        \centering
+                    },
+                }
+                \chapter* { \abstractname }
+                \markboth
+                    { \MakeUppercase { \abstractname } }
+                    { \MakeUppercase { \abstractname } }
+            }
         \ignorespaces
     }
     { }
@@ -2466,14 +2468,16 @@
 % \end{environment}
 %
 % \changes{v2.3}{2025/12/24}{对于宋体，不再为粗体和斜体使用替代字体，统一使用伪粗体和伪斜体。}
+% \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
 %
-% \begin{environment}{keywords, enkeywords}
+% \begin{environment}{keywords}
 %    \begin{macrocode}
-\NewDocumentEnvironment { keywords } { }
-    { \textbf { 关键词： } \ignorespaces }
-    { }
-\NewDocumentEnvironment { enkeywords } { }
-    { \textbf { Key~Words:~ } \ignorespaces }
+\NewDocumentEnvironment { keywords } { O{ } }
+    {
+        \str_if_eq:nnTF { #1 } { en }
+            { \textbf { Key~Words:~ } \ignorespaces }
+            { \textbf { 关键词： } \ignorespaces }
+    }
     { }
 %    \end{macrocode}
 % \end{environment}
