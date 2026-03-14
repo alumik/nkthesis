@@ -121,7 +121,7 @@
 %     \underline, \usetagform, \vline, \vrule,
 %     \vspace, \x, \zihao, \ziju, \hfuzz, \hbadness, \maxdimen, \parbox, \mbox,
 %     \tl_if_empty:nTF, \str_case:nnF, \regex_replace_once:nnN, \tl_set:Ne,
-%     \tl_use:N, \l_tmpa_tl, \A, \1, \Z,
+%     \tl_use:N, \l_tmpa_tl, \A, \1, \Z, \hook_gput_code:nnn,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -2397,12 +2397,13 @@
 % \begin{macro}{\appendix}
 %
 % \changes{v2.0}{2025/05/01}{修正附录中图、表、公式标签格式。从A.1改为A1。}
+% \changes{v2026.2}{2026/03/14}{使用 \pkg{l3hooks} 原生模块重构 \cs{appendix} 的代码钩子。}
 %
 % 更改附录中图、表、公式标签格式。
 % 从A.1改为A1。
 %
 %    \begin{macrocode}
-\apptocmd { \appendix }
+\hook_gput_code:nnn { cmd/appendix/after } { nkthesis }
     {
         \RenewExpandableDocumentCommand \thefigure { }
             { \thechapter \arabic { figure } }
@@ -2411,8 +2412,6 @@
         \RenewExpandableDocumentCommand \theequation { }
             { \thechapter \arabic { equation } }
     }
-    { }
-    { }
 %    \end{macrocode}
 % \end{macro}
 %
