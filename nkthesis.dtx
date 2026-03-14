@@ -120,7 +120,8 @@
 %     \tocloftpagestyle,
 %     \underline, \usetagform, \vline, \vrule,
 %     \vspace, \x, \zihao, \ziju, \hfuzz, \hbadness, \maxdimen, \parbox, \mbox,
-%     \tl_if_empty:nTF, \str_case:nnF,
+%     \tl_if_empty:nTF, \str_case:nnF, \regex_replace_once:nnN, \tl_set:Ne,
+%     \tl_use:N, \l_tmpa_tl, \A, \1, \Z,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -1850,33 +1851,42 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v2026.2}{2026/03/14}{抛弃传统字符串处理宏包，使用 \pkg{l3regex} 重构简单引用命令。}
+%
 % \begin{macro}{\@@_simpleref:n}
 %
 % \changes{v2.4}{2025/12/28}{修复使用 \cs{simpleref} 引用子图和公式时显示为空的问题。}
 %
-% 简化引用命令。
+% 简单引用命令。
 %
 %    \begin{macrocode}
-\cs_new:Nn \@@_simpleref:n {
-    \IfEndWith {#1} { 小节 }
-        { \StrBehind {#1} { 节 } }
-        {
-            \IfEndWith {#1} { 节 }
-                { \StrBehind {#1} { 章 } }
-                {
-                    \IfEndWith {#1} { ） }
-                        {
-                            \IfBeginWith {#1} { 式 }
-                                {#1}
-                                {
-                                    \IfBeginWith {#1} { 图 }
-                                        {#1}
-                                        { \StrBehind [ 2 ] {#1} { 节 } }
-                                }
-                        }
-                        {#1}
-                }
-        }
+\cs_new_protected:Nn \@@_simpleref:n {
+    \tl_set:Ne \l_tmpa_tl {#1}
+%    \end{macrocode}
+%
+% 四级标题（小小节）：第一章第一节第一小节（一） \textrightarrow （一）
+%
+%    \begin{macrocode}
+    \regex_replace_once:nnN { \A .* 小节 ( （ .* ） ) \Z } { \1 } \l_tmpa_tl
+%    \end{macrocode}
+%
+% 三级标题（小节）：第一章第一节第一小节 \textrightarrow 第一小节
+%
+%    \begin{macrocode}
+    % 
+    \regex_replace_once:nnN { \A .* 节 ( .* 小节 ) \Z } { \1 } \l_tmpa_tl
+%    \end{macrocode}
+%
+% 二级标题（节）：第一章第一节 \textrightarrow 第一节
+%
+%    \begin{macrocode}
+    \regex_replace_once:nnN { \A .* 章 ( .* 节 ) \Z } { \1 } \l_tmpa_tl
+%    \end{macrocode}
+%
+% 其他情况：保持不变。
+%
+%    \begin{macrocode}
+    \tl_use:N \l_tmpa_tl
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1959,12 +1969,14 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v2026.2}{2026/03/14}{抛弃传统字符串处理宏包，使用 \pkg{l3regex} 重构简单引用命令。}
+%
 % \begin{macro}{\simpleref}
 %
 % 简化引用命令。
 %
 %    \begin{macrocode}
-\NewExpandableDocumentCommand \simpleref { m } {
+\NewDocumentCommand \simpleref { m } {
     \hyperref [#1] { \@@_simpleref:n { \getrefnumber {#1} } }
 }
 %    \end{macrocode}
