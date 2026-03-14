@@ -21,7 +21,7 @@
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
 %<class>    {2026/03/14}
-%<class>    {v2026.2.0}
+%<class>    {v2026.2.1}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -121,7 +121,7 @@
 %     \underline, \usetagform, \vline, \vrule,
 %     \vspace, \x, \zihao, \ziju, \hfuzz, \hbadness, \maxdimen, \parbox, \mbox,
 %     \tl_if_empty:nTF, \str_case:nnF, \regex_replace_once:nnN, \tl_set:Ne,
-%     \tl_use:N, \l_tmpa_tl, \A, \1, \Z, \hook_gput_code:nnn,
+%     \tl_use:N, \l_tmpa_tl, \A, \1, \Z, \hook_gput_code:nnn, \bool_to_str:N,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -136,7 +136,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/14\qquad v2026.2.0}
+% \date{2026/03/14\qquad v2026.2.1}
 % \maketitle
 %
 % \begin{abstract}
@@ -343,6 +343,15 @@
 %     \end{syntax}
 %     当该选项存在时，或设置为真时，章节开始时强制在右页开始。
 %     该选项通常用于双面打印。
+% \end{function}
+%
+% \begin{function}[added=2026/03/14]{gbpub}
+%     \begin{syntax}
+%         gbpub[ = <(true)|false> ]
+%     \end{syntax}
+%     当该选项存在时，或设置为真时，自动利用：[出版地不详]、[出版者不详]、[S.l.]、[s.n.]等填补缺失的出版信息；
+%     否则取消自动处理，取消相应项的输出。
+%     该选项默认为真，即默认启用自动填补缺失的出版信息功能。
 % \end{function}
 %
 % \section{设置和读取论文基本信息}
@@ -1380,6 +1389,14 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \changes{v2026.2}{2026/03/14}{增加 \texttt{gbpub} 选项以控制是否要在参考文献中自动填补缺失的出版信息。}
+%
+% \begin{variable}{\l_@@_gbpub_bool}
+%    \begin{macrocode}
+\bool_new:N \l_@@_gbpub_bool
+%    \end{macrocode}
+% \end{variable}
+%
 %    \begin{macrocode}
 \keys_define:nn { nkthesis / options } {
 %    \end{macrocode}
@@ -1421,6 +1438,20 @@
 %    \begin{macrocode}
     openright .bool_set:N = \l_@@_openright_bool,
     openright .initial:n  = false,
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v2026.2}{2026/03/14}{增加 \texttt{gbpub} 选项以控制是否要在参考文献中自动填补缺失的出版信息。}
+%
+% \begin{macro}{options/gbpub}
+%
+% 若 |gbpub| 选项设置为真，自动利用：[出版地不详]、[出版者不详]、[S.l.]、[s.n.]等填补缺失的出版信息；
+% 否则取消自动处理，取消相应项的输出。
+% 该选项默认为真，即默认启用自动填补缺失的出版信息功能。
+%
+%    \begin{macrocode}
+    gbpub .bool_set:N = \l_@@_gbpub_bool,
+    gbpub .initial:n  = true,
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1601,7 +1632,7 @@
     backend = biber,
     style   = gb7714-2015,
     url     = false,
-    gbpub   = true,
+    gbpub   = \bool_to_str:N \l_@@_gbpub_bool,
 ] { biblatex }
 \RequirePackage { subcaption }
 \RequirePackage { tikz }
@@ -1864,7 +1895,6 @@
 % 三级标题（小节）：第一章第一节第一小节 \textrightarrow 第一小节
 %
 %    \begin{macrocode}
-    % 
     \regex_replace_once:nnN { \A .* 节 ( .* 小节 ) \Z } { \1 } \l_tmpa_tl
 %    \end{macrocode}
 %
