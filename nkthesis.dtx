@@ -21,7 +21,7 @@
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
 %<class>    {2026/03/15}
-%<class>    {v2026.2.2}
+%<class>    {v2026.3.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -122,6 +122,11 @@
 %     \vspace, \x, \zihao, \ziju, \hfuzz, \hbadness, \maxdimen, \parbox, \mbox,
 %     \tl_if_empty:nTF, \str_case:nnF, \regex_replace_once:nnN, \tl_set:Ne,
 %     \tl_use:N, \l_tmpa_tl, \A, \1, \Z, \hook_gput_code:nnn, \bool_to_str:N,
+%     \crefname, \crefformat, \crefrangeformat, \crefmultiformat,
+%     \crefrangemultiformat, \crefpairconjunction, \crefmiddleconjunction,
+%     \creflastconjunction, \crefpairgroupconjunction,
+%     \crefmiddlegroupconjunction, \creflastgroupconjunction,
+%     \crefrangeconjunction, \creflabelformat,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -136,7 +141,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/15\qquad v2026.2.2}
+% \date{2026/03/15\qquad v2026.3.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -1072,13 +1077,16 @@
 % 其中，|chap:|、|sec:| 等标签前缀仅为了理解方便，不是必要格式。
 % 标签内容可自定义。
 %
-% \subsubsection*{方式一：使用 \cs{ref} 命令引用}
+% \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs{simpleref} 等命令。}
 %
-% \begin{function}{\ref}
+% \subsubsection*{引用格式一：使用原始 \cs{ref} 命令引用}
+%
+% \begin{function}[updated=2026/03/15]{\ref}
 %     \begin{syntax}
 %         \cs{ref} \marg{标签名}
 %     \end{syntax}
-%     使用该方式引用标签的输出结果如表~\ref{tab:ref-output} 所示。
+%     使用该方式引用可输出最原始的数字标签，方便后续自定义引用文字。
+%     标签的输出结果如表~\ref{tab:ref-output} 所示。
 %     \begin{table}[H]
 %         \centering
 %         \caption{\cs{ref}交叉引用输出结果}
@@ -1087,47 +1095,52 @@
 %             \toprule
 %             引用对象 & 引用方式 & 输出（模式一） & 输出（模式二） \\
 %             \midrule
-%             chapter & |\ref{chap:a}| & 1 & 第一章 \\
-%             section & |\ref{sec:a}| & 1.1 & 第一章第一节 \\
-%             subsection & |\ref{subsec:a}| & 1.1.1 & 第一章第一节第一小节 \\
-%             subsubsection & |\ref{subsubsec:a}| & 1.1.1.1 & 第一章第一节第一小节（一） \\
-%             figure & |\ref{fig:a}| & 图1.1 & 图1.1 \\
-%             subfigure & |\ref{subfig:a}| & 图1.1（a） & 图1.1（a） \\
-%             table & |\ref{tab:a}| & 表1.1 & 表1.1 \\
-%             equation & |\ref{eqn:a}| & 式（1.1） & 式（1.1） \\
+%             chapter & |\ref{chap:a}| & 1 & 一 \\
+%             section & |\ref{sec:a}| & 1.1 & 一 \\
+%             subsection & |\ref{subsec:a}| & 1.1.1 & 一 \\
+%             subsubsection & |\ref{subsubsec:a}| & 1.1.1.1 & 一 \\
+%             figure & |\ref{fig:a}| & 1.1 & 1.1 \\
+%             subfigure & |\ref{subfig:a}| & 1.1（a） & 1.1（a） \\
+%             table & |\ref{tab:a}| & 1.1 & 1.1 \\
+%             equation & |\ref{eqn:a}| & （1.1） & （1.1） \\
 %             \bottomrule
 %         \end{tabular}
 %     \end{table}
 % \end{function}
 %
-% \subsubsection*{方式二：使用 \cs{simpleref} 命令引用}
+% \subsubsection*{引用格式二：使用 \cs{cref} 命令引用}
 %
-% \begin{function}{\simpleref}
+% \begin{function}[added=2026/03/15]{\cref}
 %     \begin{syntax}
-%         \cs{simpleref} \marg{标签名}
+%         \cs{cref} \marg{标签名}
 %     \end{syntax}
-%     \cs{simpleref} 命令也可以输出格式化后的引用，但是对于章、节标题仅输出当前章、节编号，方便在文中使用类似“本章第二节”这样的表达。
-%     使用该方式引用标签的输出结果如表~\ref{tab:simpleref-output} 所示。
+%     \cs{cref} 命令可以输出格式化后的引用，对于章、节标题仅输出当前章、节编号，方便在文中使用类似“本章第二节”这样的表达。
+%     使用该方式引用标签的输出结果如表~\ref{tab:cref-output} 所示。
 %     \begin{table}[H]
 %         \centering
-%         \caption{\cs{simpleref}交叉引用输出结果}
-%         \label{tab:simpleref-output}
+%         \caption{\cs{cref}交叉引用输出结果}
+%         \label{tab:cref-output}
 %         \begin{tabular}{llll}
 %             \toprule
 %             引用对象 & 引用方式 & 输出（模式一） & 输出（模式二） \\
 %             \midrule
-%             chapter & |\simpleref{chap:a}| & 1 & 第一章 \\
-%             section & |\simpleref{sec:a}| & 1.1 & 第一节 \\
-%             subsection & |\simpleref{subsec:a}| & 1.1.1 & 第一小节 \\
-%             subsubsection & |\simpleref{subsubsec:a}| & 1.1.1.1 & （一） \\
-%             figure & |\simpleref{fig:a}| & 图1.1 & 图1.1 \\
-%             subfigure & |\simpleref{subfig:a}| & 图1.1（a） & 图1.1（a） \\
-%             table & |\simpleref{tab:a}| & 表1.1 & 表1.1 \\
-%             equation & |\simpleref{eqn:a}| & 式（1.1） & 式（1.1） \\
+%             chapter & |\cref{chap:a}| & 第1章 & 第一章 \\
+%             section & |\cref{sec:a}| & 第1.1节 & 第一节 \\
+%             subsection & |\cref{subsec:a}| & 第1.1.1小节 & 第一小节 \\
+%             subsubsection & |\cref{subsubsec:a}| & 第1.1.1.1子节 & 第一子节 \\
+%             figure & |\cref{fig:a}| & 图1.1 & 图1.1 \\
+%             subfigure & |\cref{subfig:a}| & 图1.1（a） & 图1.1（a） \\
+%             table & |\cref{tab:a}| & 表1.1 & 表1.1 \\
+%             equation & |\cref{eqn:a}| &  式（1.1） & 式（1.1） \\
 %             \bottomrule
 %         \end{tabular}
 %     \end{table}
 % \end{function}
+%
+% \begin{warningbox}
+%     从 v2026.3.0 版本开始，不再支持使用 \cs{ref} 命令输出格式化后的引用。
+%     即不再支持直接输出“第一章第二节第三小节”这种格式。
+% \end{warningbox}
 %
 % \subsection{插入图片}
 %
@@ -1638,6 +1651,7 @@
 \RequirePackage { tikz }
 \RequirePackage { array }
 \RequirePackage { newunicodechar }
+\RequirePackage { cleveref }
 %    \end{macrocode}
 %
 % \changes{v2.2}{2025/05/29}{如果当前页面为空白页，则不打印页眉页脚。}
@@ -1874,43 +1888,8 @@
 % \end{macro}
 %
 % \changes{v2026.2}{2026/03/14}{抛弃传统字符串处理宏包，使用 \pkg{l3regex} 重构简单引用命令。}
-%
-% \begin{macro}{\@@_simpleref:n}
-%
 % \changes{v2.4}{2025/12/28}{修复使用 \cs{simpleref} 引用子图和公式时显示为空的问题。}
-%
-% 简单引用命令。
-%
-%    \begin{macrocode}
-\cs_new_protected:Nn \@@_simpleref:n {
-    \tl_set:Ne \l_tmpa_tl {#1}
-%    \end{macrocode}
-%
-% 四级标题（小小节）：第一章第一节第一小节（一） \textrightarrow （一）
-%
-%    \begin{macrocode}
-    \regex_replace_once:nnN { \A .* 小节 ( （ .* ） ) \Z } { \1 } \l_tmpa_tl
-%    \end{macrocode}
-%
-% 三级标题（小节）：第一章第一节第一小节 \textrightarrow 第一小节
-%
-%    \begin{macrocode}
-    \regex_replace_once:nnN { \A .* 节 ( .* 小节 ) \Z } { \1 } \l_tmpa_tl
-%    \end{macrocode}
-%
-% 二级标题（节）：第一章第一节 \textrightarrow 第一节
-%
-%    \begin{macrocode}
-    \regex_replace_once:nnN { \A .* 章 ( .* 节 ) \Z } { \1 } \l_tmpa_tl
-%    \end{macrocode}
-%
-% 其他情况：保持不变。
-%
-%    \begin{macrocode}
-    \tl_use:N \l_tmpa_tl
-}
-%    \end{macrocode}
-% \end{macro}
+% \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs{simpleref} 等命令。}
 %
 % \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文原创性声明》页面与《南开大学学位论文使用授权书》页面。}
 %
@@ -1986,19 +1965,6 @@
 \NewDocumentCommand \mslinespreadbp { m m } {
     \linespread { \fp_eval:n { #1 / #2 / 1.2 } }
     \selectfont
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% \changes{v2026.2}{2026/03/14}{抛弃传统字符串处理宏包，使用 \pkg{l3regex} 重构简单引用命令。}
-%
-% \begin{macro}{\simpleref}
-%
-% 简化引用命令。
-%
-%    \begin{macrocode}
-\NewDocumentCommand \simpleref { m } {
-    \hyperref [#1] { \@@_simpleref:n { \getrefnumber {#1} } }
 }
 %    \end{macrocode}
 % \end{macro}
@@ -2134,24 +2100,82 @@
 %
 % \subsection{交叉引用}
 %
+% \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs{simpleref} 等命令。}
+%
 %    \begin{macrocode}
-\labelformat { figure    } { \figurename\thefigure                  }
-\labelformat { subfigure } { \figurename\thefigure（\thesubfigure） }
-\labelformat { table     } { \tablename\thetable                    }
-\labelformat { equation  } { 式（\theequation）                     }
-\int_compare:nNnT \l_@@_headingmode_int = 2 {
-    \labelformat { chapter       } { \CTEXthechapter                  }
-    \labelformat { section       } { \CTEXthechapter{}\CTEXthesection }
-    \labelformat { subsection    }
-        { \CTEXthechapter{}\CTEXthesection{}第\chinese{subsection}小节 }
-    \labelformat { subsubsection }
-        {
-            \CTEXthechapter{}
-            \CTEXthesection{}
-            第\chinese{subsection}小节
-            （\chinese{subsubsection}）
-        }
+\labelformat { subfigure } { \thefigure（\thesubfigure） }
+\labelformat { equation  } { （\theequation）            }
+\AtBeginDocument {
+    \crefname{ equation      } { 式    } { 式    }
+    \crefname{ figure        } { 图    } { 图    }
+    \crefname{ subfigure     } { 子图  } { 子图  }
+    \crefname{ table         } { 表    } { 表    }
+    \crefname{ page          } { 页    } { 页    }
+    \crefname{ chapter       } { 章    } { 章    }
+    \crefname{ section       } { 节    } { 节    }
+    \crefname{ subsection    } { 小节  } { 小节  }
+    \crefname{ subsubsection } { 子节  } { 子节  }
+    \crefname{ appendix      } { 附录  } { 附录  }
+    \crefname{ theorem       } { 定理  } { 定理  }
+    \crefname{ lemma         } { 引理  } { 引理  }
+    \crefname{ corollary     } { 推论  } { 推论  }
+    \crefname{ proposition   } { 命题  } { 命题  }
+    \crefname{ definition    } { 定义  } { 定义  }
+    \crefname{ example       } { 例    } { 例    }
+    \crefname{ algorithm     } { 算法  } { 算法  }
+    \crefname{ listing       } { 列表  } { 列表  }
+    \crefname{ line          } { 行    } { 行    }
+    \crefformat { page          } { #2第#1页#3   }
+    \crefformat { chapter       } { #2第#1章#3   }
+    \crefformat { section       } { #2第#1节#3   }
+    \crefformat { subsection    } { #2第#1小节#3 }
+    \crefformat { subsubsection } { #2第#1子节#3 }
+    \crefformat { equation      } { 式#2#1#3     }
+    \crefformat { subfigure     } { 图#2#1#3     }
+    \crefrangeformat { page          } { #3第#1页#4至#5第#2页#6     }
+    \crefrangeformat { chapter       } { #3第#1章#4至#5第#2章#6     }
+    \crefrangeformat { section       } { #3第#1节#4至#5第#2节#6     }
+    \crefrangeformat { subsection    } { #3第#1小节#4至#5第#2小节#6 }
+    \crefrangeformat { subsubsection } { #3第#1子节#4至#5第#2子节#6 }
+    \crefmultiformat { page          }
+        { #2第#1页#3     } { 和#2第#1页#3   }
+        { ，#2第#1页#3   } { 和#2第#1页#3   }
+    \crefmultiformat { chapter       }
+        { #2第#1章#3     } { 和#2第#1章#3   }
+        { ，#2第#1章#3   } { 和#2第#1章#3   }
+    \crefmultiformat { section       }
+        { #2第#1节#3     } { 和#2第#1节#3   }
+        { ，#2第#1节#3   } { 和#2第#1节#3   }
+    \crefmultiformat { subsection    }
+        { #2第#1小节#3   } { 和#2第#1小节#3 }
+        { ，#2第#1小节#3 } { 和#2第#1小节#3 }
+    \crefmultiformat { subsubsection }
+        { #2第#1子节#3   } { 和#2第#1子节#3 }
+        { ，#2第#1子节#3 } { 和#2第#1子节#3 }
+    \crefrangemultiformat { page          }
+        { #3第#1页#4至#5第#2页#6       } { 和#3第#1页#4至#5第#2页#6     }
+        { ，#3第#1页#4至#5第#2页#6     } { 和#3第#1页#4至#5第#2页#6     }
+    \crefrangemultiformat { chapter       }
+        { #3第#1章#4至#5第#2章#6       } { 和#3第#1章#4至#5第#2章#6     }
+        { ，#3第#1章#4至#5第#2章#6     } { 和#3第#1章#4至#5第#2章#6     }
+    \crefrangemultiformat { section       }
+        { #3第#1节#4至#5第#2节#6       } { 和#3第#1节#4至#5第#2节#6     }
+        { ，#3第#1节#4至#5第#2节#6     } { 和#3第#1节#4至#5第#2节#6     }
+    \crefrangemultiformat { subsection    }
+        { #3第#1小节#4至#5第#2小节#6   } { 和#3第#1小节#4至#5第#2小节#6 }
+        { ，#3第#1小节#4至#5第#2小节#6 } { 和#3第#1小节#4至#5第#2小节#6 }
+    \crefrangemultiformat { subsubsection }
+        { #3第#1子节#4至#5第#2子节#6   } { 和#3第#1子节#4至#5第#2子节#6 }
+        { ，#3第#1子节#4至#5第#2子节#6 } { 和#3第#1子节#4至#5第#2子节#6 }
+    \RenewDocumentCommand { \crefpairconjunction        } { } { ~和~ }
+    \RenewDocumentCommand { \crefmiddleconjunction      } { } { ，   }
+    \RenewDocumentCommand { \creflastconjunction        } { } { ~和~ }
+    \RenewDocumentCommand { \crefpairgroupconjunction   } { } { ~和~ }
+    \RenewDocumentCommand { \crefmiddlegroupconjunction } { } { ，   }
+    \RenewDocumentCommand { \creflastgroupconjunction   } { } { ~和~ }
+    \RenewDocumentCommand { \crefrangeconjunction       } { } { ~至~ }
 }
+\creflabelformat { equation } { #2#1#3 }
 %    \end{macrocode}
 %
 % \subsection{页眉页脚}
@@ -2291,7 +2315,7 @@
 %
 % 根据标题模式设置不同格式。
 %
-% \changes{v2026.2}{2026/03/15}{修复使用模式一标题时目录中 subsection 编号后无空格的问题。}
+% \changes{v2026.3}{2026/03/15}{修复使用模式一标题时目录中 subsection 编号后无空格的问题。}
 %
 %    \begin{macrocode}
 \int_compare:nNnTF \l_@@_headingmode_int = 1
