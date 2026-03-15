@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/14}
-%<class>    {v2026.2.1}
+%<class>    {2026/03/15}
+%<class>    {v2026.2.2}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -136,7 +136,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/14\qquad v2026.2.1}
+% \date{2026/03/15\qquad v2026.2.2}
 % \maketitle
 %
 % \begin{abstract}
@@ -2279,7 +2279,6 @@
         },
         beforeskip = 20bp,
         afterskip  = 14bp,
-        tocline    = \CTEXifname{\protect{\csname CTEXthe#1\endcsname}}{}#2,
     },
     subsubsection = {
         fixskip    = true,
@@ -2291,6 +2290,8 @@
 %    \end{macrocode}
 %
 % 根据标题模式设置不同格式。
+%
+% \changes{v2026.2}{2026/03/15}{修复使用模式一标题时目录中 subsection 编号后无空格的问题。}
 %
 %    \begin{macrocode}
 \int_compare:nNnTF \l_@@_headingmode_int = 1
@@ -2310,7 +2311,13 @@
                     \arabic{chapter}.\arabic{section}.
                     \arabic{subsection}
                 },
-                aftername = \hspace { \ccwd }
+                aftername = \hspace { \ccwd },
+                tocline   = {
+                    \CTEXifname
+                        {\protect{\csname CTEXthe#1\endcsname\hspace{\ccwd}}}
+                        { }
+                        #2,
+                },
             },
             subsubsection = {
                 number    = {
@@ -2346,6 +2353,9 @@
                 number    = \chinese{subsection},
                 indent    = \parindent,
                 aftername = { },
+                tocline   = {
+                    \CTEXifname{\protect{\csname CTEXthe#1\endcsname}}{}#2,
+                },
             },
             subsubsection = {
                 name      = { （, ） },
