@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/15}
-%<class>    {v2026.3.0}
+%<class>    {2026/03/16}
+%<class>    {v2026.3.1}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -141,7 +141,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/15\qquad v2026.3.0}
+% \date{2026/03/16\qquad v2026.3.1}
 % \maketitle
 %
 % \begin{abstract}
@@ -2340,7 +2340,7 @@
                     \CTEXifname
                         {\protect{\csname CTEXthe#1\endcsname\hspace{\ccwd}}}
                         { }
-                        #2,
+                        #2
                 },
             },
             subsubsection = {
@@ -2378,7 +2378,7 @@
                 indent    = \parindent,
                 aftername = { },
                 tocline   = {
-                    \CTEXifname{\protect{\csname CTEXthe#1\endcsname}}{}#2,
+                    \CTEXifname{\protect{\csname CTEXthe#1\endcsname}}{}#2
                 },
             },
             subsubsection = {
