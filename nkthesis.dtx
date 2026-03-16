@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/16}
-%<class>    {v2026.3.1}
+%<class>    {2026/03/17}
+%<class>    {v2026.3.2}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -67,7 +67,7 @@
 % \fi
 %
 % \DoNotIndex{
-%     \\, \addcontentsline, \apptocmd, \arabic,
+%     \\, \addcontentsline, \arabic,
 %     \arraybackslash, \arraystretch, \AtBeginBibliography, \AtBeginDocument,
 %     \AtBeginEnvironment, \baselineskip, \begin, \bfseries,
 %     \bool_if:NF, \bool_if:NTF, \bool_new:N,
@@ -82,16 +82,16 @@
 %     \char_generate:nn, \checkmark, \chinese, \CJKfamily,
 %     \clearpage, \cleardoublepage,
 %     \cs_generate_variant:Nn, \cs_new:Nn, \cs_new_protected:Nn, \csname,
-%     \CTEXifname, \CTEXthechapter, \CTEXthesection, \ctexset,
+%     \CTEXifname, \ctexset,
 %     \DeclareCaptionFont, \DeclareCaptionLabelFormat,
 %     \DeclareCaptionLabelSeparator, \dim_eval:n, \dim_set:Nn,
 %     \draw, \end, \endcsname, \fancyfoot,
 %     \fancyhead, \fancyhf, \fancyhfoffset, \floatsep,
 %     \fontspec_font_if_exist:nTF, \fontsize,
-%     \foreach, \fp_eval:n, \geometry,
-%     \getrefnumber, \group_begin:, \group_end:, \hbox,
+%     \fp_eval:n, \geometry,
+%     \group_begin:, \group_end:,
 %     \headrulewidth, \hfill, \hline,
-%     \hspace, \hyperref, \IfBeginWith, \IfEndWith, \ignorespaces,
+%     \hspace, \ignorespaces,
 %     \int_compare:nNnT, \int_compare:nNnTF, \int_gset:Nn,
 %     \int_new:N, \int_set:Nn, \intextsep, \keys_define:nn,
 %     \keys_if_exist:nnTF, \keys_set:nn,
@@ -111,22 +111,23 @@
 %     \RequirePackage, \rule, \scalebox, \selectfont,
 %     \setCJKfamilyfont, \setCJKmainfont, \setCJKmonofont,
 %     \setCJKsansfont, \setlist, \setmainfont, \singlespace,
-%     \square, \StrBehind, \str_if_eq:eeF, \str_if_eq:eeTF,
+%     \square, \str_if_eq:eeF, \str_if_eq:eeTF,
 %     \str_if_eq:nnTF, \subcaptionsetup, \sys_if_engine_xetex:F, \tabcolsep,
 %     \textbf, \textbullet, \textfloatsep,
 %     \thechapter, \theequation,
 %     \thefigure, \thepage, \thetable, \thesubfigure,
 %     \thispagestyle, \tl_if_empty:eTF,
 %     \tocloftpagestyle,
-%     \underline, \usetagform, \vline, \vrule,
-%     \vspace, \x, \zihao, \ziju, \hfuzz, \hbadness, \maxdimen, \parbox, \mbox,
-%     \tl_if_empty:nTF, \str_case:nnF, \regex_replace_once:nnN, \tl_set:Ne,
-%     \tl_use:N, \l_tmpa_tl, \A, \1, \Z, \hook_gput_code:nnn, \bool_to_str:N,
+%     \underline, \usetagform, \vrule,
+%     \vspace, \zihao, \ziju, \hfuzz, \hbadness, \maxdimen, \parbox, \mbox,
+%     \tl_if_empty:nTF, \str_case:nnF,
+%     \hook_gput_code:nnn, \bool_to_str:N,
 %     \crefname, \crefformat, \crefrangeformat, \crefmultiformat,
 %     \crefrangemultiformat, \crefpairconjunction, \crefmiddleconjunction,
 %     \creflastconjunction, \crefpairgroupconjunction,
 %     \crefmiddlegroupconjunction, \creflastgroupconjunction,
-%     \crefrangeconjunction, \creflabelformat,
+%     \crefrangeconjunction, \creflabelformat, \cs_new:Npn, \cs_set:Npn,
+%     \cs_set_protected:Npn,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -135,13 +136,15 @@
 % \changes{v2.1}{2025/05/01}{提示使用最新版本的 \LaTeX2e（2024/11/01）以确保功能正常。}
 % \changes{v2.4}{2025/12/28}{使用 \pkg{l3build} 打包和发布模板。}
 % \changes{v2026.0}{2026/03/04}{适配2026版写作规范。}
+% \changes{v2026.3}{2026/03/17}{保护带有副作用的不可被展开的宏（加上 \texttt{\_protected}）。}
+% \changes{v2026.3}{2026/03/17}{轻量化命令重定义与宏覆盖。}
 %
 % \title{^^A
 %     \textbf{nkthesis：南开大学硕士/博士毕业（学位）论文模板}^^A
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/16\qquad v2026.3.1}
+% \date{2026/03/17\qquad v2026.3.2}
 % \maketitle
 %
 % \begin{abstract}
@@ -2057,13 +2060,13 @@
 %
 % \begin{macro}{\enabstractname}
 %    \begin{macrocode}
-\NewExpandableDocumentCommand \enabstractname { } { Abstract }
+\cs_new:Npn \enabstractname { Abstract }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\prefacename}
 %    \begin{macrocode}
-\NewExpandableDocumentCommand \prefacename { } { 前言 }
+\cs_new:Npn \prefacename { 前言 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2072,7 +2075,7 @@
 % \changes{v2.0}{2025/04/30}{将《符号、标志、缩略语等的注释表》的命令从 \cs{symbolsandabbreviationsname} 改为 \cs{symabbrname}。}
 %
 %    \begin{macrocode}
-\NewExpandableDocumentCommand \symabbrname { } { 符号和缩略语说明 }
+\cs_new:Npn \symabbrname { 符号和缩略语说明 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2080,21 +2083,19 @@
 %
 % \begin{macro}{\acknowledgementsname}
 %    \begin{macrocode}
-\NewExpandableDocumentCommand \acknowledgementsname { } { 致谢 }
+\cs_new:Npn \acknowledgementsname { 致谢 }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\resumename}
 %    \begin{macrocode}
-\NewExpandableDocumentCommand \resumename { }
-    { 个人简历、在学期间发表的学术论文及研究成果 }
+\cs_new:Npn \resumename { 个人简历、在学期间发表的学术论文及研究成果 }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\anonymousresumename}
 %    \begin{macrocode}
-\NewExpandableDocumentCommand \anonymousresumename { }
-    { 在学期间发表的学术论文及研究成果 }
+\cs_new:Npn \anonymousresumename { 在学期间发表的学术论文及研究成果 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2167,13 +2168,13 @@
     \crefrangemultiformat { subsubsection }
         { #3第#1子节#4至#5第#2子节#6   } { 和#3第#1子节#4至#5第#2子节#6 }
         { ，#3第#1子节#4至#5第#2子节#6 } { 和#3第#1子节#4至#5第#2子节#6 }
-    \RenewDocumentCommand { \crefpairconjunction        } { } { ~和~ }
-    \RenewDocumentCommand { \crefmiddleconjunction      } { } { ，   }
-    \RenewDocumentCommand { \creflastconjunction        } { } { ~和~ }
-    \RenewDocumentCommand { \crefpairgroupconjunction   } { } { ~和~ }
-    \RenewDocumentCommand { \crefmiddlegroupconjunction } { } { ，   }
-    \RenewDocumentCommand { \creflastgroupconjunction   } { } { ~和~ }
-    \RenewDocumentCommand { \crefrangeconjunction       } { } { ~至~ }
+    \cs_set:Npn \crefpairconjunction        { ~和~ }
+    \cs_set:Npn \crefmiddleconjunction      { ，   }
+    \cs_set:Npn \creflastconjunction        { ~和~ }
+    \cs_set:Npn \crefpairgroupconjunction   { ~和~ }
+    \cs_set:Npn \crefmiddlegroupconjunction { ，   }
+    \cs_set:Npn \creflastgroupconjunction   { ~和~ }
+    \cs_set:Npn \crefrangeconjunction       { ~至~ }
 }
 \creflabelformat { equation } { #2#1#3 }
 %    \end{macrocode}
@@ -2188,7 +2189,7 @@
 %
 %    \begin{macrocode}
 \fancyhfoffset { 1.428571pt }
-\RenewExpandableDocumentCommand \headrulewidth { } { 0.7bp }
+\cs_set:Npn \headrulewidth { 0.7bp }
 \fancyhf { }
 \fancyhead [ C ] {
     \mslinespread { 1 }
@@ -2212,19 +2213,16 @@
 % 设置点间距。
 %
 %    \begin{macrocode}
-\RenewExpandableDocumentCommand \cftdotsep { } { 1 }
+\cs_set:Npn \cftdotsep { 1 }
 %    \end{macrocode}
 %
 % 设置章标题格式。
 %
 %    \begin{macrocode}
 \dim_set:Nn \cftbeforechapskip { 2bp }
-\RenewExpandableDocumentCommand \cftchapfont     { }
-    { \mslinespread { 1 } \songti \zihao { 4 } }
-\RenewExpandableDocumentCommand \cftchappagefont { }
-    { \cftchapfont                             }
-\RenewExpandableDocumentCommand \cftchapleader   { }
-    { \cftdotfill { \cftdotsep }               }
+\cs_set_protected:Npn \cftchapfont { \mslinespread { 1 } \songti \zihao { 4 } }
+\cs_set_protected:Npn \cftchappagefont { \cftchapfont }
+\cs_set_protected:Npn \cftchapleader { \cftdotfill { \cftdotsep } }
 %    \end{macrocode}
 %
 % 设置节标题格式。
@@ -2232,10 +2230,8 @@
 %    \begin{macrocode}
 \dim_set:Nn \cftbeforesecskip { 2bp   }
 \dim_set:Nn \cftsecindent     { \ccwd }
-\RenewExpandableDocumentCommand \cftsecfont     { }
-    { \mslinespread { 1 } \songti \zihao { -4 } }
-\RenewExpandableDocumentCommand \cftsecpagefont { }
-    { \cftsecfont                               }
+\cs_set_protected:Npn \cftsecfont { \mslinespread { 1 } \songti \zihao { -4 } }
+\cs_set_protected:Npn \cftsecpagefont { \cftsecfont }
 %    \end{macrocode}
 %
 % 设置小节标题格式。
@@ -2243,10 +2239,9 @@
 %    \begin{macrocode}
 \dim_set:Nn \cftbeforesubsecskip { 2bp    }
 \dim_set:Nn \cftsubsecindent     { 2\ccwd }
-\RenewExpandableDocumentCommand \cftsubsecfont     { }
+\cs_set_protected:Npn \cftsubsecfont
     { \mslinespread { 1 } \songti \zihao { 5 } }
-\RenewExpandableDocumentCommand \cftsubsecpagefont { }
-    { \cftsubsecfont                           }
+\cs_set_protected:Npn \cftsubsecpagefont { \cftsubsecfont }
 %    \end{macrocode}
 %
 % 设置图表标题格式。
@@ -2258,14 +2253,10 @@
 \dim_set:Nn \cfttabnumwidth   { 3.5\ccwd }
 \dim_set:Nn \cftfigindent     { 0pt      }
 \dim_set:Nn \cfttabindent     { 0pt      }
-\RenewExpandableDocumentCommand \cftfigfont    { }
-    { \mslinespread { 1 } \songti \zihao { -4 } }
-\RenewExpandableDocumentCommand \cfttabfont    { }
-    { \mslinespread { 1 } \songti \zihao { -4 } }
-\RenewExpandableDocumentCommand \cftfigpresnum { }
-    { \figurename                               }
-\RenewExpandableDocumentCommand \cfttabpresnum { }
-    { \tablename                                }
+\cs_set_protected:Npn \cftfigfont { \mslinespread { 1 } \songti \zihao { -4 } }
+\cs_set_protected:Npn \cfttabfont { \mslinespread { 1 } \songti \zihao { -4 } }
+\cs_set:Npn \cftfigpresnum { \figurename }
+\cs_set:Npn \cfttabpresnum { \tablename  }
 %    \end{macrocode}
 %
 % \subsection{\CTeX 设置}
@@ -2469,12 +2460,9 @@
 %    \begin{macrocode}
 \hook_gput_code:nnn { cmd/appendix/after } { nkthesis }
     {
-        \RenewExpandableDocumentCommand \thefigure { }
-            { \thechapter \arabic { figure } }
-        \RenewExpandableDocumentCommand \thetable { }
-            { \thechapter \arabic { table } }
-        \RenewExpandableDocumentCommand \theequation { }
-            { \thechapter \arabic { equation } }
+        \cs_set:Npn \thefigure   { \thechapter \arabic { figure   } }
+        \cs_set:Npn \thetable    { \thechapter \arabic { table    } }
+        \cs_set:Npn \theequation { \thechapter \arabic { equation } }
     }
 %    \end{macrocode}
 % \end{macro}
@@ -2713,7 +2701,7 @@
         \mslinespread { 1 }
         \songti
         \zihao { 5 }
-        \RenewExpandableDocumentCommand \arraystretch { } { 1.25 }
+        \cs_set:Npn \arraystretch { 1.25 }
         \begin { tabular } {
             > { \raggedleft  \arraybackslash                   } p { 20.7mm }
             > { \raggedright \arraybackslash \hspace { 2.3mm } } p { 62.7mm }
@@ -2765,7 +2753,7 @@
             \mslinespread { 1 }
             \songti
             \zihao { -4 }
-            \RenewExpandableDocumentCommand \arraystretch { } { 2 }
+            \cs_set:Npn \arraystretch { 2 }
             \dim_set:Nn \tabcolsep { 0pt }
             \begin { tabular } {
                 > { \centering \arraybackslash } p { 70mm }
