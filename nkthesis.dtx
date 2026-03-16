@@ -1825,11 +1825,11 @@
 % 根据选项值为复选框打勾。
 %
 %    \begin{macrocode}
-\cs_new:Nn \@@_checked_checkbox: {
+\cs_new_protected:Nn \@@_checked_checkbox: {
     \makebox [ 0pt ] [ l ] { $\square$ }
     \raisebox { 0.15ex } { \hspace { 0.1em } $\checkmark$ }
 }
-\cs_new:Nn \@@_checkbox:nn {
+\cs_new_protected:Nn \@@_checkbox:nn {
     \str_if_eq:nnTF {#1} {#2}
         { \@@_checked_checkbox: }
         { $\square$ }
@@ -1843,7 +1843,7 @@
 % 南开大学图标。
 %
 %    \begin{macrocode}
-\cs_new:Nn \@@_nankai_logo:n {
+\cs_new_protected:Nn \@@_nankai_logo:n {
     \scalebox { \fp_eval:n { #1 * 0.0525 } } {
         \begin { tikzpicture } [ y = 1cm, x = 1cm, inner~sep = 0pt, outer~sep = 0pt ]
 %    \end{macrocode}
@@ -1873,7 +1873,7 @@
 % 带下划线的题名页键值对样式。
 %
 %    \begin{macrocode}
-\cs_new:Nn \@@_item:nnn {
+\cs_new_protected:Nn \@@_item:nnn {
     #1
     \hspace { 0.5em }
     \underline {
@@ -2646,7 +2646,7 @@
 %
 % \begin{macro}{\@@_resume:n}
 %    \begin{macrocode}
-\cs_new:Nn \@@_resume:n {
+\cs_new_protected:Nn \@@_resume:n {
     \ctexset{
         chapter/format = {
             \mslinespread { 1 }
