@@ -127,7 +127,7 @@
 %     \creflastconjunction, \crefpairgroupconjunction,
 %     \crefmiddlegroupconjunction, \creflastgroupconjunction,
 %     \crefrangeconjunction, \creflabelformat, \cs_new:Npn, \cs_set:Npn,
-%     \cs_set_protected:Npn,
+%     \cs_set_protected:Npn, \vphantom, \vfill,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -1872,20 +1872,14 @@
 % \begin{macro}{\@@_item:nnn}
 %
 % \changes{v2.1}{2025/05/09}{如果题名页键值对中某个条目为空，则显示空的下划线。}
+% \changes{v2026.3}{2026/03/17}{调整题名页元素的对齐方式。}
 %
 % 带下划线的题名页键值对样式。
 %
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_item:nnn {
-    #1
-    \hspace { 0.5em }
-    \underline {
-        \begin { minipage } [ b ] {#3}
-            \centering
-            \rule{0pt}{0pt}
-            #2
-        \end { minipage }
-    }
+    #1 \hspace { 0.5em }
+    \underline { \parbox [ b ] {#3} { \centering \vphantom { 字 } #2 } }
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1923,15 +1917,20 @@
         \tl_if_empty:nTF
             {#2}
             {
-                \parbox [ c ] { \dim_eval:n { #1 - #3 - #3 } } {
-                    \@@_apply_align:nn {#4} {#5}
-                }
+                \parbox [ c ] { \dim_eval:n { #1 - #3 - #3 } }
+                    {
+                        \vspace { 1.4mm }
+                        \@@_apply_align:nn {#4} {#5}
+                        \vspace { 1.4mm }
+                    }
             }
             {
                 \parbox [ c ] [#2] [ c ] { \dim_eval:n { #1 - #3 - #3 } }
-                {
-                    \@@_apply_align:nn {#4} {#5}
-                }
+                    {
+                        \vspace { 1.4mm }
+                        \@@_apply_align:nn {#4} {#5}
+                        \vspace { 1.4mm }
+                    }
             }
     }
 }
@@ -2685,6 +2684,7 @@
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
+% \changes{v2026.3}{2026/03/17}{调整题名页元素的对齐方式。}
 %
 % \begin{macro}{\titlepage}
 %    \begin{macrocode}
@@ -2735,20 +2735,21 @@
         \par
 
         \vspace { 11.5mm }
-        \begin { minipage } [ t ] [ 80mm ] { \linewidth }
-            \centering
-            \mslinespread { 1.5 }
-            \songti
-            \zihao { \nktget { 题名页/论文题目字号 } }
-            \nktget { 论文题目（中文） }
-            \par
+        \parbox { \linewidth }
+            {
+                \centering
+                \mslinespread { 1.5 }
+                \songti
+                \zihao { \nktget { 题名页/论文题目字号 } }
+                \nktget { 论文题目（中文） }
+                \par
 
-            \nktget { 论文题目（英文） }
-            \par
-        \end { minipage }
+                \nktget { 论文题目（英文） }
+                \par
+            }
         \par
 
-        \vspace { 10mm }
+        \vfill
         {
             \mslinespread { 1 }
             \songti
@@ -2818,6 +2819,7 @@
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
+% \changes{v2026.3}{2026/03/17}{调整题名页元素的对齐方式。}
 %
 % \begin{macro}{\anonymoustitlepage}
 %    \begin{macrocode}
@@ -2859,22 +2861,21 @@
             \mslinespread { 1.53 }
             \kaishu
             \zihao { 3 }
-            \begin { minipage } { 0.73\linewidth }
-                论文题目：
-            \end { minipage }
+            \parbox { 0.73\linewidth } { 论文题目： }
             \par
 
-            \begin { minipage } [ t ] [ 54.9mm ] { \linewidth }
+            \vspace { 0.5\baselineskip }
+            \parbox [ b ] [ 54.9mm ] [ t ] { \linewidth } {
                 \centering
                 \nktget { 论文题目（中文） }
                 \par
 
                 \nktget { 论文题目（英文） }
                 \par
-            \end { minipage }
+            }
             \par
 
-            \begin { minipage } { 0.73\linewidth }
+            \parbox { 0.73\linewidth } {
                 一级学科：\nktget { 一级学科 }
                 \par
 
@@ -2884,7 +2885,7 @@
                 \vspace { 11mm }
                 论文编号：\nktget { 论文编号 }
                 \par
-            \end { minipage }
+            }
             \par
         }
     \end { center }
@@ -2903,6 +2904,7 @@
 % \begin{macro}{\declarationpage}
 %
 % \changes{v2026.1}{2026/03/13}{抑制《南开大学学位论文原创性声明》页面新出现的格式警告。}
+% \changes{v2026.3}{2026/03/17}{修复《非公开学位论文标注说明》表中内容过长时单元格会溢出的问题。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \declarationpage { } {
@@ -2997,7 +2999,7 @@
                 \heiti 论文题目
             }
             \vrule
-            \@@_make_cell:nnnnn { 120.2mm } { 17.7mm } { 1em } { l } {
+            \@@_make_cell:nnnnn { 120.2mm } { } { 1em } { l } {
                 \str_if_eq:eeF
                     { \nktget { 非公开论文/申请密级 } } { 公开 }
                     { \nktget { 论文题目（中文） } }
@@ -3095,6 +3097,7 @@
 % \changes{v2026.0}{2026/03/03}{补充了2026版规范中《南开大学学位论文使用授权书》中的新增内容。}
 % \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
 % \changes{v2026.1}{2026/03/13}{设置《南开大学研究生学位论文作者信息》表中答辩日期的值的对齐方式为两端对齐，且拓宽单元格可输入文字的区域。}
+% \changes{v2026.3}{2026/03/17}{修复《南开大学研究生学位论文作者信息》表中内容过长时单元格会溢出的问题。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \authorizationpage { } {
@@ -3192,7 +3195,7 @@
                 \textbf { 论文题目 }
             }
             \vrule
-            \@@_make_cell:nnnnn { 144.7mm } { 6.4mm } { 1.9mm } { l } {
+            \@@_make_cell:nnnnn { 144.7mm } { } { 1.9mm } { l } {
                 \nktget { 论文题目（中文） }
             } \\
             \hline
@@ -3305,7 +3308,7 @@
                 \textbf { 备注 }
             }
             \vrule
-            \@@_make_cell:nnnnn { 83.7mm  } { 6.4mm } { 1.9mm } { l } {
+            \@@_make_cell:nnnnn { 83.7mm  } { } { 1.9mm } { l } {
                 \nktget { 作者信息/备注 }
             } \\
             \hline
