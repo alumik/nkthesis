@@ -127,7 +127,7 @@
 %     \creflastconjunction, \crefpairgroupconjunction,
 %     \crefmiddlegroupconjunction, \creflastgroupconjunction,
 %     \crefrangeconjunction, \creflabelformat, \cs_new:Npn, \cs_set:Npn,
-%     \cs_set_protected:Npn, \vphantom, \vfill,
+%     \cs_set_protected:Npn, \vphantom, \vfill, \kern,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -1810,11 +1810,18 @@
 %     此前，在文中插入★需要使用 \texttt{\{\textbackslash segoeui ★\}} 语句，现在直接键入★即可。
 % }
 % \changes{v2.3}{2025/12/24}{不再循环定义★符号，改为基于显式码点的字符替换。}
+% \changes{v2026.3}{2026/03/19}{去掉★符号前后自动添加的空格。}
 %
 % 定义★符号字体。
 %
 %    \begin{macrocode}
-\newunicodechar{★}{{\dejavusans\char_generate:nn { "2605 } { 12 }}}
+\newunicodechar { ★ }
+    { {
+        \dejavusans
+        \kern 0pt
+        \char_generate:nn { "2605 } { 12 }
+        \kern 0pt
+    } }
 %    \end{macrocode}
 %
 % \subsection{辅助命令定义}
