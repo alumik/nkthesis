@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/17}
-%<class>    {v2026.3.2}
+%<class>    {2026/03/19}
+%<class>    {v2026.3.3}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -144,7 +144,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/17\qquad v2026.3.2}
+% \date{2026/03/19\qquad v2026.3.3}
 % \maketitle
 %
 % \begin{abstract}
@@ -1876,10 +1876,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
+%
 % \begin{macro}{\@@_item:nnn}
 %
 % \changes{v2.1}{2025/05/09}{如果题名页键值对中某个条目为空，则显示空的下划线。}
-% \changes{v2026.3}{2026/03/17}{调整题名页元素的对齐方式。}
 %
 % 带下划线的题名页键值对样式。
 %
@@ -2691,7 +2692,8 @@
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
-% \changes{v2026.3}{2026/03/17}{调整题名页元素的对齐方式。}
+% \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
+% \changes{v2026.3}{2026/03/19}{去掉★符号前后自动添加的空格。}
 %
 % \begin{macro}{\titlepage}
 %    \begin{macrocode}
@@ -2708,12 +2710,13 @@
         \mslinespread { 1 }
         \songti
         \zihao { 5 }
-        \cs_set:Npn \arraystretch { 1.25 }
+        \cs_set:Npn \arraystretch { 1.27 }
+        \dim_set:Nn \tabcolsep { 0pt }
         \begin { tabular } {
             > { \raggedleft  \arraybackslash                   } p { 20.7mm }
-            > { \raggedright \arraybackslash \hspace { 2.3mm } } p { 62.7mm }
+            > { \raggedright \arraybackslash \hspace { 6.5mm } } p { 71.4mm }
             > { \raggedleft  \arraybackslash                   } p { 20.7mm }
-            > { \raggedright \arraybackslash \hspace { 2.3mm } } p { 25mm   }
+            > { \raggedright \arraybackslash \hspace { 6.5mm } } p { 33mm   }
         }
             中图分类号： & \nktget { 中图分类号  } &
             学校代码：   & \nktget { 学校代码    } \\
@@ -2741,7 +2744,7 @@
         }
         \par
 
-        \vspace { 11.5mm }
+        \vspace { 12.6mm }
         \parbox { \linewidth }
             {
                 \centering
@@ -2764,8 +2767,8 @@
             \cs_set:Npn \arraystretch { 2 }
             \dim_set:Nn \tabcolsep { 0pt }
             \begin { tabular } {
-                > { \centering \arraybackslash } p { 70mm }
-                > { \centering \arraybackslash } p { 70mm }
+                > { \raggedright \arraybackslash } p { 66.7mm }
+                > { \raggedleft  \arraybackslash } p { 66.7mm }
             }
                 \@@_item:nnn { 论文作者 }
                     { \nktget { 论文作者 } }
@@ -2803,9 +2806,9 @@
         }
         \par
 
-        \vspace { 14.5mm }
+        \vspace { 14.6mm }
         {
-            \mslinespread { 1.69 }
+            \mslinespread { 1.75 }
             \songti
             \zihao { 4 }
             南开大学研究生院
@@ -2826,7 +2829,7 @@
 %
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
-% \changes{v2026.3}{2026/03/17}{调整题名页元素的对齐方式。}
+% \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
 %
 % \begin{macro}{\anonymoustitlepage}
 %
@@ -2850,13 +2853,14 @@
             \mslinespread { 1 }
             \heiti
             \fontsize { 28 } { 33.6 }
+            \ziju { 0.01 }
             \bfseries
             南开大学 \nktget { 题名页/论文类别 } 毕业（学位）论文
             \par
         }
         \par
 
-        \vspace { 10mm }
+        \vspace { 9.8mm }
         {
             \mslinespread { 1 }
             \fangsong
@@ -2893,7 +2897,9 @@
                 二级学科：\nktget { 二级学科 }
                 \par
 
-                \vspace { 11mm }
+                \mbox { }
+                \par
+
                 论文编号：\nktget { 论文编号 }
                 \par
             }
@@ -2911,6 +2917,7 @@
 % \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文原创性声明》页面与《南开大学学位论文使用授权书》页面。}
+% \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
 %
 % \begin{macro}{\declarationpage}
 %
@@ -2984,7 +2991,7 @@
     \end { center }
     \par
 
-    \vspace { -5.8mm }
+    \vspace { -6.0mm }
     {
         \mslinespread { 1.5 }
         \songti
@@ -3058,11 +3065,11 @@
                     { \nktget { 非公开论文/审批表编号 } }
             }
             \vrule
-            \@@_make_cell:nnnnn { 25mm } { 9.5mm } { 0mm } { c } {
+            \@@_make_cell:nnnnn { 25.1mm } { 9.5mm } { 0mm } { c } {
                 \heiti 批准日期
             }
             \vrule
-            \@@_make_cell:nnnnn { 51mm } { 9.5mm } { 0mm } { c } {
+            \@@_make_cell:nnnnn { 50.9mm } { 9.5mm } { 0mm } { c } {
                 \str_if_eq:eeTF
                     { \nktget { 非公开论文/申请密级 } } { 公开 }
                     { 20 \qquad 年 \qquad 月 \qquad 日 }
@@ -3102,6 +3109,7 @@
 % \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文原创性声明》页面与《南开大学学位论文使用授权书》页面。}
+% \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
 %
 % \begin{macro}{\authorizationpage}
 %
@@ -3171,7 +3179,7 @@
     }
     \par
 
-    \vspace { 13mm }
+    \vspace { 7.6mm }
     \begin { center }
         \mslinespread { 1 }
         \heiti
@@ -3193,7 +3201,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-    \vspace { -3.6mm }
+    \vspace { -3.8mm }
     {
         \mslinespread { 1 }
         \songti
