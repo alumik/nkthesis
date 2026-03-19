@@ -2829,6 +2829,9 @@
 % \changes{v2026.3}{2026/03/17}{调整题名页元素的对齐方式。}
 %
 % \begin{macro}{\anonymoustitlepage}
+%
+% \changes{v2026.3}{2026/03/19}{将《匿名评阅封面》中论文题目的字体改为仿宋。}
+%
 %    \begin{macrocode}
 \NewDocumentCommand \anonymoustitlepage { } {
     \bool_if:NTF \l_@@_openright_bool
@@ -2874,6 +2877,7 @@
             \vspace { 0.5\baselineskip }
             \parbox [ b ] [ 54.9mm ] [ t ] { \linewidth } {
                 \centering
+                \fangsong
                 \nktget { 论文题目（中文） }
                 \par
 
