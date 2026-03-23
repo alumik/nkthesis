@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/19}
-%<class>    {v2026.3.3}
+%<class>    {2026/03/23}
+%<class>    {v2026.4.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -127,7 +127,8 @@
 %     \creflastconjunction, \crefpairgroupconjunction,
 %     \crefmiddlegroupconjunction, \creflastgroupconjunction,
 %     \crefrangeconjunction, \creflabelformat, \cs_new:Npn, \cs_set:Npn,
-%     \cs_set_protected:Npn, \vphantom, \vfill, \kern,
+%     \cs_set_protected:Npn, \vphantom, \vfill, \kern, \str_case:enF,
+%     \str_if_in:NnTF, \dim_new:N, \tl_new:N, \tl_set:Nn, \paperwidth,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -144,7 +145,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/19\qquad v2026.3.3}
+% \date{2026/03/23\qquad v2026.4.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -501,23 +502,26 @@
 %     哲学院、数学科学学院等。
 % \end{function}
 %
-% \begin{function}{一级学科}
+% \changes{v2026.4}{2026/03/23}{支持显示专业学位的匿名评阅封面。}
+%
+% \begin{function}[updated=2026/03/23]{一级学科或专业学位类别}
 %     \begin{syntax}
-%         一级学科 = <名称>
+%         一级学科或专业学位类别 = <名称>
 %     \end{syntax}
-%     一级学科名称。
+%     一级学科或专业学位类别名称。
 %     默认值为空。
 %     学科名称以国务院学位委员会颁布的《研究生教育学科专业目录（2022年）》为准。
-%     硕士专业学位填写领域名称，如无领域不必填此项。
+%     硕士或博士专业学位填写专业学位类别。
 % \end{function}
 %
-% \begin{function}{二级学科}
+% \begin{function}[updated=2026/03/23]{二级学科或专业领域}
 %     \begin{syntax}
-%         二级学科 = <名称>
+%         二级学科或专业领域 = <名称>
 %     \end{syntax}
-%     二级学科名称。
+%     二级学科或专业领域名称。
 %     默认值为空。
 %     学科名称参照国务院学位委员会颁布的《授予博士、硕士学位和培养研究生的学科、专业目录》或南开大学自主设置学科名称。
+%     硕士或博士专业学位填写专业领域名称。
 %     若无二级学科，可不填此项。
 % \end{function}
 %
@@ -1511,6 +1515,7 @@
 % \changes{v2.2}{2025/05/29}{加粗答辩日期。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
+% \changes{v2026.4}{2026/03/23}{支持显示专业学位的匿名评阅封面。}
 %
 %    \begin{macrocode}
 \keys_define:nn { nkthesis / info } {
@@ -1537,8 +1542,10 @@
     指导教师职称   .code:n = \@@_config_set:nn { info / 指导教师职称 } {#1},
     申请学位       .code:n = \@@_config_set:nn { info / 申请学位 } {#1},
     培养单位       .code:n = \@@_config_set:nn { info / 培养单位 } {#1},
-    一级学科       .code:n = \@@_config_set:nn { info / 一级学科 } {#1},
-    二级学科       .code:n = \@@_config_set:nn { info / 二级学科 } {#1},
+    一级学科或专业学位类别 .code:n = \@@_config_set:nn
+        { info / 一级学科或专业学位类别 } {#1},
+    二级学科或专业领域     .code:n = \@@_config_set:nn
+        { info / 二级学科或专业领域 } {#1},
     研究方向       .code:n = \@@_config_set:nn { info / 研究方向 } {#1},
     答辩委员会主席 .code:n = \@@_config_set:nn { info / 答辩委员会主席 } {#1},
     评阅人         .code:n = \@@_config_set:nn { info / 评阅人 } {#1},
@@ -2693,6 +2700,7 @@
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
 % \changes{v2026.3}{2026/03/19}{去掉★符号前后自动添加的空格。}
+% \changes{v2026.4}{2026/03/23}{支持显示专业学位的匿名评阅封面。}
 %
 % \begin{macro}{\titlepage}
 %    \begin{macrocode}
@@ -2785,9 +2793,9 @@
 
                 \@@_item:nnn { 学科专业 }
                     {
-                        \tl_if_empty:eTF { \nktget { 二级学科 } }
-                            { \nktget { 一级学科 } }
-                            { \nktget { 二级学科 } }
+                        \tl_if_empty:eTF { \nktget { 二级学科或专业领域 } }
+                            { \nktget { 一级学科或专业学位类别 } }
+                            { \nktget { 二级学科或专业领域 } }
                     }
                     { 38.2mm } &
                 \@@_item:nnn { 研究方向 }
@@ -2829,6 +2837,7 @@
 % \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
+% \changes{v2026.4}{2026/03/23}{支持显示专业学位的匿名评阅封面。}
 %
 % \begin{macro}{\anonymoustitlepage}
 %
@@ -2849,12 +2858,25 @@
 
         \vspace { 5.5mm }
         {
+            \hfuzz    = \maxdimen
+            \hbadness = 99999
             \mslinespread { 1 }
             \heiti
             \fontsize { 28 } { 33.6 }
             \ziju { 0.01 }
             \bfseries
-            南开大学 \nktget { 题名页/论文类别 } 毕业（学位）论文
+            \hspace* { -\dim_eval:n { ( \paperwidth - \linewidth ) / 2 } }
+            \makebox [ \paperwidth ] [ c ] {
+                南开大学
+                \str_case:enF { \nktget { 题名页/论文类别 } }
+                    {
+                        { 博士 }     { 博士毕业（学位）论文 }
+                        { 博士专业 } { 博士学位论文/实践成果报告 }
+                        { 硕士 }     { 硕士毕业（学位）论文 }
+                        { 硕士专业 } { 硕士学位论文/实践成果报告 }
+                    }
+                    { 硕士毕业（学位）论文 }
+            }
             \par
         }
         \par
@@ -2869,12 +2891,22 @@
         }
         \par
 
+        \tl_new:N \l_@@_temp_str
+        \tl_set:Nx \l_@@_temp_str { \nktget { 题名页/论文类别 } }
         \vspace { 21mm }
         {
             \mslinespread { 1.53 }
             \kaishu
             \zihao { 3 }
-            \parbox { 0.73\linewidth } { 论文题目： }
+            \dim_new:N \l_@@_temp_dim
+            \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                { \dim_set:Nn \l_@@_temp_dim { \linewidth     } }
+                { \dim_set:Nn \l_@@_temp_dim { 0.73\linewidth } }
+            \parbox { \l_@@_temp_dim } {
+                \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                    { 专业学位论文/实践成果报告题目（含英文题目）： }
+                    { 论文题目： }
+            }
             \par
 
             \vspace { 0.5\baselineskip }
@@ -2889,17 +2921,26 @@
             }
             \par
 
-            \parbox { 0.73\linewidth } {
-                一级学科：\nktget { 一级学科 }
+            \parbox { \l_@@_temp_dim } {
+                \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                    { 专业学位类别： }
+                    { 一级学科： }
+                \nktget { 一级学科或专业学位类别 }
                 \par
 
-                二级学科：\nktget { 二级学科 }
+                \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                    { 专业领域： }
+                    { 二级学科： }
+                \nktget { 二级学科或专业领域 }
                 \par
 
                 \mbox { }
                 \par
 
-                论文编号：\nktget { 论文编号 }
+                \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                    { 学位论文/实践成果编号： }
+                    { 论文编号： }
+                \nktget { 论文编号 }
                 \par
             }
             \par
@@ -3109,6 +3150,7 @@
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文原创性声明》页面与《南开大学学位论文使用授权书》页面。}
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
+% \changes{v2026.4}{2026/03/23}{支持显示专业学位的匿名评阅封面。}
 %
 % \begin{macro}{\authorizationpage}
 %
@@ -3289,9 +3331,9 @@
             }
             \vrule
             \@@_make_cell:nnnnn { 47.4mm  } { 6.4mm } { 1.9mm } { l } {
-                \tl_if_empty:eTF { \nktget { 二级学科 } }
-                    { \nktget { 一级学科 } }
-                    { \nktget { 二级学科 } }
+                \tl_if_empty:eTF { \nktget { 二级学科或专业领域 } }
+                    { \nktget { 一级学科或专业学位类别 } }
+                    { \nktget { 二级学科或专业领域     } }
             } \\
             \hline
             \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s } {
