@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/23}
-%<class>    {v2026.4.0}
+%<class>    {2026/03/28}
+%<class>    {v2026.4.1}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -145,7 +145,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/23\qquad v2026.4.0}
+% \date{2026/03/28\qquad v2026.4.1}
 % \maketitle
 %
 % \begin{abstract}
@@ -1642,6 +1642,7 @@
 % 载入宏包。
 %
 % \changes{v2026.0}{2026/03/12}{删除不必要或重复引入的宏包。}
+% \changes{v2026.4}{2026/03/28}{去掉公式行间距设置，使公式上下间距保持一致。}
 %
 %    \begin{macrocode}
 \RequirePackage [ a4paper ] { geometry }
@@ -1653,7 +1654,7 @@
 \RequirePackage [ hidelinks ] { hyperref }
 \RequirePackage { amssymb }
 \RequirePackage { mathtools }
-\RequirePackage { setspace }
+\RequirePackage [ nodisplayskipstretch ] { setspace }
 \RequirePackage [
     backend = biber,
     style   = gb7714-2015,
@@ -2436,11 +2437,7 @@
 \usetagform { nkthesis }
 %    \end{macrocode}
 %
-% 减小公式行距。
-%
-%    \begin{macrocode}
-\AtBeginEnvironment { equation } { \singlespace }
-%    \end{macrocode}
+% \changes{v2026.4}{2026/03/28}{去掉公式行间距设置，使公式上下间距保持一致。}
 %
 % \subsection{列表}
 %
