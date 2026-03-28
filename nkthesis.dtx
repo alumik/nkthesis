@@ -21,7 +21,7 @@
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
 %<class>    {2026/03/28}
-%<class>    {v2026.4.1}
+%<class>    {v2026.4.2}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -128,7 +128,9 @@
 %     \crefmiddlegroupconjunction, \creflastgroupconjunction,
 %     \crefrangeconjunction, \creflabelformat, \cs_new:Npn, \cs_set:Npn,
 %     \cs_set_protected:Npn, \vphantom, \vfill, \kern, \str_case:enF,
-%     \str_if_in:NnTF, \dim_new:N, \tl_new:N, \tl_set:Nn, \paperwidth,
+%     \str_if_in:NnTF, \dim_new:N, \tl_new:N, \tl_set:Nx, \paperwidth,
+%     \vskip, \dimen@, \hsize, \advance, \p@, \hskip, \@minus, \tw@, \null,
+%     \BeforeBeginEnvironment, \AfterEndEnvironment,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -145,7 +147,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/28\qquad v2026.4.1}
+% \date{2026/03/28\qquad v2026.4.2}
 % \maketitle
 %
 % \begin{abstract}
@@ -1642,7 +1644,7 @@
 % 载入宏包。
 %
 % \changes{v2026.0}{2026/03/12}{删除不必要或重复引入的宏包。}
-% \changes{v2026.4}{2026/03/28}{去掉公式行间距设置，使公式上下间距保持一致。}
+% \changes{v2026.4}{2026/03/28}{使公式上下间距保持一致。}
 %
 %    \begin{macrocode}
 \RequirePackage [ a4paper ] { geometry }
@@ -2437,7 +2439,52 @@
 \usetagform { nkthesis }
 %    \end{macrocode}
 %
-% \changes{v2026.4}{2026/03/28}{去掉公式行间距设置，使公式上下间距保持一致。}
+% \changes{v2026.4}{2026/03/28}{使公式上下间距保持一致。}
+%
+% 减小公式行距。
+%
+% \begin{macro}{\@@_display_spacing_begin:}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_display_spacing_begin:
+    {
+        \begin { singlespace }
+        \vskip -1.2\baselineskip
+        \noindent
+        \dimen@ \hsize
+        \advance \dimen@ \p@
+        \hskip \dimen@ \@minus \tw@\p@
+        \null
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_display_spacing_end:}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_display_spacing_end:
+    {
+        \end { singlespace }
+        \noindent
+        \ignorespaces
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% 将上述间距调整应用于所有显示型公式环境。
+%
+%    \begin{macrocode}
+\BeforeBeginEnvironment { equation  } { \@@_display_spacing_begin: }
+\AfterEndEnvironment    { equation  } { \@@_display_spacing_end:   }
+\BeforeBeginEnvironment { equation* } { \@@_display_spacing_begin: }
+\AfterEndEnvironment    { equation* } { \@@_display_spacing_end:   }
+\BeforeBeginEnvironment { align     } { \@@_display_spacing_begin: }
+\AfterEndEnvironment    { align     } { \@@_display_spacing_end:   }
+\BeforeBeginEnvironment { align*    } { \@@_display_spacing_begin: }
+\AfterEndEnvironment    { align*    } { \@@_display_spacing_end:   }
+\BeforeBeginEnvironment { gather    } { \@@_display_spacing_begin: }
+\AfterEndEnvironment    { gather    } { \@@_display_spacing_end:   }
+\BeforeBeginEnvironment { gather*   } { \@@_display_spacing_begin: }
+\AfterEndEnvironment    { gather*   } { \@@_display_spacing_end:   }
+%    \end{macrocode}
 %
 % \subsection{列表}
 %
