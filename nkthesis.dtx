@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/28}
-%<class>    {v2026.4.2}
+%<class>    {2026/03/30}
+%<class>    {v2026.4.3}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -130,7 +130,7 @@
 %     \cs_set_protected:Npn, \vphantom, \vfill, \kern, \str_case:enF,
 %     \str_if_in:NnTF, \dim_new:N, \tl_new:N, \tl_set:Nx, \paperwidth,
 %     \vskip, \dimen@, \hsize, \advance, \p@, \hskip, \@minus, \tw@, \null,
-%     \BeforeBeginEnvironment, \AfterEndEnvironment,
+%     \BeforeBeginEnvironment, \AfterEndEnvironment, \bool_if:NT,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -147,7 +147,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/28\qquad v2026.4.2}
+% \date{2026/03/30\qquad v2026.4.3}
 % \maketitle
 %
 % \begin{abstract}
@@ -363,6 +363,14 @@
 %     当该选项存在时，或设置为真时，自动利用：[出版地不详]、[出版者不详]、[S.l.]、[s.n.]等填补缺失的出版信息；
 %     否则取消自动处理，取消相应项的输出。
 %     该选项默认为真，即默认启用自动填补缺失的出版信息功能。
+% \end{function}
+%
+% \begin{function}[added=2026/03/30]{frontmatterintoc}
+%     \begin{syntax}
+%         frontmatterintoc[ = <true|(false)> ]
+%     \end{syntax}
+%     当该选项存在时，或设置为真时，在目录中显示前置部分的条目。
+%     否则，前置部分的条目不显示在目录中。
 % \end{function}
 %
 % \section{设置和读取论文基本信息}
@@ -1421,6 +1429,14 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
+%
+% \begin{variable}{\l_@@_frontmatterintoc_bool}
+%    \begin{macrocode}
+\bool_new:N \l_@@_frontmatterintoc_bool
+%    \end{macrocode}
+% \end{variable}
+%
 %    \begin{macrocode}
 \keys_define:nn { nkthesis / options } {
 %    \end{macrocode}
@@ -1476,6 +1492,18 @@
 %    \begin{macrocode}
     gbpub .bool_set:N = \l_@@_gbpub_bool,
     gbpub .initial:n  = true,
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
+%
+% \begin{macro}{options/frontmatterintoc}
+%
+% 仅在 |frontmatterintoc| 选项设置为真时，前置部分的条目才会显示在目录中。
+%
+%    \begin{macrocode}
+    frontmatterintoc .bool_set:N = \l_@@_frontmatterintoc_bool,
+    frontmatterintoc .initial:n  = false,
 }
 %    \end{macrocode}
 % \end{macro}
@@ -2278,6 +2306,19 @@
 \cs_set:Npn \cfttabpresnum { \tablename  }
 %    \end{macrocode}
 %
+% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
+%
+% 根据模板参数决定是否要把前置部分的条目添加至目录中。
+%
+%    \begin{macrocode}
+\bool_if:NT \l_@@_frontmatterintoc_bool {
+    \hook_gput_code:nnn { cmd/listoffigures/after } { @@ }
+        { \addcontentsline { toc } { chapter } { \listfigurename } }
+    \hook_gput_code:nnn { cmd/listoftables/after  } { @@ }
+        { \addcontentsline { toc } { chapter } { \listtablename  } }
+}
+%    \end{macrocode}
+%
 % \subsection{\CTeX 设置}
 %
 %    \begin{macrocode}
@@ -2539,6 +2580,7 @@
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
 % \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
+% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
 %
 % \begin{environment}{abstract}
 %    \begin{macrocode}
@@ -2559,6 +2601,8 @@
                 \markboth
                     { \MakeUppercase { \enabstractname } }
                     { \MakeUppercase { \enabstractname } }
+                \bool_if:NT \l_@@_frontmatterintoc_bool
+                    { \addcontentsline { toc } { chapter } { \enabstractname } }
             }
             {
                 \ctexset{
@@ -2574,6 +2618,8 @@
                 \markboth
                     { \MakeUppercase { \abstractname } }
                     { \MakeUppercase { \abstractname } }
+                \bool_if:NT \l_@@_frontmatterintoc_bool
+                    { \addcontentsline { toc } { chapter } { \abstractname } }
             }
         \ignorespaces
     }
@@ -2599,6 +2645,7 @@
 % \subsubsection{序言或前言}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
 %
 % \begin{environment}{preface}
 %    \begin{macrocode}
@@ -2617,6 +2664,8 @@
         \markboth
             { \MakeUppercase { \prefacename } }
             { \MakeUppercase { \prefacename } }
+        \bool_if:NT \l_@@_frontmatterintoc_bool
+            { \addcontentsline { toc } { chapter } { \prefacename } }
         \ignorespaces
     }
     { }
@@ -2626,9 +2675,12 @@
 % \subsubsection{符号、标志、缩略语等的注释表}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
 %
 % \begin{environment}{symabbr}
+%
 % \changes{v2.0}{2025/04/30}{将《符号、标志、缩略语等的注释表》的环境从 \env{symbolsandabbreviations} 改为 \env{symabbr}。}
+%
 %    \begin{macrocode}
 \NewDocumentEnvironment { symabbr } { }
     {
@@ -2648,6 +2700,8 @@
         \mslinespreadbp { 16 } { 10.5 }
         \songti
         \zihao { 5 }
+        \bool_if:NT \l_@@_frontmatterintoc_bool
+            { \addcontentsline { toc } { chapter } { \symabbrname } }
         \ignorespaces
     }
     { }
