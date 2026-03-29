@@ -1263,10 +1263,10 @@
 % 强制要求使用 \XeLaTeX 编译。
 %
 %    \begin{macrocode}
-\msg_new:nnn { nkthesis } { xetex-required }
+\msg_new:nnn { @@ } { xetex-required }
     { This~document~class~requires~XeTeX.~Please~compile~with~XeLaTeX. }
 \sys_if_engine_xetex:F {
-    \msg_fatal:nn { nkthesis } { xetex-required }
+    \msg_fatal:nn { @@ } { xetex-required }
 }
 %    \end{macrocode}
 %
@@ -1305,16 +1305,16 @@
 % 键值写入和读取命令。
 %
 %    \begin{macrocode}
-\msg_new:nnn { nkthesis } { invalid-key }
+\msg_new:nnn { @@ } { invalid-key }
     { The~key~'#1'~is~not~defined~in~the~nkthesis~class. }
 \cs_new_protected:Nn \@@_keys_set:nn
-    { \keys_set:nn { nkthesis / #1 } {#2} }
+    { \keys_set:nn { @@ / #1 } {#2} }
 \cs_new:Nn \@@_keys_get:nn {
     \keys_if_exist:nnTF
-        { nkthesis / #1 }
+        { @@ / #1 }
         {#2}
         { \prop_item:Nn \g_@@_config_prop { #1 / #2 } }
-        { \msg_fatal:nnn { nkthesis } { invalid-key } { #1 / #2 } }
+        { \msg_fatal:nnn { @@ } { invalid-key } { #1 / #2 } }
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1343,7 +1343,7 @@
 % \subsubsection{排版参数}
 %
 %    \begin{macrocode}
-\keys_define:nn { nkthesis / typesetting } {
+\keys_define:nn { @@ / typesetting } {
 %    \end{macrocode}
 %
 % \begin{macro}{typesetting/fake-bold}
@@ -1438,7 +1438,7 @@
 % \end{variable}
 %
 %    \begin{macrocode}
-\keys_define:nn { nkthesis / options } {
+\keys_define:nn { @@ / options } {
 %    \end{macrocode}
 %
 % \begin{macro}{options/headingmode}
@@ -1511,13 +1511,13 @@
 % 处理文档类选项。
 %
 %    \begin{macrocode}
-\ProcessKeyOptions [ nkthesis / options ]
+\ProcessKeyOptions [ @@ / options ]
 %    \end{macrocode}
 %
 % \subsubsection{布局参数}
 %
 %    \begin{macrocode}
-\keys_define:nn { nkthesis / layout } {
+\keys_define:nn { @@ / layout } {
     paperwidth  .code:n    = \@@_config_set:nn { layout / paperwidth } {#1},
     paperwidth  .initial:n = 210mm,
     paperheight .code:n    = \@@_config_set:nn { layout / paperheight } {#1},
@@ -1551,7 +1551,7 @@
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
 %
 %    \begin{macrocode}
-\keys_define:nn { nkthesis / info } {
+\keys_define:nn { @@ / info } {
     中图分类号 .code:n = \@@_config_set:nn { info / 中图分类号 } {#1},
 
     学校代码 .code:n    = \@@_config_set:nn { info / 学校代码 } {#1},
@@ -2445,21 +2445,21 @@
 % \subsection{图表}
 %
 %    \begin{macrocode}
-\DeclareCaptionLabelFormat    { nkthesis    } { #1#2              }
-\DeclareCaptionLabelFormat    { nkthesissub } { （#2）            }
-\DeclareCaptionLabelSeparator { nkthesis    } { \hspace { \ccwd } }
-\DeclareCaptionFont           { nkthesis    }
+\DeclareCaptionLabelFormat    { @@    } { #1#2              }
+\DeclareCaptionLabelFormat    { @@sub } { （#2）            }
+\DeclareCaptionLabelSeparator { @@    } { \hspace { \ccwd } }
+\DeclareCaptionFont           { @@    }
     { \mslinespread { 1 } \songti \zihao { 5 } }
 \captionsetup {
-    labelsep    = nkthesis,
-    labelformat = nkthesis,
-    font        = nkthesis,
+    labelsep    = @@,
+    labelformat = @@,
+    font        = @@,
     skip        = 6bp,
 }
 \subcaptionsetup {
     labelsep    = none,
-    labelformat = nkthesissub,
-    font        = nkthesis,
+    labelformat = @@sub,
+    font        = @@,
     skip        = 6bp,
 }
 \dim_set:Nn \textfloatsep { 20bp }
@@ -2474,10 +2474,10 @@
 % 设置公式标签格式。
 %
 %    \begin{macrocode}
-\newtagform { nkthesis }
+\newtagform { @@ }
     { \mslinespread { 1 } \songti \zihao { 5 } （ }
     { ） }
-\usetagform { nkthesis }
+\usetagform { @@ }
 %    \end{macrocode}
 %
 % \changes{v2026.4}{2026/03/28}{使公式上下间距保持一致。}
@@ -2559,7 +2559,7 @@
 % 从A.1改为A1。
 %
 %    \begin{macrocode}
-\hook_gput_code:nnn { cmd/appendix/after } { nkthesis }
+\hook_gput_code:nnn { cmd/appendix/after } { @@ }
     {
         \cs_set:Npn \thefigure   { \thechapter \arabic { figure   } }
         \cs_set:Npn \thetable    { \thechapter \arabic { table    } }
