@@ -998,11 +998,11 @@
 % \end{function}
 %
 % \begin{nkthesisexam}
-%    {
-%        \mslinespread{1.5}  % 设置1.5倍行距
-%        这是正文内容
-%        \par  % 如果文字在大括号中，结尾需要加上 \par 行距设置才会生效
-%    }
+%     {
+%         \mslinespread{1.5}  % 设置1.5倍行距
+%         这是正文内容
+%         \par  % 如果文字在大括号中，结尾需要加上 \par 行距设置才会生效
+%     }
 % \end{nkthesisexam}
 %
 % \subsection{标题名称}
@@ -1265,9 +1265,7 @@
 %    \begin{macrocode}
 \msg_new:nnn { @@ } { xetex-required }
     { This~document~class~requires~XeTeX.~Please~compile~with~XeLaTeX. }
-\sys_if_engine_xetex:F {
-    \msg_fatal:nn { @@ } { xetex-required }
-}
+\sys_if_engine_xetex:F { \msg_fatal:nn { @@ } { xetex-required } }
 %    \end{macrocode}
 %
 % \subsection{文档类属性}
@@ -1309,13 +1307,12 @@
     { The~key~'#1'~is~not~defined~in~the~nkthesis~class. }
 \cs_new_protected:Nn \@@_keys_set:nn
     { \keys_set:nn { @@ / #1 } {#2} }
-\cs_new:Nn \@@_keys_get:nn {
-    \keys_if_exist:nnTF
-        { @@ / #1 }
-        {#2}
-        { \prop_item:Nn \g_@@_config_prop { #1 / #2 } }
-        { \msg_fatal:nnn { @@ } { invalid-key } { #1 / #2 } }
-}
+\cs_new:Nn \@@_keys_get:nn
+    {
+        \keys_if_exist:nnTF { @@ / #1 } {#2}
+            { \prop_item:Nn \g_@@_config_prop { #1 / #2 } }
+            { \msg_fatal:nnn { @@ } { invalid-key } { #1 / #2 } }
+    }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1323,18 +1320,14 @@
 %
 % \begin{macro}{\nktset}
 %    \begin{macrocode}
-\NewDocumentCommand \nktset { m } {
-    \@@_keys_set:nn { info } {#1}
-}
+\NewDocumentCommand \nktset { m } { \@@_keys_set:nn { info } {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{\nktget}
 %
 %    \begin{macrocode}
-\NewExpandableDocumentCommand \nktget { m } {
-    \@@_keys_get:nn { info } {#1}
-}
+\NewExpandableDocumentCommand \nktget { m } { \@@_keys_get:nn { info } {#1} }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1343,7 +1336,8 @@
 % \subsubsection{排版参数}
 %
 %    \begin{macrocode}
-\keys_define:nn { @@ / typesetting } {
+\keys_define:nn { @@ / typesetting }
+    {
 %    \end{macrocode}
 %
 % \begin{macro}{typesetting/fake-bold}
@@ -1351,8 +1345,9 @@
 % 伪粗体参数，默认为 3.0。
 %
 %    \begin{macrocode}
-    fake-bold .code:n = \@@_config_set:nn { typesetting / fake-bold } {#1},
-    fake-bold .initial:n = 3.0,
+        fake-bold .code:n    = \@@_config_set:nn
+            { typesetting / fake-bold } {#1},
+        fake-bold .initial:n = 3.0,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1361,8 +1356,9 @@
 % 伪斜体参数，默认为 0.333。
 %
 %    \begin{macrocode}
-    fake-slant .code:n = \@@_config_set:nn { typesetting / fake-slant } {#1},
-    fake-slant .initial:n = 0.333,
+        fake-slant .code:n    = \@@_config_set:nn
+            { typesetting / fake-slant } {#1},
+        fake-slant .initial:n = 0.333,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1371,9 +1367,9 @@
 % 正文默认固定20磅行间距（20bp / 12bp / 1.2 = 1.388888889）。
 %
 %    \begin{macrocode}
-    default-linespread .code:n = \@@_config_set:nn
-        { typesetting / default-linespread } {#1},
-    default-linespread .initial:n = 1.388888889,
+        default-linespread .code:n    = \@@_config_set:nn
+            { typesetting / default-linespread } {#1},
+        default-linespread .initial:n = 1.388888889,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1382,14 +1378,14 @@
 % Microsoft Word 基准行间距（中易字库）。
 %
 %    \begin{macrocode}
-    ms-base-linespread .code:n = \@@_config_set:nn
-        { typesetting / ms-base-linespread } {#1},
-    ms-base-linespread .initial:n = 1.296875,
+        ms-base-linespread .code:n    = \@@_config_set:nn
+            { typesetting / ms-base-linespread } {#1},
+        ms-base-linespread .initial:n = 1.296875,
 %    \end{macrocode}
 % \end{macro}
 %
 %    \begin{macrocode}
-}
+    }
 %    \end{macrocode}
 %
 % \subsubsection{文档类选项}
@@ -1438,7 +1434,8 @@
 % \end{variable}
 %
 %    \begin{macrocode}
-\keys_define:nn { @@ / options } {
+\keys_define:nn { @@ / options }
+    {
 %    \end{macrocode}
 %
 % \begin{macro}{options/headingmode}
@@ -1448,10 +1445,10 @@
 % 可填1或者2，表示使用模式一或者模式二标题，默认为2。
 %
 %    \begin{macrocode}
-    headingmode .choices:nn =
-        { 1, 2 }
-        { \int_set:Nn \l_@@_headingmode_int {#1} },
-    headingmode .initial:n  = 2,
+        headingmode .choices:nn =
+            { 1, 2 }
+            { \int_set:Nn \l_@@_headingmode_int {#1} },
+        headingmode .initial:n  = 2,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1462,8 +1459,8 @@
 % 若存在 |uppercasehead| 选项，或选项设置为真，将章节页眉转换为大写。
 %
 %    \begin{macrocode}
-    uppercasehead .bool_set:N = \l_@@_uppercasehead_bool,
-    uppercasehead .initial:n  = false,
+        uppercasehead .bool_set:N = \l_@@_uppercasehead_bool,
+        uppercasehead .initial:n  = false,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1476,8 +1473,8 @@
 % 若存在 |openright| 选项，或选项设置为真，章节必须从奇数页开始。
 %
 %    \begin{macrocode}
-    openright .bool_set:N = \l_@@_openright_bool,
-    openright .initial:n  = false,
+        openright .bool_set:N = \l_@@_openright_bool,
+        openright .initial:n  = false,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1490,8 +1487,8 @@
 % 该选项默认为真，即默认启用自动填补缺失的出版信息功能。
 %
 %    \begin{macrocode}
-    gbpub .bool_set:N = \l_@@_gbpub_bool,
-    gbpub .initial:n  = true,
+        gbpub .bool_set:N = \l_@@_gbpub_bool,
+        gbpub .initial:n  = true,
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1502,9 +1499,9 @@
 % 仅在 |frontmatterintoc| 选项设置为真时，前置部分的条目才会显示在目录中。
 %
 %    \begin{macrocode}
-    frontmatterintoc .bool_set:N = \l_@@_frontmatterintoc_bool,
-    frontmatterintoc .initial:n  = false,
-}
+        frontmatterintoc .bool_set:N = \l_@@_frontmatterintoc_bool,
+        frontmatterintoc .initial:n  = false,
+    }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1517,26 +1514,28 @@
 % \subsubsection{布局参数}
 %
 %    \begin{macrocode}
-\keys_define:nn { @@ / layout } {
-    paperwidth  .code:n    = \@@_config_set:nn { layout / paperwidth } {#1},
-    paperwidth  .initial:n = 210mm,
-    paperheight .code:n    = \@@_config_set:nn { layout / paperheight } {#1},
-    paperheight .initial:n = 297mm,
-    left        .code:n    = \@@_config_set:nn { layout / left } {#1},
-    left        .initial:n = 32mm,
-    right       .code:n    = \@@_config_set:nn { layout / right } {#1},
-    right       .initial:n = 32mm,
-    top         .code:n    = \@@_config_set:nn { layout / top } {#1},
-    top         .initial:n = 30mm,
-    textheight  .code:n    = \@@_config_set:nn { layout / textheight } {#1},
-    textheight  .initial:n = 221mm,
-    headheight  .code:n    = \@@_config_set:nn { layout / headheight } {#1},
-    headheight  .initial:n = 14.8bp,
-    headsep     .code:n    = \@@_config_set:nn { layout / headsep } {#1},
-    headsep     .initial:x = \dim_eval:n { 8mm - 14.8bp },
-    footskip    .code:n    = \@@_config_set:nn { layout / footskip } {#1},
-    footskip    .initial:n = 8mm,
-}
+\keys_define:nn { @@ / layout }
+    {
+        paperwidth  .code:n    = \@@_config_set:nn { layout / paperwidth } {#1},
+        paperwidth  .initial:n = 210mm,
+        paperheight .code:n    = \@@_config_set:nn
+            { layout / paperheight } {#1},
+        paperheight .initial:n = 297mm,
+        left        .code:n    = \@@_config_set:nn { layout / left } {#1},
+        left        .initial:n = 32mm,
+        right       .code:n    = \@@_config_set:nn { layout / right } {#1},
+        right       .initial:n = 32mm,
+        top         .code:n    = \@@_config_set:nn { layout / top } {#1},
+        top         .initial:n = 30mm,
+        textheight  .code:n    = \@@_config_set:nn { layout / textheight } {#1},
+        textheight  .initial:n = 221mm,
+        headheight  .code:n    = \@@_config_set:nn { layout / headheight } {#1},
+        headheight  .initial:n = 14.8bp,
+        headsep     .code:n    = \@@_config_set:nn { layout / headsep } {#1},
+        headsep     .initial:x = \dim_eval:n { 8mm - 14.8bp },
+        footskip    .code:n    = \@@_config_set:nn { layout / footskip } {#1},
+        footskip    .initial:n = 8mm,
+    }
 %    \end{macrocode}
 %
 % \subsubsection{论文基本信息}
@@ -1551,91 +1550,98 @@
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
 %
 %    \begin{macrocode}
-\keys_define:nn { @@ / info } {
-    中图分类号 .code:n = \@@_config_set:nn { info / 中图分类号 } {#1},
-
-    学校代码 .code:n    = \@@_config_set:nn { info / 学校代码 } {#1},
-    学校代码 .initial:n = 10055,
-
-    UDC .code:n = \@@_config_set:nn { info / UDC } {#1},
-
-    题名页/密级 .code:n    = \@@_config_set:nn { info / 题名页 / 密级 } {#1},
-    题名页/密级 .initial:n = 公开,
-
-    题名页/论文题目字号 .code:n    = \@@_config_set:nn
-        { info / 题名页 / 论文题目字号 } {#1},
-    题名页/论文题目字号 .initial:n = 2,
-
-    论文题目（中文） .code:n = \@@_config_set:nn
-        { info / 论文题目（中文） } {#1},
-    论文题目（英文） .code:n = \@@_config_set:nn
-        { info / 论文题目（英文） } {#1},
-    论文作者       .code:n = \@@_config_set:nn { info / 论文作者 } {#1},
-    指导教师       .code:n = \@@_config_set:nn { info / 指导教师 } {#1},
-    指导教师职称   .code:n = \@@_config_set:nn { info / 指导教师职称 } {#1},
-    申请学位       .code:n = \@@_config_set:nn { info / 申请学位 } {#1},
-    培养单位       .code:n = \@@_config_set:nn { info / 培养单位 } {#1},
-    一级学科或专业学位类别 .code:n = \@@_config_set:nn
-        { info / 一级学科或专业学位类别 } {#1},
-    二级学科或专业领域     .code:n = \@@_config_set:nn
-        { info / 二级学科或专业领域 } {#1},
-    研究方向       .code:n = \@@_config_set:nn { info / 研究方向 } {#1},
-    答辩委员会主席 .code:n = \@@_config_set:nn { info / 答辩委员会主席 } {#1},
-    评阅人         .code:n = \@@_config_set:nn { info / 评阅人 } {#1},
-
-    论文完成时间 .code:n    = \@@_config_set:nn { info / 论文完成时间 } {#1},
-    论文完成时间 .initial:n = \qquad 年 \qquad 月,
-
-    论文编号 .code:n = \@@_config_set:nn { info / 论文编号 } {#1},
-
-    非公开论文/保密期限/起始日期 .code:n    = \@@_config_set:nn
-        { info / 非公开论文 / 保密期限 / 起始日期 } {#1},
-    非公开论文/保密期限/起始日期 .initial:n = 20 \qquad 年 \qquad 月 \qquad 日,
-
-    非公开论文/保密期限/结束日期 .code:n    = \@@_config_set:nn
-        { info / 非公开论文 / 保密期限 / 结束日期 } {#1},
-    非公开论文/保密期限/结束日期 .initial:n = 20 \qquad 年 \qquad 月 \qquad 日,
-
-    非公开论文/审批表编号 .code:n = \@@_config_set:nn
-        { info / 非公开论文 / 审批表编号 } {#1},
-
-    非公开论文/批准日期 .code:n    = \@@_config_set:nn
-        { info / 非公开论文 / 批准日期 } {#1},
-    非公开论文/批准日期 .initial:n = 20 \qquad 年 \qquad 月 \qquad 日,
-
-    原创性声明/签字日期 .code:n    = \@@_config_set:nn
-        { info / 原创性声明 / 签字日期 } {#1},
-    原创性声明/签字日期 .initial:n = 年 \qquad 月 \qquad 日,
-
-    授权书/签字日期 .code:n    = \@@_config_set:nn
-        { info / 授权书 / 签字日期 } {#1},
-    授权书/签字日期 .initial:n = 20 \qquad 年 \qquad 月 \qquad 日,
-
-    学号 .code:n = \@@_config_set:nn { info / 学号 } {#1},
-
-    答辩日期 .code:n    = \@@_config_set:nn { info / 答辩日期 } {#1},
-    答辩日期 .initial:n = \textbf { 20 \qquad 年 \qquad 月 \qquad 日 },
-
-    联系电话      .code:n = \@@_config_set:nn { info / 联系电话 } {#1},
-    电子邮箱      .code:n = \@@_config_set:nn { info / 电子邮箱 } {#1},
-    通讯地址      .code:n = \@@_config_set:nn { info / 通讯地址 } {#1},
-    作者信息/备注 .code:n = \@@_config_set:nn { info / 作者信息 / 备注 } {#1},
-
-    题名页/论文类别 .choices:nn     =
-        { 硕士, 博士, 硕士专业, 博士专业 }
-        { \@@_config_set:nn { info / 题名页 / 论文类别 } {#1} },
-    题名页/论文类别 .initial:n      = 硕士,
-
-    作者信息/论文类别 .choices:nn   =
-        { 学术博士, 专业学位博士, 学术硕士, 专业学位硕士, 同等学力硕士 }
-        { \@@_config_set:nn { info / 作者信息 / 论文类别 } {#1} },
-    作者信息/论文类别 .initial:n    = 学术硕士,
-
-    非公开论文/申请密级 .choices:nn =
-        { 公开, 限制, 秘密, 机密 }
-        { \@@_config_set:nn { info / 非公开论文 / 申请密级 } {#1} },
-    非公开论文/申请密级 .initial:n  = 公开,
-}
+\keys_define:nn { @@ / info }
+    {
+        中图分类号                   .code:n     = \@@_config_set:nn
+            { info / 中图分类号 } {#1},
+        学校代码                     .code:n     = \@@_config_set:nn
+            { info / 学校代码 } {#1},
+        学校代码                     .initial:n  = 10055,
+        UDC                          .code:n     = \@@_config_set:nn
+            { info / UDC } {#1},
+        题名页/密级                  .code:n     = \@@_config_set:nn
+            { info / 题名页 / 密级 } {#1},
+        题名页/密级                  .initial:n  = 公开,
+        题名页/论文题目字号          .code:n     = \@@_config_set:nn
+            { info / 题名页 / 论文题目字号 } {#1},
+        题名页/论文题目字号          .initial:n  = 2,
+        论文题目（中文）             .code:n     = \@@_config_set:nn
+            { info / 论文题目（中文） } {#1},
+        论文题目（英文）             .code:n     = \@@_config_set:nn
+            { info / 论文题目（英文） } {#1},
+        论文作者                     .code:n     = \@@_config_set:nn
+            { info / 论文作者 } {#1},
+        指导教师                     .code:n     = \@@_config_set:nn
+            { info / 指导教师 } {#1},
+        指导教师职称                 .code:n     = \@@_config_set:nn
+            { info / 指导教师职称 } {#1},
+        申请学位                     .code:n     = \@@_config_set:nn
+            { info / 申请学位 } {#1},
+        培养单位                     .code:n     = \@@_config_set:nn
+            { info / 培养单位 } {#1},
+        一级学科或专业学位类别       .code:n     = \@@_config_set:nn
+            { info / 一级学科或专业学位类别 } {#1},
+        二级学科或专业领域           .code:n     = \@@_config_set:nn
+            { info / 二级学科或专业领域 } {#1},
+        研究方向                     .code:n     = \@@_config_set:nn
+            { info / 研究方向 } {#1},
+        答辩委员会主席               .code:n     = \@@_config_set:nn
+            { info / 答辩委员会主席 } {#1},
+        评阅人                       .code:n     = \@@_config_set:nn
+            { info / 评阅人 } {#1},
+        论文完成时间                 .code:n     = \@@_config_set:nn
+            { info / 论文完成时间 } {#1},
+        论文完成时间                 .initial:n  = \qquad 年 \qquad 月,
+        论文编号                     .code:n     = \@@_config_set:nn
+            { info / 论文编号 } {#1},
+        非公开论文/保密期限/起始日期 .code:n     = \@@_config_set:nn
+            { info / 非公开论文 / 保密期限 / 起始日期 } {#1},
+        非公开论文/保密期限/起始日期 .initial:n  =
+            { 20 \qquad 年 \qquad 月 \qquad 日 },
+        非公开论文/保密期限/结束日期 .code:n     = \@@_config_set:nn
+            { info / 非公开论文 / 保密期限 / 结束日期 } {#1},
+        非公开论文/保密期限/结束日期 .initial:n  =
+            { 20 \qquad 年 \qquad 月 \qquad 日 },
+        非公开论文/审批表编号        .code:n     = \@@_config_set:nn
+            { info / 非公开论文 / 审批表编号 } {#1},
+        非公开论文/批准日期          .code:n     = \@@_config_set:nn
+            { info / 非公开论文 / 批准日期 } {#1},
+        非公开论文/批准日期          .initial:n  =
+            { 20 \qquad 年 \qquad 月 \qquad 日 },
+        原创性声明/签字日期          .code:n     = \@@_config_set:nn
+            { info / 原创性声明 / 签字日期 } {#1},
+        原创性声明/签字日期          .initial:n  = 年 \qquad 月 \qquad 日,
+        授权书/签字日期              .code:n     = \@@_config_set:nn
+            { info / 授权书 / 签字日期 } {#1},
+        授权书/签字日期              .initial:n  =
+            { 20 \qquad 年 \qquad 月 \qquad 日 },
+        学号                         .code:n     = \@@_config_set:nn
+            { info / 学号 } {#1},
+        答辩日期                     .code:n     = \@@_config_set:nn
+            { info / 答辩日期 } {#1},
+        答辩日期                     .initial:n  =
+            { \textbf { 20 \qquad 年 \qquad 月 \qquad 日 } },
+        联系电话                     .code:n     = \@@_config_set:nn
+            { info / 联系电话 } {#1},
+        电子邮箱                     .code:n     = \@@_config_set:nn
+            { info / 电子邮箱 } {#1},
+        通讯地址                     .code:n     = \@@_config_set:nn
+            { info / 通讯地址 } {#1},
+        作者信息/备注                .code:n     = \@@_config_set:nn
+            { info / 作者信息 / 备注 } {#1},
+        题名页/论文类别              .choices:nn =
+            { 硕士, 博士, 硕士专业, 博士专业 }
+            { \@@_config_set:nn { info / 题名页 / 论文类别 } {#1} },
+        题名页/论文类别              .initial:n  = 硕士,
+        作者信息/论文类别            .choices:nn =
+            { 学术博士, 专业学位博士, 学术硕士, 专业学位硕士, 同等学力硕士 }
+            { \@@_config_set:nn { info / 作者信息 / 论文类别 } {#1} },
+        作者信息/论文类别            .initial:n  = 学术硕士,
+        非公开论文/申请密级          .choices:nn =
+            { 公开, 限制, 秘密, 机密 }
+            { \@@_config_set:nn { info / 非公开论文 / 申请密级 } {#1} },
+        非公开论文/申请密级          .initial:n  = 公开,
+    }
 %    \end{macrocode}
 %
 % \subsection{载入基础类和包}
@@ -1645,10 +1651,12 @@
 % \changes{v2.3}{2025/12/24}{调整伪粗体和伪斜体的参数，使其效果更接近 Microsoft Word。}
 %
 %    \begin{macrocode}
-\PassOptionsToPackage {
-    AutoFakeBold  = \@@_keys_get:nn { typesetting } { fake-bold  },
-    AutoFakeSlant = \@@_keys_get:nn { typesetting } { fake-slant },
-} { xeCJK }
+\PassOptionsToPackage
+    {
+        AutoFakeBold  = \@@_keys_get:nn { typesetting } { fake-bold  },
+        AutoFakeSlant = \@@_keys_get:nn { typesetting } { fake-slant },
+    }
+    { xeCJK }
 %    \end{macrocode}
 %
 % 载入 \cls{ctexbook} 文档类。
@@ -1658,12 +1666,14 @@
 % \changes{v2.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。}
 %
 %    \begin{macrocode}
-\PassOptionsToClass {
-    zihao      = -4,
-    linespread = \@@_keys_get:nn { typesetting } { default-linespread },
-    fontset    = none,
-    UTF8,
-} { ctexbook }
+\PassOptionsToClass
+    {
+        zihao      = -4,
+        linespread = \@@_keys_get:nn { typesetting } { default-linespread },
+        fontset    = none,
+        UTF8,
+    }
+    { ctexbook }
 \bool_if:NF \l_@@_openright_bool
     { \PassOptionsToClass { openany } { ctexbook } }
 \LoadClass { ctexbook }
@@ -1685,12 +1695,14 @@
 \RequirePackage { amssymb }
 \RequirePackage { mathtools }
 \RequirePackage [ nodisplayskipstretch ] { setspace }
-\RequirePackage [
-    backend = biber,
-    style   = gb7714-2015,
-    url     = false,
-    gbpub   = \bool_to_str:N \l_@@_gbpub_bool,
-] { biblatex }
+\RequirePackage
+    [
+        backend = biber,
+        style   = gb7714-2015,
+        url     = false,
+        gbpub   = \bool_to_str:N \l_@@_gbpub_bool,
+    ]
+    { biblatex }
 \RequirePackage { subcaption }
 \RequirePackage { tikz }
 \RequirePackage { array }
@@ -1713,19 +1725,20 @@
 % \changes{v2.3}{2025/12/27}{使用 \pkg{geometry} 设置页面尺寸，并放弃对 \cs{topskip} 的改动。}
 %
 %    \begin{macrocode}
-\geometry {
-    paperwidth  = \@@_keys_get:nn { layout } { paperwidth  },
-    paperheight = \@@_keys_get:nn { layout } { paperheight },
-    left        = \@@_keys_get:nn { layout } { left        },
-    right       = \@@_keys_get:nn { layout } { right       },
-    top         = \@@_keys_get:nn { layout } { top         },
-    textheight  = \@@_keys_get:nn { layout } { textheight  },
-    headheight  = \@@_keys_get:nn { layout } { headheight  },
-    headsep     = \@@_keys_get:nn { layout } { headsep     },
-    footskip    = \@@_keys_get:nn { layout } { footskip    },
-    includehead,
-    includefoot,
-}
+\geometry
+    {
+        paperwidth  = \@@_keys_get:nn { layout } { paperwidth  },
+        paperheight = \@@_keys_get:nn { layout } { paperheight },
+        left        = \@@_keys_get:nn { layout } { left        },
+        right       = \@@_keys_get:nn { layout } { right       },
+        top         = \@@_keys_get:nn { layout } { top         },
+        textheight  = \@@_keys_get:nn { layout } { textheight  },
+        headheight  = \@@_keys_get:nn { layout } { headheight  },
+        headsep     = \@@_keys_get:nn { layout } { headsep     },
+        footskip    = \@@_keys_get:nn { layout } { footskip    },
+        includehead,
+        includefoot,
+    }
 %    \end{macrocode}
 %
 % \subsubsection{通用设置}
@@ -1857,12 +1870,14 @@
 %
 %    \begin{macrocode}
 \newunicodechar { ★ }
-    { {
-        \dejavusans
-        \kern 0pt
-        \char_generate:nn { "2605 } { 12 }
-        \kern 0pt
-    } }
+    {
+        {
+            \dejavusans
+            \kern 0pt
+            \char_generate:nn { "2605 } { 12 }
+            \kern 0pt
+        }
+    }
 %    \end{macrocode}
 %
 % \subsection{辅助命令定义}
@@ -1876,15 +1891,17 @@
 % 根据选项值为复选框打勾。
 %
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_checked_checkbox: {
-    \makebox [ 0pt ] [ l ] { $\square$ }
-    \raisebox { 0.15ex } { \hspace { 0.1em } $\checkmark$ }
-}
-\cs_new_protected:Nn \@@_checkbox:nn {
-    \str_if_eq:nnTF {#1} {#2}
-        { \@@_checked_checkbox: }
-        { $\square$ }
-}
+\cs_new_protected:Nn \@@_checked_checkbox:
+    {
+        \makebox [ 0pt ] [ l ] { $\square$ }
+        \raisebox { 0.15ex } { \hspace { 0.1em } $\checkmark$ }
+    }
+\cs_new_protected:Nn \@@_checkbox:nn
+    {
+        \str_if_eq:nnTF {#1} {#2}
+            { \@@_checked_checkbox: }
+            { $\square$ }
+    }
 \cs_generate_variant:Nn \@@_checkbox:nn { e }
 %    \end{macrocode}
 % \end{macro}
@@ -1896,23 +1913,24 @@
 % \changes{v2026.3}{2026/03/19}{将南开大学图标替换为更加平滑的版本。}
 %
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_nankai_logo:n {
-    \scalebox { \fp_eval:n { #1 * 0.056 } } {
-        \begin { tikzpicture } [ y = 1cm, x = 1cm, inner~sep = 0pt, outer~sep = 0pt ]
+\cs_new_protected:Nn \@@_nankai_logo:n
+    {
+        \scalebox { \fp_eval:n { #1 * 0.056 } } {
+            \begin { tikzpicture } [ y = 1cm, x = 1cm, inner~sep = 0pt, outer~sep = 0pt ]
 %    \end{macrocode}
 %
 % 具体绘图代码省略。
 %
 % \iffalse
 %    \begin{macrocode}
-            \path[fill=black] (57.2997, -0.1601) -- (56.4572, -0.0559) -- (56.1488, 0.0774).. controls (55.9791, 0.1507) and (55.6887, 0.2738) .. (55.5034, 0.351).. controls (55.1675, 0.4909) and (54.9111, 0.6498) .. (54.75, 0.8182).. controls (54.6181, 0.9559) and (54.6596, 0.9854) .. (54.9169, 0.9369).. controls (55.0319, 0.9153) and (55.2926, 0.8781) .. (55.4964, 0.8543).. controls (55.914, 0.8056) and (56.094, 0.7616) .. (56.2849, 0.6618).. controls (56.3924, 0.6056) and (56.4498, 0.5935) .. (56.5973, 0.5963).. controls (57.0097, 0.6039) and (57.5165, 0.712) .. (57.9462, 0.884) -- (58.189, 0.9812) -- (58.2653, 1.1495).. controls (58.4896, 1.6442) and (58.4947, 2.1361) .. (58.2869, 3.2349).. controls (58.1611, 3.9002) and (58.1172, 4.0907) .. (58.0816, 4.1263).. controls (58.042, 4.166) and (57.8075, 4.0902) .. (57.362, 3.894).. controls (56.7106, 3.6069) and (55.3063, 2.8085) .. (54.9453, 2.5199).. controls (54.7272, 2.3455) and (54.5611, 2.2765) .. (54.4325, 2.3068).. controls (53.7537, 2.4665) and (53.3073, 2.6332) .. (53.1213, 2.7965).. controls (52.9843, 2.9168) and (52.9876, 3.003) .. (53.1349, 3.1575).. controls (53.2318, 3.2591) and (53.3437, 3.3193) .. (53.9395, 3.5906).. controls (55.574, 4.3348) and (56.7695, 4.9322) .. (57.2029, 5.2216).. controls (57.6877, 5.5452) and (57.6363, 5.5321) .. (58.3373, 5.5109).. controls (58.9219, 5.4933) and (58.9483, 5.4949) .. (59.4651, 5.5755).. controls (59.8208, 5.631) and (60.0915, 5.6898) .. (60.291, 5.755).. controls (60.6498, 5.8723) and (60.6801, 5.8663) .. (60.8619, 5.6423).. controls (61.061, 5.397) and (61.073, 5.3651) .. (61.0383, 5.1737).. controls (61.002, 4.9734) and (60.8775, 4.6913) .. (60.8093, 4.6548).. controls (60.7801, 4.6391) and (60.5484, 4.6281) .. (60.2576, 4.6284).. controls (59.905, 4.6288) and (59.6776, 4.6156) .. (59.4916, 4.584).. controls (59.1618, 4.528) and (58.8189, 4.4219) .. (58.7988, 4.3696).. controls (58.789, 4.3439) and (58.8628, 4.2492) .. (59.0101, 4.0987).. controls (59.1347, 3.9714) and (59.2429, 3.8381) .. (59.2507, 3.8025).. controls (59.3509, 3.3449) and (59.4082, 2.5262) .. (59.3717, 2.0727).. controls (59.3198, 1.4265) and (59.2451, 0.7516) .. (59.2111, 0.6218).. controls (59.1758, 0.4868) and (58.9966, 0.2729) .. (58.7846, 0.1129).. controls (58.6883, 0.0401) and (58.5627, -0.0682) .. (58.5055, -0.1278).. controls (58.4087, -0.2287) and (58.2998, -0.2762) .. (58.1852, -0.2675).. controls (58.1615, -0.2658) and (57.7631, -0.2174) .. (57.2997, -0.1601) -- cycle(9.8908, 0.6466).. controls (9.8424, 0.6854) and (9.7195, 0.7968) .. (9.6176, 0.8939).. controls (9.3622, 1.1375) and (8.3118, 1.8027) .. (7.9447, 1.9533) -- (7.6741, 2.0644) -- (7.4905, 1.9534).. controls (7.2154, 1.7872) and (7.0583, 1.7353) .. (6.7866, 1.7209).. controls (6.5634, 1.7091) and (6.5395, 1.713) .. (6.4057, 1.7837).. controls (6.2026, 1.891) and (6.1718, 1.9456) .. (6.1433, 2.249).. controls (6.1299, 2.3906) and (6.1053, 2.5231) .. (6.0885, 2.5433).. controls (6.0718, 2.5635) and (5.9965, 2.5882) .. (5.9213, 2.5982).. controls (5.7507, 2.6208) and (5.5486, 2.7149) .. (5.4031, 2.8394).. controls (5.2786, 2.946) and (5.2625, 3.0178) .. (5.3512, 3.0711).. controls (5.3839, 3.0907) and (5.5116, 3.1654) .. (5.6348, 3.237).. controls (5.7989, 3.3323) and (5.953, 3.4586) .. (6.2098, 3.708).. controls (6.4027, 3.8954) and (6.554, 4.0593) .. (6.546, 4.0724).. controls (6.5379, 4.0854) and (6.434, 4.0942) .. (6.315, 4.092).. controls (6.1902, 4.0896) and (5.9698, 4.1116) .. (5.7944, 4.1439).. controls (5.627, 4.1747) and (5.4505, 4.2027) .. (5.4021, 4.2061).. controls (5.3537, 4.2095) and (5.308, 4.2221) .. (5.3006, 4.2341).. controls (5.2786, 4.2698) and (5.3428, 4.3284) .. (5.4234, 4.3461).. controls (5.5338, 4.3703) and (5.9575, 4.6548) .. (6.0495, 4.7664).. controls (6.0931, 4.8194) and (6.2101, 5.0501) .. (6.3094, 5.2791).. controls (6.5418, 5.8152) and (6.6234, 5.9635) .. (7.0103, 6.5529).. controls (7.1861, 6.8207) and (7.3367, 7.0666) .. (7.3449, 7.0994).. controls (7.3611, 7.1637) and (7.3172, 7.2698) .. (7.2745, 7.2698).. controls (7.26, 7.2698) and (7.1622, 7.2266) .. (7.0571, 7.1738).. controls (6.5423, 6.9153) and (6.0119, 6.4549) .. (5.6871, 5.9845).. controls (5.484, 5.6904) and (5.2135, 5.4143) .. (5.014, 5.2974).. controls (4.7897, 5.1659) and (4.6207, 5.2214) .. (3.8253, 5.6877).. controls (3.5935, 5.8236) and (3.3991, 5.9493) .. (3.3932, 5.9671).. controls (3.3694, 6.0385) and (3.5364, 6.0596) .. (4.154, 6.0635).. controls (4.8717, 6.0679) and (4.8573, 6.0646) .. (5.2529, 6.3162).. controls (6.1964, 6.9165) and (6.4661, 7.1205) .. (6.7733, 7.4666).. controls (6.8679, 7.5731) and (7.0713, 7.7793) .. (7.2253, 7.9249).. controls (7.5471, 8.229) and (7.5962, 8.2488) .. (8.0301, 8.2488).. controls (8.4611, 8.2488) and (8.6133, 8.192) .. (8.7462, 7.9814).. controls (8.8323, 7.8451) and (8.8276, 7.7993) .. (8.7188, 7.7125).. controls (8.6683, 7.6722) and (8.5388, 7.5293) .. (8.4312, 7.395).. controls (8.3235, 7.2607) and (8.1969, 7.1151) .. (8.1498, 7.0714).. controls (8.1028, 7.0277) and (7.9828, 6.8789) .. (7.8833, 6.7407).. controls (7.7838, 6.6024) and (7.5868, 6.3764) .. (7.4455, 6.2383).. controls (7.1523, 5.9519) and (6.9398, 5.6818) .. (6.8416, 5.4707).. controls (6.7043, 5.1756) and (6.7737, 5.1485) .. (7.0759, 5.3791).. controls (7.1992, 5.4731) and (7.3226, 5.55) .. (7.3502, 5.55).. controls (7.479, 5.55) and (7.7387, 5.2647) .. (7.7874, 5.0696).. controls (7.7971, 5.031) and (7.8113, 4.9829) .. (7.819, 4.9628).. controls (7.8273, 4.9412) and (7.7582, 4.8511) .. (7.6497, 4.7421).. controls (7.4887, 4.5803) and (7.464, 4.5423) .. (7.4472, 4.4299).. controls (7.424, 4.2748) and (7.4708, 4.2021) .. (7.5623, 4.251).. controls (7.6372, 4.2911) and (7.7408, 4.2873) .. (7.8298, 4.2413).. controls (7.9153, 4.1971) and (8.0433, 4.0546) .. (8.0433, 4.0037).. controls (8.0433, 3.985) and (7.9585, 3.8235) .. (7.8548, 3.6449) -- (7.6663, 3.3201) -- (7.6903, 2.8874).. controls (7.7087, 2.5555) and (7.7238, 2.4451) .. (7.7553, 2.4136).. controls (7.7956, 2.3733) and (9.4577, 1.9257) .. (9.5681, 1.9254).. controls (9.6372, 1.9252) and (9.6704, 1.9638) .. (9.7046, 2.084).. controls (9.7191, 2.1349) and (9.7606, 2.2778) .. (9.797, 2.4015) -- (9.8631, 2.6264) -- (9.8272, 3.3143).. controls (9.7689, 4.4356) and (9.7825, 5.2513) .. (9.8983, 7.5741).. controls (9.9273, 8.1562) and (9.9582, 8.8673) .. (9.9669, 9.1543).. controls (9.981, 9.6177) and (9.978, 9.678) .. (9.9404, 9.6924).. controls (9.916, 9.7018) and (9.861, 9.6815) .. (9.8107, 9.6447).. controls (9.7132, 9.5731) and (8.0941, 8.7667) .. (7.9904, 8.738).. controls (7.954, 8.7279) and (7.8372, 8.6726) .. (7.7309, 8.615).. controls (7.6245, 8.5574) and (7.44, 8.4692) .. (7.3208, 8.419).. controls (7.2016, 8.3688) and (6.9671, 8.2461) .. (6.7998, 8.1464).. controls (6.6324, 8.0467) and (6.249, 7.8262) .. (5.9476, 7.6564).. controls (5.2342, 7.2544) and (5.072, 7.1435) .. (4.7267, 6.8215).. controls (4.4097, 6.5258) and (4.3119, 6.467) .. (3.9423, 6.3498).. controls (3.3678, 6.1676) and (3.1021, 6.1045) .. (2.8675, 6.0945).. controls (2.7314, 6.0887) and (2.5908, 6.0666) .. (2.5332, 6.0418).. controls (2.4785, 6.0182) and (2.3833, 5.9944) .. (2.3215, 5.9888).. controls (2.2598, 5.9832) and (2.2016, 5.9775) .. (2.1921, 5.976).. controls (2.1827, 5.9746) and (2.162, 5.8985) .. (2.146, 5.807).. controls (2.1301, 5.7155) and (2.0505, 5.4506) .. (1.9692, 5.2183).. controls (1.7957, 4.7227) and (1.6455, 4.1902) .. (1.544, 3.7107).. controls (1.4782, 3.4) and (1.4713, 3.3156) .. (1.4713, 2.8248).. controls (1.4713, 2.3431) and (1.4792, 2.2425) .. (1.5422, 1.9253).. controls (1.5811, 1.7288) and (1.6411, 1.464) .. (1.6754, 1.3368).. controls (1.7322, 1.1266) and (1.734, 1.1024) .. (1.6957, 1.0704).. controls (1.6083, 0.9974) and (1.272, 0.814) .. (1.2253, 0.814).. controls (1.0972, 0.814) and (0.716, 1.1474) .. (0.5286, 1.4233).. controls (0.4588, 1.5262) and (0.3842, 1.6002) .. (0.3145, 1.6358) -- (0.2075, 1.6903) -- (0.2162, 2.0289) -- (0.2249, 2.3675) -- (0.3738, 2.5895).. controls (0.6092, 2.9406) and (0.7006, 3.1498) .. (0.9784, 3.9721).. controls (1.1216, 4.3961) and (1.2812, 4.8532) .. (1.3329, 4.9879).. controls (1.5492, 5.5504) and (1.8702, 6.1042) .. (2.2222, 6.5223).. controls (2.3604, 6.6864) and (2.3989, 6.7164) .. (2.4898, 6.7309).. controls (2.5607, 6.7423) and (2.6108, 6.7696) .. (2.6407, 6.8134).. controls (2.8643, 7.1402) and (3.3878, 7.4569) .. (4.4655, 7.9174).. controls (4.8103, 8.0647) and (4.9683, 8.1885) .. (5.0475, 8.3735).. controls (5.0774, 8.4431) and (5.1326, 8.6618) .. (5.1702, 8.8594).. controls (5.2078, 9.0569) and (5.2925, 9.437) .. (5.3585, 9.7039).. controls (5.4445, 10.0519) and (5.4704, 10.1973) .. (5.4498, 10.2178).. controls (5.4293, 10.2383) and (5.3371, 10.2174) .. (5.1249, 10.1443).. controls (4.1105, 9.7947) and (3.1514, 9.365) .. (2.3416, 8.8973).. controls (2.0942, 8.7545) and (1.7846, 8.5852) .. (1.6536, 8.5211) -- (1.4155, 8.4045) -- (1.3626, 8.4774).. controls (1.3335, 8.5175) and (1.2412, 8.625) .. (1.1576, 8.7164) -- (1.0054, 8.8825) -- (1.0054, 9.0673).. controls (1.0054, 9.3118) and (1.0772, 9.5002) .. (1.2316, 9.6614).. controls (1.3315, 9.7657) and (1.3652, 9.7852) .. (1.4334, 9.7784).. controls (1.5581, 9.7659) and (1.5906, 9.694) .. (1.545, 9.532).. controls (1.4743, 9.2813) and (1.4706, 9.2304) .. (1.5213, 9.2109).. controls (1.5976, 9.1816) and (1.7388, 9.2488) .. (2.1485, 9.5093).. controls (2.8319, 9.9438) and (2.997, 10.0257) .. (4.1511, 10.5028).. controls (4.7065, 10.7324) and (4.7722, 10.7555) .. (5.1594, 10.8575).. controls (5.5946, 10.9722) and (5.5685, 10.9568) .. (5.6833, 11.1674).. controls (5.9986, 11.7462) and (6.1855, 12.4051) .. (6.3079, 13.3685).. controls (6.4222, 14.2683) and (6.4497, 15.6974) .. (6.3688, 16.5382).. controls (6.3439, 16.7972) and (6.3235, 17.1744) .. (6.3235, 17.3763) -- (6.3235, 17.7435) -- (6.4861, 17.8423).. controls (6.5918, 17.9065) and (6.6914, 17.945) .. (6.7706, 17.9524).. controls (6.9231, 17.9666) and (6.9597, 17.9388) .. (7.4047, 17.4701).. controls (8.0582, 16.7817) and (8.5141, 16.0115) .. (8.6676, 15.3367).. controls (8.7086, 15.1562) and (8.708, 15.146) .. (8.6386, 14.8425).. controls (8.5576, 14.4889) and (8.2599, 13.4858) .. (7.8617, 12.225).. controls (7.7748, 11.9501) and (7.7846, 11.9151) .. (7.9384, 11.9508).. controls (7.9888, 11.9624) and (8.3218, 12.0974) .. (8.6783, 12.2506).. controls (9.3879, 12.5556) and (10.0234, 12.8109) .. (10.2195, 12.8698).. controls (10.293, 12.8918) and (10.3452, 12.9232) .. (10.3452, 12.9452).. controls (10.3452, 12.9863) and (9.9774, 13.319) .. (9.7234, 13.5077).. controls (9.6361, 13.5726) and (9.4322, 13.6895) .. (9.2702, 13.7674).. controls (8.9798, 13.9072) and (8.9155, 13.9611) .. (8.9778, 14.0127).. controls (9.0099, 14.0393) and (9.9399, 13.9563) .. (10.5833, 13.8694).. controls (10.7507, 13.8468) and (11.0602, 13.8217) .. (11.2713, 13.8136).. controls (11.5192, 13.804) and (11.6841, 13.7854) .. (11.7374, 13.7609).. controls (11.8153, 13.7251) and (12.0487, 13.4627) .. (12.1142, 13.3372).. controls (12.1308, 13.3054) and (12.1444, 13.2415) .. (12.1444, 13.1951).. controls (12.1444, 13.0495) and (11.9971, 12.9358) .. (11.602, 12.7764).. controls (11.4128, 12.7) and (11.0318, 12.5261) .. (10.7553, 12.3898).. controls (10.4788, 12.2536) and (10.1239, 12.0986) .. (9.9666, 12.0455).. controls (9.8093, 11.9924) and (9.5474, 11.8894) .. (9.3845, 11.8165).. controls (8.933, 11.6145) and (8.5368, 11.4595) .. (7.9815, 11.2676).. controls (7.3966, 11.0655) and (7.4298, 11.0941) .. (7.2489, 10.6377).. controls (7.0841, 10.2219) and (6.7121, 9.483) .. (6.4468, 9.0448).. controls (6.3198, 8.835) and (6.2253, 8.6547) .. (6.2367, 8.6441).. controls (6.2481, 8.6335) and (6.3705, 8.6897) .. (6.5088, 8.7689).. controls (7.1077, 9.1123) and (8.4333, 9.7025) .. (9.234, 9.9823).. controls (9.4741, 10.0662) and (9.736, 10.1639) .. (9.816, 10.1994).. controls (9.9209, 10.2459) and (10.0634, 10.2752) .. (10.326, 10.3041).. controls (10.5264, 10.3262) and (10.7069, 10.3379) .. (10.7271, 10.3301).. controls (10.7473, 10.3223) and (10.8175, 10.217) .. (10.8831, 10.096).. controls (11.0361, 9.8136) and (11.0749, 9.548) .. (11.0346, 9.0601).. controls (11.0074, 8.7317) and (10.9851, 8.3143) .. (10.9133, 6.7936).. controls (10.8237, 4.8951) and (10.638, 2.0758) .. (10.5692, 1.5686).. controls (10.4868, 0.9611) and (10.4545, 0.8759) .. (10.2599, 0.7514).. controls (10.1819, 0.7015) and (10.1022, 0.6416) .. (10.0829, 0.6183).. controls (10.0337, 0.559) and (9.9923, 0.5651) .. (9.8908, 0.6466) -- cycle(26.3525, 1.7957).. controls (26.2579, 1.8241) and (26.0103, 1.8831) .. (25.8022, 1.9269).. controls (25.3336, 2.0254) and (24.9524, 2.1486) .. (24.5401, 2.3347).. controls (24.3655, 2.4135) and (24.1035, 2.5218) .. (23.958, 2.5753).. controls (23.4678, 2.7558) and (22.9701, 3.0324) .. (22.8054, 3.2159).. controls (22.7256, 3.3048) and (22.6803, 3.3269) .. (22.4476, 3.3907).. controls (22.2114, 3.4555) and (22.1756, 3.4732) .. (22.1318, 3.5473).. controls (22.0529, 3.681) and (21.8806, 3.8548) .. (21.7528, 3.9296).. controls (21.6555, 3.9867) and (21.5901, 4.0015) .. (21.3808, 4.0138) -- (21.127, 4.0287) -- (21.127, 4.2668) -- (21.127, 4.5049) -- (21.3073, 4.508).. controls (21.5321, 4.5118) and (21.6049, 4.55) .. (21.6835, 4.7052).. controls (21.7605, 4.857) and (21.8654, 5.2588) .. (21.8358, 5.2884).. controls (21.8238, 5.3004) and (21.6654, 5.3136) .. (21.4837, 5.3177) -- (21.1534, 5.3252) -- (21.1253, 5.4707).. controls (21.0934, 5.6357) and (21.1097, 5.76) .. (21.1672, 5.791).. controls (21.1888, 5.8026) and (21.3492, 5.8676) .. (21.5239, 5.9355).. controls (21.9801, 6.113) and (22.3444, 6.2891) .. (22.5705, 6.4417).. controls (22.6788, 6.5148) and (22.8567, 6.6195) .. (22.9658, 6.6745).. controls (23.1006, 6.7423) and (23.2289, 6.8371) .. (23.3655, 6.97) -- (23.5666, 7.1656) -- (23.9072, 7.1582) -- (24.2477, 7.1508) -- (24.3972, 6.7673).. controls (24.4795, 6.5564) and (24.541, 6.3689) .. (24.534, 6.3506).. controls (24.5169, 6.306) and (24.4454, 6.3086) .. (24.3774, 6.3562).. controls (24.2739, 6.4286) and (24.1281, 6.4321) .. (23.9993, 6.3651).. controls (23.8657, 6.2958) and (23.7711, 6.1828) .. (23.7948, 6.121).. controls (23.8081, 6.0863) and (23.8626, 6.0792) .. (24.1177, 6.0792).. controls (24.2864, 6.0792) and (24.4476, 6.0669) .. (24.4757, 6.0518).. controls (24.5251, 6.0254) and (24.5269, 5.9846) .. (24.5269, 4.8984).. controls (24.5269, 3.634) and (24.5376, 3.7061) .. (24.3244, 3.5392).. controls (24.1946, 3.4376) and (23.9298, 3.0671) .. (23.9634, 3.0342).. controls (23.975, 3.0229) and (24.1571, 2.9823) .. (24.3681, 2.9439).. controls (24.5791, 2.9056) and (24.8411, 2.8576) .. (24.9502, 2.8372).. controls (25.0801, 2.813) and (25.3472, 2.7999) .. (25.7231, 2.7993).. controls (26.2368, 2.7985) and (26.3121, 2.7927) .. (26.4339, 2.7446).. controls (26.5905, 2.683) and (26.6495, 2.6926) .. (26.6924, 2.7869).. controls (26.7356, 2.8815) and (26.7335, 2.8974) .. (26.6299, 3.2564).. controls (26.5182, 3.6435) and (26.3742, 4.3025) .. (26.302, 4.7563).. controls (26.1883, 5.4712) and (26.184, 5.6231) .. (26.2094, 8.0107).. controls (26.2387, 10.7641) and (26.2162, 11.7678) .. (26.1252, 11.7678).. controls (26.0823, 11.7678) and (26.0684, 11.6813) .. (26.0486, 11.2915).. controls (26.0296, 10.919) and (25.9933, 10.7023) .. (25.9291, 10.5786).. controls (25.9022, 10.5268) and (25.7891, 10.3952) .. (25.6776, 10.2861).. controls (25.5662, 10.1769) and (25.4405, 10.0382) .. (25.3982, 9.9777).. controls (25.3059, 9.8454) and (25.0602, 9.3103) .. (24.8858, 8.862).. controls (24.7887, 8.6122) and (24.7443, 8.5293) .. (24.6959, 8.5072).. controls (24.603, 8.4649) and (24.6187, 8.4127) .. (24.7388, 8.3647).. controls (24.8546, 8.3183) and (24.8895, 8.2478) .. (24.8584, 8.1231).. controls (24.8255, 7.9911) and (24.7723, 7.9577) .. (24.5955, 7.9581).. controls (24.2511, 7.959) and (23.9566, 8.0728) .. (23.5839, 8.3491).. controls (23.4666, 8.4361) and (23.3458, 8.5205) .. (23.3155, 8.5368).. controls (23.1744, 8.6123) and (22.9647, 8.5279) .. (22.9172, 8.3765).. controls (22.8776, 8.2504) and (22.7495, 7.378) .. (22.7305, 7.1054).. controls (22.7194, 6.9448) and (22.7014, 6.8618) .. (22.6716, 6.8319).. controls (22.6407, 6.801) and (22.5519, 6.7836) .. (22.3541, 6.7695).. controls (22.203, 6.7587) and (22.0646, 6.7551) .. (22.0464, 6.7614).. controls (22.0058, 6.7754) and (22.0052, 6.8609) .. (22.0426, 7.3351).. controls (22.0651, 7.6218) and (22.0867, 7.7426) .. (22.1372, 7.8652).. controls (22.2308, 8.0926) and (22.2363, 8.1165) .. (22.195, 8.1164).. controls (22.0984, 8.1162) and (21.8363, 7.8906) .. (21.5245, 7.5393).. controls (21.3396, 7.3309) and (21.1704, 7.1536) .. (21.1486, 7.1453).. controls (21.099, 7.1262) and (20.967, 7.188) .. (20.8539, 7.2832).. controls (20.7316, 7.386) and (20.6616, 7.5381) .. (20.6557, 7.7134).. controls (20.6499, 7.8874) and (20.6732, 7.9067) .. (20.9496, 7.9567).. controls (21.0413, 7.9732) and (21.1841, 8.0152) .. (21.2671, 8.0499).. controls (21.3501, 8.0847) and (21.4841, 8.1314) .. (21.5648, 8.1537).. controls (21.6455, 8.176) and (21.7884, 8.244) .. (21.8823, 8.3048).. controls (21.9762, 8.3656) and (22.1274, 8.4488) .. (22.2182, 8.4896) -- (22.3834, 8.5639) -- (22.3821, 8.8099).. controls (22.381, 8.9942) and (22.3946, 9.0955) .. (22.4362, 9.2145).. controls (22.5626, 9.5764) and (22.7266, 10.3935) .. (22.6913, 10.4856).. controls (22.6806, 10.5135) and (22.6324, 10.5242) .. (22.5174, 10.5242) -- (22.3583, 10.5242) -- (22.1528, 10.336).. controls (21.8495, 10.0584) and (21.611, 9.8691) .. (21.2933, 9.654).. controls (21.1374, 9.5484) and (20.9144, 9.3796) .. (20.7977, 9.2788) -- (20.5856, 9.0955) -- (19.9289, 9.0955).. controls (19.4535, 9.0955) and (19.2635, 9.1042) .. (19.2405, 9.1272).. controls (19.1719, 9.1958) and (19.2059, 9.2848) .. (19.3477, 9.4082).. controls (19.4241, 9.4747) and (19.5878, 9.6336) .. (19.7115, 9.7612).. controls (19.8352, 9.8888) and (20.0137, 10.0465) .. (20.1083, 10.1117).. controls (20.6572, 10.49) and (20.8489, 10.6121) .. (21.0808, 10.7311).. controls (21.3636, 10.8763) and (21.8518, 11.0798) .. (21.9171, 11.0798).. controls (21.9987, 11.0798) and (22.2575, 11.1925) .. (22.3396, 11.2639).. controls (22.3857, 11.3039) and (22.4475, 11.3493) .. (22.477, 11.3647).. controls (22.5315, 11.3933) and (23.4017, 11.4201) .. (23.4278, 11.394).. controls (23.4356, 11.3862) and (23.4491, 11.2557) .. (23.4578, 11.1041).. controls (23.4717, 10.8593) and (23.4658, 10.8004) .. (23.4044, 10.5771).. controls (23.3604, 10.4167) and (23.3294, 10.2204) .. (23.3188, 10.0347).. controls (23.3036, 9.7692) and (23.2936, 9.7263) .. (23.2039, 9.5453).. controls (23.068, 9.271) and (22.943, 8.8728) .. (22.9856, 8.8499).. controls (22.9965, 8.844) and (23.1305, 8.8542) .. (23.2833, 8.8727).. controls (23.4361, 8.8911) and (23.6981, 8.9074) .. (23.8654, 8.9089).. controls (24.2357, 8.9121) and (24.3503, 8.9364) .. (24.4532, 9.0338).. controls (24.609, 9.1812) and (25.4221, 10.4863) .. (25.5137, 10.736).. controls (25.5377, 10.8014) and (25.5884, 11.1347) .. (25.6264, 11.4767).. controls (25.7, 12.139) and (25.7583, 12.3762) .. (25.9382, 12.7467).. controls (26.0161, 12.907) and (26.0344, 12.9254) .. (26.207, 13.0167).. controls (26.4205, 13.1297) and (26.6789, 13.1965) .. (26.9028, 13.1965).. controls (27.1808, 13.1965) and (27.3402, 13.1099) .. (27.4971, 12.8736).. controls (27.6627, 12.624) and (27.7089, 12.356) .. (27.6489, 11.9927).. controls (27.5477, 11.3804) and (27.4622, 10.3767) .. (27.4369, 9.5036).. controls (27.4067, 8.4591) and (27.3844, 8.1314) .. (27.2886, 7.3228).. controls (27.2282, 6.8137) and (27.2226, 6.6872) .. (27.2348, 6.1189).. controls (27.2501, 5.4115) and (27.3621, 4.1981) .. (27.4754, 3.5137).. controls (27.5548, 3.0338) and (27.5554, 3.017) .. (27.5027, 2.751).. controls (27.4076, 2.2711) and (27.2493, 1.9968) .. (26.9625, 1.8147).. controls (26.8653, 1.753) and (26.8171, 1.7404) .. (26.6847, 1.7421).. controls (26.5966, 1.7432) and (26.4471, 1.7673) .. (26.3525, 1.7957) -- cycle(23.278, 3.2005).. controls (23.3013, 3.2238) and (23.3098, 3.4459) .. (23.3098, 4.0348).. controls (23.3098, 4.7427) and (23.3048, 4.8392) .. (23.2679, 4.8534).. controls (23.2053, 4.8774) and (22.6938, 4.7861) .. (22.6507, 4.7433).. controls (22.5638, 4.6569) and (22.5889, 3.9078) .. (22.6901, 3.5668).. controls (22.7395, 3.4006) and (22.7787, 3.3643) .. (23.0248, 3.2567).. controls (23.2517, 3.1574) and (23.238, 3.1605) .. (23.278, 3.2005) -- cycle(23.3544, 5.4971).. controls (23.4003, 5.7867) and (23.3966, 5.9716) .. (23.3428, 6.0792).. controls (23.2738, 6.2174) and (23.1999, 6.213) .. (22.9645, 6.0566).. controls (22.5684, 5.7934) and (22.4527, 5.6398) .. (22.4877, 5.4232) -- (22.5035, 5.3252) -- (22.7281, 5.3097).. controls (22.8516, 5.3012) and (23.0359, 5.2953) .. (23.1378, 5.2965) -- (23.323, 5.2987) -- cycle(34.6163, 2.602).. controls (34.592, 2.6653) and (34.6512, 2.7049) .. (34.9118, 2.7995).. controls (35.0427, 2.847) and (35.3981, 3.018) .. (35.7014, 3.1793).. controls (36.2028, 3.4461) and (36.2964, 3.5076) .. (36.7322, 3.8566).. controls (37.3211, 4.3281) and (37.5511, 4.5545) .. (37.716, 4.8252).. controls (37.786, 4.9401) and (37.892, 5.1055) .. (37.9516, 5.1929).. controls (38.07, 5.3663) and (38.4826, 6.1894) .. (38.6052, 6.4966).. controls (38.6948, 6.721) and (38.7048, 6.8919) .. (38.6336, 6.9799) -- (38.5851, 7.0398) -- (38.4444, 6.9632).. controls (38.367, 6.9211) and (38.1886, 6.7791) .. (38.0481, 6.6477).. controls (37.7626, 6.3809) and (37.253, 6.0251) .. (37.0374, 5.9422).. controls (36.9151, 5.8952) and (36.8388, 5.8881) .. (36.4679, 5.8895).. controls (36.2324, 5.8903) and (35.9914, 5.9041) .. (35.9323, 5.9199).. controls (35.71, 5.9798) and (35.3391, 6.3761) .. (35.3042, 6.591).. controls (35.2719, 6.7902) and (35.4688, 6.8175) .. (35.8215, 6.6627).. controls (35.9227, 6.6183) and (36.0451, 6.5822) .. (36.0936, 6.5826).. controls (36.2209, 6.5835) and (36.4416, 6.6821) .. (36.6845, 6.8466).. controls (36.8849, 6.9824) and (37.334, 7.1934) .. (37.8373, 7.3883).. controls (37.9621, 7.4367) and (38.1598, 7.5243) .. (38.2767, 7.583).. controls (38.3936, 7.6418) and (38.5847, 7.7208) .. (38.7014, 7.7586).. controls (38.8182, 7.7964) and (38.9312, 7.8477) .. (38.9526, 7.8727).. controls (38.9932, 7.9201) and (39.2078, 8.8762) .. (39.3455, 9.6239).. controls (39.5269, 10.6086) and (39.6376, 11.3902) .. (39.6717, 11.9275).. controls (39.6914, 12.239) and (39.72, 12.4969) .. (39.7386, 12.5317).. controls (39.774, 12.5978) and (39.914, 12.6673) .. (40.0117, 12.6673).. controls (40.0841, 12.6673) and (40.5711, 12.2458) .. (40.6298, 12.1324).. controls (40.6576, 12.0785) and (40.6876, 12.0588) .. (40.742, 12.0588).. controls (40.8518, 12.0588) and (41.0539, 11.9123) .. (41.135, 11.774) -- (41.2055, 11.6536) -- (41.1589, 11.2807).. controls (41.0794, 10.6452) and (40.8966, 9.9099) .. (40.6648, 9.2927).. controls (40.5376, 8.9541) and (40.462, 8.8015) .. (40.3026, 8.5618).. controls (40.2363, 8.4621) and (40.1879, 8.3745) .. (40.1952, 8.3673).. controls (40.2024, 8.3601) and (40.2965, 8.3947) .. (40.4043, 8.4441).. controls (40.6509, 8.5573) and (41.114, 8.7062) .. (41.4073, 8.7667).. controls (41.531, 8.7922) and (41.6437, 8.8233) .. (41.6578, 8.8357).. controls (41.6739, 8.8499) and (41.6591, 8.9037) .. (41.6181, 8.98).. controls (41.5548, 9.098) and (41.5543, 9.1025) .. (41.6032, 9.1316).. controls (41.6309, 9.1481) and (41.7295, 9.2188) .. (41.8224, 9.2887).. controls (41.9735, 9.4025) and (42.018, 9.421) .. (42.2482, 9.4655).. controls (42.3896, 9.4928) and (42.6204, 9.551) .. (42.7611, 9.5947).. controls (43.2967, 9.7612) and (43.6557, 9.7511) .. (43.8613, 9.5638).. controls (43.894, 9.534) and (43.9208, 9.4862) .. (43.9208, 9.4576).. controls (43.9208, 9.3772) and (43.6489, 8.9874) .. (43.4334, 8.7589) -- (43.2393, 8.5531) -- (42.7665, 8.539) -- (42.2936, 8.5249) -- (41.9629, 8.3568).. controls (41.781, 8.2643) and (41.4604, 8.1248) .. (41.2505, 8.0467).. controls (41.0406, 7.9686) and (40.737, 7.8459) .. (40.5758, 7.7739).. controls (40.4147, 7.7019) and (40.2336, 7.6304) .. (40.1734, 7.615).. controls (40.1133, 7.5996) and (40.0524, 7.5722) .. (40.0382, 7.5541).. controls (40.0239, 7.536) and (39.9274, 7.2444) .. (39.8238, 6.9061).. controls (39.5123, 5.8894) and (39.3326, 5.4791) .. (38.8663, 4.7201).. controls (38.4474, 4.0383) and (38.15, 3.6126) .. (38.0505, 3.5524).. controls (38.0024, 3.5233) and (37.8718, 3.4396) .. (37.7603, 3.3663).. controls (36.9284, 2.8195) and (36.0486, 2.5603) .. (35.0251, 2.5603).. controls (34.6918, 2.5603) and (34.6299, 2.5666) .. (34.6163, 2.602) -- cycle(18.5609, 2.8369).. controls (18.458, 2.8749) and (18.3885, 2.9388) .. (18.3886, 2.9953).. controls (18.3886, 3.0107) and (18.4239, 3.315) .. (18.467, 3.6715).. controls (18.5629, 4.4653) and (19.0022, 6.6903) .. (19.0821, 6.787).. controls (19.1199, 6.8328) and (19.2231, 6.8284) .. (19.2727, 6.7787).. controls (19.2955, 6.756) and (19.3312, 6.6757) .. (19.3521, 6.6001).. controls (19.7737, 5.0776) and (19.8268, 4.7943) .. (19.8291, 4.0552).. controls (19.8303, 3.6631) and (19.824, 3.5918) .. (19.7794, 3.4995).. controls (19.7016, 3.3383) and (19.3284, 2.9807) .. (19.1435, 2.8903).. controls (18.9564, 2.7987) and (18.7223, 2.7773) .. (18.5609, 2.8369) -- cycle(42.7831, 3.653).. controls (42.7031, 3.6715) and (42.5721, 3.7214) .. (42.4921, 3.7641).. controls (42.3035, 3.8645) and (41.9455, 4.2229) .. (41.6989, 4.5581).. controls (41.5919, 4.7035) and (41.421, 4.9117) .. (41.3193, 5.0209).. controls (41.2175, 5.13) and (41.0721, 5.3031) .. (40.9961, 5.4055).. controls (40.9201, 5.5079) and (40.7896, 5.6444) .. (40.7061, 5.7088).. controls (40.5318, 5.8433) and (40.3402, 6.0681) .. (40.2608, 6.2314).. controls (40.1821, 6.3933) and (40.2134, 6.4094) .. (40.4834, 6.3461).. controls (40.85, 6.2602) and (41.1487, 6.1191) .. (41.5595, 5.8379).. controls (42.1742, 5.4171) and (42.6976, 5.1076) .. (43.1271, 4.911) -- (43.3784, 4.796) -- (44.1193, 4.7914).. controls (44.5267, 4.7888) and (44.875, 4.7859) .. (44.8932, 4.7848).. controls (44.9114, 4.7837) and (44.9252, 4.756) .. (44.924, 4.7232).. controls (44.9212, 4.6494) and (44.4881, 4.2571) .. (44.2383, 4.1022).. controls (43.958, 3.9283) and (43.5918, 3.7345) .. (43.4541, 3.6872).. controls (43.2817, 3.628) and (42.9627, 3.6117) .. (42.7831, 3.653) -- cycle(52.3743, 4.3422).. controls (52.2579, 4.3905) and (52.1108, 4.4566) .. (52.0475, 4.4892).. controls (51.8037, 4.6147) and (51.5938, 4.878) .. (51.5938, 5.0583).. controls (51.5938, 5.2686) and (51.8849, 5.5903) .. (52.2287, 5.7601).. controls (52.3521, 5.821) and (52.494, 5.9021) .. (52.5441, 5.9403).. controls (52.5942, 5.9786) and (52.9158, 6.1486) .. (53.2588, 6.3183).. controls (53.6018, 6.488) and (53.9836, 6.6927) .. (54.1073, 6.7731).. controls (54.231, 6.8536) and (54.4073, 6.9571) .. (54.4991, 7.0032).. controls (54.5909, 7.0492) and (54.7456, 7.1379) .. (54.843, 7.2001).. controls (54.9404, 7.2624) and (55.2344, 7.4228) .. (55.4964, 7.5567).. controls (55.8031, 7.7135) and (56.095, 7.8877) .. (56.3166, 8.0463).. controls (56.5057, 8.1817) and (56.9641, 8.4685) .. (57.3352, 8.6836).. controls (57.7063, 8.8988) and (58.1409, 9.173) .. (58.3009, 9.293).. controls (58.6355, 9.5439) and (59.0994, 9.8624) .. (59.3388, 10.0055).. controls (59.4294, 10.0597) and (59.5099, 10.1142) .. (59.5176, 10.1266).. controls (59.5347, 10.1543) and (59.4128, 10.3033) .. (59.3422, 10.3411).. controls (59.3027, 10.3622) and (59.2596, 10.353) .. (59.1519, 10.3003).. controls (58.9863, 10.2192) and (58.6819, 10.1805) .. (58.6193, 10.2325).. controls (58.5972, 10.2508) and (58.5549, 10.3473) .. (58.5252, 10.447).. controls (58.4744, 10.6176) and (58.4047, 10.7094) .. (58.326, 10.7094).. controls (58.3099, 10.7094) and (58.1396, 10.5904) .. (57.9477, 10.4448).. controls (57.5541, 10.1465) and (57.5205, 10.1364) .. (57.3272, 10.259).. controls (57.1689, 10.3594) and (57.1654, 10.4205) .. (57.3125, 10.5134).. controls (57.4432, 10.5959) and (57.5302, 10.6852) .. (57.6192, 10.8285).. controls (57.6554, 10.8867) and (57.7562, 11.0071) .. (57.8432, 11.0961).. controls (58.0615, 11.3195) and (58.0562, 11.3362) .. (57.6924, 11.5758).. controls (57.3172, 11.8228) and (57.2956, 11.8234) .. (57.0787, 11.5933).. controls (56.8597, 11.361) and (56.806, 11.2457) .. (56.806, 11.0075).. controls (56.806, 10.9041) and (56.799, 10.8012) .. (56.7904, 10.7788).. controls (56.78, 10.7516) and (56.7229, 10.7321) .. (56.6195, 10.7204).. controls (56.4377, 10.6998) and (56.4188, 10.6818) .. (56.3173, 10.4316).. controls (56.276, 10.3297) and (56.2335, 10.2365) .. (56.2228, 10.2243).. controls (56.2122, 10.2121) and (56.1114, 10.2161) .. (55.9988, 10.2332) -- (55.7941, 10.2642) -- (55.6759, 10.1495).. controls (55.4765, 9.956) and (55.3267, 9.7202) .. (55.1273, 9.2863).. controls (54.6955, 8.3464) and (54.624, 8.2316) .. (54.3987, 8.1167).. controls (54.3414, 8.0875) and (54.2442, 8.0636) .. (54.1826, 8.0636).. controls (54.0821, 8.0636) and (54.0569, 8.0779) .. (53.9368, 8.2026).. controls (53.8632, 8.279) and (53.7673, 8.413) .. (53.7236, 8.5002) -- (53.6443, 8.6589) -- (53.6263, 9.8892).. controls (53.6054, 11.3177) and (53.5863, 11.5831) .. (53.4883, 11.8041).. controls (53.4086, 11.9837) and (53.402, 12.0538) .. (53.4624, 12.077).. controls (53.5544, 12.1123) and (54.0142, 11.8995) .. (54.1984, 11.7364).. controls (54.2693, 11.6736) and (54.3999, 11.5746) .. (54.4885, 11.5164).. controls (54.7466, 11.3469) and (54.7492, 11.3372) .. (54.726, 10.6168).. controls (54.6986, 9.7663) and (54.6983, 9.7966) .. (54.7349, 9.7966).. controls (54.7719, 9.7966) and (55.495, 10.6085) .. (55.5492, 10.7109).. controls (55.573, 10.7559) and (55.5986, 11.0114) .. (55.6255, 11.4739) -- (55.6659, 12.1692) -- (55.5379, 12.4381).. controls (55.4674, 12.586) and (55.3123, 12.969) .. (55.1932, 13.2891).. controls (55.0646, 13.6349) and (54.8528, 14.1265) .. (54.6716, 14.5001).. controls (54.5039, 14.846) and (54.3727, 15.145) .. (54.3802, 15.1644).. controls (54.3989, 15.2131) and (54.5224, 15.2338) .. (54.7946, 15.2338).. controls (55.1395, 15.2338) and (55.1592, 15.2222) .. (55.4338, 14.8586).. controls (55.6165, 14.6167) and (55.7076, 14.5204) .. (55.8225, 14.4479).. controls (55.9051, 14.3958) and (56.0938, 14.2299) .. (56.242, 14.0791) -- (56.5114, 13.805) -- (56.9273, 13.805) -- (57.3431, 13.805) -- (57.521, 13.9076).. controls (57.6189, 13.964) and (57.7808, 14.0372) .. (57.8809, 14.0703).. controls (58.3511, 14.2257) and (58.5141, 14.3571) .. (58.8289, 14.8347).. controls (59.1307, 15.2924) and (59.4739, 15.8862) .. (59.5064, 16.0069) -- (59.5333, 16.1069) -- (60.1144, 16.1069) -- (60.6954, 16.1069) -- (60.695, 15.9019).. controls (60.6943, 15.5439) and (60.6478, 15.1004) .. (60.6042, 15.0337).. controls (60.5814, 14.999) and (60.5256, 14.9645) .. (60.4773, 14.9553).. controls (60.3628, 14.9336) and (60.358, 14.9293) .. (60.0095, 14.5327).. controls (59.613, 14.0812) and (59.6265, 14.0979) .. (59.6425, 14.0819).. controls (59.6501, 14.0743) and (59.8574, 14.2358) .. (60.1031, 14.4409).. controls (60.6497, 14.8971) and (60.7586, 14.9697) .. (61.2775, 15.2243).. controls (61.5031, 15.3349) and (61.767, 15.4724) .. (61.864, 15.5298).. controls (62.0866, 15.6614) and (62.3854, 15.7168) .. (62.8915, 15.7202).. controls (63.3083, 15.723) and (63.4855, 15.6822) .. (63.7062, 15.5324).. controls (63.8692, 15.4219) and (64.0552, 15.2228) .. (64.1565, 15.0505).. controls (64.2223, 14.9386) and (64.2275, 14.9077) .. (64.2266, 14.6385).. controls (64.2255, 14.2945) and (64.207, 14.2486) .. (63.9641, 13.9858).. controls (63.8743, 13.8887) and (63.7464, 13.728) .. (63.6799, 13.6286).. controls (63.5337, 13.4104) and (63.1059, 12.667) .. (62.8841, 12.2456).. controls (62.6611, 11.8221) and (62.0366, 10.9543) .. (61.6465, 10.5259).. controls (61.3518, 10.2023) and (61.2189, 10.0772) .. (60.8758, 9.8005) -- (60.752, 9.7006) -- (60.2255, 9.7308) -- (59.6991, 9.7609) -- (59.5645, 9.6815).. controls (59.4904, 9.6379) and (59.2878, 9.489) .. (59.1142, 9.3508).. controls (58.5477, 8.8995) and (58.0604, 8.5829) .. (57.348, 8.2032).. controls (57.1004, 8.0713) and (56.7313, 7.8623) .. (56.5278, 7.7389).. controls (56.3243, 7.6154) and (56.009, 7.4438) .. (55.8271, 7.3574).. controls (55.6452, 7.271) and (55.3802, 7.1263) .. (55.2382, 7.0359).. controls (55.0962, 6.9455) and (54.9474, 6.8591) .. (54.9075, 6.844).. controls (54.8126, 6.808) and (53.2817, 6.0393) .. (53.1323, 5.9526).. controls (53.0376, 5.8977) and (53.0248, 5.8816) .. (53.0601, 5.8619).. controls (53.1183, 5.8293) and (53.1766, 5.8511) .. (53.4709, 6.016).. controls (53.6099, 6.0939) and (53.8687, 6.2103) .. (54.046, 6.2747).. controls (54.2233, 6.3391) and (54.4231, 6.4294) .. (54.4899, 6.4753).. controls (54.6779, 6.6047) and (57.4612, 8.0433) .. (57.8776, 8.2263).. controls (58.0813, 8.3158) and (58.385, 8.4574) .. (58.5525, 8.5408).. controls (58.9998, 8.7638) and (59.7634, 9.0756) .. (60.1266, 9.1837).. controls (60.3378, 9.2465) and (60.5636, 9.2912) .. (60.8013, 9.3172) -- (61.1584, 9.3563) -- (61.2467, 9.2722).. controls (61.4397, 9.0882) and (61.5414, 8.826) .. (61.5418, 8.5109).. controls (61.5421, 8.32) and (61.5366, 8.3014) .. (61.4326, 8.1405).. controls (61.1947, 7.7723) and (60.8571, 7.5028) .. (60.0604, 7.0447).. controls (59.864, 6.9318) and (59.5782, 6.7655) .. (59.4254, 6.6752).. controls (59.2726, 6.5849) and (59.0815, 6.4811) .. (59.0007, 6.4445).. controls (58.92, 6.4079) and (58.7009, 6.2621) .. (58.514, 6.1204).. controls (58.1386, 5.836) and (58.1025, 5.8148) .. (58.1025, 5.8791).. controls (58.1025, 5.9467) and (58.3228, 6.1968) .. (58.9783, 6.8733).. controls (59.3099, 7.2155) and (59.6431, 7.5727) .. (59.7188, 7.6671).. controls (59.9062, 7.9006) and (60.2721, 8.4499) .. (60.2721, 8.4978).. controls (60.2721, 8.5466) and (60.0744, 8.5796) .. (59.9349, 8.554).. controls (59.8803, 8.544) and (59.7294, 8.4882) .. (59.5996, 8.43).. controls (59.4699, 8.3718) and (59.2443, 8.2767) .. (59.0983, 8.2185).. controls (58.7101, 8.0638) and (58.3107, 7.871) .. (58.0084, 7.6922).. controls (57.862, 7.6056) and (57.5938, 7.4715) .. (57.4125, 7.3941).. controls (57.2311, 7.3168) and (57.0115, 7.2057) .. (56.9245, 7.1473).. controls (56.8375, 7.0889) and (56.6982, 7.0025) .. (56.6148, 6.9554).. controls (56.5314, 6.9083) and (56.4126, 6.8274) .. (56.3507, 6.7757).. controls (56.2887, 6.724) and (56.1784, 6.6549) .. (56.1054, 6.6221).. controls (56.0323, 6.5894) and (55.8591, 6.4628) .. (55.7204, 6.3408).. controls (55.5817, 6.2187) and (55.421, 6.0818) .. (55.3632, 6.0364).. controls (55.2228, 5.9261) and (54.7083, 5.6056) .. (54.2528, 5.3447).. controls (54.0491, 5.228) and (53.7168, 5.0178) .. (53.5143, 4.8777).. controls (53.2525, 4.6966) and (53.1035, 4.6115) .. (52.9984, 4.5831).. controls (52.7682, 4.521) and (52.7222, 4.4892) .. (52.6827, 4.3653).. controls (52.6631, 4.3038) and (52.6333, 4.2538) .. (52.6165, 4.2541).. controls (52.5997, 4.2543) and (52.4907, 4.294) .. (52.3743, 4.3422) -- cycle(60.1898, 10.8712).. controls (60.2059, 10.9175) and (60.2192, 11.002) .. (60.2192, 11.0589).. controls (60.2192, 11.1986) and (60.2718, 11.5315) .. (60.3032, 11.5909).. controls (60.3363, 11.6533) and (60.2231, 11.8071) .. (60.1013, 11.8651).. controls (60.022, 11.9029) and (60.007, 11.9023) .. (59.9121, 11.8579).. controls (59.7802, 11.7961) and (59.5129, 11.5315) .. (59.4899, 11.4399).. controls (59.4751, 11.381) and (59.4919, 11.3487) .. (59.5929, 11.2407).. controls (59.6592, 11.1698) and (59.7502, 11.0302) .. (59.7951, 10.9305).. controls (59.8401, 10.8307) and (59.8958, 10.7348) .. (59.9191, 10.7172).. controls (59.9843, 10.6681) and (60.1523, 10.7636) .. (60.1898, 10.8712) -- cycle(61.0658, 10.7381).. controls (61.2327, 10.7806) and (61.3179, 10.8566) .. (61.4673, 11.0965).. controls (61.5477, 11.2256) and (61.6798, 11.4191) .. (61.7608, 11.5266).. controls (61.8419, 11.6341) and (61.9711, 11.8365) .. (62.048, 11.9764).. controls (62.1248, 12.1163) and (62.2524, 12.3319) .. (62.3314, 12.4554).. controls (62.5745, 12.8354) and (63.0415, 13.8684) .. (63.1187, 14.1971).. controls (63.1828, 14.4698) and (63.0954, 14.8164) .. (62.9527, 14.8554).. controls (62.9118, 14.8666) and (62.658, 14.8759) .. (62.3888, 14.8762).. controls (61.807, 14.8767) and (61.6098, 14.8358) .. (61.1849, 14.6266).. controls (60.9364, 14.5042) and (60.4196, 14.1907) .. (60.2236, 14.0433).. controls (60.1146, 13.9614) and (59.7694, 13.5503) .. (59.7694, 13.5025).. controls (59.7694, 13.4831) and (59.991, 13.1771) .. (60.2619, 12.8226) -- (60.7544, 12.1779) -- (60.7418, 11.8339) -- (60.7293, 11.4899) -- (60.5933, 11.1806).. controls (60.4409, 10.8338) and (60.4258, 10.7437) .. (60.5168, 10.7239).. controls (60.6953, 10.6852) and (60.876, 10.6898) .. (61.0658, 10.7381) -- cycle(58.4643, 11.7827).. controls (58.6011, 11.887) and (58.6286, 11.9485) .. (58.6696, 12.2407).. controls (58.6905, 12.3895) and (58.7322, 12.562) .. (58.7622, 12.6241).. controls (58.829, 12.7621) and (58.8313, 12.8193) .. (58.7706, 12.8314).. controls (58.7066, 12.8441) and (58.1441, 12.7518) .. (58.1348, 12.7271).. controls (58.033, 12.4564) and (58.0027, 12.4123) .. (57.7982, 12.2356).. controls (57.6334, 12.0933) and (57.5866, 12.0373) .. (57.5866, 11.983).. controls (57.5866, 11.9166) and (57.6023, 11.9087) .. (57.9173, 11.8157).. controls (58.0992, 11.7621) and (58.2767, 11.7175) .. (58.3117, 11.7165).. controls (58.3467, 11.7156) and (58.4154, 11.7454) .. (58.4643, 11.7827) -- cycle(56.9872, 11.9199).. controls (57.4551, 12.2731) and (57.6817, 12.5342) .. (57.5767, 12.5991).. controls (57.564, 12.6069) and (57.4099, 12.5899) .. (57.2342, 12.5612).. controls (57.0585, 12.5326) and (56.8963, 12.5162) .. (56.8737, 12.5249).. controls (56.7994, 12.5534) and (56.8306, 12.5879) .. (56.9317, 12.5892).. controls (56.9863, 12.5898) and (57.0635, 12.6047) .. (57.1032, 12.6222).. controls (57.2128, 12.6706) and (57.7562, 13.1911) .. (57.7749, 13.2656).. controls (57.7934, 13.3395) and (57.737, 13.4171) .. (57.621, 13.477).. controls (57.5248, 13.5268) and (56.732, 13.53) .. (56.6655, 13.4809).. controls (56.6243, 13.4505) and (56.6225, 13.3825) .. (56.6422, 12.6266).. controls (56.654, 12.175) and (56.6726, 11.791) .. (56.6835, 11.7734).. controls (56.7157, 11.7213) and (56.7391, 11.7326) .. (56.9872, 11.9199) -- cycle;
+                \path[fill=black] (57.2997, -0.1601) -- (56.4572, -0.0559) -- (56.1488, 0.0774).. controls (55.9791, 0.1507) and (55.6887, 0.2738) .. (55.5034, 0.351).. controls (55.1675, 0.4909) and (54.9111, 0.6498) .. (54.75, 0.8182).. controls (54.6181, 0.9559) and (54.6596, 0.9854) .. (54.9169, 0.9369).. controls (55.0319, 0.9153) and (55.2926, 0.8781) .. (55.4964, 0.8543).. controls (55.914, 0.8056) and (56.094, 0.7616) .. (56.2849, 0.6618).. controls (56.3924, 0.6056) and (56.4498, 0.5935) .. (56.5973, 0.5963).. controls (57.0097, 0.6039) and (57.5165, 0.712) .. (57.9462, 0.884) -- (58.189, 0.9812) -- (58.2653, 1.1495).. controls (58.4896, 1.6442) and (58.4947, 2.1361) .. (58.2869, 3.2349).. controls (58.1611, 3.9002) and (58.1172, 4.0907) .. (58.0816, 4.1263).. controls (58.042, 4.166) and (57.8075, 4.0902) .. (57.362, 3.894).. controls (56.7106, 3.6069) and (55.3063, 2.8085) .. (54.9453, 2.5199).. controls (54.7272, 2.3455) and (54.5611, 2.2765) .. (54.4325, 2.3068).. controls (53.7537, 2.4665) and (53.3073, 2.6332) .. (53.1213, 2.7965).. controls (52.9843, 2.9168) and (52.9876, 3.003) .. (53.1349, 3.1575).. controls (53.2318, 3.2591) and (53.3437, 3.3193) .. (53.9395, 3.5906).. controls (55.574, 4.3348) and (56.7695, 4.9322) .. (57.2029, 5.2216).. controls (57.6877, 5.5452) and (57.6363, 5.5321) .. (58.3373, 5.5109).. controls (58.9219, 5.4933) and (58.9483, 5.4949) .. (59.4651, 5.5755).. controls (59.8208, 5.631) and (60.0915, 5.6898) .. (60.291, 5.755).. controls (60.6498, 5.8723) and (60.6801, 5.8663) .. (60.8619, 5.6423).. controls (61.061, 5.397) and (61.073, 5.3651) .. (61.0383, 5.1737).. controls (61.002, 4.9734) and (60.8775, 4.6913) .. (60.8093, 4.6548).. controls (60.7801, 4.6391) and (60.5484, 4.6281) .. (60.2576, 4.6284).. controls (59.905, 4.6288) and (59.6776, 4.6156) .. (59.4916, 4.584).. controls (59.1618, 4.528) and (58.8189, 4.4219) .. (58.7988, 4.3696).. controls (58.789, 4.3439) and (58.8628, 4.2492) .. (59.0101, 4.0987).. controls (59.1347, 3.9714) and (59.2429, 3.8381) .. (59.2507, 3.8025).. controls (59.3509, 3.3449) and (59.4082, 2.5262) .. (59.3717, 2.0727).. controls (59.3198, 1.4265) and (59.2451, 0.7516) .. (59.2111, 0.6218).. controls (59.1758, 0.4868) and (58.9966, 0.2729) .. (58.7846, 0.1129).. controls (58.6883, 0.0401) and (58.5627, -0.0682) .. (58.5055, -0.1278).. controls (58.4087, -0.2287) and (58.2998, -0.2762) .. (58.1852, -0.2675).. controls (58.1615, -0.2658) and (57.7631, -0.2174) .. (57.2997, -0.1601) -- cycle(9.8908, 0.6466).. controls (9.8424, 0.6854) and (9.7195, 0.7968) .. (9.6176, 0.8939).. controls (9.3622, 1.1375) and (8.3118, 1.8027) .. (7.9447, 1.9533) -- (7.6741, 2.0644) -- (7.4905, 1.9534).. controls (7.2154, 1.7872) and (7.0583, 1.7353) .. (6.7866, 1.7209).. controls (6.5634, 1.7091) and (6.5395, 1.713) .. (6.4057, 1.7837).. controls (6.2026, 1.891) and (6.1718, 1.9456) .. (6.1433, 2.249).. controls (6.1299, 2.3906) and (6.1053, 2.5231) .. (6.0885, 2.5433).. controls (6.0718, 2.5635) and (5.9965, 2.5882) .. (5.9213, 2.5982).. controls (5.7507, 2.6208) and (5.5486, 2.7149) .. (5.4031, 2.8394).. controls (5.2786, 2.946) and (5.2625, 3.0178) .. (5.3512, 3.0711).. controls (5.3839, 3.0907) and (5.5116, 3.1654) .. (5.6348, 3.237).. controls (5.7989, 3.3323) and (5.953, 3.4586) .. (6.2098, 3.708).. controls (6.4027, 3.8954) and (6.554, 4.0593) .. (6.546, 4.0724).. controls (6.5379, 4.0854) and (6.434, 4.0942) .. (6.315, 4.092).. controls (6.1902, 4.0896) and (5.9698, 4.1116) .. (5.7944, 4.1439).. controls (5.627, 4.1747) and (5.4505, 4.2027) .. (5.4021, 4.2061).. controls (5.3537, 4.2095) and (5.308, 4.2221) .. (5.3006, 4.2341).. controls (5.2786, 4.2698) and (5.3428, 4.3284) .. (5.4234, 4.3461).. controls (5.5338, 4.3703) and (5.9575, 4.6548) .. (6.0495, 4.7664).. controls (6.0931, 4.8194) and (6.2101, 5.0501) .. (6.3094, 5.2791).. controls (6.5418, 5.8152) and (6.6234, 5.9635) .. (7.0103, 6.5529).. controls (7.1861, 6.8207) and (7.3367, 7.0666) .. (7.3449, 7.0994).. controls (7.3611, 7.1637) and (7.3172, 7.2698) .. (7.2745, 7.2698).. controls (7.26, 7.2698) and (7.1622, 7.2266) .. (7.0571, 7.1738).. controls (6.5423, 6.9153) and (6.0119, 6.4549) .. (5.6871, 5.9845).. controls (5.484, 5.6904) and (5.2135, 5.4143) .. (5.014, 5.2974).. controls (4.7897, 5.1659) and (4.6207, 5.2214) .. (3.8253, 5.6877).. controls (3.5935, 5.8236) and (3.3991, 5.9493) .. (3.3932, 5.9671).. controls (3.3694, 6.0385) and (3.5364, 6.0596) .. (4.154, 6.0635).. controls (4.8717, 6.0679) and (4.8573, 6.0646) .. (5.2529, 6.3162).. controls (6.1964, 6.9165) and (6.4661, 7.1205) .. (6.7733, 7.4666).. controls (6.8679, 7.5731) and (7.0713, 7.7793) .. (7.2253, 7.9249).. controls (7.5471, 8.229) and (7.5962, 8.2488) .. (8.0301, 8.2488).. controls (8.4611, 8.2488) and (8.6133, 8.192) .. (8.7462, 7.9814).. controls (8.8323, 7.8451) and (8.8276, 7.7993) .. (8.7188, 7.7125).. controls (8.6683, 7.6722) and (8.5388, 7.5293) .. (8.4312, 7.395).. controls (8.3235, 7.2607) and (8.1969, 7.1151) .. (8.1498, 7.0714).. controls (8.1028, 7.0277) and (7.9828, 6.8789) .. (7.8833, 6.7407).. controls (7.7838, 6.6024) and (7.5868, 6.3764) .. (7.4455, 6.2383).. controls (7.1523, 5.9519) and (6.9398, 5.6818) .. (6.8416, 5.4707).. controls (6.7043, 5.1756) and (6.7737, 5.1485) .. (7.0759, 5.3791).. controls (7.1992, 5.4731) and (7.3226, 5.55) .. (7.3502, 5.55).. controls (7.479, 5.55) and (7.7387, 5.2647) .. (7.7874, 5.0696).. controls (7.7971, 5.031) and (7.8113, 4.9829) .. (7.819, 4.9628).. controls (7.8273, 4.9412) and (7.7582, 4.8511) .. (7.6497, 4.7421).. controls (7.4887, 4.5803) and (7.464, 4.5423) .. (7.4472, 4.4299).. controls (7.424, 4.2748) and (7.4708, 4.2021) .. (7.5623, 4.251).. controls (7.6372, 4.2911) and (7.7408, 4.2873) .. (7.8298, 4.2413).. controls (7.9153, 4.1971) and (8.0433, 4.0546) .. (8.0433, 4.0037).. controls (8.0433, 3.985) and (7.9585, 3.8235) .. (7.8548, 3.6449) -- (7.6663, 3.3201) -- (7.6903, 2.8874).. controls (7.7087, 2.5555) and (7.7238, 2.4451) .. (7.7553, 2.4136).. controls (7.7956, 2.3733) and (9.4577, 1.9257) .. (9.5681, 1.9254).. controls (9.6372, 1.9252) and (9.6704, 1.9638) .. (9.7046, 2.084).. controls (9.7191, 2.1349) and (9.7606, 2.2778) .. (9.797, 2.4015) -- (9.8631, 2.6264) -- (9.8272, 3.3143).. controls (9.7689, 4.4356) and (9.7825, 5.2513) .. (9.8983, 7.5741).. controls (9.9273, 8.1562) and (9.9582, 8.8673) .. (9.9669, 9.1543).. controls (9.981, 9.6177) and (9.978, 9.678) .. (9.9404, 9.6924).. controls (9.916, 9.7018) and (9.861, 9.6815) .. (9.8107, 9.6447).. controls (9.7132, 9.5731) and (8.0941, 8.7667) .. (7.9904, 8.738).. controls (7.954, 8.7279) and (7.8372, 8.6726) .. (7.7309, 8.615).. controls (7.6245, 8.5574) and (7.44, 8.4692) .. (7.3208, 8.419).. controls (7.2016, 8.3688) and (6.9671, 8.2461) .. (6.7998, 8.1464).. controls (6.6324, 8.0467) and (6.249, 7.8262) .. (5.9476, 7.6564).. controls (5.2342, 7.2544) and (5.072, 7.1435) .. (4.7267, 6.8215).. controls (4.4097, 6.5258) and (4.3119, 6.467) .. (3.9423, 6.3498).. controls (3.3678, 6.1676) and (3.1021, 6.1045) .. (2.8675, 6.0945).. controls (2.7314, 6.0887) and (2.5908, 6.0666) .. (2.5332, 6.0418).. controls (2.4785, 6.0182) and (2.3833, 5.9944) .. (2.3215, 5.9888).. controls (2.2598, 5.9832) and (2.2016, 5.9775) .. (2.1921, 5.976).. controls (2.1827, 5.9746) and (2.162, 5.8985) .. (2.146, 5.807).. controls (2.1301, 5.7155) and (2.0505, 5.4506) .. (1.9692, 5.2183).. controls (1.7957, 4.7227) and (1.6455, 4.1902) .. (1.544, 3.7107).. controls (1.4782, 3.4) and (1.4713, 3.3156) .. (1.4713, 2.8248).. controls (1.4713, 2.3431) and (1.4792, 2.2425) .. (1.5422, 1.9253).. controls (1.5811, 1.7288) and (1.6411, 1.464) .. (1.6754, 1.3368).. controls (1.7322, 1.1266) and (1.734, 1.1024) .. (1.6957, 1.0704).. controls (1.6083, 0.9974) and (1.272, 0.814) .. (1.2253, 0.814).. controls (1.0972, 0.814) and (0.716, 1.1474) .. (0.5286, 1.4233).. controls (0.4588, 1.5262) and (0.3842, 1.6002) .. (0.3145, 1.6358) -- (0.2075, 1.6903) -- (0.2162, 2.0289) -- (0.2249, 2.3675) -- (0.3738, 2.5895).. controls (0.6092, 2.9406) and (0.7006, 3.1498) .. (0.9784, 3.9721).. controls (1.1216, 4.3961) and (1.2812, 4.8532) .. (1.3329, 4.9879).. controls (1.5492, 5.5504) and (1.8702, 6.1042) .. (2.2222, 6.5223).. controls (2.3604, 6.6864) and (2.3989, 6.7164) .. (2.4898, 6.7309).. controls (2.5607, 6.7423) and (2.6108, 6.7696) .. (2.6407, 6.8134).. controls (2.8643, 7.1402) and (3.3878, 7.4569) .. (4.4655, 7.9174).. controls (4.8103, 8.0647) and (4.9683, 8.1885) .. (5.0475, 8.3735).. controls (5.0774, 8.4431) and (5.1326, 8.6618) .. (5.1702, 8.8594).. controls (5.2078, 9.0569) and (5.2925, 9.437) .. (5.3585, 9.7039).. controls (5.4445, 10.0519) and (5.4704, 10.1973) .. (5.4498, 10.2178).. controls (5.4293, 10.2383) and (5.3371, 10.2174) .. (5.1249, 10.1443).. controls (4.1105, 9.7947) and (3.1514, 9.365) .. (2.3416, 8.8973).. controls (2.0942, 8.7545) and (1.7846, 8.5852) .. (1.6536, 8.5211) -- (1.4155, 8.4045) -- (1.3626, 8.4774).. controls (1.3335, 8.5175) and (1.2412, 8.625) .. (1.1576, 8.7164) -- (1.0054, 8.8825) -- (1.0054, 9.0673).. controls (1.0054, 9.3118) and (1.0772, 9.5002) .. (1.2316, 9.6614).. controls (1.3315, 9.7657) and (1.3652, 9.7852) .. (1.4334, 9.7784).. controls (1.5581, 9.7659) and (1.5906, 9.694) .. (1.545, 9.532).. controls (1.4743, 9.2813) and (1.4706, 9.2304) .. (1.5213, 9.2109).. controls (1.5976, 9.1816) and (1.7388, 9.2488) .. (2.1485, 9.5093).. controls (2.8319, 9.9438) and (2.997, 10.0257) .. (4.1511, 10.5028).. controls (4.7065, 10.7324) and (4.7722, 10.7555) .. (5.1594, 10.8575).. controls (5.5946, 10.9722) and (5.5685, 10.9568) .. (5.6833, 11.1674).. controls (5.9986, 11.7462) and (6.1855, 12.4051) .. (6.3079, 13.3685).. controls (6.4222, 14.2683) and (6.4497, 15.6974) .. (6.3688, 16.5382).. controls (6.3439, 16.7972) and (6.3235, 17.1744) .. (6.3235, 17.3763) -- (6.3235, 17.7435) -- (6.4861, 17.8423).. controls (6.5918, 17.9065) and (6.6914, 17.945) .. (6.7706, 17.9524).. controls (6.9231, 17.9666) and (6.9597, 17.9388) .. (7.4047, 17.4701).. controls (8.0582, 16.7817) and (8.5141, 16.0115) .. (8.6676, 15.3367).. controls (8.7086, 15.1562) and (8.708, 15.146) .. (8.6386, 14.8425).. controls (8.5576, 14.4889) and (8.2599, 13.4858) .. (7.8617, 12.225).. controls (7.7748, 11.9501) and (7.7846, 11.9151) .. (7.9384, 11.9508).. controls (7.9888, 11.9624) and (8.3218, 12.0974) .. (8.6783, 12.2506).. controls (9.3879, 12.5556) and (10.0234, 12.8109) .. (10.2195, 12.8698).. controls (10.293, 12.8918) and (10.3452, 12.9232) .. (10.3452, 12.9452).. controls (10.3452, 12.9863) and (9.9774, 13.319) .. (9.7234, 13.5077).. controls (9.6361, 13.5726) and (9.4322, 13.6895) .. (9.2702, 13.7674).. controls (8.9798, 13.9072) and (8.9155, 13.9611) .. (8.9778, 14.0127).. controls (9.0099, 14.0393) and (9.9399, 13.9563) .. (10.5833, 13.8694).. controls (10.7507, 13.8468) and (11.0602, 13.8217) .. (11.2713, 13.8136).. controls (11.5192, 13.804) and (11.6841, 13.7854) .. (11.7374, 13.7609).. controls (11.8153, 13.7251) and (12.0487, 13.4627) .. (12.1142, 13.3372).. controls (12.1308, 13.3054) and (12.1444, 13.2415) .. (12.1444, 13.1951).. controls (12.1444, 13.0495) and (11.9971, 12.9358) .. (11.602, 12.7764).. controls (11.4128, 12.7) and (11.0318, 12.5261) .. (10.7553, 12.3898).. controls (10.4788, 12.2536) and (10.1239, 12.0986) .. (9.9666, 12.0455).. controls (9.8093, 11.9924) and (9.5474, 11.8894) .. (9.3845, 11.8165).. controls (8.933, 11.6145) and (8.5368, 11.4595) .. (7.9815, 11.2676).. controls (7.3966, 11.0655) and (7.4298, 11.0941) .. (7.2489, 10.6377).. controls (7.0841, 10.2219) and (6.7121, 9.483) .. (6.4468, 9.0448).. controls (6.3198, 8.835) and (6.2253, 8.6547) .. (6.2367, 8.6441).. controls (6.2481, 8.6335) and (6.3705, 8.6897) .. (6.5088, 8.7689).. controls (7.1077, 9.1123) and (8.4333, 9.7025) .. (9.234, 9.9823).. controls (9.4741, 10.0662) and (9.736, 10.1639) .. (9.816, 10.1994).. controls (9.9209, 10.2459) and (10.0634, 10.2752) .. (10.326, 10.3041).. controls (10.5264, 10.3262) and (10.7069, 10.3379) .. (10.7271, 10.3301).. controls (10.7473, 10.3223) and (10.8175, 10.217) .. (10.8831, 10.096).. controls (11.0361, 9.8136) and (11.0749, 9.548) .. (11.0346, 9.0601).. controls (11.0074, 8.7317) and (10.9851, 8.3143) .. (10.9133, 6.7936).. controls (10.8237, 4.8951) and (10.638, 2.0758) .. (10.5692, 1.5686).. controls (10.4868, 0.9611) and (10.4545, 0.8759) .. (10.2599, 0.7514).. controls (10.1819, 0.7015) and (10.1022, 0.6416) .. (10.0829, 0.6183).. controls (10.0337, 0.559) and (9.9923, 0.5651) .. (9.8908, 0.6466) -- cycle(26.3525, 1.7957).. controls (26.2579, 1.8241) and (26.0103, 1.8831) .. (25.8022, 1.9269).. controls (25.3336, 2.0254) and (24.9524, 2.1486) .. (24.5401, 2.3347).. controls (24.3655, 2.4135) and (24.1035, 2.5218) .. (23.958, 2.5753).. controls (23.4678, 2.7558) and (22.9701, 3.0324) .. (22.8054, 3.2159).. controls (22.7256, 3.3048) and (22.6803, 3.3269) .. (22.4476, 3.3907).. controls (22.2114, 3.4555) and (22.1756, 3.4732) .. (22.1318, 3.5473).. controls (22.0529, 3.681) and (21.8806, 3.8548) .. (21.7528, 3.9296).. controls (21.6555, 3.9867) and (21.5901, 4.0015) .. (21.3808, 4.0138) -- (21.127, 4.0287) -- (21.127, 4.2668) -- (21.127, 4.5049) -- (21.3073, 4.508).. controls (21.5321, 4.5118) and (21.6049, 4.55) .. (21.6835, 4.7052).. controls (21.7605, 4.857) and (21.8654, 5.2588) .. (21.8358, 5.2884).. controls (21.8238, 5.3004) and (21.6654, 5.3136) .. (21.4837, 5.3177) -- (21.1534, 5.3252) -- (21.1253, 5.4707).. controls (21.0934, 5.6357) and (21.1097, 5.76) .. (21.1672, 5.791).. controls (21.1888, 5.8026) and (21.3492, 5.8676) .. (21.5239, 5.9355).. controls (21.9801, 6.113) and (22.3444, 6.2891) .. (22.5705, 6.4417).. controls (22.6788, 6.5148) and (22.8567, 6.6195) .. (22.9658, 6.6745).. controls (23.1006, 6.7423) and (23.2289, 6.8371) .. (23.3655, 6.97) -- (23.5666, 7.1656) -- (23.9072, 7.1582) -- (24.2477, 7.1508) -- (24.3972, 6.7673).. controls (24.4795, 6.5564) and (24.541, 6.3689) .. (24.534, 6.3506).. controls (24.5169, 6.306) and (24.4454, 6.3086) .. (24.3774, 6.3562).. controls (24.2739, 6.4286) and (24.1281, 6.4321) .. (23.9993, 6.3651).. controls (23.8657, 6.2958) and (23.7711, 6.1828) .. (23.7948, 6.121).. controls (23.8081, 6.0863) and (23.8626, 6.0792) .. (24.1177, 6.0792).. controls (24.2864, 6.0792) and (24.4476, 6.0669) .. (24.4757, 6.0518).. controls (24.5251, 6.0254) and (24.5269, 5.9846) .. (24.5269, 4.8984).. controls (24.5269, 3.634) and (24.5376, 3.7061) .. (24.3244, 3.5392).. controls (24.1946, 3.4376) and (23.9298, 3.0671) .. (23.9634, 3.0342).. controls (23.975, 3.0229) and (24.1571, 2.9823) .. (24.3681, 2.9439).. controls (24.5791, 2.9056) and (24.8411, 2.8576) .. (24.9502, 2.8372).. controls (25.0801, 2.813) and (25.3472, 2.7999) .. (25.7231, 2.7993).. controls (26.2368, 2.7985) and (26.3121, 2.7927) .. (26.4339, 2.7446).. controls (26.5905, 2.683) and (26.6495, 2.6926) .. (26.6924, 2.7869).. controls (26.7356, 2.8815) and (26.7335, 2.8974) .. (26.6299, 3.2564).. controls (26.5182, 3.6435) and (26.3742, 4.3025) .. (26.302, 4.7563).. controls (26.1883, 5.4712) and (26.184, 5.6231) .. (26.2094, 8.0107).. controls (26.2387, 10.7641) and (26.2162, 11.7678) .. (26.1252, 11.7678).. controls (26.0823, 11.7678) and (26.0684, 11.6813) .. (26.0486, 11.2915).. controls (26.0296, 10.919) and (25.9933, 10.7023) .. (25.9291, 10.5786).. controls (25.9022, 10.5268) and (25.7891, 10.3952) .. (25.6776, 10.2861).. controls (25.5662, 10.1769) and (25.4405, 10.0382) .. (25.3982, 9.9777).. controls (25.3059, 9.8454) and (25.0602, 9.3103) .. (24.8858, 8.862).. controls (24.7887, 8.6122) and (24.7443, 8.5293) .. (24.6959, 8.5072).. controls (24.603, 8.4649) and (24.6187, 8.4127) .. (24.7388, 8.3647).. controls (24.8546, 8.3183) and (24.8895, 8.2478) .. (24.8584, 8.1231).. controls (24.8255, 7.9911) and (24.7723, 7.9577) .. (24.5955, 7.9581).. controls (24.2511, 7.959) and (23.9566, 8.0728) .. (23.5839, 8.3491).. controls (23.4666, 8.4361) and (23.3458, 8.5205) .. (23.3155, 8.5368).. controls (23.1744, 8.6123) and (22.9647, 8.5279) .. (22.9172, 8.3765).. controls (22.8776, 8.2504) and (22.7495, 7.378) .. (22.7305, 7.1054).. controls (22.7194, 6.9448) and (22.7014, 6.8618) .. (22.6716, 6.8319).. controls (22.6407, 6.801) and (22.5519, 6.7836) .. (22.3541, 6.7695).. controls (22.203, 6.7587) and (22.0646, 6.7551) .. (22.0464, 6.7614).. controls (22.0058, 6.7754) and (22.0052, 6.8609) .. (22.0426, 7.3351).. controls (22.0651, 7.6218) and (22.0867, 7.7426) .. (22.1372, 7.8652).. controls (22.2308, 8.0926) and (22.2363, 8.1165) .. (22.195, 8.1164).. controls (22.0984, 8.1162) and (21.8363, 7.8906) .. (21.5245, 7.5393).. controls (21.3396, 7.3309) and (21.1704, 7.1536) .. (21.1486, 7.1453).. controls (21.099, 7.1262) and (20.967, 7.188) .. (20.8539, 7.2832).. controls (20.7316, 7.386) and (20.6616, 7.5381) .. (20.6557, 7.7134).. controls (20.6499, 7.8874) and (20.6732, 7.9067) .. (20.9496, 7.9567).. controls (21.0413, 7.9732) and (21.1841, 8.0152) .. (21.2671, 8.0499).. controls (21.3501, 8.0847) and (21.4841, 8.1314) .. (21.5648, 8.1537).. controls (21.6455, 8.176) and (21.7884, 8.244) .. (21.8823, 8.3048).. controls (21.9762, 8.3656) and (22.1274, 8.4488) .. (22.2182, 8.4896) -- (22.3834, 8.5639) -- (22.3821, 8.8099).. controls (22.381, 8.9942) and (22.3946, 9.0955) .. (22.4362, 9.2145).. controls (22.5626, 9.5764) and (22.7266, 10.3935) .. (22.6913, 10.4856).. controls (22.6806, 10.5135) and (22.6324, 10.5242) .. (22.5174, 10.5242) -- (22.3583, 10.5242) -- (22.1528, 10.336).. controls (21.8495, 10.0584) and (21.611, 9.8691) .. (21.2933, 9.654).. controls (21.1374, 9.5484) and (20.9144, 9.3796) .. (20.7977, 9.2788) -- (20.5856, 9.0955) -- (19.9289, 9.0955).. controls (19.4535, 9.0955) and (19.2635, 9.1042) .. (19.2405, 9.1272).. controls (19.1719, 9.1958) and (19.2059, 9.2848) .. (19.3477, 9.4082).. controls (19.4241, 9.4747) and (19.5878, 9.6336) .. (19.7115, 9.7612).. controls (19.8352, 9.8888) and (20.0137, 10.0465) .. (20.1083, 10.1117).. controls (20.6572, 10.49) and (20.8489, 10.6121) .. (21.0808, 10.7311).. controls (21.3636, 10.8763) and (21.8518, 11.0798) .. (21.9171, 11.0798).. controls (21.9987, 11.0798) and (22.2575, 11.1925) .. (22.3396, 11.2639).. controls (22.3857, 11.3039) and (22.4475, 11.3493) .. (22.477, 11.3647).. controls (22.5315, 11.3933) and (23.4017, 11.4201) .. (23.4278, 11.394).. controls (23.4356, 11.3862) and (23.4491, 11.2557) .. (23.4578, 11.1041).. controls (23.4717, 10.8593) and (23.4658, 10.8004) .. (23.4044, 10.5771).. controls (23.3604, 10.4167) and (23.3294, 10.2204) .. (23.3188, 10.0347).. controls (23.3036, 9.7692) and (23.2936, 9.7263) .. (23.2039, 9.5453).. controls (23.068, 9.271) and (22.943, 8.8728) .. (22.9856, 8.8499).. controls (22.9965, 8.844) and (23.1305, 8.8542) .. (23.2833, 8.8727).. controls (23.4361, 8.8911) and (23.6981, 8.9074) .. (23.8654, 8.9089).. controls (24.2357, 8.9121) and (24.3503, 8.9364) .. (24.4532, 9.0338).. controls (24.609, 9.1812) and (25.4221, 10.4863) .. (25.5137, 10.736).. controls (25.5377, 10.8014) and (25.5884, 11.1347) .. (25.6264, 11.4767).. controls (25.7, 12.139) and (25.7583, 12.3762) .. (25.9382, 12.7467).. controls (26.0161, 12.907) and (26.0344, 12.9254) .. (26.207, 13.0167).. controls (26.4205, 13.1297) and (26.6789, 13.1965) .. (26.9028, 13.1965).. controls (27.1808, 13.1965) and (27.3402, 13.1099) .. (27.4971, 12.8736).. controls (27.6627, 12.624) and (27.7089, 12.356) .. (27.6489, 11.9927).. controls (27.5477, 11.3804) and (27.4622, 10.3767) .. (27.4369, 9.5036).. controls (27.4067, 8.4591) and (27.3844, 8.1314) .. (27.2886, 7.3228).. controls (27.2282, 6.8137) and (27.2226, 6.6872) .. (27.2348, 6.1189).. controls (27.2501, 5.4115) and (27.3621, 4.1981) .. (27.4754, 3.5137).. controls (27.5548, 3.0338) and (27.5554, 3.017) .. (27.5027, 2.751).. controls (27.4076, 2.2711) and (27.2493, 1.9968) .. (26.9625, 1.8147).. controls (26.8653, 1.753) and (26.8171, 1.7404) .. (26.6847, 1.7421).. controls (26.5966, 1.7432) and (26.4471, 1.7673) .. (26.3525, 1.7957) -- cycle(23.278, 3.2005).. controls (23.3013, 3.2238) and (23.3098, 3.4459) .. (23.3098, 4.0348).. controls (23.3098, 4.7427) and (23.3048, 4.8392) .. (23.2679, 4.8534).. controls (23.2053, 4.8774) and (22.6938, 4.7861) .. (22.6507, 4.7433).. controls (22.5638, 4.6569) and (22.5889, 3.9078) .. (22.6901, 3.5668).. controls (22.7395, 3.4006) and (22.7787, 3.3643) .. (23.0248, 3.2567).. controls (23.2517, 3.1574) and (23.238, 3.1605) .. (23.278, 3.2005) -- cycle(23.3544, 5.4971).. controls (23.4003, 5.7867) and (23.3966, 5.9716) .. (23.3428, 6.0792).. controls (23.2738, 6.2174) and (23.1999, 6.213) .. (22.9645, 6.0566).. controls (22.5684, 5.7934) and (22.4527, 5.6398) .. (22.4877, 5.4232) -- (22.5035, 5.3252) -- (22.7281, 5.3097).. controls (22.8516, 5.3012) and (23.0359, 5.2953) .. (23.1378, 5.2965) -- (23.323, 5.2987) -- cycle(34.6163, 2.602).. controls (34.592, 2.6653) and (34.6512, 2.7049) .. (34.9118, 2.7995).. controls (35.0427, 2.847) and (35.3981, 3.018) .. (35.7014, 3.1793).. controls (36.2028, 3.4461) and (36.2964, 3.5076) .. (36.7322, 3.8566).. controls (37.3211, 4.3281) and (37.5511, 4.5545) .. (37.716, 4.8252).. controls (37.786, 4.9401) and (37.892, 5.1055) .. (37.9516, 5.1929).. controls (38.07, 5.3663) and (38.4826, 6.1894) .. (38.6052, 6.4966).. controls (38.6948, 6.721) and (38.7048, 6.8919) .. (38.6336, 6.9799) -- (38.5851, 7.0398) -- (38.4444, 6.9632).. controls (38.367, 6.9211) and (38.1886, 6.7791) .. (38.0481, 6.6477).. controls (37.7626, 6.3809) and (37.253, 6.0251) .. (37.0374, 5.9422).. controls (36.9151, 5.8952) and (36.8388, 5.8881) .. (36.4679, 5.8895).. controls (36.2324, 5.8903) and (35.9914, 5.9041) .. (35.9323, 5.9199).. controls (35.71, 5.9798) and (35.3391, 6.3761) .. (35.3042, 6.591).. controls (35.2719, 6.7902) and (35.4688, 6.8175) .. (35.8215, 6.6627).. controls (35.9227, 6.6183) and (36.0451, 6.5822) .. (36.0936, 6.5826).. controls (36.2209, 6.5835) and (36.4416, 6.6821) .. (36.6845, 6.8466).. controls (36.8849, 6.9824) and (37.334, 7.1934) .. (37.8373, 7.3883).. controls (37.9621, 7.4367) and (38.1598, 7.5243) .. (38.2767, 7.583).. controls (38.3936, 7.6418) and (38.5847, 7.7208) .. (38.7014, 7.7586).. controls (38.8182, 7.7964) and (38.9312, 7.8477) .. (38.9526, 7.8727).. controls (38.9932, 7.9201) and (39.2078, 8.8762) .. (39.3455, 9.6239).. controls (39.5269, 10.6086) and (39.6376, 11.3902) .. (39.6717, 11.9275).. controls (39.6914, 12.239) and (39.72, 12.4969) .. (39.7386, 12.5317).. controls (39.774, 12.5978) and (39.914, 12.6673) .. (40.0117, 12.6673).. controls (40.0841, 12.6673) and (40.5711, 12.2458) .. (40.6298, 12.1324).. controls (40.6576, 12.0785) and (40.6876, 12.0588) .. (40.742, 12.0588).. controls (40.8518, 12.0588) and (41.0539, 11.9123) .. (41.135, 11.774) -- (41.2055, 11.6536) -- (41.1589, 11.2807).. controls (41.0794, 10.6452) and (40.8966, 9.9099) .. (40.6648, 9.2927).. controls (40.5376, 8.9541) and (40.462, 8.8015) .. (40.3026, 8.5618).. controls (40.2363, 8.4621) and (40.1879, 8.3745) .. (40.1952, 8.3673).. controls (40.2024, 8.3601) and (40.2965, 8.3947) .. (40.4043, 8.4441).. controls (40.6509, 8.5573) and (41.114, 8.7062) .. (41.4073, 8.7667).. controls (41.531, 8.7922) and (41.6437, 8.8233) .. (41.6578, 8.8357).. controls (41.6739, 8.8499) and (41.6591, 8.9037) .. (41.6181, 8.98).. controls (41.5548, 9.098) and (41.5543, 9.1025) .. (41.6032, 9.1316).. controls (41.6309, 9.1481) and (41.7295, 9.2188) .. (41.8224, 9.2887).. controls (41.9735, 9.4025) and (42.018, 9.421) .. (42.2482, 9.4655).. controls (42.3896, 9.4928) and (42.6204, 9.551) .. (42.7611, 9.5947).. controls (43.2967, 9.7612) and (43.6557, 9.7511) .. (43.8613, 9.5638).. controls (43.894, 9.534) and (43.9208, 9.4862) .. (43.9208, 9.4576).. controls (43.9208, 9.3772) and (43.6489, 8.9874) .. (43.4334, 8.7589) -- (43.2393, 8.5531) -- (42.7665, 8.539) -- (42.2936, 8.5249) -- (41.9629, 8.3568).. controls (41.781, 8.2643) and (41.4604, 8.1248) .. (41.2505, 8.0467).. controls (41.0406, 7.9686) and (40.737, 7.8459) .. (40.5758, 7.7739).. controls (40.4147, 7.7019) and (40.2336, 7.6304) .. (40.1734, 7.615).. controls (40.1133, 7.5996) and (40.0524, 7.5722) .. (40.0382, 7.5541).. controls (40.0239, 7.536) and (39.9274, 7.2444) .. (39.8238, 6.9061).. controls (39.5123, 5.8894) and (39.3326, 5.4791) .. (38.8663, 4.7201).. controls (38.4474, 4.0383) and (38.15, 3.6126) .. (38.0505, 3.5524).. controls (38.0024, 3.5233) and (37.8718, 3.4396) .. (37.7603, 3.3663).. controls (36.9284, 2.8195) and (36.0486, 2.5603) .. (35.0251, 2.5603).. controls (34.6918, 2.5603) and (34.6299, 2.5666) .. (34.6163, 2.602) -- cycle(18.5609, 2.8369).. controls (18.458, 2.8749) and (18.3885, 2.9388) .. (18.3886, 2.9953).. controls (18.3886, 3.0107) and (18.4239, 3.315) .. (18.467, 3.6715).. controls (18.5629, 4.4653) and (19.0022, 6.6903) .. (19.0821, 6.787).. controls (19.1199, 6.8328) and (19.2231, 6.8284) .. (19.2727, 6.7787).. controls (19.2955, 6.756) and (19.3312, 6.6757) .. (19.3521, 6.6001).. controls (19.7737, 5.0776) and (19.8268, 4.7943) .. (19.8291, 4.0552).. controls (19.8303, 3.6631) and (19.824, 3.5918) .. (19.7794, 3.4995).. controls (19.7016, 3.3383) and (19.3284, 2.9807) .. (19.1435, 2.8903).. controls (18.9564, 2.7987) and (18.7223, 2.7773) .. (18.5609, 2.8369) -- cycle(42.7831, 3.653).. controls (42.7031, 3.6715) and (42.5721, 3.7214) .. (42.4921, 3.7641).. controls (42.3035, 3.8645) and (41.9455, 4.2229) .. (41.6989, 4.5581).. controls (41.5919, 4.7035) and (41.421, 4.9117) .. (41.3193, 5.0209).. controls (41.2175, 5.13) and (41.0721, 5.3031) .. (40.9961, 5.4055).. controls (40.9201, 5.5079) and (40.7896, 5.6444) .. (40.7061, 5.7088).. controls (40.5318, 5.8433) and (40.3402, 6.0681) .. (40.2608, 6.2314).. controls (40.1821, 6.3933) and (40.2134, 6.4094) .. (40.4834, 6.3461).. controls (40.85, 6.2602) and (41.1487, 6.1191) .. (41.5595, 5.8379).. controls (42.1742, 5.4171) and (42.6976, 5.1076) .. (43.1271, 4.911) -- (43.3784, 4.796) -- (44.1193, 4.7914).. controls (44.5267, 4.7888) and (44.875, 4.7859) .. (44.8932, 4.7848).. controls (44.9114, 4.7837) and (44.9252, 4.756) .. (44.924, 4.7232).. controls (44.9212, 4.6494) and (44.4881, 4.2571) .. (44.2383, 4.1022).. controls (43.958, 3.9283) and (43.5918, 3.7345) .. (43.4541, 3.6872).. controls (43.2817, 3.628) and (42.9627, 3.6117) .. (42.7831, 3.653) -- cycle(52.3743, 4.3422).. controls (52.2579, 4.3905) and (52.1108, 4.4566) .. (52.0475, 4.4892).. controls (51.8037, 4.6147) and (51.5938, 4.878) .. (51.5938, 5.0583).. controls (51.5938, 5.2686) and (51.8849, 5.5903) .. (52.2287, 5.7601).. controls (52.3521, 5.821) and (52.494, 5.9021) .. (52.5441, 5.9403).. controls (52.5942, 5.9786) and (52.9158, 6.1486) .. (53.2588, 6.3183).. controls (53.6018, 6.488) and (53.9836, 6.6927) .. (54.1073, 6.7731).. controls (54.231, 6.8536) and (54.4073, 6.9571) .. (54.4991, 7.0032).. controls (54.5909, 7.0492) and (54.7456, 7.1379) .. (54.843, 7.2001).. controls (54.9404, 7.2624) and (55.2344, 7.4228) .. (55.4964, 7.5567).. controls (55.8031, 7.7135) and (56.095, 7.8877) .. (56.3166, 8.0463).. controls (56.5057, 8.1817) and (56.9641, 8.4685) .. (57.3352, 8.6836).. controls (57.7063, 8.8988) and (58.1409, 9.173) .. (58.3009, 9.293).. controls (58.6355, 9.5439) and (59.0994, 9.8624) .. (59.3388, 10.0055).. controls (59.4294, 10.0597) and (59.5099, 10.1142) .. (59.5176, 10.1266).. controls (59.5347, 10.1543) and (59.4128, 10.3033) .. (59.3422, 10.3411).. controls (59.3027, 10.3622) and (59.2596, 10.353) .. (59.1519, 10.3003).. controls (58.9863, 10.2192) and (58.6819, 10.1805) .. (58.6193, 10.2325).. controls (58.5972, 10.2508) and (58.5549, 10.3473) .. (58.5252, 10.447).. controls (58.4744, 10.6176) and (58.4047, 10.7094) .. (58.326, 10.7094).. controls (58.3099, 10.7094) and (58.1396, 10.5904) .. (57.9477, 10.4448).. controls (57.5541, 10.1465) and (57.5205, 10.1364) .. (57.3272, 10.259).. controls (57.1689, 10.3594) and (57.1654, 10.4205) .. (57.3125, 10.5134).. controls (57.4432, 10.5959) and (57.5302, 10.6852) .. (57.6192, 10.8285).. controls (57.6554, 10.8867) and (57.7562, 11.0071) .. (57.8432, 11.0961).. controls (58.0615, 11.3195) and (58.0562, 11.3362) .. (57.6924, 11.5758).. controls (57.3172, 11.8228) and (57.2956, 11.8234) .. (57.0787, 11.5933).. controls (56.8597, 11.361) and (56.806, 11.2457) .. (56.806, 11.0075).. controls (56.806, 10.9041) and (56.799, 10.8012) .. (56.7904, 10.7788).. controls (56.78, 10.7516) and (56.7229, 10.7321) .. (56.6195, 10.7204).. controls (56.4377, 10.6998) and (56.4188, 10.6818) .. (56.3173, 10.4316).. controls (56.276, 10.3297) and (56.2335, 10.2365) .. (56.2228, 10.2243).. controls (56.2122, 10.2121) and (56.1114, 10.2161) .. (55.9988, 10.2332) -- (55.7941, 10.2642) -- (55.6759, 10.1495).. controls (55.4765, 9.956) and (55.3267, 9.7202) .. (55.1273, 9.2863).. controls (54.6955, 8.3464) and (54.624, 8.2316) .. (54.3987, 8.1167).. controls (54.3414, 8.0875) and (54.2442, 8.0636) .. (54.1826, 8.0636).. controls (54.0821, 8.0636) and (54.0569, 8.0779) .. (53.9368, 8.2026).. controls (53.8632, 8.279) and (53.7673, 8.413) .. (53.7236, 8.5002) -- (53.6443, 8.6589) -- (53.6263, 9.8892).. controls (53.6054, 11.3177) and (53.5863, 11.5831) .. (53.4883, 11.8041).. controls (53.4086, 11.9837) and (53.402, 12.0538) .. (53.4624, 12.077).. controls (53.5544, 12.1123) and (54.0142, 11.8995) .. (54.1984, 11.7364).. controls (54.2693, 11.6736) and (54.3999, 11.5746) .. (54.4885, 11.5164).. controls (54.7466, 11.3469) and (54.7492, 11.3372) .. (54.726, 10.6168).. controls (54.6986, 9.7663) and (54.6983, 9.7966) .. (54.7349, 9.7966).. controls (54.7719, 9.7966) and (55.495, 10.6085) .. (55.5492, 10.7109).. controls (55.573, 10.7559) and (55.5986, 11.0114) .. (55.6255, 11.4739) -- (55.6659, 12.1692) -- (55.5379, 12.4381).. controls (55.4674, 12.586) and (55.3123, 12.969) .. (55.1932, 13.2891).. controls (55.0646, 13.6349) and (54.8528, 14.1265) .. (54.6716, 14.5001).. controls (54.5039, 14.846) and (54.3727, 15.145) .. (54.3802, 15.1644).. controls (54.3989, 15.2131) and (54.5224, 15.2338) .. (54.7946, 15.2338).. controls (55.1395, 15.2338) and (55.1592, 15.2222) .. (55.4338, 14.8586).. controls (55.6165, 14.6167) and (55.7076, 14.5204) .. (55.8225, 14.4479).. controls (55.9051, 14.3958) and (56.0938, 14.2299) .. (56.242, 14.0791) -- (56.5114, 13.805) -- (56.9273, 13.805) -- (57.3431, 13.805) -- (57.521, 13.9076).. controls (57.6189, 13.964) and (57.7808, 14.0372) .. (57.8809, 14.0703).. controls (58.3511, 14.2257) and (58.5141, 14.3571) .. (58.8289, 14.8347).. controls (59.1307, 15.2924) and (59.4739, 15.8862) .. (59.5064, 16.0069) -- (59.5333, 16.1069) -- (60.1144, 16.1069) -- (60.6954, 16.1069) -- (60.695, 15.9019).. controls (60.6943, 15.5439) and (60.6478, 15.1004) .. (60.6042, 15.0337).. controls (60.5814, 14.999) and (60.5256, 14.9645) .. (60.4773, 14.9553).. controls (60.3628, 14.9336) and (60.358, 14.9293) .. (60.0095, 14.5327).. controls (59.613, 14.0812) and (59.6265, 14.0979) .. (59.6425, 14.0819).. controls (59.6501, 14.0743) and (59.8574, 14.2358) .. (60.1031, 14.4409).. controls (60.6497, 14.8971) and (60.7586, 14.9697) .. (61.2775, 15.2243).. controls (61.5031, 15.3349) and (61.767, 15.4724) .. (61.864, 15.5298).. controls (62.0866, 15.6614) and (62.3854, 15.7168) .. (62.8915, 15.7202).. controls (63.3083, 15.723) and (63.4855, 15.6822) .. (63.7062, 15.5324).. controls (63.8692, 15.4219) and (64.0552, 15.2228) .. (64.1565, 15.0505).. controls (64.2223, 14.9386) and (64.2275, 14.9077) .. (64.2266, 14.6385).. controls (64.2255, 14.2945) and (64.207, 14.2486) .. (63.9641, 13.9858).. controls (63.8743, 13.8887) and (63.7464, 13.728) .. (63.6799, 13.6286).. controls (63.5337, 13.4104) and (63.1059, 12.667) .. (62.8841, 12.2456).. controls (62.6611, 11.8221) and (62.0366, 10.9543) .. (61.6465, 10.5259).. controls (61.3518, 10.2023) and (61.2189, 10.0772) .. (60.8758, 9.8005) -- (60.752, 9.7006) -- (60.2255, 9.7308) -- (59.6991, 9.7609) -- (59.5645, 9.6815).. controls (59.4904, 9.6379) and (59.2878, 9.489) .. (59.1142, 9.3508).. controls (58.5477, 8.8995) and (58.0604, 8.5829) .. (57.348, 8.2032).. controls (57.1004, 8.0713) and (56.7313, 7.8623) .. (56.5278, 7.7389).. controls (56.3243, 7.6154) and (56.009, 7.4438) .. (55.8271, 7.3574).. controls (55.6452, 7.271) and (55.3802, 7.1263) .. (55.2382, 7.0359).. controls (55.0962, 6.9455) and (54.9474, 6.8591) .. (54.9075, 6.844).. controls (54.8126, 6.808) and (53.2817, 6.0393) .. (53.1323, 5.9526).. controls (53.0376, 5.8977) and (53.0248, 5.8816) .. (53.0601, 5.8619).. controls (53.1183, 5.8293) and (53.1766, 5.8511) .. (53.4709, 6.016).. controls (53.6099, 6.0939) and (53.8687, 6.2103) .. (54.046, 6.2747).. controls (54.2233, 6.3391) and (54.4231, 6.4294) .. (54.4899, 6.4753).. controls (54.6779, 6.6047) and (57.4612, 8.0433) .. (57.8776, 8.2263).. controls (58.0813, 8.3158) and (58.385, 8.4574) .. (58.5525, 8.5408).. controls (58.9998, 8.7638) and (59.7634, 9.0756) .. (60.1266, 9.1837).. controls (60.3378, 9.2465) and (60.5636, 9.2912) .. (60.8013, 9.3172) -- (61.1584, 9.3563) -- (61.2467, 9.2722).. controls (61.4397, 9.0882) and (61.5414, 8.826) .. (61.5418, 8.5109).. controls (61.5421, 8.32) and (61.5366, 8.3014) .. (61.4326, 8.1405).. controls (61.1947, 7.7723) and (60.8571, 7.5028) .. (60.0604, 7.0447).. controls (59.864, 6.9318) and (59.5782, 6.7655) .. (59.4254, 6.6752).. controls (59.2726, 6.5849) and (59.0815, 6.4811) .. (59.0007, 6.4445).. controls (58.92, 6.4079) and (58.7009, 6.2621) .. (58.514, 6.1204).. controls (58.1386, 5.836) and (58.1025, 5.8148) .. (58.1025, 5.8791).. controls (58.1025, 5.9467) and (58.3228, 6.1968) .. (58.9783, 6.8733).. controls (59.3099, 7.2155) and (59.6431, 7.5727) .. (59.7188, 7.6671).. controls (59.9062, 7.9006) and (60.2721, 8.4499) .. (60.2721, 8.4978).. controls (60.2721, 8.5466) and (60.0744, 8.5796) .. (59.9349, 8.554).. controls (59.8803, 8.544) and (59.7294, 8.4882) .. (59.5996, 8.43).. controls (59.4699, 8.3718) and (59.2443, 8.2767) .. (59.0983, 8.2185).. controls (58.7101, 8.0638) and (58.3107, 7.871) .. (58.0084, 7.6922).. controls (57.862, 7.6056) and (57.5938, 7.4715) .. (57.4125, 7.3941).. controls (57.2311, 7.3168) and (57.0115, 7.2057) .. (56.9245, 7.1473).. controls (56.8375, 7.0889) and (56.6982, 7.0025) .. (56.6148, 6.9554).. controls (56.5314, 6.9083) and (56.4126, 6.8274) .. (56.3507, 6.7757).. controls (56.2887, 6.724) and (56.1784, 6.6549) .. (56.1054, 6.6221).. controls (56.0323, 6.5894) and (55.8591, 6.4628) .. (55.7204, 6.3408).. controls (55.5817, 6.2187) and (55.421, 6.0818) .. (55.3632, 6.0364).. controls (55.2228, 5.9261) and (54.7083, 5.6056) .. (54.2528, 5.3447).. controls (54.0491, 5.228) and (53.7168, 5.0178) .. (53.5143, 4.8777).. controls (53.2525, 4.6966) and (53.1035, 4.6115) .. (52.9984, 4.5831).. controls (52.7682, 4.521) and (52.7222, 4.4892) .. (52.6827, 4.3653).. controls (52.6631, 4.3038) and (52.6333, 4.2538) .. (52.6165, 4.2541).. controls (52.5997, 4.2543) and (52.4907, 4.294) .. (52.3743, 4.3422) -- cycle(60.1898, 10.8712).. controls (60.2059, 10.9175) and (60.2192, 11.002) .. (60.2192, 11.0589).. controls (60.2192, 11.1986) and (60.2718, 11.5315) .. (60.3032, 11.5909).. controls (60.3363, 11.6533) and (60.2231, 11.8071) .. (60.1013, 11.8651).. controls (60.022, 11.9029) and (60.007, 11.9023) .. (59.9121, 11.8579).. controls (59.7802, 11.7961) and (59.5129, 11.5315) .. (59.4899, 11.4399).. controls (59.4751, 11.381) and (59.4919, 11.3487) .. (59.5929, 11.2407).. controls (59.6592, 11.1698) and (59.7502, 11.0302) .. (59.7951, 10.9305).. controls (59.8401, 10.8307) and (59.8958, 10.7348) .. (59.9191, 10.7172).. controls (59.9843, 10.6681) and (60.1523, 10.7636) .. (60.1898, 10.8712) -- cycle(61.0658, 10.7381).. controls (61.2327, 10.7806) and (61.3179, 10.8566) .. (61.4673, 11.0965).. controls (61.5477, 11.2256) and (61.6798, 11.4191) .. (61.7608, 11.5266).. controls (61.8419, 11.6341) and (61.9711, 11.8365) .. (62.048, 11.9764).. controls (62.1248, 12.1163) and (62.2524, 12.3319) .. (62.3314, 12.4554).. controls (62.5745, 12.8354) and (63.0415, 13.8684) .. (63.1187, 14.1971).. controls (63.1828, 14.4698) and (63.0954, 14.8164) .. (62.9527, 14.8554).. controls (62.9118, 14.8666) and (62.658, 14.8759) .. (62.3888, 14.8762).. controls (61.807, 14.8767) and (61.6098, 14.8358) .. (61.1849, 14.6266).. controls (60.9364, 14.5042) and (60.4196, 14.1907) .. (60.2236, 14.0433).. controls (60.1146, 13.9614) and (59.7694, 13.5503) .. (59.7694, 13.5025).. controls (59.7694, 13.4831) and (59.991, 13.1771) .. (60.2619, 12.8226) -- (60.7544, 12.1779) -- (60.7418, 11.8339) -- (60.7293, 11.4899) -- (60.5933, 11.1806).. controls (60.4409, 10.8338) and (60.4258, 10.7437) .. (60.5168, 10.7239).. controls (60.6953, 10.6852) and (60.876, 10.6898) .. (61.0658, 10.7381) -- cycle(58.4643, 11.7827).. controls (58.6011, 11.887) and (58.6286, 11.9485) .. (58.6696, 12.2407).. controls (58.6905, 12.3895) and (58.7322, 12.562) .. (58.7622, 12.6241).. controls (58.829, 12.7621) and (58.8313, 12.8193) .. (58.7706, 12.8314).. controls (58.7066, 12.8441) and (58.1441, 12.7518) .. (58.1348, 12.7271).. controls (58.033, 12.4564) and (58.0027, 12.4123) .. (57.7982, 12.2356).. controls (57.6334, 12.0933) and (57.5866, 12.0373) .. (57.5866, 11.983).. controls (57.5866, 11.9166) and (57.6023, 11.9087) .. (57.9173, 11.8157).. controls (58.0992, 11.7621) and (58.2767, 11.7175) .. (58.3117, 11.7165).. controls (58.3467, 11.7156) and (58.4154, 11.7454) .. (58.4643, 11.7827) -- cycle(56.9872, 11.9199).. controls (57.4551, 12.2731) and (57.6817, 12.5342) .. (57.5767, 12.5991).. controls (57.564, 12.6069) and (57.4099, 12.5899) .. (57.2342, 12.5612).. controls (57.0585, 12.5326) and (56.8963, 12.5162) .. (56.8737, 12.5249).. controls (56.7994, 12.5534) and (56.8306, 12.5879) .. (56.9317, 12.5892).. controls (56.9863, 12.5898) and (57.0635, 12.6047) .. (57.1032, 12.6222).. controls (57.2128, 12.6706) and (57.7562, 13.1911) .. (57.7749, 13.2656).. controls (57.7934, 13.3395) and (57.737, 13.4171) .. (57.621, 13.477).. controls (57.5248, 13.5268) and (56.732, 13.53) .. (56.6655, 13.4809).. controls (56.6243, 13.4505) and (56.6225, 13.3825) .. (56.6422, 12.6266).. controls (56.654, 12.175) and (56.6726, 11.791) .. (56.6835, 11.7734).. controls (56.7157, 11.7213) and (56.7391, 11.7326) .. (56.9872, 11.9199) -- cycle;
 %    \end{macrocode}
 % \fi
 %
 %    \begin{macrocode}
-        \end { tikzpicture }
+            \end { tikzpicture }
+        }
     }
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1925,10 +1943,11 @@
 % 带下划线的题名页键值对样式。
 %
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_item:nnn {
-    #1 \hspace { 0.5em }
-    \underline { \parbox [ b ] {#3} { \centering \vphantom { 字 } #2 } }
-}
+\cs_new_protected:Nn \@@_item:nnn
+    {
+        #1 \hspace { 0.5em }
+        \underline { \parbox [ b ] {#3} { \centering \vphantom { 字 } #2 } }
+    }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1943,15 +1962,17 @@
 % 表辅助函数：根据指定的对齐方式应用相应的水平对齐命令。
 %
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_apply_align:nn {
-    \str_case:nnF {#1} {
-        { c } { \centering #2 }
-        { l } { \raggedright #2 }
-        { r } { \raggedleft #2 }
-        { s } { \makebox [ \linewidth ] [ s ] {#2} }
+\cs_new_protected:Nn \@@_apply_align:nn
+    {
+        \str_case:nnF {#1}
+            {
+                { c } { \centering #2 }
+                { l } { \raggedright #2 }
+                { r } { \raggedleft #2 }
+                { s } { \makebox [ \linewidth ] [ s ] {#2} }
+            }
+            {#2}
     }
-    {#2}
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1960,28 +1981,31 @@
 % 表辅助函数：统一处理带固定宽度的表格单元格。
 %
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_make_cell:nnnnn {
-    \makebox [#1] [ c ] {
-        \tl_if_empty:nTF
-            {#2}
+\cs_new_protected:Nn \@@_make_cell:nnnnn
+    {
+        \makebox [#1] [ c ]
             {
-                \parbox [ c ] { \dim_eval:n { #1 - #3 - #3 } }
+                \tl_if_empty:nTF {#2}
                     {
-                        \vspace { 1.4mm }
-                        \@@_apply_align:nn {#4} {#5}
-                        \vspace { 1.4mm }
+                        \parbox [ c ]
+                            { \dim_eval:n { #1 - #3 - #3 } }
+                            {
+                                \vspace { 1.4mm }
+                                \@@_apply_align:nn {#4} {#5}
+                                \vspace { 1.4mm }
+                            }
                     }
-            }
-            {
-                \parbox [ c ] [#2] [ c ] { \dim_eval:n { #1 - #3 - #3 } }
                     {
-                        \vspace { 1.4mm }
-                        \@@_apply_align:nn {#4} {#5}
-                        \vspace { 1.4mm }
+                        \parbox [ c ] [#2] [ c ]
+                            { \dim_eval:n { #1 - #3 - #3 } }
+                            {
+                                \vspace { 1.4mm }
+                                \@@_apply_align:nn {#4} {#5}
+                                \vspace { 1.4mm }
+                            }
                     }
             }
     }
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1994,16 +2018,19 @@
 % Microsoft Word 多倍行距模拟。
 %
 %    \begin{macrocode}
-\NewDocumentCommand \mslinespread { m } {
-    \linespread {
-        \fp_eval:n {
-            #1 *
-            \@@_keys_get:nn { typesetting } { ms-base-linespread } /
-            1.2
-        }
+\NewDocumentCommand \mslinespread { m }
+    {
+        \linespread
+            {
+                \fp_eval:n
+                    {
+                        #1 *
+                        \@@_keys_get:nn { typesetting } { ms-base-linespread } /
+                        1.2
+                    }
+            }
+        \selectfont
     }
-    \selectfont
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2012,10 +2039,11 @@
 % Microsoft Word 固定行距模拟。
 %
 %    \begin{macrocode}
-\NewDocumentCommand \mslinespreadbp { m m } {
-    \linespread { \fp_eval:n { #1 / #2 / 1.2 } }
-    \selectfont
-}
+\NewDocumentCommand \mslinespreadbp { m m }
+    {
+        \linespread { \fp_eval:n { #1 / #2 / 1.2 } }
+        \selectfont
+    }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2036,23 +2064,25 @@
 % \changes{v2.2}{2025/05/23}{将前置部分的页面风格设置为 \texttt{fancy}。}
 %
 %    \begin{macrocode}
-\RenewDocumentCommand \frontmatter { } {
-    \bool_if:NTF \l_@@_openright_bool
-        { \cleardoublepage }
-        { \clearpage }
-    \pagenumbering { Roman }
-    \pagestyle { fancy }
-    \int_gset:Nn \c@page { 1 }
-    \ctexset {
-        chapter/format = {
-            \mslinespread { 1 }
-            \heiti
-            \zihao { 3 }
-            \bfseries
-            \centering
-        },
+\RenewDocumentCommand \frontmatter { }
+    {
+        \bool_if:NTF \l_@@_openright_bool
+            { \cleardoublepage }
+            { \clearpage }
+        \pagenumbering { Roman }
+        \pagestyle { fancy }
+        \int_gset:Nn \c@page { 1 }
+        \ctexset
+            {
+                chapter/format = {
+                    \mslinespread { 1 }
+                    \heiti
+                    \zihao { 3 }
+                    \bfseries
+                    \centering
+                },
+            }
     }
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2060,24 +2090,27 @@
 %
 % \begin{macro} {\mainmatter}
 %    \begin{macrocode}
-\RenewDocumentCommand \mainmatter { } {
-    \bool_if:NTF \l_@@_openright_bool
-        { \cleardoublepage }
-        { \clearpage }
-    \pagenumbering { arabic }
-    \pagestyle { fancy }
-    \int_gset:Nn \c@page { 1 }
-    \int_compare:nNnT \l_@@_headingmode_int = 1 {
-        \ctexset {
-            chapter/format = {
-                \mslinespread { 1 }
-                \heiti
-                \zihao { 3 }
-                \bfseries
-            },
-        }
+\RenewDocumentCommand \mainmatter { }
+    {
+        \bool_if:NTF \l_@@_openright_bool
+            { \cleardoublepage }
+            { \clearpage }
+        \pagenumbering { arabic }
+        \pagestyle { fancy }
+        \int_gset:Nn \c@page { 1 }
+        \int_compare:nNnT \l_@@_headingmode_int = 1
+            {
+                \ctexset
+                    {
+                        chapter/format = {
+                            \mslinespread { 1 }
+                            \heiti
+                            \zihao { 3 }
+                            \bfseries
+                        },
+                    }
+            }
     }
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2085,21 +2118,23 @@
 %
 % \begin{macro}{\backmatter}
 %    \begin{macrocode}
-\RenewDocumentCommand \backmatter { } {
-    \bool_if:NTF \l_@@_openright_bool
-        { \cleardoublepage }
-        { \clearpage }
-    \pagestyle { fancy }
-    \ctexset {
-        chapter/format = {
-            \mslinespread { 1 }
-            \heiti
-            \zihao { 3 }
-            \bfseries
-            \centering
-        },
+\RenewDocumentCommand \backmatter { }
+    {
+        \bool_if:NTF \l_@@_openright_bool
+            { \cleardoublepage }
+            { \clearpage }
+        \pagestyle { fancy }
+        \ctexset
+            {
+                chapter/format = {
+                    \mslinespread { 1 }
+                    \heiti
+                    \zihao { 3 }
+                    \bfseries
+                    \centering
+                },
+            }
     }
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2153,76 +2188,77 @@
 %    \begin{macrocode}
 \labelformat { subfigure } { \thefigure（\thesubfigure） }
 \labelformat { equation  } { （\theequation）            }
-\AtBeginDocument {
-    \crefname{ equation      } { 式    } { 式    }
-    \crefname{ figure        } { 图    } { 图    }
-    \crefname{ subfigure     } { 子图  } { 子图  }
-    \crefname{ table         } { 表    } { 表    }
-    \crefname{ page          } { 页    } { 页    }
-    \crefname{ chapter       } { 章    } { 章    }
-    \crefname{ section       } { 节    } { 节    }
-    \crefname{ subsection    } { 小节  } { 小节  }
-    \crefname{ subsubsection } { 子节  } { 子节  }
-    \crefname{ appendix      } { 附录  } { 附录  }
-    \crefname{ theorem       } { 定理  } { 定理  }
-    \crefname{ lemma         } { 引理  } { 引理  }
-    \crefname{ corollary     } { 推论  } { 推论  }
-    \crefname{ proposition   } { 命题  } { 命题  }
-    \crefname{ definition    } { 定义  } { 定义  }
-    \crefname{ example       } { 例    } { 例    }
-    \crefname{ algorithm     } { 算法  } { 算法  }
-    \crefname{ listing       } { 列表  } { 列表  }
-    \crefname{ line          } { 行    } { 行    }
-    \crefformat { page          } { #2第#1页#3   }
-    \crefformat { chapter       } { #2第#1章#3   }
-    \crefformat { section       } { #2第#1节#3   }
-    \crefformat { subsection    } { #2第#1小节#3 }
-    \crefformat { subsubsection } { #2第#1子节#3 }
-    \crefformat { equation      } { 式#2#1#3     }
-    \crefformat { subfigure     } { 图#2#1#3     }
-    \crefrangeformat { page          } { #3第#1页#4至#5第#2页#6     }
-    \crefrangeformat { chapter       } { #3第#1章#4至#5第#2章#6     }
-    \crefrangeformat { section       } { #3第#1节#4至#5第#2节#6     }
-    \crefrangeformat { subsection    } { #3第#1小节#4至#5第#2小节#6 }
-    \crefrangeformat { subsubsection } { #3第#1子节#4至#5第#2子节#6 }
-    \crefmultiformat { page          }
-        { #2第#1页#3     } { 和#2第#1页#3   }
-        { ，#2第#1页#3   } { 和#2第#1页#3   }
-    \crefmultiformat { chapter       }
-        { #2第#1章#3     } { 和#2第#1章#3   }
-        { ，#2第#1章#3   } { 和#2第#1章#3   }
-    \crefmultiformat { section       }
-        { #2第#1节#3     } { 和#2第#1节#3   }
-        { ，#2第#1节#3   } { 和#2第#1节#3   }
-    \crefmultiformat { subsection    }
-        { #2第#1小节#3   } { 和#2第#1小节#3 }
-        { ，#2第#1小节#3 } { 和#2第#1小节#3 }
-    \crefmultiformat { subsubsection }
-        { #2第#1子节#3   } { 和#2第#1子节#3 }
-        { ，#2第#1子节#3 } { 和#2第#1子节#3 }
-    \crefrangemultiformat { page          }
-        { #3第#1页#4至#5第#2页#6       } { 和#3第#1页#4至#5第#2页#6     }
-        { ，#3第#1页#4至#5第#2页#6     } { 和#3第#1页#4至#5第#2页#6     }
-    \crefrangemultiformat { chapter       }
-        { #3第#1章#4至#5第#2章#6       } { 和#3第#1章#4至#5第#2章#6     }
-        { ，#3第#1章#4至#5第#2章#6     } { 和#3第#1章#4至#5第#2章#6     }
-    \crefrangemultiformat { section       }
-        { #3第#1节#4至#5第#2节#6       } { 和#3第#1节#4至#5第#2节#6     }
-        { ，#3第#1节#4至#5第#2节#6     } { 和#3第#1节#4至#5第#2节#6     }
-    \crefrangemultiformat { subsection    }
-        { #3第#1小节#4至#5第#2小节#6   } { 和#3第#1小节#4至#5第#2小节#6 }
-        { ，#3第#1小节#4至#5第#2小节#6 } { 和#3第#1小节#4至#5第#2小节#6 }
-    \crefrangemultiformat { subsubsection }
-        { #3第#1子节#4至#5第#2子节#6   } { 和#3第#1子节#4至#5第#2子节#6 }
-        { ，#3第#1子节#4至#5第#2子节#6 } { 和#3第#1子节#4至#5第#2子节#6 }
-    \cs_set:Npn \crefpairconjunction        { ~和~ }
-    \cs_set:Npn \crefmiddleconjunction      { ，   }
-    \cs_set:Npn \creflastconjunction        { ~和~ }
-    \cs_set:Npn \crefpairgroupconjunction   { ~和~ }
-    \cs_set:Npn \crefmiddlegroupconjunction { ，   }
-    \cs_set:Npn \creflastgroupconjunction   { ~和~ }
-    \cs_set:Npn \crefrangeconjunction       { ~至~ }
-}
+\AtBeginDocument
+    {
+        \crefname{ equation      } { 式    } { 式    }
+        \crefname{ figure        } { 图    } { 图    }
+        \crefname{ subfigure     } { 子图  } { 子图  }
+        \crefname{ table         } { 表    } { 表    }
+        \crefname{ page          } { 页    } { 页    }
+        \crefname{ chapter       } { 章    } { 章    }
+        \crefname{ section       } { 节    } { 节    }
+        \crefname{ subsection    } { 小节  } { 小节  }
+        \crefname{ subsubsection } { 子节  } { 子节  }
+        \crefname{ appendix      } { 附录  } { 附录  }
+        \crefname{ theorem       } { 定理  } { 定理  }
+        \crefname{ lemma         } { 引理  } { 引理  }
+        \crefname{ corollary     } { 推论  } { 推论  }
+        \crefname{ proposition   } { 命题  } { 命题  }
+        \crefname{ definition    } { 定义  } { 定义  }
+        \crefname{ example       } { 例    } { 例    }
+        \crefname{ algorithm     } { 算法  } { 算法  }
+        \crefname{ listing       } { 列表  } { 列表  }
+        \crefname{ line          } { 行    } { 行    }
+        \crefformat { page          } { #2第#1页#3   }
+        \crefformat { chapter       } { #2第#1章#3   }
+        \crefformat { section       } { #2第#1节#3   }
+        \crefformat { subsection    } { #2第#1小节#3 }
+        \crefformat { subsubsection } { #2第#1子节#3 }
+        \crefformat { equation      } { 式#2#1#3     }
+        \crefformat { subfigure     } { 图#2#1#3     }
+        \crefrangeformat { page          } { #3第#1页#4至#5第#2页#6     }
+        \crefrangeformat { chapter       } { #3第#1章#4至#5第#2章#6     }
+        \crefrangeformat { section       } { #3第#1节#4至#5第#2节#6     }
+        \crefrangeformat { subsection    } { #3第#1小节#4至#5第#2小节#6 }
+        \crefrangeformat { subsubsection } { #3第#1子节#4至#5第#2子节#6 }
+        \crefmultiformat { page          }
+            { #2第#1页#3     } { 和#2第#1页#3   }
+            { ，#2第#1页#3   } { 和#2第#1页#3   }
+        \crefmultiformat { chapter       }
+            { #2第#1章#3     } { 和#2第#1章#3   }
+            { ，#2第#1章#3   } { 和#2第#1章#3   }
+        \crefmultiformat { section       }
+            { #2第#1节#3     } { 和#2第#1节#3   }
+            { ，#2第#1节#3   } { 和#2第#1节#3   }
+        \crefmultiformat { subsection    }
+            { #2第#1小节#3   } { 和#2第#1小节#3 }
+            { ，#2第#1小节#3 } { 和#2第#1小节#3 }
+        \crefmultiformat { subsubsection }
+            { #2第#1子节#3   } { 和#2第#1子节#3 }
+            { ，#2第#1子节#3 } { 和#2第#1子节#3 }
+        \crefrangemultiformat { page          }
+            { #3第#1页#4至#5第#2页#6       } { 和#3第#1页#4至#5第#2页#6     }
+            { ，#3第#1页#4至#5第#2页#6     } { 和#3第#1页#4至#5第#2页#6     }
+        \crefrangemultiformat { chapter       }
+            { #3第#1章#4至#5第#2章#6       } { 和#3第#1章#4至#5第#2章#6     }
+            { ，#3第#1章#4至#5第#2章#6     } { 和#3第#1章#4至#5第#2章#6     }
+        \crefrangemultiformat { section       }
+            { #3第#1节#4至#5第#2节#6       } { 和#3第#1节#4至#5第#2节#6     }
+            { ，#3第#1节#4至#5第#2节#6     } { 和#3第#1节#4至#5第#2节#6     }
+        \crefrangemultiformat { subsection    }
+            { #3第#1小节#4至#5第#2小节#6   } { 和#3第#1小节#4至#5第#2小节#6 }
+            { ，#3第#1小节#4至#5第#2小节#6 } { 和#3第#1小节#4至#5第#2小节#6 }
+        \crefrangemultiformat { subsubsection }
+            { #3第#1子节#4至#5第#2子节#6   } { 和#3第#1子节#4至#5第#2子节#6 }
+            { ，#3第#1子节#4至#5第#2子节#6 } { 和#3第#1子节#4至#5第#2子节#6 }
+        \cs_set:Npn \crefpairconjunction        { ~和~ }
+        \cs_set:Npn \crefmiddleconjunction      { ，   }
+        \cs_set:Npn \creflastconjunction        { ~和~ }
+        \cs_set:Npn \crefpairgroupconjunction   { ~和~ }
+        \cs_set:Npn \crefmiddlegroupconjunction { ，   }
+        \cs_set:Npn \creflastgroupconjunction   { ~和~ }
+        \cs_set:Npn \crefrangeconjunction       { ~至~ }
+    }
 \creflabelformat { equation } { #2#1#3 }
 %    \end{macrocode}
 %
@@ -2238,14 +2274,15 @@
 \fancyhfoffset { 1.428571pt }
 \cs_set:Npn \headrulewidth { 0.7bp }
 \fancyhf { }
-\fancyhead [ C ] {
-    \mslinespread { 1 }
-    \songti
-    \zihao { 5 }
-    \bool_if:NTF \l_@@_uppercasehead_bool
-        { \leftmark }
-        { \nouppercase \leftmark }
-}
+\fancyhead [ C ]
+    {
+        \mslinespread { 1 }
+        \songti
+        \zihao { 5 }
+        \bool_if:NTF \l_@@_uppercasehead_bool
+            { \leftmark }
+            { \nouppercase \leftmark }
+    }
 \fancyfoot [ C ] { \mslinespread { 1 } \songti \zihao { 5 } \thepage }
 %    \end{macrocode}
 %
@@ -2311,57 +2348,77 @@
 % 根据模板参数决定是否要把前置部分的条目添加至目录中。
 %
 %    \begin{macrocode}
-\bool_if:NT \l_@@_frontmatterintoc_bool {
-    \hook_gput_code:nnn { cmd/listoffigures/after } { @@ }
-        { \addcontentsline { toc } { chapter } { \listfigurename } }
-    \hook_gput_code:nnn { cmd/listoftables/after  } { @@ }
-        { \addcontentsline { toc } { chapter } { \listtablename  } }
-}
+\bool_if:NT \l_@@_frontmatterintoc_bool
+    {
+        \hook_gput_code:nnn { cmd/listoffigures/after } { @@ }
+            { \addcontentsline { toc } { chapter } { \listfigurename } }
+        \hook_gput_code:nnn { cmd/listoftables/after  } { @@ }
+            { \addcontentsline { toc } { chapter } { \listtablename  } }
+    }
 %    \end{macrocode}
 %
 % \subsection{\CTeX 设置}
 %
 %    \begin{macrocode}
-\ctexset {
-    listfigurename = 插图清单,
-    listtablename  = 附表清单,
-    chapter = {
-        fixskip    = true,
-        beforeskip = 24bp,
-        afterskip  = 26bp,
-        aftername  = \hspace { \ccwd },
-        pagestyle  = fancy,
-        tocline    = {
-            \CTEXifname{\protect{\csname CTEXthe#1\endcsname\hspace{\ccwd}}}{}#2
+\ctexset
+    {
+        listfigurename = 插图清单,
+        listtablename  = 附表清单,
+        chapter = {
+            fixskip    = true,
+            beforeskip = 24bp,
+            afterskip  = 26bp,
+            aftername  = \hspace { \ccwd },
+            pagestyle  = fancy,
+            tocline    = {
+                \CTEXifname
+                    {
+                        \protect
+                            {
+                                \csname CTEXthe#1 \endcsname
+                                \hspace { \ccwd }
+                            }
+                    }
+                    { }
+                #2
+            },
         },
-    },
-    section = {
-        fixskip    = true,
-        beforeskip = 32bp,
-        afterskip  = 14bp,
-        aftername  = \hspace { \ccwd },
-        tocline    = {
-            \CTEXifname{\protect{\csname CTEXthe#1\endcsname\hspace{\ccwd}}}{}#2
+        section = {
+            fixskip    = true,
+            beforeskip = 32bp,
+            afterskip  = 14bp,
+            aftername  = \hspace { \ccwd },
+            tocline    = {
+                \CTEXifname
+                    {
+                        \protect
+                            {
+                                \csname CTEXthe#1 \endcsname
+                                \hspace { \ccwd }
+                            }
+                    }
+                    { }
+                #2
+            },
         },
-    },
-    subsection = {
-        fixskip    = true,
-        format     = {
-            \mslinespread { 1 }
-            \heiti
-            \fontsize { 13bp } { 15.6bp }
-            \selectfont
+        subsection = {
+            fixskip    = true,
+            format     = {
+                \mslinespread { 1 }
+                \heiti
+                \fontsize { 13bp } { 15.6bp }
+                \selectfont
+            },
+            beforeskip = 20bp,
+            afterskip  = 14bp,
         },
-        beforeskip = 20bp,
-        afterskip  = 14bp,
-    },
-    subsubsection = {
-        fixskip    = true,
-        format     = \mslinespread { 1 } \heiti \zihao { -4 },
-        beforeskip = 20bp,
-        afterskip  = 14bp,
-    },
-}
+        subsubsection = {
+            fixskip    = true,
+            format     = \mslinespread { 1 } \heiti \zihao { -4 },
+            beforeskip = 20bp,
+            afterskip  = 14bp,
+        },
+    }
 %    \end{macrocode}
 %
 % 根据标题模式设置不同格式。
@@ -2371,74 +2428,85 @@
 %    \begin{macrocode}
 \int_compare:nNnTF \l_@@_headingmode_int = 1
     {
-        \ctexset {
-            chapter = {
-                name      = { },
-                number    = \arabic { chapter },
-                format    = \mslinespread { 1 } \heiti \zihao { 3 } \bfseries,
-            },
-            section = {
-                number    = \arabic{chapter}.\arabic{section},
-                format    = \mslinespread { 1 } \heiti \zihao { 4 } \bfseries,
-            },
-            subsection = {
-                number    = {
-                    \arabic{chapter}.\arabic{section}.
-                    \arabic{subsection}
+        \ctexset
+            {
+                chapter = {
+                    name   = { },
+                    number = \arabic { chapter },
+                    format = \mslinespread { 1 } \heiti \zihao { 3 } \bfseries,
                 },
-                aftername = \hspace { \ccwd },
-                tocline   = {
-                    \CTEXifname
-                        {\protect{\csname CTEXthe#1\endcsname\hspace{\ccwd}}}
-                        { }
+                section = {
+                    number = \arabic{chapter}.\arabic{section},
+                    format = \mslinespread { 1 } \heiti \zihao { 4 } \bfseries,
+                },
+                subsection = {
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}
+                    },
+                    aftername = \hspace { \ccwd },
+                    tocline   = {
+                        \CTEXifname
+                            {
+                                \protect
+                                    {
+                                        \csname CTEXthe#1 \endcsname
+                                        \hspace { \ccwd }
+                                    }
+                            }
+                            { }
                         #2
+                    },
                 },
-            },
-            subsubsection = {
-                number    = {
-                    \arabic{chapter}.\arabic{section}.
-                    \arabic{subsection}.\arabic{subsubsection}
+                subsubsection = {
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}.\arabic{subsubsection}
+                    },
+                    aftername = \hspace { \ccwd },
                 },
-                aftername = \hspace { \ccwd },
-            },
-        }
+            }
     }
     {
-        \ctexset {
-            chapter/format = {
-                \mslinespread { 1 }
-                \heiti
-                \zihao { 3 }
-                \bfseries
-                \centering
-            },
-            section = {
-                name      = { 第, 节 },
-                number    = \chinese{section},
-                format    = {
+        \ctexset
+            {
+                chapter/format = {
                     \mslinespread { 1 }
                     \heiti
-                    \zihao { 4 }
+                    \zihao { 3 }
                     \bfseries
                     \centering
                 },
-            },
-            subsection = {
-                name      = { , 、 },
-                number    = \chinese{subsection},
-                indent    = \parindent,
-                aftername = { },
-                tocline   = {
-                    \CTEXifname{\protect{\csname CTEXthe#1\endcsname}}{}#2
+                section = {
+                    name      = { 第, 节 },
+                    number    = \chinese{section},
+                    format    = {
+                        \mslinespread { 1 }
+                        \heiti
+                        \zihao { 4 }
+                        \bfseries
+                        \centering
+                    },
                 },
-            },
-            subsubsection = {
-                name      = { （, ） },
-                number    = \chinese{subsubsection},
-                indent    = \parindent,
-                aftername = { },
-            },
-        }
+                subsection = {
+                    name      = { , 、 },
+                    number    = \chinese{subsection},
+                    indent    = \parindent,
+                    aftername = { },
+                    tocline   = {
+                        \CTEXifname
+                            { \protect { \csname CTEXthe#1 \endcsname } }
+                            { }
+                        #2
+                    },
+                },
+                subsubsection = {
+                    name      = { （, ） },
+                    number    = \chinese{subsubsection},
+                    indent    = \parindent,
+                    aftername = { },
+                },
+            }
     }
 %    \end{macrocode}
 %
@@ -2450,18 +2518,20 @@
 \DeclareCaptionLabelSeparator { @@    } { \hspace { \ccwd } }
 \DeclareCaptionFont           { @@    }
     { \mslinespread { 1 } \songti \zihao { 5 } }
-\captionsetup {
-    labelsep    = @@,
-    labelformat = @@,
-    font        = @@,
-    skip        = 6bp,
-}
-\subcaptionsetup {
-    labelsep    = none,
-    labelformat = @@sub,
-    font        = @@,
-    skip        = 6bp,
-}
+\captionsetup
+    {
+        labelsep    = @@,
+        labelformat = @@,
+        font        = @@,
+        skip        = 6bp,
+    }
+\subcaptionsetup
+    {
+        labelsep    = none,
+        labelformat = @@sub,
+        font        = @@,
+        skip        = 6bp,
+    }
 \dim_set:Nn \textfloatsep { 20bp }
 \dim_set:Nn \floatsep     { 20bp }
 \dim_set:Nn \intextsep    { 20bp }
@@ -2588,15 +2658,16 @@
     {
         \str_if_eq:nnTF { #1 } { en }
             {
-                \ctexset{
-                    chapter/format = {
-                        \mslinespread { 1 }
-                        \arial
-                        \zihao { -2 }
-                        \bfseries
-                        \centering
-                    },
-                }
+                \ctexset
+                    {
+                        chapter/format = {
+                            \mslinespread { 1 }
+                            \arial
+                            \zihao { -2 }
+                            \bfseries
+                            \centering
+                        },
+                    }
                 \chapter* { \enabstractname }
                 \markboth
                     { \MakeUppercase { \enabstractname } }
@@ -2605,15 +2676,16 @@
                     { \addcontentsline { toc } { chapter } { \enabstractname } }
             }
             {
-                \ctexset{
-                    chapter/format = {
-                        \mslinespread { 1 }
-                        \heiti
-                        \zihao { -2 }
-                        \bfseries
-                        \centering
-                    },
-                }
+                \ctexset
+                    {
+                        chapter/format = {
+                            \mslinespread { 1 }
+                            \heiti
+                            \zihao { -2 }
+                            \bfseries
+                            \centering
+                        },
+                    }
                 \chapter* { \abstractname }
                 \markboth
                     { \MakeUppercase { \abstractname } }
@@ -2636,7 +2708,7 @@
     {
         \str_if_eq:nnTF { #1 } { en }
             { \textbf { Key~Words:~ } \ignorespaces }
-            { \textbf { 关键词： } \ignorespaces }
+            { \textbf { 关键词： } \ignorespaces    }
     }
     { }
 %    \end{macrocode}
@@ -2651,15 +2723,16 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { preface } { }
     {
-        \ctexset{
-            chapter/format = {
-                \mslinespread { 1 }
-                \heiti
-                \zihao { 3 }
-                \bfseries
-                \centering
-            },
-        }
+        \ctexset
+            {
+                chapter/format = {
+                    \mslinespread { 1 }
+                    \heiti
+                    \zihao { 3 }
+                    \bfseries
+                    \centering
+                },
+            }
         \chapter* { \prefacename }
         \markboth
             { \MakeUppercase { \prefacename } }
@@ -2684,15 +2757,16 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { symabbr } { }
     {
-        \ctexset{
-            chapter/format = {
-                \mslinespread { 1 }
-                \heiti
-                \zihao { 3 }
-                \bfseries
-                \centering
-            },
-        }
+        \ctexset
+            {
+                chapter/format = {
+                    \mslinespread { 1 }
+                    \heiti
+                    \zihao { 3 }
+                    \bfseries
+                    \centering
+                },
+            }
         \chapter* { \symabbrname }
         \markboth
             { \MakeUppercase { \symabbrname } }
@@ -2719,15 +2793,16 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { acknowledgements } { }
     {
-        \ctexset{
-            chapter/format = {
-                \mslinespread { 1 }
-                \heiti
-                \zihao { 3 }
-                \bfseries
-                \centering
-            },
-        }
+        \ctexset
+            {
+                chapter/format = {
+                    \mslinespread { 1 }
+                    \heiti
+                    \zihao { 3 }
+                    \bfseries
+                    \centering
+                },
+            }
         \chapter* { \acknowledgementsname }
         \markboth
             { \MakeUppercase { \acknowledgementsname } }
@@ -2748,35 +2823,35 @@
 %
 % \begin{macro}{\@@_resume:n}
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_resume:n {
-    \ctexset{
-        chapter/format = {
-            \mslinespread { 1 }
-            \heiti
-            \zihao { 3 }
-            \bfseries
-            \centering
-        },
+\cs_new_protected:Nn \@@_resume:n
+    {
+        \ctexset
+            {
+                chapter/format = {
+                    \mslinespread { 1 }
+                    \heiti
+                    \zihao { 3 }
+                    \bfseries
+                    \centering
+                },
+            }
+        \chapter* {#1}
+        \markboth
+            { \MakeUppercase {#1} }
+            { \MakeUppercase {#1} }
+        \mslinespreadbp { 16 } { 10.5 }
+        \songti
+        \zihao { 5 }
+        \addcontentsline { toc } { chapter } {#1}
+        \ignorespaces
     }
-    \chapter* {#1}
-    \markboth
-        { \MakeUppercase {#1} }
-        { \MakeUppercase {#1} }
-    \mslinespreadbp { 16 } { 10.5 }
-    \songti
-    \zihao { 5 }
-    \addcontentsline { toc } { chapter } {#1}
-    \ignorespaces
-}
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{environment}{resume}
 %    \begin{macrocode}
 \NewDocumentEnvironment { resume } { }
-    {
-        \@@_resume:n { \resumename }
-    }
+    { \@@_resume:n { \resumename } }
     { }
 %    \end{macrocode}
 % \end{environment}
@@ -2784,9 +2859,7 @@
 % \begin{environment}{resume*}
 %    \begin{macrocode}
 \NewDocumentEnvironment { resume* } { }
-    {
-        \@@_resume:n { \anonymousresumename }
-    }
+    { \@@_resume:n { \anonymousresumename } }
     { }
 %    \end{macrocode}
 % \end{environment}
@@ -2806,131 +2879,127 @@
 %
 % \begin{macro}{\titlepage}
 %    \begin{macrocode}
-\RenewDocumentCommand \titlepage { } {
-    \bool_if:NTF \l_@@_openright_bool
-        { \cleardoublepage }
-        { \clearpage }
-    \thispagestyle { empty }
-    \group_begin:
-    \dim_set:Nn \parindent { 0pt }
-    \par
-
+\RenewDocumentCommand \titlepage { }
     {
-        \mslinespread { 1 }
-        \songti
-        \zihao { 5 }
-        \cs_set:Npn \arraystretch { 1.265 }
-        \dim_set:Nn \tabcolsep { 0pt }
-        \begin { tabular } {
-            > { \raggedleft  \arraybackslash                   } p { 20.7mm }
-            > { \raggedright \arraybackslash \hspace { 6.5mm } } p { 71.4mm }
-            > { \raggedleft  \arraybackslash                   } p { 20.7mm }
-            > { \raggedright \arraybackslash \hspace { 6.5mm } } p { 33mm   }
-        }
-            中图分类号： & \nktget { 中图分类号  } &
-            学校代码：   & \nktget { 学校代码    } \\
-            UDC：        & \nktget { UDC         } &
-            密级：       & \nktget { 题名页/密级 } \\
-        \end { tabular }
+        \bool_if:NTF \l_@@_openright_bool
+            { \cleardoublepage }
+            { \clearpage }
+        \thispagestyle { empty }
+        \group_begin:
+        \dim_set:Nn \parindent { 0pt }
         \par
-    }
-    \par
-
-    \vspace { 0.6mm }
-    \begin { center }
-        \@@_nankai_logo:n { 1 }
-        \par
-
-        \vspace { -1.2mm }
         {
             \mslinespread { 1 }
             \songti
-            \zihao { 2 }
-            \bfseries
-            \ziju { 0.5 }
-            \nktget { 题名页/论文类别 } 学位论文
-            \par
-        }
-        \par
-
-        \vspace { 12.85mm }
-        \parbox { \linewidth }
-            {
-                \centering
-                \mslinespread { 1.5 }
-                \songti
-                \zihao { \nktget { 题名页/论文题目字号 } }
-                \nktget { 论文题目（中文） }
-                \par
-
-                \nktget { 论文题目（英文） }
-                \par
-            }
-        \par
-
-        \vfill
-        {
-            \mslinespread { 1 }
-            \songti
-            \zihao { -4 }
-            \cs_set:Npn \arraystretch { 2 }
-            \dim_set:Nn \tabcolsep { 0pt }
-            \begin { tabular } {
-                > { \raggedright \arraybackslash } p { 66.7mm }
-                > { \raggedleft  \arraybackslash } p { 66.7mm }
-            }
-                \@@_item:nnn { 论文作者 }
-                    { \nktget { 论文作者 } }
-                    { 38.2mm } &
-                \@@_item:nnn { 指导教师 }
-                    { \nktget { 指导教师 } \quad \nktget { 指导教师职称 } }
-                    { 38.2mm } \\
-
-                \@@_item:nnn { 申请学位 }
-                    { \nktget { 申请学位 } }
-                    { 38.2mm } &
-                \@@_item:nnn { 培养单位 }
-                    { \nktget { 培养单位 } }
-                    { 38.2mm } \\
-
-                \@@_item:nnn { 学科专业 }
-                    {
-                        \tl_if_empty:eTF { \nktget { 二级学科或专业领域 } }
-                            { \nktget { 一级学科或专业学位类别 } }
-                            { \nktget { 二级学科或专业领域 } }
-                    }
-                    { 38.2mm } &
-                \@@_item:nnn { 研究方向 }
-                    { \nktget { 研究方向 } }
-                    { 38.2mm } \\
-
-                \@@_item:nnn { 答辩委员会主席 }
-                    { \nktget { 答辩委员会主席 } }
-                    { 25.5mm } &
-                \@@_item:nnn { 评阅人 }
-                    { \nktget{ 评阅人 } }
-                    { 42.4mm } \\
+            \zihao { 5 }
+            \cs_set:Npn \arraystretch { 1.265 }
+            \dim_set:Nn \tabcolsep    { 0pt   }
+            \begin { tabular }
+                {
+                    > { \raggedleft  \arraybackslash                   }
+                    p { 20.7mm }
+                    > { \raggedright \arraybackslash \hspace { 6.5mm } }
+                    p { 71.4mm }
+                    > { \raggedleft  \arraybackslash                   }
+                    p { 20.7mm }
+                    > { \raggedright \arraybackslash \hspace { 6.5mm } }
+                    p { 33mm   }
+                }
+                中图分类号： & \nktget { 中图分类号  } &
+                学校代码：   & \nktget { 学校代码    } \\
+                UDC：        & \nktget { UDC         } &
+                密级：       & \nktget { 题名页/密级 } \\
             \end { tabular }
             \par
         }
         \par
-
-        \vspace { 14.6mm }
-        {
-            \mslinespread { 1.75 }
-            \songti
-            \zihao { 4 }
-            南开大学研究生院
+        \vspace { 0.6mm }
+        \begin { center }
+            \@@_nankai_logo:n { 1 }
             \par
-
-            \tl_if_empty:eTF { \nktget { 论文完成时间 } }
-                { \qquad 年 \qquad 月 }
-                { \nktget { 论文完成时间 } }
+            \vspace { -1.2mm }
+            {
+                \mslinespread { 1 }
+                \songti
+                \zihao { 2 }
+                \bfseries
+                \ziju { 0.5 }
+                \nktget { 题名页/论文类别 } 学位论文
+                \par
+            }
             \par
-        }
-    \end { center }
-    \group_end:
-}
+            \vspace { 12.85mm }
+            \parbox { \linewidth }
+                {
+                    \centering
+                    \mslinespread { 1.5 }
+                    \songti
+                    \zihao { \nktget { 题名页/论文题目字号 } }
+                    \nktget { 论文题目（中文） }
+                    \par
+                    \nktget { 论文题目（英文） }
+                    \par
+                }
+            \par
+            \vfill
+            {
+                \mslinespread { 1 }
+                \songti
+                \zihao { -4 }
+                \cs_set:Npn \arraystretch { 2 }
+                \dim_set:Nn \tabcolsep { 0pt }
+                \begin { tabular }
+                    {
+                        > { \raggedright \arraybackslash } p { 66.7mm }
+                        > { \raggedleft  \arraybackslash } p { 66.7mm }
+                    }
+                    \@@_item:nnn { 论文作者 }
+                        { \nktget { 论文作者 } }
+                        { 38.2mm } &
+                    \@@_item:nnn { 指导教师 }
+                        { \nktget { 指导教师 } \quad \nktget { 指导教师职称 } }
+                        { 38.2mm } \\
+                    \@@_item:nnn { 申请学位 }
+                        { \nktget { 申请学位 } }
+                        { 38.2mm } &
+                    \@@_item:nnn { 培养单位 }
+                        { \nktget { 培养单位 } }
+                        { 38.2mm } \\
+                    \@@_item:nnn { 学科专业 }
+                        {
+                            \tl_if_empty:eTF { \nktget { 二级学科或专业领域 } }
+                                { \nktget { 一级学科或专业学位类别 } }
+                                { \nktget { 二级学科或专业领域 } }
+                        }
+                        { 38.2mm } &
+                    \@@_item:nnn { 研究方向 }
+                        { \nktget { 研究方向 } }
+                        { 38.2mm } \\
+                    \@@_item:nnn { 答辩委员会主席 }
+                        { \nktget { 答辩委员会主席 } }
+                        { 25.5mm } &
+                    \@@_item:nnn { 评阅人 }
+                        { \nktget{ 评阅人 } }
+                        { 42.4mm } \\
+                \end { tabular }
+                \par
+            }
+            \par
+            \vspace { 14.6mm }
+            {
+                \mslinespread { 1.75 }
+                \songti
+                \zihao { 4 }
+                南开大学研究生院
+                \par
+                \tl_if_empty:eTF { \nktget { 论文完成时间 } }
+                    { \qquad 年 \qquad 月 }
+                    { \nktget { 论文完成时间 } }
+                \par
+            }
+        \end { center }
+        \group_end:
+    }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2948,110 +3017,106 @@
 % \changes{v2026.4}{2026/03/23}{支持显示专业学位版本的《匿名评阅封面》}
 %
 %    \begin{macrocode}
-\NewDocumentCommand \anonymoustitlepage { } {
-    \bool_if:NTF \l_@@_openright_bool
-        { \cleardoublepage }
-        { \clearpage }
-    \thispagestyle { empty }
-    \group_begin:
-    \dim_set:Nn \parindent { 0pt }
-    \vspace* { 1mm }
-    \begin { center }
-        \@@_nankai_logo:n { 1.97 }
-        \par
-
-        \vspace { 5.5mm }
-        {
-            \hfuzz    = \maxdimen
-            \hbadness = 99999
-            \mslinespread { 1 }
-            \heiti
-            \fontsize { 28 } { 33.6 }
-            \ziju { 0.01 }
-            \bfseries
-            \hspace* { -\dim_eval:n { ( \paperwidth - \linewidth ) / 2 } }
-            \makebox [ \paperwidth ] [ c ] {
-                南开大学
-                \str_case:enF { \nktget { 题名页/论文类别 } }
+\NewDocumentCommand \anonymoustitlepage { }
+    {
+        \bool_if:NTF \l_@@_openright_bool
+            { \cleardoublepage }
+            { \clearpage }
+        \thispagestyle { empty }
+        \group_begin:
+        \dim_set:Nn \parindent { 0pt }
+        \vspace* { 1mm }
+        \begin { center }
+            \@@_nankai_logo:n { 1.97 }
+            \par
+            \vspace { 5.5mm }
+            {
+                \hfuzz    = \maxdimen
+                \hbadness = 99999
+                \mslinespread { 1 }
+                \heiti
+                \fontsize { 28 } { 33.6 }
+                \ziju { 0.01 }
+                \bfseries
+                \hspace* { -\dim_eval:n { ( \paperwidth - \linewidth ) / 2 } }
+                \makebox [ \paperwidth ] [ c ]
                     {
-                        { 博士 }     { 博士毕业（学位）论文 }
-                        { 博士专业 } { 博士学位论文/实践成果报告 }
-                        { 硕士 }     { 硕士毕业（学位）论文 }
-                        { 硕士专业 } { 硕士学位论文/实践成果报告 }
+                        南开大学
+                        \str_case:enF { \nktget { 题名页/论文类别 } }
+                            {
+                                { 博士     } { 博士毕业（学位）论文      }
+                                { 博士专业 } { 博士学位论文/实践成果报告 }
+                                { 硕士     } { 硕士毕业（学位）论文      }
+                                { 硕士专业 } { 硕士学位论文/实践成果报告 }
+                            }
+                            { 硕士毕业（学位）论文 }
                     }
-                    { 硕士毕业（学位）论文 }
+                \par
             }
             \par
-        }
-        \par
-
-        \vspace { 9.8mm }
-        {
-            \mslinespread { 1 }
-            \fangsong
-            \zihao { -2 }
-            （匿名评阅封面）
-            \par
-        }
-        \par
-
-        \tl_new:N \l_@@_temp_str
-        \tl_set:Nx \l_@@_temp_str { \nktget { 题名页/论文类别 } }
-        \vspace { 21mm }
-        {
-            \mslinespread { 1.53 }
-            \kaishu
-            \zihao { 3 }
-            \dim_new:N \l_@@_temp_dim
-            \str_if_in:NnTF \l_@@_temp_str { 专业 }
-                { \dim_set:Nn \l_@@_temp_dim { \linewidth     } }
-                { \dim_set:Nn \l_@@_temp_dim { 0.73\linewidth } }
-            \parbox { \l_@@_temp_dim } {
-                \str_if_in:NnTF \l_@@_temp_str { 专业 }
-                    { 专业学位论文/实践成果报告题目（含英文题目）： }
-                    { 论文题目： }
-            }
-            \par
-
-            \vspace { 0.5\baselineskip }
-            \parbox [ b ] [ 54.9mm ] [ t ] { \linewidth } {
-                \centering
+            \vspace { 9.8mm }
+            {
+                \mslinespread { 1 }
                 \fangsong
-                \nktget { 论文题目（中文） }
-                \par
-
-                \nktget { 论文题目（英文） }
+                \zihao { -2 }
+                （匿名评阅封面）
                 \par
             }
             \par
-
-            \parbox { \l_@@_temp_dim } {
+            \tl_new:N \l_@@_temp_str
+            \tl_set:Nx \l_@@_temp_str { \nktget { 题名页/论文类别 } }
+            \vspace { 21mm }
+            {
+                \mslinespread { 1.53 }
+                \kaishu
+                \zihao { 3 }
+                \dim_new:N \l_@@_temp_dim
                 \str_if_in:NnTF \l_@@_temp_str { 专业 }
-                    { 专业学位类别： }
-                    { 一级学科： }
-                \nktget { 一级学科或专业学位类别 }
+                    { \dim_set:Nn \l_@@_temp_dim { \linewidth     } }
+                    { \dim_set:Nn \l_@@_temp_dim { 0.73\linewidth } }
+                \parbox { \l_@@_temp_dim }
+                    {
+                        \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                            { 专业学位论文/实践成果报告题目（含英文题目）： }
+                            { 论文题目： }
+                    }
                 \par
-
-                \str_if_in:NnTF \l_@@_temp_str { 专业 }
-                    { 专业领域： }
-                    { 二级学科： }
-                \nktget { 二级学科或专业领域 }
+                \vspace { 0.5\baselineskip }
+                \parbox [ b ] [ 54.9mm ] [ t ] { \linewidth }
+                    {
+                        \centering
+                        \fangsong
+                        \nktget { 论文题目（中文） }
+                        \par
+                        \nktget { 论文题目（英文） }
+                        \par
+                    }
                 \par
-
-                \mbox { }
-                \par
-
-                \str_if_in:NnTF \l_@@_temp_str { 专业 }
-                    { 学位论文/实践成果编号： }
-                    { 论文编号： }
-                \nktget { 论文编号 }
+                \parbox { \l_@@_temp_dim }
+                    {
+                        \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                            { 专业学位类别： }
+                            { 一级学科： }
+                        \nktget { 一级学科或专业学位类别 }
+                        \par
+                        \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                            { 专业领域： }
+                            { 二级学科： }
+                        \nktget { 二级学科或专业领域 }
+                        \par
+                        \mbox { }
+                        \par
+                        \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                            { 学位论文/实践成果编号： }
+                            { 论文编号： }
+                        \nktget { 论文编号 }
+                        \par
+                    }
                 \par
             }
-            \par
-        }
-    \end { center }
-    \group_end:
-}
+        \end { center }
+        \group_end:
+    }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3069,179 +3134,187 @@
 % \changes{v2026.3}{2026/03/17}{修复《非公开学位论文标注说明》表中内容过长时单元格会溢出的问题。}
 %
 %    \begin{macrocode}
-\NewDocumentCommand \declarationpage { } {
-    \bool_if:NTF \l_@@_openright_bool
-        { \cleardoublepage }
-        { \clearpage }
-    \group_begin:
-    \ctexset {
-        chapter/format    = \mslinespread{1}\heiti\zihao{3}\bfseries\centering,
-        chapter/pagestyle = empty,
-    }
-    \chapter* { 南开大学学位论文原创性声明 }
-    \par
-
-    \vspace { 2.2mm }
+\NewDocumentCommand \declarationpage { }
     {
-        \mslinespread { 1.5 }
-        \songti
-        \zihao { -4 }
-        本人郑重声明：所呈交的学位论文，是本人在导师指导下进行研究工作所取得的研
-        究成果。除文中已经注明引用的内容外，本学位论文的研究成果不包含任何他人创
-        作的、已公开发表或者没有公开发表的作品的内容。对本论文所涉及的研究工作做
-        出贡献的其他个人和集体，均已在文中以明确方式标明。本学位论文原创性声明的
-        法律责任由本人承担。
+        \bool_if:NTF \l_@@_openright_bool
+            { \cleardoublepage }
+            { \clearpage }
+        \group_begin:
+        \ctexset
+            {
+                chapter/format    = {
+                    \mslinespread { 1 }
+                    \heiti
+                    \zihao { 3 }
+                    \bfseries
+                    \centering
+                },
+                chapter/pagestyle = empty,
+            }
+        \chapter* { 南开大学学位论文原创性声明 }
         \par
-    }
-    \par
-
-    \vspace { 13.6mm }
-    学位论文作者签名：
-    \hspace { 0.5em }
-    \underline { \makebox [ 9.5em ] { } }
-    \hfill
-    \tl_if_empty:eTF { \nktget { 原创性声明/签字日期 } }
-        { 年 \qquad 月 \qquad 日 }
-        { \nktget { 原创性声明/签字日期 } }
-    \hspace* { \ccwd }
-    \par
-
-    \vspace { -0.4\baselineskip }
-    \noindent
-    \begin { tikzpicture }
-        \draw [ thick, dash~pattern = on~1mm~off~1mm ] ( 0, 0 ) -- ( 14.5, 0 );
-    \end { tikzpicture }
-    \par
-
-    \vspace { 1mm }
-    \begin { center }
-        {
-            \mslinespread { 1 }
-            \heiti
-            \zihao { 3 }
-            非公开学位论文标注说明
-            \par
-        }
-        \par
-
         \vspace { 2.2mm }
         {
-            \mslinespread { 1 }
-            \kaishu
+            \mslinespread { 1.5 }
+            \songti
             \zihao { -4 }
-            （本页表中填写内容须打印）
+            本人郑重声明：所呈交的学位论文，是本人在导师指导下进行研究工作所取得
+            的研究成果。除文中已经注明引用的内容外，本学位论文的研究成果不包含任
+            何他人创作的、已公开发表或者没有公开发表的作品的内容。对本论文所涉及
+            的研究工作做出贡献的其他个人和集体，均已在文中以明确方式标明。本学位
+            论文原创性声明的法律责任由本人承担。
             \par
         }
-    \end { center }
-    \par
-
-    \vspace { -6.0mm }
-    {
-        \mslinespread { 1.5 }
-        \songti
-        \zihao { -4 }
-        根据南开大学有关规定，非公开学位论文须经指导教师同意、作者本人申请和相关
-        部门批准方能标注。
-        { \heiti 未经批准的均为公开学位论文，公开学位论文本说明为空白 }。
         \par
-    }
-    \par
-
-    \vspace { 1.9mm }
-    {
-        \hfuzz    = \maxdimen
-        \hbadness = 99999
-        \mslinespread { 1 }
-        \zihao { -4 }
-        \hspace { -12mm }
-        \dim_set:Nn \tabcolsep { 0mm }
-        \begin { tabular } { | l | }
-            \hline
-            \@@_make_cell:nnnnn { 32.2mm } { 17.7mm } { 0mm } { c } {
-                \heiti 论文题目
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 120.2mm } { } { 1em } { l } {
-                \str_if_eq:eeF
-                    { \nktget { 非公开论文/申请密级 } } { 公开 }
-                    { \nktget { 论文题目（中文） } }
-            } \\
-            \hline
-            \@@_make_cell:nnnnn { 32.2mm } { 9.5mm } { 0mm } { c } {
-                \heiti 申请密级
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 120.2mm } { 9.5mm } { 0mm } { c } {
-                \@@_checkbox:en { \nktget { 非公开论文/申请密级 } } { 限制 }
-                    ~限制（$\leq 2$年）
-                \quad
-                \@@_checkbox:en { \nktget { 非公开论文/申请密级 } } { 秘密 }
-                    ~秘密（$\leq 10$年）
-                \quad
-                \@@_checkbox:en { \nktget { 非公开论文/申请密级 } } { 机密 }
-                    ~机密（$\leq 20$年）
-            } \\
-            \hline
-            \@@_make_cell:nnnnn { 32.2mm } { 9.5mm } { 0mm } { c } {
-                \heiti 保密期限
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 120.2mm } { 9.5mm } { 0mm } { c } {
-                \str_if_eq:eeTF
-                    { \nktget { 非公开论文/申请密级 } } { 公开 }
-                    {
-                        20 \qquad 年 \qquad 月 \qquad 日
-                        至 20 \qquad 年 \qquad 月 \qquad 日
-                    }
-                    {
-                        \nktget { 非公开论文/保密期限/起始日期 } 至
-                        \nktget { 非公开论文/保密期限/结束日期 }
-                    }
-            } \\
-            \hline
-            \@@_make_cell:nnnnn { 32.2mm } { 9.5mm } { 0mm } { c } {
-                \heiti 审批表编号
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 44mm } { 9.5mm } { 0mm } { c } {
-                \str_if_eq:eeF
-                    { \nktget { 非公开论文/申请密级 } } { 公开 }
-                    { \nktget { 非公开论文/审批表编号 } }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 25.1mm } { 9.5mm } { 0mm } { c } {
-                \heiti 批准日期
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 50.9mm } { 9.5mm } { 0mm } { c } {
-                \str_if_eq:eeTF
-                    { \nktget { 非公开论文/申请密级 } } { 公开 }
-                    { 20 \qquad 年 \qquad 月 \qquad 日 }
-                    { \nktget { 非公开论文/批准日期 } }
-            } \\
-            \hline
-        \end { tabular }
+        \vspace { 13.6mm }
+        学位论文作者签名：
+        \hspace { 0.5em }
+        \underline { \makebox [ 9.5em ] { } }
+        \hfill
+        \tl_if_empty:eTF { \nktget { 原创性声明/签字日期 } }
+            { 年 \qquad 月 \qquad 日 }
+            { \nktget { 原创性声明/签字日期 } }
+        \hspace* { \ccwd }
         \par
-    }
-    \par
-
-    \vspace { 1.8mm }
-    \hfill
-    { \heiti 南开大学学位评定委员会办公室盖章（有效） }
-    \par
-
-    \vspace { 9.5mm }
-    {
-        \mslinespread { 1 }
-        \songti
-        \zihao { 5 }
+        \vspace { -0.4\baselineskip }
         \noindent
-        { \heiti 注： }
-        限制★2年（可少于2年）；秘密★10年（可少于10年）；机密★20年（可少于20年）
+        \begin { tikzpicture }
+            \draw [ thick, dash~pattern = on~1mm~off~1mm ]
+                ( 0, 0 ) -- ( 14.5, 0 );
+        \end { tikzpicture }
         \par
+        \vspace { 1mm }
+        \begin { center }
+            {
+                \mslinespread { 1 }
+                \heiti
+                \zihao { 3 }
+                非公开学位论文标注说明
+                \par
+            }
+            \par
+            \vspace { 2.2mm }
+            {
+                \mslinespread { 1 }
+                \kaishu
+                \zihao { -4 }
+                （本页表中填写内容须打印）
+                \par
+            }
+        \end { center }
+        \par
+        \vspace { -6.0mm }
+        {
+            \mslinespread { 1.5 }
+            \songti
+            \zihao { -4 }
+            根据南开大学有关规定，非公开学位论文须经指导教师同意、作者本人申请和
+            相关部门批准方能标注。
+            { \heiti 未经批准的均为公开学位论文，公开学位论文本说明为空白 }。
+            \par
+        }
+        \par
+        \vspace { 1.9mm }
+        {
+            \hfuzz    = \maxdimen
+            \hbadness = 99999
+            \mslinespread { 1 }
+            \zihao { -4 }
+            \hspace { -12mm }
+            \dim_set:Nn \tabcolsep { 0mm }
+            \begin { tabular } { | l | }
+                \hline
+                \@@_make_cell:nnnnn { 32.2mm } { 17.7mm } { 0mm } { c }
+                    { \heiti 论文题目 }
+                \vrule
+                \@@_make_cell:nnnnn { 120.2mm } { } { 1em } { l }
+                    {
+                        \str_if_eq:eeF
+                            { \nktget { 非公开论文/申请密级 } } { 公开 }
+                            { \nktget { 论文题目（中文） } }
+                    } \\
+                \hline
+                \@@_make_cell:nnnnn { 32.2mm } { 9.5mm } { 0mm } { c }
+                    { \heiti 申请密级 }
+                \vrule
+                \@@_make_cell:nnnnn { 120.2mm } { 9.5mm } { 0mm } { c }
+                    {
+                        \@@_checkbox:en
+                            { \nktget { 非公开论文/申请密级 } }
+                            { 限制 }
+                            ~限制（$\leq 2$年）
+                        \quad
+                        \@@_checkbox:en
+                            { \nktget { 非公开论文/申请密级 } }
+                            { 秘密 }
+                            ~秘密（$\leq 10$年）
+                        \quad
+                        \@@_checkbox:en
+                            { \nktget { 非公开论文/申请密级 } }
+                            { 机密 }
+                            ~机密（$\leq 20$年）
+                    } \\
+                \hline
+                \@@_make_cell:nnnnn { 32.2mm } { 9.5mm } { 0mm } { c }
+                    { \heiti 保密期限 }
+                \vrule
+                \@@_make_cell:nnnnn { 120.2mm } { 9.5mm } { 0mm } { c }
+                    {
+                        \str_if_eq:eeTF
+                            { \nktget { 非公开论文/申请密级 } } { 公开 }
+                            {
+                                20 \qquad 年 \qquad 月 \qquad 日
+                                至 20 \qquad 年 \qquad 月 \qquad 日
+                            }
+                            {
+                                \nktget { 非公开论文/保密期限/起始日期 } 至
+                                \nktget { 非公开论文/保密期限/结束日期 }
+                            }
+                    } \\
+                \hline
+                \@@_make_cell:nnnnn { 32.2mm } { 9.5mm } { 0mm } { c }
+                    { \heiti 审批表编号 }
+                \vrule
+                \@@_make_cell:nnnnn { 44mm } { 9.5mm } { 0mm } { c }
+                    {
+                        \str_if_eq:eeF
+                            { \nktget { 非公开论文/申请密级 } } { 公开 }
+                            { \nktget { 非公开论文/审批表编号 } }
+                    }
+                \vrule
+                \@@_make_cell:nnnnn { 25.1mm } { 9.5mm } { 0mm } { c }
+                    { \heiti 批准日期 }
+                \vrule
+                \@@_make_cell:nnnnn { 50.9mm } { 9.5mm } { 0mm } { c }
+                    {
+                        \str_if_eq:eeTF
+                            { \nktget { 非公开论文/申请密级 } } { 公开 }
+                            { 20 \qquad 年 \qquad 月 \qquad 日 }
+                            { \nktget { 非公开论文/批准日期 } }
+                    } \\
+                \hline
+            \end { tabular }
+            \par
+        }
+        \par
+        \vspace { 1.8mm }
+        \hfill
+        { \heiti 南开大学学位评定委员会办公室盖章（有效） }
+        \par
+        \vspace { 9.5mm }
+        {
+            \mslinespread { 1 }
+            \songti
+            \zihao { 5 }
+            \noindent
+            { \heiti 注： }
+            限制★2年（可少于2年）；
+            秘密★10年（可少于10年）；
+            机密★20年（可少于20年）
+            \par
+        }
+        \group_end:
     }
-    \group_end:
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3265,76 +3338,70 @@
 % \changes{v2026.3}{2026/03/17}{修复《南开大学研究生学位论文作者信息》表中内容过长时单元格会溢出的问题。}
 %
 %    \begin{macrocode}
-\NewDocumentCommand \authorizationpage { } {
-    \bool_if:NTF \l_@@_openright_bool
-        { \cleardoublepage }
-        { \clearpage }
-    \group_begin:
-    \ctexset {
-        chapter/format    = \mslinespread{1}\heiti\zihao{3}\centering,
-        chapter/pagestyle = empty,
-    }
-    \chapter* { 南开大学学位论文使用授权书 }
-    \par
-
-    \vspace { -7.1mm }
+\NewDocumentCommand \authorizationpage { }
     {
-        \mslinespread { 1.16 }
-        \songti
-        \zihao { 5 }
-        \dim_set:Nn \parskip { 2.6mm }
-
-        本人完全了解《南开大学关于研究生学位论文收藏和利用管理办法》关于南开大学
-        （简称“学校”）研究生学位论文收藏和利用的管理规定，即：
+        \bool_if:NTF \l_@@_openright_bool
+            { \cleardoublepage }
+            { \clearpage }
+        \group_begin:
+        \ctexset
+            {
+                chapter/format    = {
+                    \mslinespread { 1 }
+                    \heiti
+                    \zihao { 3 }
+                    \centering
+                },
+                chapter/pagestyle = empty,
+            }
+        \chapter* { 南开大学学位论文使用授权书 }
         \par
-
-        南开大学拥有在著作权法规定范围内学位论文的使用权，其中包括：
+        \vspace { -7.1mm }
+        {
+            \mslinespread { 1.16 }
+            \songti
+            \zihao { 5 }
+            \dim_set:Nn \parskip { 2.6mm }
+            本人完全了解《南开大学关于研究生学位论文收藏和利用管理办法》关于南开
+            大学（简称“学校”）研究生学位论文收藏和利用的管理规定，即：
+            \par
+            南开大学拥有在著作权法规定范围内学位论文的使用权，其中包括：
+            \par
+            已获学位的研究生必须按学校规定提交学位论文，学校可以采用影印、缩印或
+            其他复制手段保存学位论文；学校根据规定向教育部指定的收藏和存档单位提
+            交学位论文；并向教育主管部门提供包括但不限于内容复制等权限。
+            \par
+            为教学和科研目的，学校可以将公开的学位论文作为资料在图书馆、资料室等
+            场所供校内师生阅读，或在校园网范围内供师生检索、浏览；
+            \par
+            非公开学位论文在解密后的使用权同公开论文。
+            \par
+            本人承诺：本人的学位论文是在南开大学学习期间创作完成的作品，并已通过
+            论文答辩；提交的学位论文电子版与纸质本论文的内容一致，如因不同造成不
+            良后果由本人自负。
+            \par
+            本人签署本授权书一份（此授权书为论文中一页），交图书馆留存。
+            \par
+            \mbox { }
+            \par
+            \hfill 学位论文作者暨授权人（亲笔）签字：\makebox [ 35.2mm ] { }
+            \par
+            \hfill
+            \tl_if_empty:eTF { \nktget { 授权书/签字日期 } }
+                { 20 \qquad 年 \qquad 月 \qquad 日 }
+                { \nktget { 授权书/签字日期 } }
+            \par
+        }
         \par
-
-        已获学位的研究生必须按学校规定提交学位论文，学校可以采用影印、缩印或其他
-        复制手段保存学位论文；学校根据规定向教育部指定的收藏和存档单位提交学位论
-        文；并向教育主管部门提供包括但不限于内容复制等权限。
+        \vspace { 7.6mm }
+        \begin { center }
+            \mslinespread { 1 }
+            \heiti
+            \zihao { 4 }
+            南开大学研究生学位论文作者信息
+        \end { center }
         \par
-
-        为教学和科研目的，学校可以将公开的学位论文作为资料在图书馆、资料室等场所
-        供校内师生阅读，或在校园网范围内供师生检索、浏览；
-        \par
-
-        非公开学位论文在解密后的使用权同公开论文。
-        \par
-
-        本人承诺：本人的学位论文是在南开大学学习期间创作完成的作品，并已通过论文
-        答辩；提交的学位论文电子版与纸质本论文的内容一致，如因不同造成不良后果由
-        本人自负。
-        \par
-
-        本人签署本授权书一份（此授权书为论文中一页），交图书馆留存。
-        \par
-
-        \mbox { }
-        \par
-
-        \hfill 学位论文作者暨授权人（亲笔）签字：\makebox [ 35.2mm ] { }
-        \par
-
-        \hfill
-        \tl_if_empty:eTF { \nktget { 授权书/签字日期 } }
-            { 20 \qquad 年 \qquad 月 \qquad 日 }
-            { \nktget { 授权书/签字日期 } }
-        \par
-    }
-    \par
-
-    \vspace { 7.6mm }
-    \begin { center }
-        \mslinespread { 1 }
-        \heiti
-        \zihao { 4 }
-        南开大学研究生学位论文作者信息
-    \end { center }
-    \par
-
-    \group_begin:
+        \group_begin:
 %    \end{macrocode}
 %
 % \changes{v2026.0}{2026/03/04}{抑制《南开大学学位论文使用授权书》中的格式警告。}
@@ -3342,164 +3409,154 @@
 % 由于该页面中表格会超过页面排版宽度，因此抑制相关格式警告。
 %
 %    \begin{macrocode}
-    \hfuzz    = \maxdimen
-    \hbadness = 99999
+        \hfuzz    = \maxdimen
+        \hbadness = 99999
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-    \vspace { -3.8mm }
-    {
-        \mslinespread { 1 }
-        \songti
-        \zihao { 5 }
-        \hspace { -18.5mm }
-        \dim_set:Nn \tabcolsep { 0mm }
-        \begin { tabular } { | l | }
-            \hline
-            \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 论文题目 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 144.7mm } { } { 1.9mm } { l } {
-                \nktget { 论文题目（中文） }
-            } \\
-            \hline
-            \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 姓名 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 30.9mm  } { 6.4mm } { 1.9mm } { l } {
-                \nktget { 论文作者 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 19.6mm  } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 学号 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 25.5mm  } { 6.4mm } { 1.9mm } { l } {
-                \nktget { 学号 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 20.5mm  } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 答辩日期 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 47.8mm  } { 6.4mm } { 1.9mm } { s } {
-                \tl_if_empty:eTF { \nktget { 答辩日期 } }
-                    { \textbf { 20 \qquad 年 \qquad 月 \qquad 日 } }
-                    { \nktget { 答辩日期 } }
-            } \\
-            \hline
-            \@@_make_cell:nnnnn { 23mm    } { 10.8mm } { 1.9mm } { s } {
-                \textbf { 论文类别 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 144.7mm } { 10.8mm } { 1.9mm } { c } {
-                \parbox [ c ] { 0.85\linewidth } {
-                    \centering
-                    \textbf { 学术博士 } ~ \@@_checkbox:en
-                        { \nktget { 作者信息/论文类别 } }
-                        { 学术博士 }
-                    \hspace { 2.5em }
-                    \textbf { 专业学位博士 } ~ \@@_checkbox:en
-                        { \nktget { 作者信息/论文类别 } }
-                        { 专业学位博士 }
-                    \hspace { 2.5em }
-                    \textbf { 学术硕士 } ~ \@@_checkbox:en
-                        { \nktget { 作者信息/论文类别 } }
-                        { 学术硕士 }
-                    \\
-                    \textbf { 专业学位硕士 } ~ \@@_checkbox:en
-                        { \nktget { 作者信息/论文类别 } }
-                        { 专业学位硕士 }
-                    \hspace { 2.5em }
-                    \textbf { 同等学力硕士 } ~ \@@_checkbox:en
-                        { \nktget { 作者信息/论文类别 } }
-                        { 同等学力硕士 }
-                }
-                \parbox [ c ] { 0.15\linewidth } {
-                    \raggedleft
-                    \textbf { 划 } \@@_checked_checkbox: \textbf { 选择 }
-                }
-            } \\
-            \hline
-            \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 学院（单位） }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 48.8mm  } { 6.4mm } { 1.9mm } { l } {
-                \nktget { 培养单位 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 48.3mm  } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 学科/专业（专业学位）名称 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 47.4mm  } { 6.4mm } { 1.9mm } { l } {
-                \tl_if_empty:eTF { \nktget { 二级学科或专业领域 } }
-                    { \nktget { 一级学科或专业学位类别 } }
-                    { \nktget { 二级学科或专业领域     } }
-            } \\
-            \hline
-            \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 联系电话 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 48.8mm  } { 6.4mm } { 1.9mm } { l } {
-                \nktget { 联系电话 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 20.8mm  } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 电子邮箱 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 74.9mm  } { 6.4mm } { 1.9mm } { l } {
-                \nktget { 电子邮箱 }
-            } \\
-            \hline
-            \@@_make_cell:nnnnn { 167.8mm } { 6.4mm } { 1.9mm } { l } {
-                \textbf { 通讯地址（邮编）： } \nktget { 通讯地址 }
-            } \\
-            \hline
-            \@@_make_cell:nnnnn { 32mm    } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 非公开论文编号 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 39.8mm  } { 6.4mm } { 1.9mm } { l } {
-                \nktget { 非公开论文/审批表编号 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 12mm    } { 6.4mm } { 1.9mm } { s } {
-                \textbf { 备注 }
-            }
-            \vrule
-            \@@_make_cell:nnnnn { 83.7mm  } { } { 1.9mm } { l } {
-                \nktget { 作者信息/备注 }
-            } \\
-            \hline
-        \end { tabular }
+        \vspace { -3.8mm }
+        {
+            \mslinespread { 1 }
+            \songti
+            \zihao { 5 }
+            \hspace { -18.5mm }
+            \dim_set:Nn \tabcolsep { 0mm }
+            \begin { tabular } { | l | }
+                \hline
+                \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 论文题目 } }
+                \vrule
+                \@@_make_cell:nnnnn { 144.7mm } {       } { 1.9mm } { l }
+                    { \nktget { 论文题目（中文） } } \\
+                \hline
+                \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 姓名 } }
+                \vrule
+                \@@_make_cell:nnnnn { 30.9mm  } { 6.4mm } { 1.9mm } { l }
+                    { \nktget { 论文作者 } }
+                \vrule
+                \@@_make_cell:nnnnn { 19.6mm  } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 学号 } }
+                \vrule
+                \@@_make_cell:nnnnn { 25.5mm  } { 6.4mm } { 1.9mm } { l }
+                    { \nktget { 学号 } }
+                \vrule
+                \@@_make_cell:nnnnn { 20.5mm  } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 答辩日期 } }
+                \vrule
+                \@@_make_cell:nnnnn { 47.8mm  } { 6.4mm } { 1.9mm } { s }
+                    {
+                        \tl_if_empty:eTF { \nktget { 答辩日期 } }
+                            { \textbf { 20 \qquad 年 \qquad 月 \qquad 日 } }
+                            { \nktget { 答辩日期 } }
+                    } \\
+                \hline
+                \@@_make_cell:nnnnn { 23mm    } { 10.8mm } { 1.9mm } { s }
+                    { \textbf { 论文类别 } }
+                \vrule
+                \@@_make_cell:nnnnn { 144.7mm } { 10.8mm } { 1.9mm } { c }
+                    {
+                        \parbox [ c ] { 0.85\linewidth }
+                            {
+                                \centering
+                                \textbf { 学术博士 } ~ \@@_checkbox:en
+                                    { \nktget { 作者信息/论文类别 } }
+                                    { 学术博士 }
+                                \hspace { 2.5em }
+                                \textbf { 专业学位博士 } ~ \@@_checkbox:en
+                                    { \nktget { 作者信息/论文类别 } }
+                                    { 专业学位博士 }
+                                \hspace { 2.5em }
+                                \textbf { 学术硕士 } ~ \@@_checkbox:en
+                                    { \nktget { 作者信息/论文类别 } }
+                                    { 学术硕士 }
+                                \\
+                                \textbf { 专业学位硕士 } ~ \@@_checkbox:en
+                                    { \nktget { 作者信息/论文类别 } }
+                                    { 专业学位硕士 }
+                                \hspace { 2.5em }
+                                \textbf { 同等学力硕士 } ~ \@@_checkbox:en
+                                    { \nktget { 作者信息/论文类别 } }
+                                    { 同等学力硕士 }
+                            }
+                        \parbox [ c ] { 0.15\linewidth }
+                            {
+                                \raggedleft
+                                \textbf { 划 } \@@_checked_checkbox:
+                                \textbf { 选择 }
+                            }
+                    } \\
+                \hline
+                \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 学院（单位） } }
+                \vrule
+                \@@_make_cell:nnnnn { 48.8mm  } { 6.4mm } { 1.9mm } { l }
+                    { \nktget { 培养单位 } }
+                \vrule
+                \@@_make_cell:nnnnn { 48.3mm  } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 学科/专业（专业学位）名称 } }
+                \vrule
+                \@@_make_cell:nnnnn { 47.4mm  } { 6.4mm } { 1.9mm } { l }
+                    {
+                        \tl_if_empty:eTF { \nktget { 二级学科或专业领域 } }
+                            { \nktget { 一级学科或专业学位类别 } }
+                            { \nktget { 二级学科或专业领域     } }
+                    } \\
+                \hline
+                \@@_make_cell:nnnnn { 23mm    } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 联系电话 } }
+                \vrule
+                \@@_make_cell:nnnnn { 48.8mm  } { 6.4mm } { 1.9mm } { l }
+                    { \nktget { 联系电话 } }
+                \vrule
+                \@@_make_cell:nnnnn { 20.8mm  } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 电子邮箱 } }
+                \vrule
+                \@@_make_cell:nnnnn { 74.9mm  } { 6.4mm } { 1.9mm } { l }
+                    { \nktget { 电子邮箱 } } \\
+                \hline
+                \@@_make_cell:nnnnn { 167.8mm } { 6.4mm } { 1.9mm } { l }
+                    { \textbf { 通讯地址（邮编）： } \nktget { 通讯地址 } } \\
+                \hline
+                \@@_make_cell:nnnnn { 32mm    } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 非公开论文编号 } }
+                \vrule
+                \@@_make_cell:nnnnn { 39.8mm  } { 6.4mm } { 1.9mm } { l }
+                    { \nktget { 非公开论文/审批表编号 } }
+                \vrule
+                \@@_make_cell:nnnnn { 12mm    } { 6.4mm } { 1.9mm } { s }
+                    { \textbf { 备注 } }
+                \vrule
+                \@@_make_cell:nnnnn { 83.7mm  } {       } { 1.9mm } { l }
+                    { \nktget { 作者信息/备注 } } \\
+                \hline
+            \end { tabular }
+            \par
+        }
         \par
+        \vspace { 1.9mm }
+        {
+            \mslinespread { 1.3 }
+            \heiti
+            \zihao { -5 }
+            \hspace { -18.5mm }
+            \dim_set:Nn \tabcolsep { 0mm }
+            \begin { tabular }
+                {
+                    > { \raggedleft \arraybackslash }
+                    p { 7.1mm }
+                    p { 1.3mm }
+                    p { 160mm }
+                }
+                注：& & 本授权书适用我校授予的所有博士、硕士的学位论文。如已批准
+                为非公开学位论文，须向图书馆提供批准通过的《南开大学研究生申请非
+                公开学位论文审批表》复印件和“非公开学位论文标注说明”页原件。\\
+            \end { tabular }
+            \par
+        }
+        \group_end:
+        \group_end:
     }
-    \par
-
-    \vspace { 1.9mm }
-    {
-        \mslinespread { 1.3 }
-        \heiti
-        \zihao { -5 }
-        \hspace { -18.5mm }
-        \dim_set:Nn \tabcolsep { 0mm }
-        \begin { tabular }
-            { > { \raggedleft \arraybackslash } p { 7.1mm } p { 1.3mm } p { 160mm } }
-            注：& & 本授权书适用我校授予的所有博士、硕士的学位论文。如已批准为非
-            公开学位论文，须向图书馆提供批准通过的《南开大学研究生申请非公开学位
-            论文审批表》复印件和“非公开学位论文标注说明”页原件。\\
-        \end { tabular }
-        \par
-    }
-    \group_end:
-    \group_end:
-}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -3507,9 +3564,8 @@
 %
 % \begin{macro}{\bibliographypage}
 %    \begin{macrocode}
-\NewDocumentCommand \bibliographypage { } {
-    \printbibliography [ heading = bibintoc, title = \bibname ]
-}
+\NewDocumentCommand \bibliographypage { }
+    { \printbibliography [ heading = bibintoc, title = \bibname ] }
 %    \end{macrocode}
 % \end{macro}
 %
