@@ -2750,6 +2750,7 @@
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
 % \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
+% \changes{v2026.4}{2026/05/15}{修复行距设置在最后一段不生效的问题。}
 %
 % \begin{environment}{symabbr}
 %
@@ -2779,12 +2780,13 @@
             { \addcontentsline { toc } { chapter } { \symabbrname } }
         \ignorespaces
     }
-    { }
+    { \par }
 %    \end{macrocode}
 % \end{environment}
 %
 % \changes{v2026.0}{2026/03/03}{去掉勘误页。}
 % \changes{v2026.0}{2026/03/03}{将致谢页字体改为仿宋。}
+% \changes{v2026.4}{2026/05/15}{修复行距设置在最后一段不生效的问题。}
 %
 % \subsubsection{致谢}
 %
@@ -2815,7 +2817,7 @@
         \addcontentsline { toc } { chapter } { \acknowledgmentsname }
         \ignorespaces
     }
-    { }
+    { \par }
 \cs_new_eq:NN \acknowledgements    \acknowledgments
 \cs_new_eq:NN \endacknowledgements \endacknowledgments
 %    \end{macrocode}
@@ -2824,6 +2826,7 @@
 % \subsubsection{个人简历、在学期间发表的学术论文及研究成果}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+% \changes{v2026.4}{2026/05/15}{修复行距设置在最后一段不生效的问题。}
 %
 % \begin{macro}{\@@_resume:n}
 %    \begin{macrocode}
@@ -2856,7 +2859,7 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { resume } { }
     { \@@_resume:n { \resumename } }
-    { }
+    { \par }
 %    \end{macrocode}
 % \end{environment}
 %
@@ -2864,7 +2867,7 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { resume* } { }
     { \@@_resume:n { \anonymousresumename } }
-    { }
+    { \par }
 %    \end{macrocode}
 % \end{environment}
 %
