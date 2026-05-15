@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/03/30}
-%<class>    {v2026.4.3}
+%<class>    {2026/05/15}
+%<class>    {v2026.4.4}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -130,7 +130,7 @@
 %     \cs_set_protected:Npn, \vphantom, \vfill, \kern, \str_case:enF,
 %     \str_if_in:NnTF, \dim_new:N, \tl_new:N, \tl_set:Nx, \paperwidth,
 %     \vskip, \dimen@, \hsize, \advance, \p@, \hskip, \@minus, \tw@, \null,
-%     \BeforeBeginEnvironment, \AfterEndEnvironment, \bool_if:NT,
+%     \BeforeBeginEnvironment, \AfterEndEnvironment, \bool_if:NT, \cs_new_eq:NN,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -147,7 +147,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/03/30\qquad v2026.4.3}
+% \date{2026/05/15\qquad v2026.4.4}
 % \maketitle
 %
 % \begin{abstract}
@@ -723,9 +723,9 @@
 % 自定义环境可以通过以下方式使用，以在文中插入相应页面。
 %
 % \begin{nkthesisexam}
-%     \begin{acknowledgements}
+%     \begin{acknowledgments}
 %         这是致谢内容
-%     \end{acknowledgements}
+%     \end{acknowledgments}
 % \end{nkthesisexam}
 %
 % 自定义页面可以通过以下方式直接使用，以在文中插入相应页面。
@@ -805,9 +805,9 @@
 %     \chapter{附录标题}
 %     附录内容。
 %
-%     \begin{acknowledgements}
+%     \begin{acknowledgments}
 %         致谢。
-%     \end{acknowledgements}
+%     \end{acknowledgments}
 %
 %     % 以下页面可根据需要（匿名/非匿名等）选择使用
 %     \begin{resume}
@@ -923,6 +923,7 @@
 %
 % \changes{v2026.0}{2026/03/03}{去掉勘误页。}
 %
+% \noindent\DescribeEnv{acknowledgments}
 % \noindent\DescribeEnv{acknowledgements}
 % 致谢。
 % 致谢是作者对该文章的形成作过贡献的组织或个人予以感谢的文字记载，语言要诚恳、恰当、简短。
@@ -1026,7 +1027,7 @@
 %
 % \changes{v2026.0}{2026/03/03}{去掉勘误页。}
 %
-% \begin{function}{\acknowledgementsname}
+% \begin{function}{\acknowledgmentsname}
 %     致谢，默认值为“致谢”。
 % \end{function}
 %
@@ -2163,9 +2164,9 @@
 %
 % \changes{v2026.0}{2026/03/03}{去掉勘误页。}
 %
-% \begin{macro}{\acknowledgementsname}
+% \begin{macro}{\acknowledgmentsname}
 %    \begin{macrocode}
-\cs_new:Npn \acknowledgementsname { 致谢 }
+\cs_new:Npn \acknowledgmentsname { 致谢 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2788,10 +2789,11 @@
 % \subsubsection{致谢}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+% \changes{v2026.4}{2026/05/15}{同时支持 acknowledgments 和 acknowledgements 两种拼写。}
 %
-% \begin{environment}{acknowledgements}
+% \begin{environment}{acknowledgments, acknowledgements}
 %    \begin{macrocode}
-\NewDocumentEnvironment { acknowledgements } { }
+\NewDocumentEnvironment { acknowledgments } { }
     {
         \ctexset
             {
@@ -2803,17 +2805,19 @@
                     \centering
                 },
             }
-        \chapter* { \acknowledgementsname }
+        \chapter* { \acknowledgmentsname }
         \markboth
-            { \MakeUppercase { \acknowledgementsname } }
-            { \MakeUppercase { \acknowledgementsname } }
+            { \MakeUppercase { \acknowledgmentsname } }
+            { \MakeUppercase { \acknowledgmentsname } }
         \mslinespreadbp { 16 } { 12 }
         \fangsong
         \zihao { -4 }
-        \addcontentsline { toc } { chapter } { \acknowledgementsname }
+        \addcontentsline { toc } { chapter } { \acknowledgmentsname }
         \ignorespaces
     }
     { }
+\cs_new_eq:NN \acknowledgements    \acknowledgments
+\cs_new_eq:NN \endacknowledgements \endacknowledgments
 %    \end{macrocode}
 % \end{environment}
 %
