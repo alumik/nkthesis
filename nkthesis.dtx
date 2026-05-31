@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/05/15}
-%<class>    {v2026.4.4}
+%<class>    {2026/05/31}
+%<class>    {v2026.4.5}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -131,6 +131,7 @@
 %     \str_if_in:NnTF, \dim_new:N, \tl_new:N, \tl_set:Nx, \paperwidth,
 %     \vskip, \dimen@, \hsize, \advance, \p@, \hskip, \@minus, \tw@, \null,
 %     \BeforeBeginEnvironment, \AfterEndEnvironment, \bool_if:NT, \cs_new_eq:NN,
+%     \includegraphics,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -147,7 +148,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/05/15\qquad v2026.4.4}
+% \date{2026/05/31\qquad v2026.4.5}
 % \maketitle
 %
 % \begin{abstract}
@@ -624,6 +625,25 @@
 %     |\qquad{}| 仅用于默认值排版，实际填写时请写成例如“2025年06月29日”的形式。
 % \end{function}
 %
+% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名设置。}
+%
+% \begin{function}{原创性声明/电子签名路径}
+%     \begin{syntax}
+%         原创性声明/电子签名路径 = <路径>
+%     \end{syntax}
+%     《南开大学学位论文原创性声明》中的电子签名路径。
+%     电子签名需要背景透明的图片。
+%     默认值为空。
+% \end{function}
+%
+% \begin{function}{原创性声明/电子签名宽度}
+%     \begin{syntax}
+%         原创性声明/电子签名宽度 = <宽度>
+%     \end{syntax}
+%     《南开大学学位论文原创性声明》中的电子签名宽度。
+%     默认值为 7em。
+% \end{function}
+%
 % \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
 %
 % \begin{function}[added=2025/05/29]{原创性声明/签字日期}
@@ -634,6 +654,25 @@
 %
 %     默认值为“年|\qquad{}|月|\qquad{}|日”。
 %     |\qquad{}| 仅用于默认值排版，实际填写时请写成例如“2025年06月29日”的形式。
+% \end{function}
+%
+% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名设置。}
+%
+% \begin{function}{授权书/电子签名路径}
+%     \begin{syntax}
+%         授权书/电子签名路径 = <路径>
+%     \end{syntax}
+%     《南开大学学位论文使用授权书》中的电子签名路径。
+%     电子签名需要背景透明的图片。
+%     默认值为空。
+% \end{function}
+%
+% \begin{function}{授权书/电子签名宽度}
+%     \begin{syntax}
+%         授权书/电子签名宽度 = <宽度>
+%     \end{syntax}
+%     《南开大学学位论文使用授权书》中的电子签名宽度。
+%     默认值为 7em。
 % \end{function}
 %
 % \begin{function}{授权书/签字日期}
@@ -1549,6 +1588,7 @@
 % \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
+% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名路径设置。}
 %
 %    \begin{macrocode}
 \keys_define:nn { @@ / info }
@@ -1609,9 +1649,19 @@
             { info / 非公开论文 / 批准日期 } {#1},
         非公开论文/批准日期          .initial:n  =
             { 20 \qquad 年 \qquad 月 \qquad 日 },
+        原创性声明/电子签名路径      .code:n     = \@@_config_set:nn
+            { info / 原创性声明 / 电子签名路径 } {#1},
+        原创性声明/电子签名宽度      .code:n     = \@@_config_set:nn
+            { info / 原创性声明 / 电子签名宽度 } {#1},
+        原创性声明/电子签名宽度      .initial:n  = 7em,
         原创性声明/签字日期          .code:n     = \@@_config_set:nn
             { info / 原创性声明 / 签字日期 } {#1},
         原创性声明/签字日期          .initial:n  = 年 \qquad 月 \qquad 日,
+        授权书/电子签名路径          .code:n     = \@@_config_set:nn
+            { info / 授权书 / 电子签名路径 } {#1},
+        授权书/电子签名宽度          .code:n     = \@@_config_set:nn
+            { info / 授权书 / 电子签名宽度 } {#1},
+        授权书/电子签名宽度          .initial:n  = 7em,
         授权书/签字日期              .code:n     = \@@_config_set:nn
             { info / 授权书 / 签字日期 } {#1},
         授权书/签字日期              .initial:n  =
@@ -3134,6 +3184,7 @@
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文原创性声明》页面与《南开大学学位论文使用授权书》页面。}
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
+% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名路径设置。}
 %
 % \begin{macro}{\declarationpage}
 %
@@ -3176,7 +3227,22 @@
         \vspace { 13.6mm }
         学位论文作者签名：
         \hspace { 0.5em }
-        \underline { \makebox [ 9.5em ] { } }
+        \underline
+            {
+                \makebox [ 9.5em ]
+                    {
+                        \tl_if_empty:eTF { \nktget { 原创性声明/电子签名路径 } }
+                            { }
+                            {
+                                \raisebox { 0pt } [ 0pt ] [ 0pt ]
+                                {
+                                    \includegraphics
+                                        [ width = \nktget { 原创性声明/电子签名宽度 } ]
+                                        { \nktget { 原创性声明/电子签名路径 } }
+                                }
+                            }
+                    }
+            }
         \hfill
         \tl_if_empty:eTF { \nktget { 原创性声明/签字日期 } }
             { 年 \qquad 月 \qquad 日 }
@@ -3336,6 +3402,7 @@
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
+% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名路径设置。}
 %
 % \begin{macro}{\authorizationpage}
 %
@@ -3391,7 +3458,20 @@
             \par
             \mbox { }
             \par
-            \hfill 学位论文作者暨授权人（亲笔）签字：\makebox [ 35.2mm ] { }
+            \hfill 学位论文作者暨授权人（亲笔）签字：
+            \makebox [ 35.2mm ]
+                {
+                    \tl_if_empty:eTF { \nktget { 授权书/电子签名路径 } }
+                        { }
+                        {
+                            \raisebox { 0pt } [ 0pt ] [ 0pt ]
+                            {
+                                \includegraphics
+                                    [ width = \nktget { 授权书/电子签名宽度 } ]
+                                    { \nktget { 授权书/电子签名路径 } }
+                            }
+                        }
+                }
             \par
             \hfill
             \tl_if_empty:eTF { \nktget { 授权书/签字日期 } }
