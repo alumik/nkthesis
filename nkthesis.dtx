@@ -22,7 +22,7 @@
 %<class>    {nkthesis}
 %<class>    {2026/06/01}
 %<class>    {v2026.5.0}
-%<class>    {Template for Master's and Doctoral Thesis of Nankai University}
+%<class>    {Template for Master's and Doctoral Theses of Nankai University}
 %
 %<*driver>
 \PassOptionsToPackage{AutoFakeBold=true, AutoFakeSlant=true}{xeCJK}
@@ -152,12 +152,12 @@
 % \maketitle
 %
 % \begin{abstract}
-%     \cls{nkthesis} 是一个南开大学硕士/博士毕业（学位）论文 \LaTeX 模板，符合《研究生学位论文写作规范（2026版）》要求，支持多平台使用 \XeLaTeX 编译。
+%     \cls{nkthesis} 是一个南开大学硕士/博士毕业（学位）论文 \LaTeX 模板，符合《研究生学位论文写作规范》要求，支持多平台使用 \XeLaTeX 编译。
 %     该模板精简了类定义，同时保证了编译结果的一致性和规范性。
 %     它提供了中文和数字两种标题编号样式选择，利用多个宏包协同工作实现定制化功能。
 %     本模板提供了完善的中英文摘要、关键词、前言、符号说明、致谢和个人简历等环境，以及题名页、匿名评阅封面、原创性声明、使用授权书和参考文献等特殊页面。
 %     使用者可通过简单的命令设置和获取论文基本信息，调整字体字号和行间距，实现交叉引用和插入图片。
-%     本模板代码开源，在 GitHub 上提供完整使用说明和持续更新。
+%     本模板代码开源，在 GitHub 上持续更新。
 % \end{abstract}
 %
 % \tableofcontents
@@ -169,15 +169,15 @@
 % \section{介绍}
 %
 % \begin{warningbox}
-%     本模板仅支持 TeX Live 2025 及以上版本。
+%     本模板仅支持 \TeX Live 2025 及以上版本，且需要使用 \XeLaTeX 编译。
 % \end{warningbox}
 %
 % 本模板主要特点如下：
 %
 % \begin{enumerate}
 %     \item 使用 \LaTeXiii 接口编写。
-%     \item 符合《研究生学位论文写作规范（2026版）》。
-%           目前仅支持中文论文。
+%     \item 符合《研究生学位论文写作规范》。
+%           目前支持中文论文。
 %     \item 支持本地与在线（Overleaf 等）编译。仅支持使用 \XeLaTeX 编译。
 %     \item 可按需添加需要的字体，保证不同平台编译结果的一致性。
 %     \item 实现了中文和数字两种标题编号样式。
@@ -339,7 +339,7 @@
 %     \begin{syntax}
 %         uppercasehead[ = <true|(false)> ]
 %     \end{syntax}
-%     当该选项存在时，或设置为真时，将章节页眉转换为全大写。
+%     当该选项存在时，或设置为真时，将页眉转换为全大写。
 %     否则，保留原始大小写。
 % \end{function}
 %
@@ -353,8 +353,8 @@
 %     \begin{syntax}
 %         openright[ = <true|(false)> ]
 %     \end{syntax}
-%     当该选项存在时，或设置为真时，章节开始时强制在右页开始。
-%     该选项通常用于双面打印。
+%     当该选项存在时，或设置为真时，强制章节从右页开始（符合双面打印规范）。
+%     否则，允许章节从左页开始。
 % \end{function}
 %
 % \changes{v2026.5}{2026/06/01}{将 \texttt{gbpub} 选项的默认值设置为 \texttt{false}}
@@ -371,8 +371,8 @@
 %     \begin{syntax}
 %         frontmatterintoc[ = <true|(false)> ]
 %     \end{syntax}
-%     当该选项存在时，或设置为真时，在目录中显示前置部分的条目。
-%     否则，前置部分的条目不显示在目录中。
+%     当该选项存在时，或设置为真时，，前置部分（如摘要、前言等）会被添加到目录中。
+%     否则，前置部分不会出现在目录中。
 % \end{function}
 %
 % \section{设置和读取论文基本信息}
