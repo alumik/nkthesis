@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/05/31}
-%<class>    {v2026.4.5}
+%<class>    {2026/06/01}
+%<class>    {v2026.5.0}
 %<class>    {Template for Master's and Doctoral Thesis of Nankai University}
 %
 %<*driver>
@@ -148,7 +148,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/05/31\qquad v2026.4.5}
+% \date{2026/06/01\qquad v2026.5.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -357,13 +357,14 @@
 %     该选项通常用于双面打印。
 % \end{function}
 %
-% \begin{function}[added=2026/03/14]{gbpub}
+% \changes{v2026.5}{2026/06/01}{将 \texttt{gbpub} 选项的默认值设置为 \texttt{false}}
+%
+% \begin{function}[added=2026/03/14,updated=2026/06/01]{gbpub}
 %     \begin{syntax}
-%         gbpub[ = <(true)|false> ]
+%         gbpub[ = <true|(false)> ]
 %     \end{syntax}
 %     当该选项存在时，或设置为真时，自动利用：[出版地不详]、[出版者不详]、[S.l.]、[s.n.]等填补缺失的出版信息；
 %     否则取消自动处理，取消相应项的输出。
-%     该选项默认为真，即默认启用自动填补缺失的出版信息功能。
 % \end{function}
 %
 % \begin{function}[added=2026/03/30]{frontmatterintoc}
@@ -1519,16 +1520,16 @@
 % \end{macro}
 %
 % \changes{v2026.2}{2026/03/14}{增加 \texttt{gbpub} 选项以控制是否要在参考文献中自动填补缺失的出版信息。}
+% \changes{v2026.5}{2026/06/01}{将 \texttt{gbpub} 选项的默认值设置为 \texttt{false}}
 %
 % \begin{macro}{options/gbpub}
 %
 % 若 |gbpub| 选项设置为真，自动利用：[出版地不详]、[出版者不详]、[S.l.]、[s.n.]等填补缺失的出版信息；
 % 否则取消自动处理，取消相应项的输出。
-% 该选项默认为真，即默认启用自动填补缺失的出版信息功能。
 %
 %    \begin{macrocode}
         gbpub .bool_set:N = \l_@@_gbpub_bool,
-        gbpub .initial:n  = true,
+        gbpub .initial:n  = false,
 %    \end{macrocode}
 % \end{macro}
 %
