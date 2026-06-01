@@ -330,11 +330,6 @@
 %                  （一）××××（根据需要，也可设三级标题，左缩进2个汉字）
 %     \end{optdesc}
 %
-% \changes{v2.3}{2025/12/26}{
-%     对于 \texttt{openright} 和 \texttt{uppercasehead} 选项允许显式设置选项为
-%     \texttt{true} 或 \texttt{false}。
-% }
-%
 % \begin{function}[updated=2025/12/26]{uppercasehead}
 %     \begin{syntax}
 %         uppercasehead[ = <true|(false)> ]
@@ -343,12 +338,6 @@
 %     否则，保留原始大小写。
 % \end{function}
 %
-% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
-% \changes{v2.3}{2025/12/26}{
-%     对于 \texttt{openright} 和 \texttt{uppercasehead} 选项允许显式设置选项为
-%     \texttt{true} 或 \texttt{false}。
-% }
-%
 % \begin{function}[added=2025/05/23,updated=2025/12/26]{openright}
 %     \begin{syntax}
 %         openright[ = <true|(false)> ]
@@ -356,8 +345,6 @@
 %     当该选项存在时，或设置为真时，强制章节从右页开始（符合双面打印规范）。
 %     否则，允许章节从左页开始。
 % \end{function}
-%
-% \changes{v2026.5}{2026/06/01}{将 \texttt{gbpub} 选项的默认值设置为 \texttt{false}}
 %
 % \begin{function}[added=2026/03/14,updated=2026/06/01]{gbpub}
 %     \begin{syntax}
@@ -459,8 +446,6 @@
 %     如果字数过多可适当调整。
 % \end{function}
 %
-% \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
-%
 % \begin{function}[updated=2025/05/09]{论文题目（中文）}
 %     \begin{syntax}
 %         论文题目（中文） = <名称>
@@ -468,9 +453,6 @@
 %     论文中文标题。
 %     默认值为空。
 % \end{function}
-%
-% \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
-% \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 %
 % \begin{function}[updated=2025/05/09]{论文题目（英文）}
 %     \begin{syntax}
@@ -514,8 +496,6 @@
 %     哲学院、数学科学学院等。
 % \end{function}
 %
-% \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
-%
 % \begin{function}[updated=2026/03/23]{一级学科或专业学位类别}
 %     \begin{syntax}
 %         一级学科或专业学位类别 = <名称>
@@ -525,8 +505,6 @@
 %     学科名称以国务院学位委员会颁布的《研究生教育学科专业目录（2022年）》为准。
 %     硕士或博士专业学位填写专业学位类别。
 % \end{function}
-%
-% \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
 %
 % \begin{function}[updated=2026/03/23]{二级学科或专业领域}
 %     \begin{syntax}
@@ -563,8 +541,6 @@
 %     评阅人姓名列表。
 %     默认值为空。
 % \end{function}
-%
-% \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
 %
 % \begin{function}{论文完成时间}
 %     \begin{syntax}
@@ -626,8 +602,6 @@
 %     |\qquad{}| 仅用于默认值排版，实际填写时请写成例如“2025年06月29日”的形式。
 % \end{function}
 %
-% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名设置。}
-%
 % \begin{function}[added=2026/05/31]{原创性声明/电子签名路径}
 %     \begin{syntax}
 %         原创性声明/电子签名路径 = <路径>
@@ -645,8 +619,6 @@
 %     默认值为 7em。
 % \end{function}
 %
-% \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
-%
 % \begin{function}[added=2025/05/29]{原创性声明/签字日期}
 %     \begin{syntax}
 %         原创性声明/签字日期 = <日期>
@@ -656,8 +628,6 @@
 %     默认值为“年|\qquad{}|月|\qquad{}|日”。
 %     |\qquad{}| 仅用于默认值排版，实际填写时请写成例如“2025年06月29日”的形式。
 % \end{function}
-%
-% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名设置。}
 %
 % \begin{function}[added=2026/05/31]{授权书/电子签名路径}
 %     \begin{syntax}
@@ -697,8 +667,6 @@
 %     默认值为空。
 % \end{function}
 %
-% \changes{v2.2}{2025/05/29}{加粗答辩日期。}
-%
 % \begin{function}{答辩日期}
 %     \begin{syntax}
 %         答辩日期 = <日期>
@@ -723,8 +691,6 @@
 %     《南开大学研究生学位论文作者信息》中的备注。
 %     默认值为空。
 % \end{function}
-%
-% \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
 %
 % \begin{function}{作者信息/论文类别}
 %     \begin{syntax}
@@ -777,14 +743,12 @@
 % \subsection{整体结构}
 %
 % \changes{v2.1}{2025/05/02}{将示例文件从 main 重命名为 nkthesis-sample。}
-% \changes{v2.1}{2025/05/03}{在文档中介绍论文的整体结构。}
 %
 % 论文结构可以参考 nkthesis-sample.tex 文件中的内容。
 % 论文可以分为四个部分，即封面材料、前置部分（frontmatter）、主体部分（mainmatter）和后置部分（backmatter）。
 % 推荐的整体结构如下：
 %
 % \changes{v2026.0}{2026/03/03}{调换参考文献和附录的位置，使得附录位于参考文献之后。}
-% \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
 %
 % \begin{nkthesisexam}
 %     \begin{document}
@@ -893,8 +857,6 @@
 %     在本模板中，前置部分包含中英文摘要、序言或前言、目录、图和附表清单以及符号、标志、缩略语等的注释表等。
 %     前置部分的页码采用大写罗马字母，并且与正文分开计数。
 % \end{function}
-%
-% \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
 %
 % \noindent\DescribeEnv{abstract}
 % 摘要环境。
@@ -1019,8 +981,6 @@
 %
 % \subsection{行间距}
 %
-% \changes{v2026.1}{2026/03/12}{调整行间距时不再需要使用 \texttt{\textbackslash selectfont}。}
-%
 % 模板提供以下两个命令调整行间距。
 %
 % \begin{function}[updated=2026/03/12]{\mslinespread}
@@ -1064,8 +1024,6 @@
 % \begin{function}[updated=2025/04/30]{\symabbrname}
 %     符号、标志、缩略语等的注释表，默认值为“符号和缩略语说明”。
 % \end{function}
-%
-% \changes{v2026.0}{2026/03/03}{去掉勘误页。}
 %
 % \begin{function}{\acknowledgmentsname}
 %     致谢，默认值为“致谢”。
@@ -1136,8 +1094,6 @@
 % 无论哪种编号模式，对小节的交叉引用可以如下进行。
 % 其中，|chap:|、|sec:| 等标签前缀仅为了理解方便，不是必要格式。
 % 标签内容可自定义。
-%
-% \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs{simpleref} 等命令。}
 %
 % \subsubsection*{引用格式一：使用原始 \cs{ref} 命令引用}
 %
@@ -1458,15 +1414,11 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \changes{v2026.2}{2026/03/14}{增加 \texttt{gbpub} 选项以控制是否要在参考文献中自动填补缺失的出版信息。}
-%
 % \begin{variable}{\l_@@_gbpub_bool}
 %    \begin{macrocode}
 \bool_new:N \l_@@_gbpub_bool
 %    \end{macrocode}
 % \end{variable}
-%
-% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
 %
 % \begin{variable}{\l_@@_frontmatterintoc_bool}
 %    \begin{macrocode}
@@ -1505,10 +1457,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
-%
 % \begin{macro}{options/openright}
 %
+% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.3}{2025/12/26}{允许显式设置选项为 \texttt{true} 或 \texttt{false}。}
 %
 % 若存在 |openright| 选项，或选项设置为真，章节必须从奇数页开始。
@@ -1519,10 +1470,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{options/gbpub}
+%
 % \changes{v2026.2}{2026/03/14}{增加 \texttt{gbpub} 选项以控制是否要在参考文献中自动填补缺失的出版信息。}
 % \changes{v2026.5}{2026/06/01}{将 \texttt{gbpub} 选项的默认值设置为 \texttt{false}}
-%
-% \begin{macro}{options/gbpub}
 %
 % 若 |gbpub| 选项设置为真，自动利用：[出版地不详]、[出版者不详]、[S.l.]、[s.n.]等填补缺失的出版信息；
 % 否则取消自动处理，取消相应项的输出。
@@ -1533,9 +1484,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
-%
 % \begin{macro}{options/frontmatterintoc}
+%
+% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
 %
 % 仅在 |frontmatterintoc| 选项设置为真时，前置部分的条目才会显示在目录中。
 %
@@ -1582,14 +1533,11 @@
 % \subsubsection{论文基本信息}
 %
 % \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
-% \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
 % \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
 % \changes{v2.2}{2025/05/29}{加粗答辩日期。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
-% \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
-% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名路径设置。}
 %
 %    \begin{macrocode}
 \keys_define:nn { @@ / info }
@@ -1734,7 +1682,6 @@
 % 载入宏包。
 %
 % \changes{v2026.0}{2026/03/12}{删除不必要或重复引入的宏包。}
-% \changes{v2026.4}{2026/03/28}{使公式上下间距保持一致。}
 %
 %    \begin{macrocode}
 \RequirePackage [ a4paper ] { geometry }
@@ -2005,9 +1952,7 @@
 %
 % \changes{v2026.2}{2026/03/14}{抛弃传统字符串处理宏包，使用 \pkg{l3regex} 重构简单引用命令。}
 % \changes{v2.4}{2025/12/28}{修复使用 \cs{simpleref} 引用子图和公式时显示为空的问题。}
-% \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs{simpleref} 等命令。}
-%
-% \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文原创性声明》页面与《南开大学学位论文使用授权书》页面。}
+% \changes{v2026.3}{2026/03/15}{移除原有的 \cs{simpleref} 等命令。}
 %
 % \begin{macro}{\@@_apply_align:nn}
 %
@@ -2063,9 +2008,9 @@
 %
 % \subsubsection{公有命令定义}
 %
-% \changes{v2026.1}{2026/03/12}{调整行间距时不再需要使用 \texttt{\textbackslash selectfont}。}
-%
 % \begin{macro}{\mslinespread}
+%
+% \changes{v2026.1}{2026/03/12}{调整行间距时不再需要使用 \texttt{\textbackslash selectfont}。}
 %
 % Microsoft Word 多倍行距模拟。
 %
@@ -2109,8 +2054,6 @@
 \AtBeginDocument { \pagenumbering { Alph } }
 %    \end{macrocode}
 %
-% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
-%
 % \begin{macro}{\frontmatter}
 %
 % \changes{v2.2}{2025/05/23}{将前置部分的页面风格设置为 \texttt{fancy}。}
@@ -2138,8 +2081,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
-%
 % \begin{macro} {\mainmatter}
 %    \begin{macrocode}
 \RenewDocumentCommand \mainmatter { }
@@ -2165,8 +2106,6 @@
     }
 %    \end{macrocode}
 % \end{macro}
-%
-% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 %
 % \begin{macro}{\backmatter}
 %    \begin{macrocode}
@@ -2212,8 +2151,6 @@
 \cs_new:Npn \symabbrname { 符号和缩略语说明 }
 %    \end{macrocode}
 % \end{macro}
-%
-% \changes{v2026.0}{2026/03/03}{去掉勘误页。}
 %
 % \begin{macro}{\acknowledgmentsname}
 %    \begin{macrocode}
@@ -2394,8 +2331,6 @@
 \cs_set:Npn \cftfigpresnum { \figurename }
 \cs_set:Npn \cfttabpresnum { \tablename  }
 %    \end{macrocode}
-%
-% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
 %
 % 根据模板参数决定是否要把前置部分的条目添加至目录中。
 %
@@ -2701,10 +2636,11 @@
 % \subsubsection{摘要}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
-% \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
-% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
 %
 % \begin{environment}{abstract}
+%
+% \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
+%
 %    \begin{macrocode}
 \NewDocumentEnvironment { abstract } { O{ } }
     {
@@ -2751,9 +2687,6 @@
 %    \end{macrocode}
 % \end{environment}
 %
-% \changes{v2.3}{2025/12/24}{对于宋体，不再为粗体和斜体使用替代字体，统一使用伪粗体和伪斜体。}
-% \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
-%
 % \begin{environment}{keywords}
 %    \begin{macrocode}
 \NewDocumentEnvironment { keywords } { O{ } }
@@ -2769,7 +2702,6 @@
 % \subsubsection{序言或前言}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
-% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
 %
 % \begin{environment}{preface}
 %    \begin{macrocode}
@@ -2800,7 +2732,6 @@
 % \subsubsection{符号、标志、缩略语等的注释表}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
-% \changes{v2026.4}{2026/03/30}{增加 \texttt{frontmatterintoc} 选项以控制是否要在目录中显示前置部分的条目。}
 % \changes{v2026.4}{2026/05/15}{修复行距设置在最后一段不生效的问题。}
 %
 % \begin{environment}{symabbr}
@@ -2835,16 +2766,17 @@
 %    \end{macrocode}
 % \end{environment}
 %
-% \changes{v2026.0}{2026/03/03}{去掉勘误页。}
-% \changes{v2026.0}{2026/03/03}{将致谢页字体改为仿宋。}
 % \changes{v2026.4}{2026/05/15}{修复行距设置在最后一段不生效的问题。}
 %
 % \subsubsection{致谢}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
-% \changes{v2026.4}{2026/05/15}{同时支持 acknowledgments 和 acknowledgements 两种拼写。}
 %
 % \begin{environment}{acknowledgments, acknowledgements}
+%
+% \changes{v2026.0}{2026/03/03}{将致谢页字体改为仿宋。}
+% \changes{v2026.4}{2026/05/15}{同时支持 acknowledgments 和 acknowledgements 两种拼写。}
+%
 %    \begin{macrocode}
 \NewDocumentEnvironment { acknowledgments } { }
     {
@@ -2927,7 +2859,6 @@
 % \subsubsection{题名页}
 %
 % \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
-% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
@@ -3063,7 +2994,6 @@
 %
 % \subsubsection{匿名评阅封面}
 %
-% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
@@ -3180,17 +3110,16 @@
 %
 % \subsubsection{学位论文原创性声明和非公开学位论文标注说明}
 %
-% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
-% \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
-% \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文原创性声明》页面与《南开大学学位论文使用授权书》页面。}
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
-% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名路径设置。}
 %
 % \begin{macro}{\declarationpage}
 %
+% \changes{v2.2}{2025/05/29}{允许设置并自动填充原创性声明中的日期。}
+% \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文原创性声明》页面。}
 % \changes{v2026.1}{2026/03/13}{抑制《南开大学学位论文原创性声明》页面新出现的格式警告。}
 % \changes{v2026.3}{2026/03/17}{修复《非公开学位论文标注说明》表中内容过长时单元格会溢出的问题。}
+% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》中的电子签名设置。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \declarationpage { }
@@ -3395,22 +3324,21 @@
 % \subsubsection{学位论文使用授权书}
 %
 % \changes{v2.1}{2025/05/09}{修复二级学科为空时学科专业不能正常显示一级学科的问题。}
-% \changes{v2.2}{2025/05/23}{支持章节仅从奇数页开始。}
-% \changes{v2.2}{2025/05/29}{加粗论文类别选项。}
 % \changes{v2.2}{2025/05/29}{在日期为空时显示默认值。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
-% \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文原创性声明》页面与《南开大学学位论文使用授权书》页面。}
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
-% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文原创性声明》与《南开大学学位论文使用授权书》中的电子签名路径设置。}
 %
 % \begin{macro}{\authorizationpage}
 %
+% \changes{v2.2}{2025/05/29}{加粗论文类别选项。}
 % \changes{v2026.0}{2026/03/03}{补充了2026版规范中《南开大学学位论文使用授权书》中的新增内容。}
 % \changes{v2026.0}{2026/03/03}{修改《南开大学研究生学位论文作者信息》表中论文类别选项。}
+% \changes{v2026.1}{2026/03/12}{使用更加鲁棒的实现方式重构《南开大学学位论文使用授权书》页面。}
 % \changes{v2026.1}{2026/03/13}{设置《南开大学研究生学位论文作者信息》表中答辩日期的值的对齐方式为两端对齐，且拓宽单元格可输入文字的区域。}
 % \changes{v2026.3}{2026/03/17}{修复《南开大学研究生学位论文作者信息》表中内容过长时单元格会溢出的问题。}
+% \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文使用授权书》中的电子签名设置。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \authorizationpage { }
