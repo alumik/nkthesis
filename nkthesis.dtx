@@ -131,7 +131,7 @@
 %     \str_if_in:NnTF, \dim_new:N, \tl_new:N, \tl_set:Nx, \paperwidth,
 %     \vskip, \dimen@, \hsize, \advance, \p@, \hskip, \@minus, \tw@, \null,
 %     \BeforeBeginEnvironment, \AfterEndEnvironment, \bool_if:NT, \cs_new_eq:NN,
-%     \includegraphics,
+%     \includegraphics, \biblabelsep,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -1674,6 +1674,7 @@
         backend = biber,
         style   = gb7714-2015,
         url     = false,
+        gbalign = gb7714,
     ]
     { biblatex }
 \RequirePackage { subcaption }
@@ -2603,6 +2604,7 @@
 %
 %    \begin{macrocode}
 \AtBeginBibliography { \mslinespreadbp { 16 } { 10.5 } \songti \zihao { 5 } }
+\dim_set:Nn \biblabelsep { \ccwd }
 %    \end{macrocode}
 %
 % \subsection{自定义环境}
