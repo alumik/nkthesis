@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/06/01}
-%<class>    {v2026.5.0}
+%<class>    {2026/06/04}
+%<class>    {v2026.6.0}
 %<class>    {Template for Master's and Doctoral Theses of Nankai University}
 %
 %<*driver>
@@ -148,7 +148,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/06/01\qquad v2026.5.0}
+% \date{2026/06/04\qquad v2026.6.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -342,14 +342,6 @@
 %     \end{syntax}
 %     当该选项存在时，或设置为真时，强制章节从右页开始（符合双面打印规范）。
 %     否则，允许章节从左页开始。
-% \end{function}
-%
-% \begin{function}[added=2026/03/14,updated=2026/06/01]{gbpub}
-%     \begin{syntax}
-%         gbpub[ = <true|(false)> ]
-%     \end{syntax}
-%     当该选项存在时，或设置为真时，自动利用：[出版地不详]、[出版者不详]、[S.l.]、[s.n.]等填补缺失的出版信息；
-%     否则取消自动处理，取消相应项的输出。
 % \end{function}
 %
 % \begin{function}[added=2026/03/30]{frontmatterintoc}
@@ -1412,12 +1404,6 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \begin{variable}{\l_@@_gbpub_bool}
-%    \begin{macrocode}
-\bool_new:N \l_@@_gbpub_bool
-%    \end{macrocode}
-% \end{variable}
-%
 % \begin{variable}{\l_@@_frontmatterintoc_bool}
 %    \begin{macrocode}
 \bool_new:N \l_@@_frontmatterintoc_bool
@@ -1468,19 +1454,9 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{options/gbpub}
-%
 % \changes{v2026.2}{2026/03/14}{增加 \texttt{gbpub} 选项以控制是否要在参考文献中自动填补缺失的出版信息。}
 % \changes{v2026.5}{2026/06/01}{将 \texttt{gbpub} 选项的默认值设置为 \texttt{false}}
-%
-% 若 |gbpub| 选项设置为真，自动利用：[出版地不详]、[出版者不详]、[S.l.]、[s.n.]等填补缺失的出版信息；
-% 否则取消自动处理，取消相应项的输出。
-%
-%    \begin{macrocode}
-        gbpub .bool_set:N = \l_@@_gbpub_bool,
-        gbpub .initial:n  = false,
-%    \end{macrocode}
-% \end{macro}
+% \changes{v2026.6}{2026/06/04}{删除 \texttt{gbpub} 选项。}
 %
 % \begin{macro}{options/frontmatterintoc}
 %
@@ -1680,6 +1656,7 @@
 % 载入宏包。
 %
 % \changes{v2026.0}{2026/03/12}{删除不必要或重复引入的宏包。}
+% \changes{v2026.6}{2026/06/04}{将参考文献的对齐方式改为段落环境，与国标示例保持一致。}
 %
 %    \begin{macrocode}
 \RequirePackage [ a4paper ] { geometry }
@@ -1697,7 +1674,6 @@
         backend = biber,
         style   = gb7714-2015,
         url     = false,
-        gbpub   = \bool_to_str:N \l_@@_gbpub_bool,
     ]
     { biblatex }
 \RequirePackage { subcaption }
