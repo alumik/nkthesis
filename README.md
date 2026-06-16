@@ -1,7 +1,7 @@
 # nkthesis：南开大学硕士博士毕业论文 LaTeX 模板（2026）
 
 ![version 2026.6.0](https://img.shields.io/badge/version-2026.6.0-blue)
-![license-LPPL-1.3c](https://img.shields.io/github/license/alumik/nkthesis)
+![license-LPPL-1.3c](https://img.shields.io/badge/license-LPPL--1.3c-orange)
 
 `nkthesis` 是南开大学硕士、博士学位论文 LaTeX 模板，符合《研究生学位论文写作规范（2026版）》，目前支持中文论文。
 
