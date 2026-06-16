@@ -13,7 +13,7 @@
 > [!TIP]
 > 如果您觉得本模板好用，请点一个免费的 Star ⭐，让更多的人看到本项目，谢谢！
 
-![](https://pic1.imgdb.cn/item/6a211546f0d1d8911fa85a5c.jpg)
+![](https://pic1.imgdb.cn/item/6a30f58d6f828650a6e61ac1.png)
 
 ## 模板下载
 
