@@ -20,8 +20,8 @@
 %<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/06/04}
-%<class>    {v2026.6.0}
+%<class>    {2026/08/13}
+%<class>    {v2026.7.0}
 %<class>    {Template for Master's and Doctoral Theses of Nankai University}
 %
 %<*driver>
@@ -97,7 +97,8 @@
 %     \keys_if_exist:nnTF, \keys_set:nn,
 %     \labelformat, \leftmark, \leq, \linespread, \linewidth,
 %     \LoadClass, \MakeUppercase, \makebox,
-%     \markboth, \msg_fatal:nn, \msg_fatal:nnn, \msg_new:nnn, \newfontfamily,
+%     \markboth, \msg_expandable_error:nnn, \msg_fatal:nn, \msg_new:nnn,
+%     \newfontfamily,
 %     \newlist, \NewDocumentCommand,
 %     \NewDocumentEnvironment, \NewExpandableDocumentCommand, \newtagform,
 %     \newunicodechar, \noindent, \nouppercase,
@@ -105,7 +106,7 @@
 %     \parindent, \parskip, \PassOptionsToClass,
 %     \PassOptionsToPackage, \path, \printbibliography,
 %     \ProcessKeyOptions, \prop_item:Nn,
-%     \prop_new:N, \prop_put:Nnn, \protect, \quad, \qquad,
+%     \prop_new:N, \prop_gput:Nnn, \protect, \quad, \qquad,
 %     \raggedbottom, \raggedleft, \raggedright, \raisebox,
 %     \RenewDocumentCommand, \RenewExpandableDocumentCommand,
 %     \RequirePackage, \rule, \scalebox, \selectfont,
@@ -129,6 +130,7 @@
 %     \crefrangeconjunction, \creflabelformat, \cs_new:Npn, \cs_set:Npn,
 %     \cs_set_protected:Npn, \vphantom, \vfill, \kern, \str_case:enF,
 %     \str_if_in:NnTF, \dim_new:N, \tl_new:N, \tl_set:Nx, \paperwidth,
+%     \str_new:N, \str_set:Nx, \skip_set:Nn,
 %     \vskip, \dimen@, \hsize, \advance, \p@, \hskip, \@minus, \tw@, \null,
 %     \BeforeBeginEnvironment, \AfterEndEnvironment, \bool_if:NT, \cs_new_eq:NN,
 %     \includegraphics, \biblabelsep,
@@ -148,7 +150,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/06/04\qquad v2026.6.0}
+% \date{2026/08/13\qquad v2026.7.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -198,11 +200,12 @@
 %     \label{tab:components-of-nkthesis-1}
 %     \begin{tabular}{ll}
 %         \toprule
-%         文件         & 功能说明                               \\
+%         文件               & 功能说明                               \\
 %         \midrule
-%         LICENSE      & 许可证                                 \\
-%         nkthesis.dtx & 文档类文件                             \\
-%         nkthesis.ins & 文档类安装文件                         \\
+%         LICENSE           & 许可证                                 \\
+%         nkthesis.dtx      & 文档类文件                             \\
+%         nkthesis-logo.dtx & 南开大学 logo 绘图文件                 \\
+%         nkthesis.ins      & 文档类安装文件                         \\
 %         \bottomrule
 %     \end{tabular}
 % \end{table}
@@ -727,7 +730,7 @@
 % 自定义页面可以通过以下方式直接使用，以在文中插入相应页面。
 %
 % \begin{nkthesisexam}
-%     \titlepage
+%     \maketitlepage
 % \end{nkthesisexam}
 %
 % \subsection{整体结构}
@@ -744,7 +747,7 @@
 %     \begin{document}
 %
 %     % 以下页面可根据需要（匿名/非匿名等）选择使用
-%     \titlepage  % （非匿名）题名页
+%     \maketitlepage  % （非匿名）题名页
 %     \anonymoustitlepage  % 匿名评阅封面
 %     \declarationpage
 %     \authorizationpage
@@ -819,9 +822,14 @@
 %
 % 封面材料包括题名页、学位论文原创性声明和非公开学位论文标注说明、学位论文使用授权书等。
 %
-% \begin{function}{\titlepage}
+% \begin{function}[updated=2026/08/13]{\maketitlepage}
 %     题名页。
 %     题名页包含论文全部书目信息。
+%
+%     该命令在 v2026.7 之前名为 \cs{titlepage}。
+%     由于 \cs{titlepage} 同时是 \cls{book} 中的 \env{titlepage} 环境，
+%     重定义它会使 \env{titlepage} 环境和 \cs{maketitle} 产生错误输出，
+%     因此改用新名称，并恢复 \env{titlepage} 环境的原始定义。
 % \end{function}
 %
 % \begin{function}{\anonymoustitlepage}
@@ -1273,11 +1281,13 @@
 %
 % \begin{macro}{\@@_config_set:nn, \@@_config_get:n}
 %
+% \changes{v2026.7}{2026/08/13}{修复在分组内使用 \cs{nktset} 时设置会在组结束后丢失的问题。}
+%
 % 属性写入和读取命令。
 %
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_config_set:nn
-    { \prop_put:Nnn \g_@@_config_prop {#1} {#2} }
+    { \prop_gput:Nnn \g_@@_config_prop {#1} {#2} }
 \cs_new:Nn \@@_config_get:n
     { \prop_item:Nn \g_@@_config_prop {#1} }
 %    \end{macrocode}
@@ -1285,6 +1295,7 @@
 %
 % \begin{macro}{\@@_keys_set:nn, \@@_keys_get:nn}
 %
+% \changes{v2026.7}{2026/08/13}{修复 \cs{@@_keys_get:nn} 在可展开语境中报错时会残留未展开记号的问题。}
 % \changes{v2.3}{2025/12/27}{当键名不存在时直接报错而不是返回空值。}
 %
 % 键值写入和读取命令。
@@ -1298,7 +1309,7 @@
     {
         \keys_if_exist:nnTF { @@ / #1 } {#2}
             { \prop_item:Nn \g_@@_config_prop { #1 / #2 } }
-            { \msg_fatal:nnn { @@ } { invalid-key } { #1 / #2 } }
+            { \msg_expandable_error:nnn { @@ } { invalid-key } { #1 / #2 } }
     }
 %    \end{macrocode}
 % \end{macro}
@@ -1657,6 +1668,7 @@
 %
 % \changes{v2026.0}{2026/03/12}{删除不必要或重复引入的宏包。}
 % \changes{v2026.6}{2026/06/04}{将参考文献的对齐方式改为段落环境，与国标示例保持一致。}
+% \changes{v2026.7}{2026/08/13}{显式载入 \pkg{graphicx}，不再依赖间接引入。}
 %
 %    \begin{macrocode}
 \RequirePackage [ a4paper ] { geometry }
@@ -1665,7 +1677,7 @@
 \RequirePackage { fancyhdr }
 \RequirePackage { fontspec }
 \RequirePackage [ inline, shortlabels ] { enumitem }
-\RequirePackage [ hidelinks ] { hyperref }
+\RequirePackage [ hidelinks, hypertexnames = false ] { hyperref }
 \RequirePackage { amssymb }
 \RequirePackage { mathtools }
 \RequirePackage [ nodisplayskipstretch ] { setspace }
@@ -1677,6 +1689,7 @@
         gbalign = gb7714,
     ]
     { biblatex }
+\RequirePackage { graphicx }
 \RequirePackage { subcaption }
 \RequirePackage { tikz }
 \RequirePackage { array }
@@ -1856,6 +1869,21 @@
 %
 % \subsection{辅助命令定义}
 %
+% \subsubsection{私有变量定义}
+%
+% \changes{v2026.7}{2026/08/13}{将临时变量的声明提至顶层，修复重复调用页面命令时报错的问题。}
+%
+% \begin{variable}{\l_@@_temp_str, \l_@@_temp_dim}
+%
+% 临时变量。
+% 变量声明是全局的，且带有重复定义检查，因此必须放在顶层而不是命令体内。
+%
+%    \begin{macrocode}
+\str_new:N \l_@@_temp_str
+\dim_new:N \l_@@_temp_dim
+%    \end{macrocode}
+% \end{variable}
+%
 % \subsubsection{私有命令定义}
 %
 % \begin{macro}{\@@_checked_checkbox:, \@@_checkbox:nn, \@@_checkbox:en}
@@ -1996,11 +2024,20 @@
 % \subsection{文档结构}
 %
 % \changes{v2.4}{2026/01/06}{使用大写字母作为封面页和声明页的页码编号，避免正文中产生重复页码对象。}
+% \changes{v2026.7}{2026/08/13}{通过 \pkg{hyperref} 的 \texttt{hypertexnames=false} 消除重复页码对象，封面页码不再需要使用 \texttt{Alph} 编号。}
 %
-% 使用大写字母作为封面页和声明页的页码编号，避免正文中产生重复页码对象。
+% 封面页和声明页的页码需要与正文分开，否则 \pkg{hyperref} 会产生重复的页码对象。
+% \pkg{hyperref} 默认以 \cs{thepage} 的值命名页面锚点（\texttt{page.\meta{页码}}），
+% 因此封面材料与正文一旦出现相同的页码值就会冲突。
+% 载入 \pkg{hyperref} 时设置 \texttt{hypertexnames=false}，
+% 页面锚点改为按物理页递增的计数器命名，消除了冲突，封面页码的编号形式因此可以自由选择。
+%
+% 这里使用小写罗马数字。
+% 早期版本使用 \texttt{Alph} 编号来回避冲突，但 \texttt{Alph} 最多只能表示 26 页，
+% 超出后 \LaTeX{} 会报错。
 %
 %    \begin{macrocode}
-\AtBeginDocument { \pagenumbering { Alph } }
+\AtBeginDocument { \pagenumbering { roman } }
 %    \end{macrocode}
 %
 % \begin{macro}{\frontmatter}
@@ -2226,6 +2263,8 @@
 %
 % \subsection{目录}
 %
+% \changes{v2026.7}{2026/08/13}{使用 \cs{skip_set:Nn} 设置目录中的 skip 型长度，修正命令类型不匹配。间距保持刚性，输出不变。}
+%
 % 目录页使用 fancy 页眉页脚。
 %
 %    \begin{macrocode}
@@ -2241,7 +2280,7 @@
 % 设置章标题格式。
 %
 %    \begin{macrocode}
-\dim_set:Nn \cftbeforechapskip { 2bp }
+\skip_set:Nn \cftbeforechapskip { 2bp }
 \cs_set_protected:Npn \cftchapfont { \mslinespread { 1 } \songti \zihao { 4 } }
 \cs_set_protected:Npn \cftchappagefont { \cftchapfont }
 \cs_set_protected:Npn \cftchapleader { \cftdotfill { \cftdotsep } }
@@ -2250,8 +2289,8 @@
 % 设置节标题格式。
 %
 %    \begin{macrocode}
-\dim_set:Nn \cftbeforesecskip { 2bp   }
-\dim_set:Nn \cftsecindent     { \ccwd }
+\skip_set:Nn \cftbeforesecskip { 2bp   }
+\dim_set:Nn  \cftsecindent     { \ccwd }
 \cs_set_protected:Npn \cftsecfont { \mslinespread { 1 } \songti \zihao { -4 } }
 \cs_set_protected:Npn \cftsecpagefont { \cftsecfont }
 %    \end{macrocode}
@@ -2259,8 +2298,8 @@
 % 设置小节标题格式。
 %
 %    \begin{macrocode}
-\dim_set:Nn \cftbeforesubsecskip { 2bp    }
-\dim_set:Nn \cftsubsecindent     { 2\ccwd }
+\skip_set:Nn \cftbeforesubsecskip { 2bp    }
+\dim_set:Nn  \cftsubsecindent     { 2\ccwd }
 \cs_set_protected:Npn \cftsubsecfont
     { \mslinespread { 1 } \songti \zihao { 5 } }
 \cs_set_protected:Npn \cftsubsecpagefont { \cftsubsecfont }
@@ -2269,12 +2308,12 @@
 % 设置图表标题格式。
 %
 %    \begin{macrocode}
-\dim_set:Nn \cftbeforefigskip { 2bp      }
-\dim_set:Nn \cftbeforetabskip { 2bp      }
-\dim_set:Nn \cftfignumwidth   { 3.5\ccwd }
-\dim_set:Nn \cfttabnumwidth   { 3.5\ccwd }
-\dim_set:Nn \cftfigindent     { 0pt      }
-\dim_set:Nn \cfttabindent     { 0pt      }
+\skip_set:Nn \cftbeforefigskip { 2bp      }
+\skip_set:Nn \cftbeforetabskip { 2bp      }
+\dim_set:Nn  \cftfignumwidth   { 3.5\ccwd }
+\dim_set:Nn  \cfttabnumwidth   { 3.5\ccwd }
+\dim_set:Nn  \cftfigindent     { 0pt      }
+\dim_set:Nn  \cfttabindent     { 0pt      }
 \cs_set_protected:Npn \cftfigfont { \mslinespread { 1 } \songti \zihao { -4 } }
 \cs_set_protected:Npn \cfttabfont { \mslinespread { 1 } \songti \zihao { -4 } }
 \cs_set:Npn \cftfigpresnum { \figurename }
@@ -2448,6 +2487,8 @@
 %
 % \subsection{图表}
 %
+% \changes{v2026.7}{2026/08/13}{使用 \cs{skip_set:Nn} 设置浮动体间距，修正命令类型不匹配。间距保持刚性以严格还原模版，输出不变。}
+%
 %    \begin{macrocode}
 \DeclareCaptionLabelFormat    { @@    } { #1#2              }
 \DeclareCaptionLabelFormat    { @@sub } { （#2）            }
@@ -2468,9 +2509,9 @@
         font        = @@,
         skip        = 6bp,
     }
-\dim_set:Nn \textfloatsep { 20bp }
-\dim_set:Nn \floatsep     { 20bp }
-\dim_set:Nn \intextsep    { 20bp }
+\skip_set:Nn \textfloatsep { 20bp }
+\skip_set:Nn \floatsep     { 20bp }
+\skip_set:Nn \intextsep    { 20bp }
 %    \end{macrocode}
 %
 % \subsection{公式}
@@ -2578,7 +2619,7 @@
 %
 %    \begin{macrocode}
 \AtBeginBibliography { \mslinespreadbp { 16 } { 10.5 } \songti \zihao { 5 } }
-\dim_set:Nn \biblabelsep { \ccwd }
+\skip_set:Nn \biblabelsep { \ccwd }
 %    \end{macrocode}
 %
 % \subsection{自定义环境}
@@ -2816,9 +2857,12 @@
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
 %
-% \begin{macro}{\titlepage}
+% \begin{macro}{\maketitlepage}
+%
+% \changes{v2026.7}{2026/08/13}{将 \cs{titlepage} 改名为 \cs{maketitlepage}，避免破坏 \env{titlepage} 环境。}
+%
 %    \begin{macrocode}
-\RenewDocumentCommand \titlepage { }
+\NewDocumentCommand \maketitlepage { }
     {
         \bool_if:NTF \l_@@_openright_bool
             { \cleardoublepage }
@@ -3001,14 +3045,12 @@
                 \par
             }
             \par
-            \tl_new:N \l_@@_temp_str
-            \tl_set:Nx \l_@@_temp_str { \nktget { 题名页/论文类别 } }
+            \str_set:Nx \l_@@_temp_str { \nktget { 题名页/论文类别 } }
             \vspace { 21mm }
             {
                 \mslinespread { 1.53 }
                 \kaishu
                 \zihao { 3 }
-                \dim_new:N \l_@@_temp_dim
                 \str_if_in:NnTF \l_@@_temp_str { 专业 }
                     { \dim_set:Nn \l_@@_temp_dim { \linewidth     } }
                     { \dim_set:Nn \l_@@_temp_dim { 0.73\linewidth } }
@@ -3314,7 +3356,7 @@
             \mslinespread { 1.16 }
             \songti
             \zihao { 5 }
-            \dim_set:Nn \parskip { 2.6mm }
+            \skip_set:Nn \parskip { 2.6mm }
             本人完全了解《南开大学关于研究生学位论文收藏和利用管理办法》关于南开
             大学（简称“学校”）研究生学位论文收藏和利用的管理规定，即：
             \par
