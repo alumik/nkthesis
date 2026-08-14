@@ -4,6 +4,9 @@ typesetexe = "xelatex"
 unpackexe = "xelatex"
 makeindexexe = "upmendex"
 
+makeindexopts = "-s gind.ist"
+indexstyle    = "nkthesis.ist"
+
 typesetopts = "-shell-escape -file-line-error -halt-on-error -interaction=nonstopmode -synctex=1"
 
 docfiles = {
@@ -16,6 +19,9 @@ docfiles = {
 typesetfiles = {
   "nkthesis.dtx",
   "nkthesis-sample.tex",
+}
+typesetsuppfiles = {
+  "nkthesis.ist",
 }
 
 checkengines = {
