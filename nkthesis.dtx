@@ -17,10 +17,9 @@
 \ProvidesFile{nkthesis.dtx}
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}[2024/11/01]
-%<class>\RequirePackage{expl3}
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/08/13}
+%<class>    {2026/08/14}
 %<class>    {v2026.7.0}
 %<class>    {Template for Master's and Doctoral Theses of Nankai University}
 %
@@ -120,7 +119,7 @@
 %     \thispagestyle, \tl_if_empty:eTF,
 %     \tocloftpagestyle,
 %     \underline, \usetagform, \vrule,
-%     \vspace, \zihao, \ziju, \hfuzz, \hbadness, \maxdimen, \parbox, \mbox,
+%     \vspace, \zihao, \ziju, \parbox, \mbox,
 %     \tl_if_empty:nTF, \str_case:nnF,
 %     \hook_gput_code:nnn, \bool_to_str:N,
 %     \crefname, \crefformat, \crefrangeformat, \crefmultiformat,
@@ -128,11 +127,17 @@
 %     \creflastconjunction, \crefpairgroupconjunction,
 %     \crefmiddlegroupconjunction, \creflastgroupconjunction,
 %     \crefrangeconjunction, \creflabelformat, \cs_new:Npn, \cs_set:Npn,
-%     \cs_set_protected:Npn, \vphantom, \vfill, \kern, \str_case:enF,
-%     \str_if_in:NnTF, \dim_new:N, \tl_new:N, \tl_set:Nx, \paperwidth,
-%     \str_new:N, \str_set:Nx, \skip_set:Nn,
-%     \vskip, \dimen@, \hsize, \advance, \p@, \hskip, \@minus, \tw@, \null,
-%     \BeforeBeginEnvironment, \AfterEndEnvironment, \bool_if:NT, \cs_new_eq:NN,
+%     \cs_set_protected:Npn, \vphantom, \vfill, \kern,
+%     \str_if_in:NnTF, \dim_new:N, \paperwidth,
+%     \str_new:N, \str_set:Ne, \skip_set:Nn,
+%     \null, \newpage, \hbox, \value, \setcounter, \ensuremath,
+%     \AddToHook, \NewEnvironmentCopy, \RenewDocumentCommand,
+%     \clist_new:N, \clist_map_inline:nn, \clist_gput_right:Nn,
+%     \prop_const_from_keyval:Nn, \prop_map_inline:Nn, \prop_item:Ne,
+%     \legacy_if:nT, \int_if_odd:nTF,
+%     \skip_horizontal:n, \skip_vertical:n,
+%     \tex_hsize:D, \tex_hfuzz:D, \tex_hbadness:D, \c_max_dim,
+%     \bool_if:NT, \cs_new_eq:NN,
 %     \includegraphics, \biblabelsep,
 % }
 %
@@ -150,7 +155,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/08/13\qquad v2026.7.0}
+% \date{2026/08/14\qquad v2026.7.0}
 % \maketitle
 %
 % \begin{abstract}
@@ -1297,6 +1302,7 @@
 %
 % \changes{v2026.7}{2026/08/13}{修复 \cs{@@_keys_get:nn} 在可展开语境中报错时会残留未展开记号的问题。}
 % \changes{v2.3}{2025/12/27}{当键名不存在时直接报错而不是返回空值。}
+% \changes{v2026.7}{2026/08/14}{使用已经存在的 \cs{@@_config_get:n} 来读取属性值。}
 %
 % 键值写入和读取命令。
 %
@@ -1308,7 +1314,7 @@
 \cs_new:Nn \@@_keys_get:nn
     {
         \keys_if_exist:nnTF { @@ / #1 } {#2}
-            { \prop_item:Nn \g_@@_config_prop { #1 / #2 } }
+            { \@@_config_get:n { #1 / #2 } }
             { \msg_expandable_error:nnn { @@ } { invalid-key } { #1 / #2 } }
     }
 %    \end{macrocode}
@@ -1478,6 +1484,9 @@
 %    \begin{macrocode}
         frontmatterintoc .bool_set:N = \l_@@_frontmatterintoc_bool,
         frontmatterintoc .initial:n  = false,
+%    \end{macrocode}
+%
+%    \begin{macrocode}
     }
 %    \end{macrocode}
 % \end{macro}
@@ -1517,105 +1526,116 @@
 %
 % \subsubsection{论文基本信息}
 %
+% \begin{variable}{\c_@@_thesis_type_prop}
+%
+% \changes{v2026.7}{2026/08/13}{将《匿名评阅封面》的论文类别名称集中定义，避免与键值选项列表各自维护而产生偏差。}
+%
+% 论文类别到《匿名评阅封面》标题文字的映射。
+% 该属性列表同时用于生成 \texttt{题名页/论文类别} 的可选值，
+% 因此选项列表与显示文字只有这一处定义，不会出现两边不同步的问题。
+%
+%    \begin{macrocode}
+\prop_const_from_keyval:Nn \c_@@_thesis_type_prop
+    {
+        硕士     = 硕士毕业（学位）论文,
+        博士     = 博士毕业（学位）论文,
+        硕士专业 = 硕士学位论文/实践成果报告,
+        博士专业 = 博士学位论文/实践成果报告,
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\g_@@_thesis_type_clist}
+%
+% 由上述映射的键生成的论文类别可选值列表，供 \texttt{.choices:Vn} 使用。
+%
+%    \begin{macrocode}
+\clist_new:N \g_@@_thesis_type_clist
+\prop_map_inline:Nn \c_@@_thesis_type_prop
+    { \clist_gput_right:Nn \g_@@_thesis_type_clist {#1} }
+%    \end{macrocode}
+% \end{variable}
+%
 % \changes{v2.1}{2025/05/09}{去掉论文题目的默认值。}
 % \changes{v2.2}{2025/05/29}{调整论文完成时间的默认值。}
 % \changes{v2.2}{2025/05/29}{加粗答辩日期。}
 % \changes{v2026.0}{2026/03/03}{去掉论文副标题。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
+% \changes{v2026.7}{2026/08/13}{用循环生成纯文本键的定义，避免大量重复样板代码。}
+%
+% 绝大多数论文信息键的行为完全相同：把用户输入原样存入属性列表。
+% 因此这里先用一个键名列表批量生成，随后再单独补充默认值和特殊键。
+%
+%    \begin{macrocode}
+\clist_map_inline:nn
+    {
+        中图分类号,
+        学校代码,
+        UDC,
+        题名页/密级,
+        题名页/论文题目字号,
+        论文题目（中文）,
+        论文题目（英文）,
+        论文作者,
+        指导教师,
+        指导教师职称,
+        申请学位,
+        培养单位,
+        一级学科或专业学位类别,
+        二级学科或专业领域,
+        研究方向,
+        答辩委员会主席,
+        评阅人,
+        论文完成时间,
+        论文编号,
+        非公开论文/保密期限/起始日期,
+        非公开论文/保密期限/结束日期,
+        非公开论文/审批表编号,
+        非公开论文/批准日期,
+        原创性声明/电子签名路径,
+        原创性声明/电子签名宽度,
+        原创性声明/签字日期,
+        授权书/电子签名路径,
+        授权书/电子签名宽度,
+        授权书/签字日期,
+        学号,
+        答辩日期,
+        联系电话,
+        电子邮箱,
+        通讯地址,
+        作者信息/备注,
+    }
+    {
+        \keys_define:nn { @@ / info }
+            { #1 .code:n = \@@_config_set:nn { info / #1 } {##1} }
+    }
+%    \end{macrocode}
+%
+% 补充上述键的默认值，以及需要限定取值范围的键。
 %
 %    \begin{macrocode}
 \keys_define:nn { @@ / info }
     {
-        中图分类号                   .code:n     = \@@_config_set:nn
-            { info / 中图分类号 } {#1},
-        学校代码                     .code:n     = \@@_config_set:nn
-            { info / 学校代码 } {#1},
         学校代码                     .initial:n  = 10055,
-        UDC                          .code:n     = \@@_config_set:nn
-            { info / UDC } {#1},
-        题名页/密级                  .code:n     = \@@_config_set:nn
-            { info / 题名页 / 密级 } {#1},
         题名页/密级                  .initial:n  = 公开,
-        题名页/论文题目字号          .code:n     = \@@_config_set:nn
-            { info / 题名页 / 论文题目字号 } {#1},
         题名页/论文题目字号          .initial:n  = 2,
-        论文题目（中文）             .code:n     = \@@_config_set:nn
-            { info / 论文题目（中文） } {#1},
-        论文题目（英文）             .code:n     = \@@_config_set:nn
-            { info / 论文题目（英文） } {#1},
-        论文作者                     .code:n     = \@@_config_set:nn
-            { info / 论文作者 } {#1},
-        指导教师                     .code:n     = \@@_config_set:nn
-            { info / 指导教师 } {#1},
-        指导教师职称                 .code:n     = \@@_config_set:nn
-            { info / 指导教师职称 } {#1},
-        申请学位                     .code:n     = \@@_config_set:nn
-            { info / 申请学位 } {#1},
-        培养单位                     .code:n     = \@@_config_set:nn
-            { info / 培养单位 } {#1},
-        一级学科或专业学位类别       .code:n     = \@@_config_set:nn
-            { info / 一级学科或专业学位类别 } {#1},
-        二级学科或专业领域           .code:n     = \@@_config_set:nn
-            { info / 二级学科或专业领域 } {#1},
-        研究方向                     .code:n     = \@@_config_set:nn
-            { info / 研究方向 } {#1},
-        答辩委员会主席               .code:n     = \@@_config_set:nn
-            { info / 答辩委员会主席 } {#1},
-        评阅人                       .code:n     = \@@_config_set:nn
-            { info / 评阅人 } {#1},
-        论文完成时间                 .code:n     = \@@_config_set:nn
-            { info / 论文完成时间 } {#1},
         论文完成时间                 .initial:n  = \qquad 年 \qquad 月,
-        论文编号                     .code:n     = \@@_config_set:nn
-            { info / 论文编号 } {#1},
-        非公开论文/保密期限/起始日期 .code:n     = \@@_config_set:nn
-            { info / 非公开论文 / 保密期限 / 起始日期 } {#1},
         非公开论文/保密期限/起始日期 .initial:n  =
             { 20 \qquad 年 \qquad 月 \qquad 日 },
-        非公开论文/保密期限/结束日期 .code:n     = \@@_config_set:nn
-            { info / 非公开论文 / 保密期限 / 结束日期 } {#1},
         非公开论文/保密期限/结束日期 .initial:n  =
             { 20 \qquad 年 \qquad 月 \qquad 日 },
-        非公开论文/审批表编号        .code:n     = \@@_config_set:nn
-            { info / 非公开论文 / 审批表编号 } {#1},
-        非公开论文/批准日期          .code:n     = \@@_config_set:nn
-            { info / 非公开论文 / 批准日期 } {#1},
         非公开论文/批准日期          .initial:n  =
             { 20 \qquad 年 \qquad 月 \qquad 日 },
-        原创性声明/电子签名路径      .code:n     = \@@_config_set:nn
-            { info / 原创性声明 / 电子签名路径 } {#1},
-        原创性声明/电子签名宽度      .code:n     = \@@_config_set:nn
-            { info / 原创性声明 / 电子签名宽度 } {#1},
         原创性声明/电子签名宽度      .initial:n  = 7em,
-        原创性声明/签字日期          .code:n     = \@@_config_set:nn
-            { info / 原创性声明 / 签字日期 } {#1},
         原创性声明/签字日期          .initial:n  = 年 \qquad 月 \qquad 日,
-        授权书/电子签名路径          .code:n     = \@@_config_set:nn
-            { info / 授权书 / 电子签名路径 } {#1},
-        授权书/电子签名宽度          .code:n     = \@@_config_set:nn
-            { info / 授权书 / 电子签名宽度 } {#1},
         授权书/电子签名宽度          .initial:n  = 7em,
-        授权书/签字日期              .code:n     = \@@_config_set:nn
-            { info / 授权书 / 签字日期 } {#1},
         授权书/签字日期              .initial:n  =
             { 20 \qquad 年 \qquad 月 \qquad 日 },
-        学号                         .code:n     = \@@_config_set:nn
-            { info / 学号 } {#1},
-        答辩日期                     .code:n     = \@@_config_set:nn
-            { info / 答辩日期 } {#1},
         答辩日期                     .initial:n  =
             { \textbf { 20 \qquad 年 \qquad 月 \qquad 日 } },
-        联系电话                     .code:n     = \@@_config_set:nn
-            { info / 联系电话 } {#1},
-        电子邮箱                     .code:n     = \@@_config_set:nn
-            { info / 电子邮箱 } {#1},
-        通讯地址                     .code:n     = \@@_config_set:nn
-            { info / 通讯地址 } {#1},
-        作者信息/备注                .code:n     = \@@_config_set:nn
-            { info / 作者信息 / 备注 } {#1},
-        题名页/论文类别              .choices:nn =
-            { 硕士, 博士, 硕士专业, 博士专业 }
+        题名页/论文类别              .choices:Vn =
+            \g_@@_thesis_type_clist
             { \@@_config_set:nn { info / 题名页 / 论文类别 } {#1} },
         题名页/论文类别              .initial:n  = 硕士,
         作者信息/论文类别            .choices:nn =
@@ -1732,8 +1752,10 @@
 %
 % 允许三级标题（subsubsection）编号。
 %
+% \changes{v2026.7}{2026/08/13}{使用 \cs{setcounter} 而不是直接操作内部计数器。}
+%
 %    \begin{macrocode}
-\int_gset:Nn \c@secnumdepth { 3 }
+\setcounter { secnumdepth } { 3 }
 %    \end{macrocode}
 %
 % 允许页面底部不齐。
@@ -1895,16 +1917,32 @@
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_checked_checkbox:
     {
-        \makebox [ 0pt ] [ l ] { $\square$ }
-        \raisebox { 0.15ex } { \hspace { 0.1em } $\checkmark$ }
+        \makebox [ 0pt ] [ l ] { \ensuremath { \square } }
+        \raisebox { 0.15ex } { \hspace { 0.1em } \ensuremath { \checkmark } }
     }
 \cs_new_protected:Nn \@@_checkbox:nn
     {
         \str_if_eq:nnTF {#1} {#2}
             { \@@_checked_checkbox: }
-            { $\square$ }
+            { \ensuremath { \square } }
     }
 \cs_generate_variant:Nn \@@_checkbox:nn { e }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_suppress_overfull:}
+%
+% \changes{v2026.7}{2026/08/13}{将抑制溢出警告的重复代码抽取为独立命令。}
+%
+% 抑制当前分组内的行溢出警告。
+% 部分表格的宽度会超过版心，但这是还原模版所必需的，因此屏蔽相应警告。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_suppress_overfull:
+    {
+        \dim_set:Nn \tex_hfuzz:D    { \c_max_dim }
+        \int_set:Nn \tex_hbadness:D { 99999      }
+    }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -1950,7 +1988,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_make_cell:nnn}
+% \begin{macro}{\@@_make_cell:nnnnn}
 %
 % 表辅助函数：统一处理带固定宽度的表格单元格。
 %
@@ -2037,12 +2075,13 @@
 % 超出后 \LaTeX{} 会报错。
 %
 %    \begin{macrocode}
-\AtBeginDocument { \pagenumbering { roman } }
+\AddToHook { begindocument } [ nkthesis ] { \pagenumbering { roman } }
 %    \end{macrocode}
 %
 % \begin{macro}{\frontmatter}
 %
 % \changes{v2.2}{2025/05/23}{将前置部分的页面风格设置为 \texttt{fancy}。}
+% \changes{v2026.7}{2026/08/13}{去掉重置页码的冗余代码，\cs{pagenumbering} 内部已经完成该操作。}
 %
 %    \begin{macrocode}
 \RenewDocumentCommand \frontmatter { }
@@ -2052,7 +2091,6 @@
             { \clearpage }
         \pagenumbering { Roman }
         \pagestyle { fancy }
-        \int_gset:Nn \c@page { 1 }
         \ctexset
             {
                 chapter/format = {
@@ -2076,7 +2114,6 @@
             { \clearpage }
         \pagenumbering { arabic }
         \pagestyle { fancy }
-        \int_gset:Nn \c@page { 1 }
         \int_compare:nNnT \l_@@_headingmode_int = 1
             {
                 \ctexset
@@ -2163,7 +2200,7 @@
 %    \begin{macrocode}
 \labelformat { subfigure } { \thefigure（\thesubfigure） }
 \labelformat { equation  } { （\theequation）            }
-\AtBeginDocument
+\AddToHook { begindocument } [ nkthesis ]
     {
         \crefname{ equation      } { 式    } { 式    }
         \crefname{ figure        } { 图    } { 图    }
@@ -2532,15 +2569,17 @@
 % 减小公式行距。
 %
 % \begin{macro}{\@@_display_spacing_begin:}
+%
+% \changes{v2026.7}{2026/08/13}{使用 \LaTeXiii{} 接口重写，不再混用 \TeX{} 内部量。}
+%
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_display_spacing_begin:
     {
         \begin { singlespace }
-        \vskip -1.2\baselineskip
+        \skip_vertical:n { -1.2\baselineskip }
         \noindent
-        \dimen@ \hsize
-        \advance \dimen@ \p@
-        \hskip \dimen@ \@minus \tw@\p@
+        \dim_set:Nn \l_@@_temp_dim { \tex_hsize:D + 1pt }
+        \skip_horizontal:n { \l_@@_temp_dim minus 2pt }
         \null
     }
 %    \end{macrocode}
@@ -2559,19 +2598,17 @@
 %
 % 将上述间距调整应用于所有显示型公式环境。
 %
+% \changes{v2026.7}{2026/08/13}{改用 \cs{AddToHook} 并为钩子加上标签，同时用循环生成，避免重复代码。}
+%
 %    \begin{macrocode}
-\BeforeBeginEnvironment { equation  } { \@@_display_spacing_begin: }
-\AfterEndEnvironment    { equation  } { \@@_display_spacing_end:   }
-\BeforeBeginEnvironment { equation* } { \@@_display_spacing_begin: }
-\AfterEndEnvironment    { equation* } { \@@_display_spacing_end:   }
-\BeforeBeginEnvironment { align     } { \@@_display_spacing_begin: }
-\AfterEndEnvironment    { align     } { \@@_display_spacing_end:   }
-\BeforeBeginEnvironment { align*    } { \@@_display_spacing_begin: }
-\AfterEndEnvironment    { align*    } { \@@_display_spacing_end:   }
-\BeforeBeginEnvironment { gather    } { \@@_display_spacing_begin: }
-\AfterEndEnvironment    { gather    } { \@@_display_spacing_end:   }
-\BeforeBeginEnvironment { gather*   } { \@@_display_spacing_begin: }
-\AfterEndEnvironment    { gather*   } { \@@_display_spacing_end:   }
+\clist_map_inline:nn
+    { equation, equation*, align, align*, gather, gather* }
+    {
+        \AddToHook { env / #1 / before } [ nkthesis ]
+            { \@@_display_spacing_begin: }
+        \AddToHook { env / #1 / after  } [ nkthesis ]
+            { \@@_display_spacing_end:   }
+    }
 %    \end{macrocode}
 %
 % \subsection{列表}
@@ -2627,6 +2664,7 @@
 % \subsubsection{摘要}
 %
 % \changes{v2.2}{2025/05/23}{让页眉符合 \texttt{uppercasehead} 设置。}
+% \changes{v2026.7}{2026/08/14}{让英文摘要选项的大小写不敏感。}
 %
 % \begin{environment}{abstract}
 %
@@ -2635,7 +2673,7 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { abstract } { O{ } }
     {
-        \str_if_eq:nnTF { #1 } { en }
+        \str_if_eq:eeTF { \str_lowercase:n { #1 } } { en }
             {
                 \ctexset
                     {
@@ -2682,7 +2720,7 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { keywords } { O{ } }
     {
-        \str_if_eq:nnTF { #1 } { en }
+        \str_if_eq:eeTF { \str_lowercase:n { #1 } } { en }
             { \textbf { Key~Words:~ } \ignorespaces }
             { \textbf { 关键词： } \ignorespaces    }
     }
@@ -2792,8 +2830,7 @@
         \ignorespaces
     }
     { \par }
-\cs_new_eq:NN \acknowledgements    \acknowledgments
-\cs_new_eq:NN \endacknowledgements \endacknowledgments
+\NewEnvironmentCopy { acknowledgements } { acknowledgments }
 %    \end{macrocode}
 % \end{environment}
 %
@@ -3013,8 +3050,7 @@
             \par
             \vspace { 5.5mm }
             {
-                \hfuzz    = \maxdimen
-                \hbadness = 99999
+                \@@_suppress_overfull:
                 \mslinespread { 1 }
                 \heiti
                 \fontsize { 28 } { 33.6 }
@@ -3024,14 +3060,8 @@
                 \makebox [ \paperwidth ] [ c ]
                     {
                         南开大学
-                        \str_case:enF { \nktget { 题名页/论文类别 } }
-                            {
-                                { 博士     } { 博士毕业（学位）论文      }
-                                { 博士专业 } { 博士学位论文/实践成果报告 }
-                                { 硕士     } { 硕士毕业（学位）论文      }
-                                { 硕士专业 } { 硕士学位论文/实践成果报告 }
-                            }
-                            { 硕士毕业（学位）论文 }
+                        \prop_item:Ne \c_@@_thesis_type_prop
+                            { \nktget { 题名页/论文类别 } }
                     }
                 \par
             }
@@ -3045,7 +3075,7 @@
                 \par
             }
             \par
-            \str_set:Nx \l_@@_temp_str { \nktget { 题名页/论文类别 } }
+            \str_set:Ne \l_@@_temp_str { \nktget { 题名页/论文类别 } }
             \vspace { 21mm }
             {
                 \mslinespread { 1.53 }
@@ -3211,8 +3241,7 @@
         \par
         \vspace { 1.9mm }
         {
-            \hfuzz    = \maxdimen
-            \hbadness = 99999
+            \@@_suppress_overfull:
             \mslinespread { 1 }
             \zihao { -4 }
             \hspace { -12mm }
@@ -3417,8 +3446,7 @@
 % 由于该页面中表格会超过页面排版宽度，因此抑制相关格式警告。
 %
 %    \begin{macrocode}
-        \hfuzz    = \maxdimen
-        \hbadness = 99999
+        \@@_suppress_overfull:
 %    \end{macrocode}
 %
 %    \begin{macrocode}
