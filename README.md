@@ -22,7 +22,7 @@
 | 文件 | 用途 |
 | --- | --- |
 | `nkthesis.cls` | 模板类文件。写论文时必须和主 `.tex` 文件放在一起，或放在 TeX 能找到的位置。 |
-| `nkthesis-sample.pdf` | 示例论文编译后的效果。 |
+| `demo.pdf` | 示例论文编译后的效果。 |
 | `nkthesis.pdf` | 完整使用说明。 |
 
 本仓库还包含模板源码 `nkthesis.dtx`。如果你只是写论文，不需要理解或修改它。
@@ -40,8 +40,8 @@
 推荐做法：
 
 1. 到 [Release](https://github.com/alumik/nkthesis/releases/latest) 下载最新版 `nkthesis.cls`。
-2. 把 `nkthesis.cls` 和仓库中的所有文件放到论文文件夹。
-3. 先不要改太多内容，直接编译示例文件 `nkthesis-sample.tex`，确认环境没有问题。
+2. 将 `doc/demo/` 目录中的文件完整复制到论文文件夹，并将 `nkthesis.cls` 放在该目录中。
+3. 先不要改太多内容，直接编译示例文件 `demo.tex`，确认环境没有问题。
 
 如果想从源码生成 `nkthesis.cls`，可以在仓库目录运行：
 
@@ -56,10 +56,10 @@ l3build unpack
 仓库已经提供 `latexmkrc`，所以通常运行下面这条命令即可：
 
 ```bash
-latexmk nkthesis-sample.tex
+latexmk demo.tex
 ```
 
-成功后会得到 `nkthesis-sample.pdf`。
+成功后会得到 `demo.pdf`。
 
 ## 字体问题
 
@@ -84,7 +84,7 @@ Package fontspec Error:
 
 ## 写论文时该改哪里
 
-第一次使用时，最推荐的路线是修改 `nkthesis-sample.tex`：
+第一次使用时，最推荐的路线是修改 `demo.tex`：
 
 1. 在 `\nktset{...}` 中填写论文题目、作者、导师、学院、专业、答辩日期等基本信息。
 2. 在 `\addbibresource{...}` 中指定你的参考文献 `.bib` 文件。

@@ -193,64 +193,6 @@
 %
 % \section{简明教程}
 %
-% \subsection{\cls{nkthesis} 的主要组成部分}
-%
-% 本模板主要包含核心文档类（表~\ref{tab:components-of-nkthesis-1}）、
-% 示例文件（表~\ref{tab:components-of-nkthesis-2}）和辅助文件
-% （表~\ref{tab:components-of-nkthesis-3}）三个部分。
-%
-% \begin{table}[H]
-%     \centering
-%     \caption{\cls{nkthesis} 核心文档类}
-%     \label{tab:components-of-nkthesis-1}
-%     \begin{tabular}{ll}
-%         \toprule
-%         文件               & 功能说明                               \\
-%         \midrule
-%         LICENSE           & 许可证                                 \\
-%         nkthesis.dtx      & 文档类文件                             \\
-%         nkthesis-logo.dtx & 南开大学 logo 绘图文件                 \\
-%         nkthesis.ins      & 文档类安装文件                         \\
-%         \bottomrule
-%     \end{tabular}
-% \end{table}
-%
-% \changes{v2.1}{2025/05/02}{将示例文件从 main 重命名为 nkthesis-sample。}
-% \changes{v2.1}{2025/05/03}{将示例文件从 chapters 重命名为 mainmatter。}
-%
-% \begin{table}[H]
-%     \centering
-%     \caption{\cls{nkthesis} 示例文件}
-%     \label{tab:components-of-nkthesis-2}
-%     \begin{tabular}{ll}
-%         \toprule
-%         文件                & 功能说明                                             \\
-%         \midrule
-%         backmatter/         & 模板后置部分，包含附录、致谢、个人简历               \\
-%         frontmatter/        & 模板前置部分，包含中英文摘要、序言、符号缩略语注释表 \\
-%         mainmatter/         & 模板主体部分，包含示例章节                           \\
-%         latexmkrc           & 自动化编译配置                                       \\
-%         nkthesis-sample.bib & 参考文献数据库                                       \\
-%         nkthesis-sample.tex & 模板示例文档                                         \\
-%         \bottomrule
-%     \end{tabular}
-% \end{table}
-%
-% \begin{table}[H]
-%     \centering
-%     \caption{\cls{nkthesis} 其他辅助文件}
-%     \label{tab:components-of-nkthesis-3}
-%     \begin{tabular}{ll}
-%         \toprule
-%         文件       & 功能说明                               \\
-%         \midrule
-%         .gitignore & Git 忽略文件                           \\
-%         build.lua  & \pkg{l3build} 构建脚本                 \\
-%         README.md  & 简易使用说明                           \\
-%         \bottomrule
-%     \end{tabular}
-% \end{table}
-%
 % \subsection{使用 \cls{nkthesis} 文档类}
 %
 % 本模板提供了一个中文文档类：\cls{nkthesis}。
@@ -265,7 +207,7 @@
 %     \end{document}
 % \end{nkthesisexam}
 %
-% 需要使用 \XeLaTeX 编译 nkthesis-sample.tex 示例文件。
+% 需要使用 \XeLaTeX 编译文档。
 % 如果编译时出现如下所示的缺少字体错误，请参考~\ref{subsec:fonts} 节解决。
 %
 % \begin{nkthesisexam}
@@ -740,9 +682,7 @@
 %
 % \subsection{整体结构}
 %
-% \changes{v2.1}{2025/05/02}{将示例文件从 main 重命名为 nkthesis-sample。}
-%
-% 论文结构可以参考 nkthesis-sample.tex 文件中的内容。
+% 论文结构可以参考 demo.tex 文件中的内容。
 % 论文可以分为四个部分，即封面材料、前置部分（frontmatter）、主体部分（mainmatter）和后置部分（backmatter）。
 % 推荐的整体结构如下：
 %
