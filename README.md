@@ -109,7 +109,7 @@ Package fontspec Error:
 
 \begin{document}
 
-\maketitlepage
+\maintitlepage
 \declarationpage
 \authorizationpage
 

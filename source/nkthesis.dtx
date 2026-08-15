@@ -677,7 +677,7 @@
 % 自定义页面可以通过以下方式直接使用，以在文中插入相应页面。
 %
 % \begin{nkthesisexam}
-%     \maketitlepage
+%     \maintitlepage
 % \end{nkthesisexam}
 %
 % \subsection{整体结构}
@@ -692,7 +692,7 @@
 %     \begin{document}
 %
 %     % 以下页面可根据需要（匿名/非匿名等）选择使用
-%     \maketitlepage  % （非匿名）题名页
+%     \maintitlepage  % （非匿名）题名页
 %     \anonymoustitlepage  % 匿名评阅封面
 %     \declarationpage
 %     \authorizationpage
@@ -767,7 +767,7 @@
 %
 % 封面材料包括题名页、学位论文原创性声明和非公开学位论文标注说明、学位论文使用授权书等。
 %
-% \begin{function}[updated=2026/08/13]{\maketitlepage}
+% \begin{function}[updated=2026/08/13]{\maintitlepage}
 %     题名页。
 %     题名页包含论文全部书目信息。
 %
@@ -2834,12 +2834,12 @@
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
 %
-% \begin{macro}{\maketitlepage}
+% \begin{macro}{\maintitlepage}
 %
-% \changes{v2026.7}{2026/08/13}{将 \cs{titlepage} 改名为 \cs{maketitlepage}，避免破坏 \env{titlepage} 环境。}
+% \changes{v2026.7}{2026/08/13}{将 \cs{titlepage} 改名为 \cs{maintitlepage}，避免破坏 \env{titlepage} 环境。}
 %
 %    \begin{macrocode}
-\NewDocumentCommand \maketitlepage { }
+\NewDocumentCommand \maintitlepage { }
     {
         \bool_if:NTF \l_@@_openright_bool
             { \cleardoublepage }
