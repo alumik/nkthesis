@@ -19,8 +19,8 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[2024/11/01]
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/08/15}
-%<class>    {v2026.7.0}
+%<class>    {2026/09/09}
+%<class>    {v2026.7.1}
 %<class>    {Template for Master's and Doctoral Theses of Nankai University}
 %
 %<*driver>
@@ -139,6 +139,7 @@
 %     \tex_hsize:D, \tex_hfuzz:D, \tex_hbadness:D, \c_max_dim,
 %     \bool_if:NT, \cs_new_eq:NN,
 %     \includegraphics, \biblabelsep, \str_lowercase:n,
+%     \clist_const:Nn, \clist_map_inline:Nn,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -155,7 +156,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/08/15\qquad v2026.7.0}
+% \date{2026/09/09\qquad v2026.7.1}
 % \maketitle
 %
 % \begin{abstract}
@@ -933,11 +934,13 @@
 %     模仿 Microsoft Word 中的“多倍行距”设置行间距。
 % \end{function}
 %
-% \begin{function}[updated=2026/03/12]{\mslinespreadbp}
+% \begin{function}[updated=2026/09/09]{\mslinespreadbp}
 %     \begin{syntax}
-%         \cs{mslinespreadbp} \marg{行间距（磅）}
+%         \cs{mslinespreadbp} \marg{行间距（磅）} \marg{字号（磅）}
 %     \end{syntax}
-%     模仿 Microsoft Word 中的“固定行距”（单位：磅）设置行间距。
+%     模仿 Microsoft Word 中的“固定行距”设置行间距。
+%     两个参数的单位均为磅：第一个是固定行距，第二个是当前文字的字号。
+%     例如正文小四号字（12磅）设置固定20磅行距，应写作 |\mslinespreadbp{20}{12}|。
 %     文档类正文行间距默认为固定20磅。
 % \end{function}
 %
@@ -946,6 +949,11 @@
 %         \mslinespread{1.5}  % 设置1.5倍行距
 %         这是正文内容
 %         \par  % 如果文字在大括号中，结尾需要加上 \par 行距设置才会生效
+%     }
+%     {
+%         \mslinespreadbp{20}{12}  % 12磅字设置固定20磅行距
+%         这是正文内容
+%         \par
 %     }
 % \end{nkthesisexam}
 %
@@ -1199,13 +1207,14 @@
 %    \end{macrocode}
 %
 % \changes{v2.3}{2025/12/27}{强制要求使用 \XeLaTeX 编译。}
+% \changes{v2026.7}{2026/09/09}{消息模块名改用 \texttt{nkthesis} 而不是 \texttt{@@}。}
 %
 % 强制要求使用 \XeLaTeX 编译。
 %
 %    \begin{macrocode}
-\msg_new:nnn { @@ } { xetex-required }
+\msg_new:nnn { nkthesis } { xetex-required }
     { This~document~class~requires~XeTeX.~Please~compile~with~XeLaTeX. }
-\sys_if_engine_xetex:F { \msg_fatal:nn { @@ } { xetex-required } }
+\sys_if_engine_xetex:F { \msg_fatal:nn { nkthesis } { xetex-required } }
 %    \end{macrocode}
 %
 % \subsection{文档类属性}
@@ -1240,14 +1249,13 @@
 %
 % \begin{macro}{\@@_keys_set:nn, \@@_keys_get:nn}
 %
-% \changes{v2026.7}{2026/08/13}{修复 \cs{@@_keys_get:nn} 在可展开语境中报错时会残留未展开记号的问题。}
 % \changes{v2.3}{2025/12/27}{当键名不存在时直接报错而不是返回空值。}
 % \changes{v2026.7}{2026/08/14}{使用已经存在的 \cs{@@_config_get:n} 来读取属性值。}
 %
 % 键值写入和读取命令。
 %
 %    \begin{macrocode}
-\msg_new:nnn { @@ } { invalid-key }
+\msg_new:nnn { nkthesis } { invalid-key }
     { The~key~'#1'~is~not~defined~in~the~nkthesis~class. }
 \cs_new_protected:Nn \@@_keys_set:nn
     { \keys_set:nn { @@ / #1 } {#2} }
@@ -1255,7 +1263,7 @@
     {
         \keys_if_exist:nnTF { @@ / #1 } {#2}
             { \@@_config_get:n { #1 / #2 } }
-            { \msg_expandable_error:nnn { @@ } { invalid-key } { #1 / #2 } }
+            { \msg_expandable_error:nnn { nkthesis } { invalid-key } { #1 / #2 } }
     }
 %    \end{macrocode}
 % \end{macro}
@@ -1439,6 +1447,8 @@
 %
 % \subsubsection{布局参数}
 %
+% \changes{v2026.7}{2026/09/09}{将 \texttt{.initial:x} 改为现代 \LaTeXiii{} 首选的 \texttt{.initial:e}。}
+%
 %    \begin{macrocode}
 \keys_define:nn { @@ / layout }
     {
@@ -1458,7 +1468,7 @@
         headheight  .code:n    = \@@_config_set:nn { layout / headheight } {#1},
         headheight  .initial:n = 14.8bp,
         headsep     .code:n    = \@@_config_set:nn { layout / headsep } {#1},
-        headsep     .initial:x = \dim_eval:n { 8mm - 14.8bp },
+        headsep     .initial:e = \dim_eval:n { 8mm - 14.8bp },
         footskip    .code:n    = \@@_config_set:nn { layout / footskip } {#1},
         footskip    .initial:n = 8mm,
     }
@@ -1886,6 +1896,41 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \changes{v2026.7}{2026/09/09}{将各特殊章节重复的设置格式操作抽取为统一命令。}
+%
+% \begin{macro}{\@@_chapter_format:n}
+%
+% 设置无编号章标题的格式。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_chapter_format:n
+    { \ctexset { chapter/format = { \mslinespread { 1 } #1 \centering } } }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_special_chapter:nnn}
+%
+% 排版一个特殊章节的标题。
+% 参数依次为：格式指令、标题名称、目录处理方式。
+% 第三个参数取 \texttt{always} 时总是写入目录，
+% 取 \texttt{option} 时仅在 \texttt{frontmatterintoc} 为真时写入。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_special_chapter:nnn
+    {
+        \@@_chapter_format:n {#1}
+        \chapter* {#2}
+        \markboth { \MakeUppercase {#2} } { \MakeUppercase {#2} }
+        \str_if_eq:nnTF {#3} { always }
+            { \addcontentsline { toc } { chapter } {#2} }
+            {
+                \bool_if:NT \l_@@_frontmatterintoc_bool
+                    { \addcontentsline { toc } { chapter } {#2} }
+            }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
 % \input{nkthesis-logo.dtx}
 %
 % \changes{v2026.3}{2026/03/17}{调整论文前置页面元素的对齐方式和间距。}
@@ -2031,16 +2076,7 @@
             { \clearpage }
         \pagenumbering { Roman }
         \pagestyle { fancy }
-        \ctexset
-            {
-                chapter/format = {
-                    \mslinespread { 1 }
-                    \heiti
-                    \zihao { 3 }
-                    \bfseries
-                    \centering
-                },
-            }
+        \@@_chapter_format:n { \heiti \zihao { 3 } \bfseries }
     }
 %    \end{macrocode}
 % \end{macro}
@@ -2078,16 +2114,7 @@
             { \cleardoublepage }
             { \clearpage }
         \pagestyle { fancy }
-        \ctexset
-            {
-                chapter/format = {
-                    \mslinespread { 1 }
-                    \heiti
-                    \zihao { 3 }
-                    \bfseries
-                    \centering
-                },
-            }
+        \@@_chapter_format:n { \heiti \zihao { 3 } \bfseries }
     }
 %    \end{macrocode}
 % \end{macro}
@@ -2136,73 +2163,96 @@
 % \subsection{交叉引用}
 %
 % \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs{simpleref} 等命令。}
+% \changes{v2026.7}{2026/09/09}{用循环生成 \pkg{cleveref} 的格式设置。}
 %
 %    \begin{macrocode}
 \labelformat { subfigure } { \thefigure（\thesubfigure） }
 \labelformat { equation  } { （\theequation）            }
+%    \end{macrocode}
+%
+% \begin{variable}{\c_@@_crefname_prop}
+%
+% 引用类型到中文名称的映射。
+%
+%    \begin{macrocode}
+\prop_const_from_keyval:Nn \c_@@_crefname_prop
+    {
+        equation      = 式,
+        figure        = 图,
+        subfigure     = 子图,
+        table         = 表,
+        page          = 页,
+        chapter       = 章,
+        section       = 节,
+        subsection    = 小节,
+        subsubsection = 子节,
+        appendix      = 附录,
+        theorem       = 定理,
+        lemma         = 引理,
+        corollary     = 推论,
+        proposition   = 命题,
+        definition    = 定义,
+        example       = 例,
+        algorithm     = 算法,
+        listing       = 列表,
+        line          = 行,
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_cref_counting_clist}
+%
+% 采用“第\meta{编号}\meta{量词}”表达方式的引用类型及其量词。
+%
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_cref_counting_clist
+    {
+        { page          } { 页   },
+        { chapter       } { 章   },
+        { section       } { 节   },
+        { subsection    } { 小节 },
+        { subsubsection } { 子节 },
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_cref_set_counting:nn}
+%
+% 为一个“第\meta{编号}\meta{量词}”类型生成全部四组格式设置。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_cref_set_counting:nn
+    {
+        \crefformat {#1} { ##2第##1#2##3 }
+        \crefrangeformat {#1} { ##3第##1#2##4至##5第##2#2##6 }
+        \crefmultiformat {#1}
+            { ##2第##1#2##3   } { 和##2第##1#2##3 }
+            { ，##2第##1#2##3 } { 和##2第##1#2##3 }
+        \crefrangemultiformat {#1}
+            { ##3第##1#2##4至##5第##2#2##6   }
+            { 和##3第##1#2##4至##5第##2#2##6 }
+            { ，##3第##1#2##4至##5第##2#2##6 }
+            { 和##3第##1#2##4至##5第##2#2##6 }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \cs{crefname} 等设置需要在 \pkg{cleveref} 完成初始化之后进行。
+%
+%    \begin{macrocode}
 \AddToHook { begindocument } [ nkthesis ]
     {
-        \crefname{ equation      } { 式    } { 式    }
-        \crefname{ figure        } { 图    } { 图    }
-        \crefname{ subfigure     } { 子图  } { 子图  }
-        \crefname{ table         } { 表    } { 表    }
-        \crefname{ page          } { 页    } { 页    }
-        \crefname{ chapter       } { 章    } { 章    }
-        \crefname{ section       } { 节    } { 节    }
-        \crefname{ subsection    } { 小节  } { 小节  }
-        \crefname{ subsubsection } { 子节  } { 子节  }
-        \crefname{ appendix      } { 附录  } { 附录  }
-        \crefname{ theorem       } { 定理  } { 定理  }
-        \crefname{ lemma         } { 引理  } { 引理  }
-        \crefname{ corollary     } { 推论  } { 推论  }
-        \crefname{ proposition   } { 命题  } { 命题  }
-        \crefname{ definition    } { 定义  } { 定义  }
-        \crefname{ example       } { 例    } { 例    }
-        \crefname{ algorithm     } { 算法  } { 算法  }
-        \crefname{ listing       } { 列表  } { 列表  }
-        \crefname{ line          } { 行    } { 行    }
-        \crefformat { page          } { #2第#1页#3   }
-        \crefformat { chapter       } { #2第#1章#3   }
-        \crefformat { section       } { #2第#1节#3   }
-        \crefformat { subsection    } { #2第#1小节#3 }
-        \crefformat { subsubsection } { #2第#1子节#3 }
-        \crefformat { equation      } { 式#2#1#3     }
-        \crefformat { subfigure     } { 图#2#1#3     }
-        \crefrangeformat { page          } { #3第#1页#4至#5第#2页#6     }
-        \crefrangeformat { chapter       } { #3第#1章#4至#5第#2章#6     }
-        \crefrangeformat { section       } { #3第#1节#4至#5第#2节#6     }
-        \crefrangeformat { subsection    } { #3第#1小节#4至#5第#2小节#6 }
-        \crefrangeformat { subsubsection } { #3第#1子节#4至#5第#2子节#6 }
-        \crefmultiformat { page          }
-            { #2第#1页#3     } { 和#2第#1页#3   }
-            { ，#2第#1页#3   } { 和#2第#1页#3   }
-        \crefmultiformat { chapter       }
-            { #2第#1章#3     } { 和#2第#1章#3   }
-            { ，#2第#1章#3   } { 和#2第#1章#3   }
-        \crefmultiformat { section       }
-            { #2第#1节#3     } { 和#2第#1节#3   }
-            { ，#2第#1节#3   } { 和#2第#1节#3   }
-        \crefmultiformat { subsection    }
-            { #2第#1小节#3   } { 和#2第#1小节#3 }
-            { ，#2第#1小节#3 } { 和#2第#1小节#3 }
-        \crefmultiformat { subsubsection }
-            { #2第#1子节#3   } { 和#2第#1子节#3 }
-            { ，#2第#1子节#3 } { 和#2第#1子节#3 }
-        \crefrangemultiformat { page          }
-            { #3第#1页#4至#5第#2页#6       } { 和#3第#1页#4至#5第#2页#6     }
-            { ，#3第#1页#4至#5第#2页#6     } { 和#3第#1页#4至#5第#2页#6     }
-        \crefrangemultiformat { chapter       }
-            { #3第#1章#4至#5第#2章#6       } { 和#3第#1章#4至#5第#2章#6     }
-            { ，#3第#1章#4至#5第#2章#6     } { 和#3第#1章#4至#5第#2章#6     }
-        \crefrangemultiformat { section       }
-            { #3第#1节#4至#5第#2节#6       } { 和#3第#1节#4至#5第#2节#6     }
-            { ，#3第#1节#4至#5第#2节#6     } { 和#3第#1节#4至#5第#2节#6     }
-        \crefrangemultiformat { subsection    }
-            { #3第#1小节#4至#5第#2小节#6   } { 和#3第#1小节#4至#5第#2小节#6 }
-            { ，#3第#1小节#4至#5第#2小节#6 } { 和#3第#1小节#4至#5第#2小节#6 }
-        \crefrangemultiformat { subsubsection }
-            { #3第#1子节#4至#5第#2子节#6   } { 和#3第#1子节#4至#5第#2子节#6 }
-            { ，#3第#1子节#4至#5第#2子节#6 } { 和#3第#1子节#4至#5第#2子节#6 }
+        \prop_map_inline:Nn \c_@@_crefname_prop
+            { \crefname {#1} {#2} {#2} }
+        \clist_map_inline:Nn \c_@@_cref_counting_clist
+            { \@@_cref_set_counting:nn #1 }
+%    \end{macrocode}
+%
+% 以下两个类型的量词位于编号之前，与上面的“第\meta{编号}\meta{量词}”不同，因此单独设置。
+%
+%    \begin{macrocode}
+        \crefformat { equation  } { 式#2#1#3 }
+        \crefformat { subfigure } { 图#2#1#3 }
         \cs_set:Npn \crefpairconjunction        { ~和~ }
         \cs_set:Npn \crefmiddleconjunction      { ，   }
         \cs_set:Npn \creflastconjunction        { ~和~ }
@@ -2615,40 +2665,16 @@
     {
         \str_if_eq:eeTF { \str_lowercase:n { #1 } } { en }
             {
-                \ctexset
-                    {
-                        chapter/format = {
-                            \mslinespread { 1 }
-                            \arial
-                            \zihao { -2 }
-                            \bfseries
-                            \centering
-                        },
-                    }
-                \chapter* { \enabstractname }
-                \markboth
-                    { \MakeUppercase { \enabstractname } }
-                    { \MakeUppercase { \enabstractname } }
-                \bool_if:NT \l_@@_frontmatterintoc_bool
-                    { \addcontentsline { toc } { chapter } { \enabstractname } }
+                \@@_special_chapter:nnn
+                    { \arial \zihao { -2 } \bfseries }
+                    { \enabstractname }
+                    { option }
             }
             {
-                \ctexset
-                    {
-                        chapter/format = {
-                            \mslinespread { 1 }
-                            \heiti
-                            \zihao { -2 }
-                            \bfseries
-                            \centering
-                        },
-                    }
-                \chapter* { \abstractname }
-                \markboth
-                    { \MakeUppercase { \abstractname } }
-                    { \MakeUppercase { \abstractname } }
-                \bool_if:NT \l_@@_frontmatterintoc_bool
-                    { \addcontentsline { toc } { chapter } { \abstractname } }
+                \@@_special_chapter:nnn
+                    { \heiti \zihao { -2 } \bfseries }
+                    { \abstractname }
+                    { option }
             }
         \ignorespaces
     }
@@ -2676,22 +2702,10 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { preface } { }
     {
-        \ctexset
-            {
-                chapter/format = {
-                    \mslinespread { 1 }
-                    \heiti
-                    \zihao { 3 }
-                    \bfseries
-                    \centering
-                },
-            }
-        \chapter* { \prefacename }
-        \markboth
-            { \MakeUppercase { \prefacename } }
-            { \MakeUppercase { \prefacename } }
-        \bool_if:NT \l_@@_frontmatterintoc_bool
-            { \addcontentsline { toc } { chapter } { \prefacename } }
+        \@@_special_chapter:nnn
+            { \heiti \zihao { 3 } \bfseries }
+            { \prefacename }
+            { option }
         \ignorespaces
     }
     { }
@@ -2710,25 +2724,13 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { symabbr } { }
     {
-        \ctexset
-            {
-                chapter/format = {
-                    \mslinespread { 1 }
-                    \heiti
-                    \zihao { 3 }
-                    \bfseries
-                    \centering
-                },
-            }
-        \chapter* { \symabbrname }
-        \markboth
-            { \MakeUppercase { \symabbrname } }
-            { \MakeUppercase { \symabbrname } }
+        \@@_special_chapter:nnn
+            { \heiti \zihao { 3 } \bfseries }
+            { \symabbrname }
+            { option }
         \mslinespreadbp { 16 } { 10.5 }
         \songti
         \zihao { 5 }
-        \bool_if:NT \l_@@_frontmatterintoc_bool
-            { \addcontentsline { toc } { chapter } { \symabbrname } }
         \ignorespaces
     }
     { \par }
@@ -2749,24 +2751,13 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { acknowledgments } { }
     {
-        \ctexset
-            {
-                chapter/format = {
-                    \mslinespread { 1 }
-                    \heiti
-                    \zihao { 3 }
-                    \bfseries
-                    \centering
-                },
-            }
-        \chapter* { \acknowledgmentsname }
-        \markboth
-            { \MakeUppercase { \acknowledgmentsname } }
-            { \MakeUppercase { \acknowledgmentsname } }
+        \@@_special_chapter:nnn
+            { \heiti \zihao { 3 } \bfseries }
+            { \acknowledgmentsname }
+            { always }
         \mslinespreadbp { 16 } { 12 }
         \fangsong
         \zihao { -4 }
-        \addcontentsline { toc } { chapter } { \acknowledgmentsname }
         \ignorespaces
     }
     { \par }
@@ -2783,24 +2774,13 @@
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_resume:n
     {
-        \ctexset
-            {
-                chapter/format = {
-                    \mslinespread { 1 }
-                    \heiti
-                    \zihao { 3 }
-                    \bfseries
-                    \centering
-                },
-            }
-        \chapter* {#1}
-        \markboth
-            { \MakeUppercase {#1} }
-            { \MakeUppercase {#1} }
+        \@@_special_chapter:nnn
+            { \heiti \zihao { 3 } \bfseries }
+            {#1}
+            { always }
         \mslinespreadbp { 16 } { 10.5 }
         \songti
         \zihao { 5 }
-        \addcontentsline { toc } { chapter } {#1}
         \ignorespaces
     }
 %    \end{macrocode}
@@ -3090,17 +3070,8 @@
             { \cleardoublepage }
             { \clearpage }
         \group_begin:
-        \ctexset
-            {
-                chapter/format    = {
-                    \mslinespread { 1 }
-                    \heiti
-                    \zihao { 3 }
-                    \bfseries
-                    \centering
-                },
-                chapter/pagestyle = empty,
-            }
+        \@@_chapter_format:n { \heiti \zihao { 3 } \bfseries }
+        \ctexset { chapter/pagestyle = empty }
         \chapter* { 南开大学学位论文原创性声明 }
         \par
         \vspace { 2.2mm }
@@ -3308,16 +3279,8 @@
             { \cleardoublepage }
             { \clearpage }
         \group_begin:
-        \ctexset
-            {
-                chapter/format    = {
-                    \mslinespread { 1 }
-                    \heiti
-                    \zihao { 3 }
-                    \centering
-                },
-                chapter/pagestyle = empty,
-            }
+        \@@_chapter_format:n { \heiti \zihao { 3 } }
+        \ctexset { chapter/pagestyle = empty }
         \chapter* { 南开大学学位论文使用授权书 }
         \par
         \vspace { -7.1mm }
