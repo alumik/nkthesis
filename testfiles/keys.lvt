@@ -1,0 +1,23 @@
+% Regression test (log-based): key-value layer (\nktset / \nktget round trip).
+% Values are kept ASCII so the .tlg stays readable.
+\input{regression-test.tex}
+\documentclass{nkthesis}
+\nktset{
+    学校代码 = 10055,
+    UDC = 313,
+    论文编号 = NK-2026-001,
+    学号 = 1234567890,
+    题名页/论文题目字号 = 3,
+    原创性声明/电子签名宽度 = 9em,
+}
+\begin{document}
+\START
+\TYPE{school-code: \nktget{学校代码}}
+\TYPE{udc: \nktget{UDC}}
+\TYPE{thesis-number: \nktget{论文编号}}
+\TYPE{student-id: \nktget{学号}}
+\TYPE{title-fontsize: \nktget{题名页/论文题目字号}}
+\TYPE{signature-width: \nktget{原创性声明/电子签名宽度}}
+\TYPE{missing-key: \nktget{no-such-key}}
+\END
+\end{document}

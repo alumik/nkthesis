@@ -1,0 +1,42 @@
+% Regression test: 题名页 (\maintitlepage) across thesis types.
+% Page 1: 硕士 with full info; Page 2: 博士 with empty 二级学科 (falls back to
+% 一级学科); Page 3: 硕士专业 with explicit title font size.
+\documentclass{nkthesis}
+\begin{document}
+
+\nktset{
+    论文题目（中文） = 现代绿色化学中的物理有机问题,
+    论文题目（英文） = Physical Organic Concerns in Green Chemistry,
+    论文作者 = 张三,
+    指导教师 = 李四,
+    指导教师职称 = 教授,
+    申请学位 = 理学硕士,
+    培养单位 = 化学学院,
+    一级学科或专业学位类别 = 化学,
+    二级学科或专业领域 = 有机化学,
+    研究方向 = 物理有机化学,
+    答辩委员会主席 = 王五\quad 教授,
+    评阅人 = 赵六\quad 教授,
+    论文完成时间 = 二〇二六年五月,
+    论文编号 = NK-2026-001,
+    答辩日期 = \textbf{20}~26\textbf{年}5\textbf{月}25\textbf{日},
+    学号 = 1234567890,
+}
+\maintitlepage
+
+\nktset{
+    题名页/论文类别 = 博士,
+    申请学位 = 理学博士,
+    二级学科或专业领域 = {},
+}
+\maintitlepage
+
+\nktset{
+    题名页/论文类别 = 硕士专业,
+    申请学位 = 工程硕士,
+    二级学科或专业领域 = 材料工程,
+    题名页/论文题目字号 = 3,
+}
+\maintitlepage
+
+\end{document}

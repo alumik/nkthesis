@@ -1,0 +1,23 @@
+% Regression test: 原创性声明与非公开学位论文标注说明 (\declarationpage).
+% Page 1: 公开 (default, table shows blanks and default dates);
+% Page 2: 秘密 with explicit fields (exercises checkboxes and filled dates).
+\documentclass{nkthesis}
+\begin{document}
+
+\nktset{
+    论文题目（中文） = 现代绿色化学中的物理有机问题,
+    原创性声明/签字日期 = 2026年5月25日,
+}
+\declarationpage
+
+\nktset{
+    非公开论文/申请密级 = 秘密,
+    非公开论文/保密期限/起始日期 = 2026年06月29日,
+    非公开论文/保密期限/结束日期 = 2036年06月28日,
+    非公开论文/审批表编号 = NKSH-2026-001,
+    非公开论文/批准日期 = 2026年06月29日,
+    原创性声明/签字日期 = {},
+}
+\declarationpage
+
+\end{document}

@@ -1,0 +1,29 @@
+% Regression test: 模式一（数字编号）+ uppercasehead + openright 选项组合.
+\documentclass[headingmode=1, uppercasehead, openright]{nkthesis}
+\begin{document}
+\frontmatter
+\begin{abstract}
+摘要。
+\end{abstract}
+\mainmatter
+
+\chapter{Chapter Title}
+Body text.\label{chap:a}
+\section{Section Title}\label{sec:a}
+Section body.
+\subsection{Subsection Title}\label{subsec:a}
+Subsection body.
+\subsubsection{Subsubsection Title}\label{subsubsec:a}
+Subsubsection body.
+
+\begin{equation} E = mc^2 \label{eqn:a} \end{equation}
+
+交叉引用：\cref{chap:a}、\cref{sec:a}、\cref{subsec:a}、\cref{subsubsec:a}、
+\cref{eqn:a}。
+
+\backmatter
+\begin{acknowledgments}
+致谢内容。
+\end{acknowledgments}
+
+\end{document}

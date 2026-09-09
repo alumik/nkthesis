@@ -1,0 +1,22 @@
+% Regression test: 匿名评阅封面 (\anonymoustitlepage).
+% Page 1: 学术型 (硕士) narrow title box; Page 2: 专业型 (博士专业) wide box.
+\documentclass{nkthesis}
+\begin{document}
+
+\nktset{
+    论文题目（中文） = 现代绿色化学中的物理有机问题,
+    论文题目（英文） = Physical Organic Concerns in Green Chemistry,
+    一级学科或专业学位类别 = 化学,
+    二级学科或专业领域 = 有机化学,
+    论文编号 = NK-2026-001,
+}
+\anonymoustitlepage
+
+\nktset{
+    题名页/论文类别 = 博士专业,
+    一级学科或专业学位类别 = 材料与化工,
+    二级学科或专业领域 = 材料工程,
+}
+\anonymoustitlepage
+
+\end{document}

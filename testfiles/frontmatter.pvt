@@ -1,0 +1,34 @@
+% Regression test: 前置部分特殊章节 (\@@_special_chapter:nnn surface).
+% abstract (zh/en), keywords (zh/en), preface, toc, lof, lot, symabbr.
+\documentclass{nkthesis}
+\begin{document}
+\frontmatter
+
+\begin{abstract}
+这是一段中文摘要。
+\begin{keywords}
+关键词一；关键词二；关键词三
+\end{keywords}
+\end{abstract}
+
+\begin{abstract}[EN]
+This is an English abstract.
+\begin{keywords}[en]
+Keyword One; Keyword Two; Keyword Three
+\end{keywords}
+\end{abstract}
+
+\begin{preface}
+这是前言内容。
+\end{preface}
+
+\tableofcontents
+
+\listoffigures
+\listoftables
+
+\begin{symabbr}
+符号说明内容。
+\end{symabbr}
+
+\end{document}

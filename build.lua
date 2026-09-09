@@ -43,6 +43,9 @@ typesetopts = "-shell-escape -file-line-error -halt-on-error -interaction=nonsto
 -- Produce nkthesis.tds.zip alongside the CTAN archive.
 packtdszip = true
 
+checkengines = { "xetex" }
+checkruns = 2
+
 --[[
   Version tagging.
 
