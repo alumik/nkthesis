@@ -66,80 +66,57 @@
 % \fi
 %
 % \DoNotIndex{
-%     \\, \addcontentsline, \arabic,
-%     \arraybackslash, \arraystretch, \AtBeginBibliography, \AtBeginDocument,
-%     \AtBeginEnvironment, \baselineskip, \begin, \bfseries,
-%     \bool_if:NF, \bool_if:NTF, \bool_new:N,
-%     \captionsetup, \ccwd, \centering, \c@page, \c@secnumdepth,
-%     \cftbeforechapskip, \cftbeforefigskip, \cftbeforesecskip,
-%     \cftbeforesubsecskip, \cftbeforetabskip, \cftchapfont,
-%     \cftchapleader, \cftchappagefont, \cftdotfill, \cftdotsep,
-%     \cftfigfont, \cftfigindent, \cftfignumwidth, \cftfigpresnum,
-%     \cftsecfont, \cftsecindent, \cftsecpagefont, \cftsubsecfont,
-%     \cftsubsecindent, \cftsubsecpagefont, \cfttabfont,
-%     \cfttabindent, \cfttabnumwidth, \cfttabpresnum, \chapter,
-%     \char_generate:nn, \checkmark, \chinese, \CJKfamily,
-%     \clearpage, \cleardoublepage,
-%     \cs_generate_variant:Nn, \cs_new:Nn, \cs_new_protected:Nn, \csname,
-%     \CTEXifname, \ctexset,
+%     \\, \AddToHook, \AtBeginBibliography, \CJKfamily, \CTEXifname,
 %     \DeclareCaptionFont, \DeclareCaptionLabelFormat,
-%     \DeclareCaptionLabelSeparator, \dim_eval:n, \dim_set:Nn,
-%     \draw, \end, \endcsname, \fancyfoot,
-%     \fancyhead, \fancyhf, \fancyhfoffset, \floatsep,
-%     \fontspec_font_if_exist:nTF, \fontsize,
-%     \fp_eval:n, \geometry,
-%     \group_begin:, \group_end:,
-%     \headrulewidth, \hfill, \hline,
-%     \hspace, \ignorespaces,
-%     \int_compare:nNnT, \int_compare:nNnTF, \int_gset:Nn,
-%     \int_new:N, \int_set:Nn, \intextsep, \keys_define:nn,
-%     \keys_if_exist:nnTF, \keys_set:nn,
-%     \labelformat, \leftmark, \leq, \linespread, \linewidth,
-%     \LoadClass, \MakeUppercase, \makebox,
-%     \markboth, \msg_expandable_error:nnn, \msg_fatal:nn, \msg_new:nnn,
-%     \newfontfamily,
-%     \newlist, \NewDocumentCommand,
-%     \NewDocumentEnvironment, \NewExpandableDocumentCommand, \newtagform,
-%     \newunicodechar, \noindent, \nouppercase,
-%     \pagestyle, \pagenumbering, \par,
-%     \parindent, \parskip, \PassOptionsToClass,
-%     \PassOptionsToPackage, \path, \printbibliography,
-%     \ProcessKeyOptions, \prop_item:Nn,
-%     \prop_new:N, \prop_gput:Nnn, \protect, \quad, \qquad,
-%     \raggedbottom, \raggedleft, \raggedright, \raisebox,
-%     \RenewDocumentCommand, \RenewExpandableDocumentCommand,
-%     \RequirePackage, \rule, \scalebox, \selectfont,
-%     \setCJKfamilyfont, \setCJKmainfont, \setCJKmonofont,
-%     \setCJKsansfont, \setlist, \setmainfont, \singlespace,
-%     \square, \str_if_eq:eeF, \str_if_eq:eeTF,
-%     \str_if_eq:nnTF, \subcaptionsetup, \sys_if_engine_xetex:F, \tabcolsep,
-%     \textbf, \textbullet, \textfloatsep,
-%     \thechapter, \theequation,
-%     \thefigure, \thepage, \thetable, \thesubfigure,
-%     \thispagestyle, \tl_if_empty:eTF,
-%     \tocloftpagestyle,
-%     \underline, \usetagform, \vrule,
-%     \vspace, \zihao, \ziju, \parbox, \mbox,
-%     \tl_if_empty:nTF, \str_case:nnF,
-%     \hook_gput_code:nnn, \bool_to_str:N,
-%     \crefname, \crefformat, \crefrangeformat, \crefmultiformat,
-%     \crefrangemultiformat, \crefpairconjunction, \crefmiddleconjunction,
-%     \creflastconjunction, \crefpairgroupconjunction,
-%     \crefmiddlegroupconjunction, \creflastgroupconjunction,
-%     \crefrangeconjunction, \creflabelformat, \cs_new:Npn, \cs_set:Npn,
-%     \cs_set_protected:Npn, \vphantom, \vfill, \kern,
-%     \str_if_in:NnTF, \dim_new:N, \paperwidth,
-%     \str_new:N, \str_set:Ne, \skip_set:Nn,
-%     \null, \newpage, \hbox, \value, \setcounter, \ensuremath,
-%     \AddToHook, \NewEnvironmentCopy, \RenewDocumentCommand,
-%     \clist_new:N, \clist_map_inline:nn, \clist_gput_right:Nn,
-%     \prop_const_from_keyval:Nn, \prop_map_inline:Nn, \prop_item:Ne,
-%     \legacy_if:nT, \int_if_odd:nTF,
-%     \skip_horizontal:n, \skip_vertical:n,
-%     \tex_hsize:D, \tex_hfuzz:D, \tex_hbadness:D, \c_max_dim,
-%     \bool_if:NT, \cs_new_eq:NN,
-%     \includegraphics, \biblabelsep, \str_lowercase:n,
-%     \clist_const:Nn, \clist_map_inline:Nn,
+%     \DeclareCaptionLabelSeparator, \LoadClass, \MakeUppercase,
+%     \NewDocumentCommand, \NewDocumentEnvironment, \NewEnvironmentCopy,
+%     \NewExpandableDocumentCommand, \PassOptionsToClass,
+%     \PassOptionsToPackage, \ProcessKeyOptions, \RenewDocumentCommand,
+%     \RequirePackage, \abstractname, \addcontentsline, \arabic,
+%     \arraybackslash, \arraystretch, \baselineskip, \begin, \bfseries,
+%     \biblabelsep, \bibname, \bool_if:NF, \bool_if:NT, \bool_if:NTF,
+%     \bool_new:N, \c_max_dim, \captionsetup, \ccwd, \centering,
+%     \cftbeforechapskip, \cftbeforefigskip, \cftbeforesecskip,
+%     \cftbeforesubsecskip, \cftbeforetabskip, \cftchapfont, \cftchapleader,
+%     \cftchappagefont, \cftdotfill, \cftdotsep, \cftfigfont, \cftfigindent,
+%     \cftfignumwidth, \cftfigpresnum, \cftsecfont, \cftsecindent,
+%     \cftsecpagefont, \cftsubsecfont, \cftsubsecindent, \cftsubsecpagefont,
+%     \cfttabfont, \cfttabindent, \cfttabnumwidth, \cfttabpresnum, \chapter,
+%     \char_generate:nn, \checkmark, \chinese, \cleardoublepage, \clearpage,
+%     \clist_const:Nn, \clist_gput_right:Nn, \clist_map_inline:Nn,
+%     \clist_map_inline:nn, \clist_new:N, \crefformat, \creflabelformat,
+%     \creflastconjunction, \creflastgroupconjunction, \crefmiddleconjunction,
+%     \crefmiddlegroupconjunction, \crefmultiformat, \crefname,
+%     \crefpairconjunction, \crefpairgroupconjunction, \crefrangeconjunction,
+%     \crefrangeformat, \crefrangemultiformat, \cs_generate_variant:Nn,
+%     \cs_new:Nn, \cs_new:Npn, \cs_new_protected:Nn, \cs_set:Npn,
+%     \cs_set_protected:Npn, \csname, \ctexset, \dim_eval:n, \dim_new:N,
+%     \dim_set:Nn, \draw, \end, \endcsname, \ensuremath, \fancyfoot,
+%     \fancyhead, \fancyhf, \fancyhfoffset, \figurename, \floatsep, \fontsize,
+%     \fontspec_font_if_exist:nTF, \fp_eval:n, \geometry, \group_begin:,
+%     \group_end:, \headrulewidth, \hfill, \hline, \hook_gput_code:nnn,
+%     \hspace, \ignorespaces, \includegraphics, \int_compare:nNnT,
+%     \int_compare:nNnTF, \int_new:N, \int_set:Nn, \intextsep, \kern,
+%     \keys_define:nn, \keys_if_exist:nnTF, \keys_set:nn, \labelformat,
+%     \leftmark, \leq, \linespread, \linewidth, \listfigurename,
+%     \listtablename, \makebox, \markboth, \mbox, \msg_expandable_error:nnn,
+%     \msg_fatal:nn, \msg_new:nnn, \newfontfamily, \newlist, \newtagform,
+%     \newunicodechar, \noindent, \nouppercase, \null, \pagenumbering,
+%     \pagestyle, \paperwidth, \par, \parbox, \parindent, \parskip,
+%     \printbibliography, \prop_const_from_keyval:Nn, \prop_gput:Nnn,
+%     \prop_item:Ne, \prop_item:Nn, \prop_map_inline:Nn, \prop_new:N, \protect,
+%     \qquad, \quad, \raggedbottom, \raggedleft, \raggedright, \raisebox,
+%     \scalebox, \selectfont, \setCJKfamilyfont, \setCJKmainfont,
+%     \setCJKmonofont, \setCJKsansfont, \setcounter, \setlist, \setmainfont,
+%     \skip_horizontal:n, \skip_set:Nn, \skip_vertical:n, \square,
+%     \str_case:nnF, \str_if_eq:eeF, \str_if_eq:eeTF, \str_if_eq:nnTF,
+%     \str_if_in:NnTF, \str_lowercase:n, \str_new:N, \str_set:Ne,
+%     \subcaptionsetup, \sys_if_engine_xetex:F, \tabcolsep, \tablename,
+%     \tex_hbadness:D, \tex_hfuzz:D, \tex_hsize:D, \textbf, \textbullet,
+%     \textfloatsep, \thechapter, \theequation, \thefigure, \thepage,
+%     \thesubfigure, \thetable, \thispagestyle, \tl_if_empty:eTF,
+%     \tl_if_empty:nTF, \tocloftpagestyle, \underline, \usetagform, \vfill,
+%     \vphantom, \vrule, \vspace, \zihao, \ziju,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -243,7 +220,7 @@
 %
 % \subsection{文档类选项}
 %
-% 本模板提供了以下文档类选项，可以作为可选参数传入 |\documentclass| 命令中。
+% 本模板提供了以下文档类选项，可以作为可选参数传入 \tn[no-index]{documentclass} 命令中。
 %
 % \begin{nkthesisexam}
 %     \documentclass[<文档类选项>]{nkthesis}
@@ -772,9 +749,9 @@
 %     题名页。
 %     题名页包含论文全部书目信息。
 %
-%     该命令在 v2026.7 之前名为 \cs{titlepage}。
-%     由于 \cs{titlepage} 同时是 \cls{book} 中的 \env{titlepage} 环境，
-%     重定义它会使 \env{titlepage} 环境和 \cs{maketitle} 产生错误输出，
+%     该命令在 v2026.7 之前名为 \cs[no-index]{titlepage}。
+%     由于 \cs[no-index]{titlepage} 同时是 \cls{book} 中的 \env{titlepage} 环境，
+%     重定义它会使 \env{titlepage} 环境和 \cs[no-index]{maketitle} 产生错误输出，
 %     因此改用新名称，并恢复 \env{titlepage} 环境的原始定义。
 % \end{function}
 %
@@ -805,14 +782,14 @@
 % \noindent\DescribeEnv{abstract}
 % 摘要环境。
 % 默认输出中文摘要。
-% 如果传入可选参数 \texttt{[en]}，即
-% \texttt{\textbackslash begin\{abstract\}[en]}，则输出英文摘要（Abstract）。
+% 如果传入可选参数 |[en]|，即
+% |\begin{abstract}[en]|，则输出英文摘要（Abstract）。
 %
 % \noindent\DescribeEnv{keywords}
 % 关键词环境。
 % 默认输出中文关键词。
 % 在中文摘要内容后另起一行标明，一般3-5个，之间用中文分号分开。
-% 如果传入可选参数 \texttt{[en]}，即 \texttt{\textbackslash begin\{keywords\}[en]}，则输出英文关键词。
+% 如果传入可选参数 |[en]|，即 |\begin{keywords}[en]|，则输出英文关键词。
 % 一般3-5个，之间用英文分号分开。
 %
 % \noindent\DescribeEnv{preface}
@@ -963,7 +940,7 @@
 % 这些名称已经按照写作规范设置好，一般情况下不需要改动。
 % 如有必要，可以使用相应命令重新定义这些名称。
 %
-% 只能使用 |\renewcommand*| 命令重新定义的标题名称如下：
+% 只能使用 \cs[no-index]{renewcommand*} 命令重新定义的标题名称如下：
 %
 % \begin{function}{\enabstractname}
 %     英文摘要，默认值为“Abstract”。
@@ -992,46 +969,46 @@
 %    \renewcommand*{\prefacename}{序言}
 % \end{nkthesisexam}
 %
-% 只能使用 |\ctexset| 命令重新定义的标题名称如下：
+% 只能使用 \cs[no-index]{ctexset} 命令重新定义的标题名称如下：
 %
 % \begin{function}{contentsname}
 %     目录。
-%     会设置 \cs{contentsname} 的值，默认值为“目录”。
+%     会设置 \cs[no-index]{contentsname} 的值，默认值为“目录”。
 % \end{function}
 %
 % \begin{function}{figurename}
 %     图名。
-%     会设置 \cs{figurename} 的值，默认值为“图”。
+%     会设置 \cs[no-index]{figurename} 的值，默认值为“图”。
 % \end{function}
 %
 % \begin{function}{tablename}
 %     表名。
-%     会设置 \cs{tablename} 的值，默认值为“表”。
+%     会设置 \cs[no-index]{tablename} 的值，默认值为“表”。
 % \end{function}
 %
 % \begin{function}{listfigurename}
 %     图清单。
-%     会设置 \cs{listfigurename} 的值，默认值为“插图清单”。
+%     会设置 \cs[no-index]{listfigurename} 的值，默认值为“插图清单”。
 % \end{function}
 %
 % \begin{function}{listtablename}
 %     表清单。
-%     会设置 \cs{listtablename} 的值，默认值为“附表清单”。
+%     会设置 \cs[no-index]{listtablename} 的值，默认值为“附表清单”。
 % \end{function}
 %
 % \begin{function}{abstractname}
 %     中文摘要。
-%     会设置 \cs{abstractname} 的值，默认值为“摘要”。
+%     会设置 \cs[no-index]{abstractname} 的值，默认值为“摘要”。
 % \end{function}
 %
 % \begin{function}{appendixname}
 %     附录。
-%     会设置 \cs{appendixname} 的值，默认值为“附录”。
+%     会设置 \cs[no-index]{appendixname} 的值，默认值为“附录”。
 % \end{function}
 %
 % \begin{function}{bibname}
 %     参考文献。
-%     会设置 \cs{bibname} 的值，默认值为“参考文献”。
+%     会设置 \cs[no-index]{bibname} 的值，默认值为“参考文献”。
 % \end{function}
 %
 % \begin{nkthesisexam}
@@ -1169,11 +1146,11 @@
 %
 % \subsection{行内列表}
 %
-% 由于 \pkg{enumitem} 宏包的一个已知问题\footnote{\url{https://tex.stackexchange.com/questions/533118/enumitem-get-rid-of-extra-space-between-label-and-content-in-inline-list}}，在本模板中无法使用 |itemize*| 和 |enumerate*| 环境创建行内列表。
+% 由于 \pkg{enumitem} 宏包的一个已知问题\footnote{\url{https://tex.stackexchange.com/questions/533118/enumitem-get-rid-of-extra-space-between-label-and-content-in-inline-list}}，在本模板中无法使用 \env{itemize*} 和 \env{enumerate*} 环境创建行内列表。
 % 请使用以下替换环境：
 %
 % \noindent\DescribeEnv{inlineitemize}
-% 行内无编号列表环境，类似于 |itemize*|。
+% 行内无编号列表环境，类似于 \env{itemize*}。
 %
 % \begin{nkthesisexam}
 %     \begin{inlineitemize}
@@ -1183,7 +1160,7 @@
 % \end{nkthesisexam}
 %
 % \noindent\DescribeEnv{inlineenumerate}
-% 行内有编号列表环境，类似于 |enumerate*|。
+% 行内有编号列表环境，类似于 \env{enumerate*}。
 %
 % \begin{nkthesisexam}
 %     \begin{inlineenumerate}
@@ -1263,7 +1240,12 @@
     {
         \keys_if_exist:nnTF { @@ / #1 } {#2}
             { \@@_config_get:n { #1 / #2 } }
-            { \msg_expandable_error:nnn { nkthesis } { invalid-key } { #1 / #2 } }
+            {
+                \msg_expandable_error:nnn
+                    { nkthesis }
+                    { invalid-key }
+                    { #1 / #2 }
+            }
     }
 %    \end{macrocode}
 % \end{macro}
@@ -1481,7 +1463,7 @@
 % \changes{v2026.7}{2026/08/13}{将《匿名评阅封面》的论文类别名称集中定义，避免与键值选项列表各自维护而产生偏差。}
 %
 % 论文类别到《匿名评阅封面》标题文字的映射。
-% 该属性列表同时用于生成 \texttt{题名页/论文类别} 的可选值，
+% 该属性列表同时用于生成 |题名页/论文类别| 的可选值，
 % 因此选项列表与显示文字只有这一处定义，不会出现两边不同步的问题。
 %
 %    \begin{macrocode}
@@ -1497,7 +1479,7 @@
 %
 % \begin{variable}{\g_@@_thesis_type_clist}
 %
-% 由上述映射的键生成的论文类别可选值列表，供 \texttt{.choices:Vn} 使用。
+% 由上述映射的键生成的论文类别可选值列表，供 |.choices:Vn| 使用。
 %
 %    \begin{macrocode}
 \clist_new:N \g_@@_thesis_type_clist
@@ -1679,7 +1661,7 @@
 %
 % \subsubsection{布局设置}
 %
-% \changes{v2.3}{2025/12/27}{使用 \pkg{geometry} 设置页面尺寸，并放弃对 \cs{topskip} 的改动。}
+% \changes{v2.3}{2025/12/27}{使用 \pkg{geometry} 设置页面尺寸，并放弃对 \cs[no-index]{topskip} 的改动。}
 %
 %    \begin{macrocode}
 \geometry
@@ -1702,7 +1684,7 @@
 %
 % 允许三级标题（subsubsection）编号。
 %
-% \changes{v2026.7}{2026/08/13}{使用 \cs{setcounter} 而不是直接操作内部计数器。}
+% \changes{v2026.7}{2026/08/13}{使用 \cs[no-index]{setcounter} 而不是直接操作内部计数器。}
 %
 %    \begin{macrocode}
 \setcounter { secnumdepth } { 3 }
@@ -1811,7 +1793,7 @@
 %
 % \begin{macro}{\dejavusans}
 %
-% \changes{v2.1}{2025/05/01}{将 Segoe UI Symbol替换为 DejaVu Sans。\cs{segoeui} 命令不再可用。}
+% \changes{v2.1}{2025/05/01}{将 Segoe UI Symbol替换为 DejaVu Sans。\cs[no-index]{segoeui} 命令不再可用。}
 %
 %    \begin{macrocode}
 \newfontfamily { \dejavusans } { DejaVu Sans }
@@ -1912,8 +1894,8 @@
 %
 % 排版一个特殊章节的标题。
 % 参数依次为：格式指令、标题名称、目录处理方式。
-% 第三个参数取 \texttt{always} 时总是写入目录，
-% 取 \texttt{option} 时仅在 \texttt{frontmatterintoc} 为真时写入。
+% 第三个参数取 |always| 时总是写入目录，
+% 取 |option| 时仅在 |frontmatterintoc| 为真时写入。
 %
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_special_chapter:nnn
@@ -1951,8 +1933,8 @@
 % \end{macro}
 %
 % \changes{v2026.2}{2026/03/14}{抛弃传统字符串处理宏包，使用 \pkg{l3regex} 重构简单引用命令。}
-% \changes{v2.4}{2025/12/28}{修复使用 \cs{simpleref} 引用子图和公式时显示为空的问题。}
-% \changes{v2026.3}{2026/03/15}{移除原有的 \cs{simpleref} 等命令。}
+% \changes{v2.4}{2025/12/28}{修复使用 \cs[no-index]{simpleref} 引用子图和公式时显示为空的问题。}
+% \changes{v2026.3}{2026/03/15}{移除原有的 \cs[no-index]{simpleref} 等命令。}
 %
 % \begin{macro}{\@@_apply_align:nn}
 %
@@ -2010,7 +1992,7 @@
 %
 % \begin{macro}{\mslinespread}
 %
-% \changes{v2026.1}{2026/03/12}{调整行间距时不再需要使用 \texttt{\textbackslash selectfont}。}
+% \changes{v2026.1}{2026/03/12}{调整行间距时不再需要使用 \cs[no-index]{selectfont}。}
 %
 % Microsoft Word 多倍行距模拟。
 %
@@ -2050,13 +2032,13 @@
 % \changes{v2026.7}{2026/08/13}{通过 \pkg{hyperref} 的 \texttt{hypertexnames=false} 消除重复页码对象，封面页码不再需要使用 \texttt{Alph} 编号。}
 %
 % 封面页和声明页的页码需要与正文分开，否则 \pkg{hyperref} 会产生重复的页码对象。
-% \pkg{hyperref} 默认以 \cs{thepage} 的值命名页面锚点（\texttt{page.\meta{页码}}），
+% \pkg{hyperref} 默认以 \cs[no-index]{thepage} 的值命名页面锚点（|page.\meta{页码}|），
 % 因此封面材料与正文一旦出现相同的页码值就会冲突。
-% 载入 \pkg{hyperref} 时设置 \texttt{hypertexnames=false}，
+% 载入 \pkg{hyperref} 时设置 |hypertexnames=false|，
 % 页面锚点改为按物理页递增的计数器命名，消除了冲突，封面页码的编号形式因此可以自由选择。
 %
 % 这里使用小写罗马数字。
-% 早期版本使用 \texttt{Alph} 编号来回避冲突，但 \texttt{Alph} 最多只能表示 26 页，
+% 早期版本使用 |Alph| 编号来回避冲突，但 |Alph| 最多只能表示 26 页，
 % 超出后 \LaTeX{} 会报错。
 %
 %    \begin{macrocode}
@@ -2066,7 +2048,7 @@
 % \begin{macro}{\frontmatter}
 %
 % \changes{v2.2}{2025/05/23}{将前置部分的页面风格设置为 \texttt{fancy}。}
-% \changes{v2026.7}{2026/08/13}{去掉重置页码的冗余代码，\cs{pagenumbering} 内部已经完成该操作。}
+% \changes{v2026.7}{2026/08/13}{去掉重置页码的冗余代码，\cs[no-index]{pagenumbering} 内部已经完成该操作。}
 %
 %    \begin{macrocode}
 \RenewDocumentCommand \frontmatter { }
@@ -2162,7 +2144,7 @@
 %
 % \subsection{交叉引用}
 %
-% \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs{simpleref} 等命令。}
+% \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs[no-index]{simpleref} 等命令。}
 % \changes{v2026.7}{2026/09/09}{用循环生成 \pkg{cleveref} 的格式设置。}
 %
 %    \begin{macrocode}
@@ -2237,7 +2219,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \cs{crefname} 等设置需要在 \pkg{cleveref} 完成初始化之后进行。
+% \cs[no-index]{crefname} 等设置需要在 \pkg{cleveref} 完成初始化之后进行。
 %
 %    \begin{macrocode}
 \AddToHook { begindocument } [ nkthesis ]
@@ -2290,7 +2272,7 @@
 %
 % \subsection{目录}
 %
-% \changes{v2026.7}{2026/08/13}{使用 \cs{skip_set:Nn} 设置目录中的 skip 型长度，修正命令类型不匹配。间距保持刚性，输出不变。}
+% \changes{v2026.7}{2026/08/13}{使用 \cs[no-index]{skip_set:Nn} 设置目录中的 skip 型长度，修正命令类型不匹配。间距保持刚性，输出不变。}
 %
 % 目录页使用 fancy 页眉页脚。
 %
@@ -2514,7 +2496,7 @@
 %
 % \subsection{图表}
 %
-% \changes{v2026.7}{2026/08/13}{使用 \cs{skip_set:Nn} 设置浮动体间距，修正命令类型不匹配。间距保持刚性以严格还原模版，输出不变。}
+% \changes{v2026.7}{2026/08/13}{使用 \cs[no-index]{skip_set:Nn} 设置浮动体间距，修正命令类型不匹配。间距保持刚性以严格还原模版，输出不变。}
 %
 %    \begin{macrocode}
 \DeclareCaptionLabelFormat    { @@    } { #1#2              }
@@ -2588,7 +2570,7 @@
 %
 % 将上述间距调整应用于所有显示型公式环境。
 %
-% \changes{v2026.7}{2026/08/13}{改用 \cs{AddToHook} 并为钩子加上标签，同时用循环生成，避免重复代码。}
+% \changes{v2026.7}{2026/08/13}{改用 \cs[no-index]{AddToHook} 并为钩子加上标签，同时用循环生成，避免重复代码。}
 %
 %    \begin{macrocode}
 \clist_map_inline:nn
@@ -2816,7 +2798,7 @@
 %
 % \begin{macro}{\maintitlepage}
 %
-% \changes{v2026.7}{2026/08/13}{将 \cs{titlepage} 改名为 \cs{maintitlepage}，避免破坏 \env{titlepage} 环境。}
+% \changes{v2026.7}{2026/08/13}{将 \cs[no-index]{titlepage} 改名为 \cs{maintitlepage}，避免破坏 \env{titlepage} 环境。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \maintitlepage { }
