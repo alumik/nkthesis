@@ -19,7 +19,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[2024/11/01]
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/09/09}
+%<class>    {2026/09/14}
 %<class>    {v2026.7.1}
 %<class>    {Template for Master's and Doctoral Theses of Nankai University}
 %
@@ -95,7 +95,7 @@
 %     \fancyhead, \fancyhf, \fancyhfoffset, \figurename, \floatsep, \fontsize,
 %     \fontspec_font_if_exist:nTF, \fp_eval:n, \geometry, \group_begin:,
 %     \group_end:, \headrulewidth, \hfill, \hline, \hook_gput_code:nnn,
-%     \hspace, \ignorespaces, \includegraphics, \int_compare:nNnT,
+%     \hspace, \hypersetup, \ignorespaces, \includegraphics, \int_compare:nNnT,
 %     \int_compare:nNnTF, \int_new:N, \int_set:Nn, \intextsep, \kern,
 %     \keys_define:nn, \keys_if_exist:nnTF, \keys_set:nn, \labelformat,
 %     \leftmark, \leq, \linespread, \linewidth, \listfigurename,
@@ -133,7 +133,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/09/09\qquad v2026.7.1}
+% \date{2026/09/14\qquad v2026.7.1}
 % \maketitle
 %
 % \begin{abstract}
@@ -276,7 +276,7 @@
 %     \begin{syntax}
 %         frontmatterintoc[ = <true|(false)> ]
 %     \end{syntax}
-%     当该选项存在时，或设置为真时，，前置部分（如摘要、前言等）会被添加到目录中。
+%     当该选项存在时，或设置为真时，前置部分（如摘要、前言等）会被添加到目录中。
 %     否则，前置部分不会出现在目录中。
 % \end{function}
 %
@@ -1696,6 +1696,21 @@
 \raggedbottom
 %    \end{macrocode}
 %
+% 自动添加作者和标题等 PDF 元信息。
+%
+% \changes{v2026.7}{2026/09/14}{自动添加作者和标题等 PDF 元信息。}
+%
+%    \begin{macrocode}
+\AddToHook { begindocument } [ nkthesis ]
+    {
+        \hypersetup
+            {
+                pdftitle  = \nktget{ 论文题目（中文） },
+                pdfauthor = \nktget{ 论文作者         },
+            }
+    }
+%    \end{macrocode}
+%
 % \subsubsection{字体设置}
 %
 % \changes{v2.1}{2025/05/01}{将字体的定义从 ctex-fontset-nkthesis.def 移到 nkthesis.dtx 中。}
@@ -3082,7 +3097,10 @@
                                 \raisebox { 0pt } [ 0pt ] [ 0pt ]
                                 {
                                     \includegraphics
-                                        [ width = \nktget { 原创性声明/电子签名宽度 } ]
+                                        [
+                                            width = \nktget
+                                                { 原创性声明/电子签名宽度 }
+                                        ]
                                         { \nktget { 原创性声明/电子签名路径 } }
                                 }
                             }
