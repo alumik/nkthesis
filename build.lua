@@ -62,8 +62,75 @@ checkruns = 2
   The date is taken from the system clock on the day the command is run.
   Note that l3build's --date option is parsed as a second tag name and is
   rejected ("Too many tags specified"), so pass the tag name only.
+
+  The license year in the copyright notices is rolled forward at the same time: 
+  the release year is merged into the existing year list, consecutive years
+  collapse into ranges and gaps become comma-separated fields.
 --]]
-tagfiles = { "*.dtx", "README.md" }
+tagfiles = { "*.dtx", "*.ins", "*.ist", "README.md" }
+
+-- Expand a copyright year field into a sorted list of years.
+local function parse_years(text)
+  local years = {}
+  for item in string.gmatch(text, "[^,%s]+") do
+    local first, last = string.match(item, "^(%d%d%d%d)%-(%d%d%d%d)$")
+    if first then
+      for year = tonumber(first), tonumber(last) do
+        years[#years + 1] = year
+      end
+    else
+      years[#years + 1] = tonumber(item)
+    end
+  end
+  table.sort(years)
+  return years
+end
+
+-- Compress a sorted year list back into range form: consecutive years become
+-- "a-b" spans, gaps become comma-separated fields.
+local function format_years(years)
+  local parts = {}
+  local i = 1
+  while i <= #years do
+    local j = i
+    while years[j + 1] == years[j] + 1 do
+      j = j + 1
+    end
+    if j > i then
+      parts[#parts + 1] = years[i] .. "-" .. years[j]
+    else
+      parts[#parts + 1] = tostring(years[i])
+    end
+    i = j + 1
+  end
+  return table.concat(parts, ",")
+end
+
+-- Roll the copyright notice forward to include the release year.
+local function update_license_years(content, tagdate)
+  local releaseyear = tonumber(string.match(tagdate, "^(%d%d%d%d)"))
+  if not releaseyear then
+    return content
+  end
+  return string.gsub(content,
+    "(Copyright%s+)([%d%s,%-]+)(%s+Zhenyu Zhong)",
+    function(prefix, years, suffix)
+      local seen = {}
+      local merged = {}
+      for _, year in ipairs(parse_years(years)) do
+        if not seen[year] then
+          seen[year] = true
+          merged[#merged + 1] = year
+        end
+      end
+      if not seen[releaseyear] then
+        seen[releaseyear] = true
+        merged[#merged + 1] = releaseyear
+      end
+      table.sort(merged)
+      return prefix .. format_years(merged) .. suffix
+    end)
+end
 
 function update_tag(filename, content, tagname, tagdate)
   if not tagname then
@@ -83,6 +150,9 @@ function update_tag(filename, content, tagname, tagdate)
         .. "(https://img.shields.io/badge/version-" .. bareversion .. "-blue)")
     return content
   end
+
+  -- Copyright YYYY-YYYY[,YYYY] Zhenyu Zhong
+  content = update_license_years(content, tagdate)
 
   -- %<class>    {YYYY/MM/DD}
   -- %<class>    {vX.Y.Z}
