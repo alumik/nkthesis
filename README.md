@@ -1,9 +1,9 @@
 # nkthesis：南开大学硕士博士毕业论文 LaTeX 模板（2026）
 
-![version 2026.7.1](https://img.shields.io/badge/version-2026.7.1-blue)
+![version 2026.7.2](https://img.shields.io/badge/version-2026.7.2-blue)
 ![license-LPPL-1.3c](https://img.shields.io/badge/license-LPPL--1.3c-orange)
 
-`nkthesis` 是南开大学硕士、博士学位论文 LaTeX 模板，符合《研究生学位论文写作规范（2026版）》，目前支持中文论文。
+`nkthesis` 是南开大学硕士、博士学位论文 LaTeX 模板，符合《研究生学位论文写作规范（2026版）》，目前支持中文与英文论文。
 
 如果你刚开始接触 LaTeX，建议先不要急着理解所有命令。先让示例论文成功编译，再把示例中的个人信息、摘要、正文和参考文献逐步替换成自己的内容。
 
@@ -143,6 +143,7 @@ Package fontspec Error:
 | `uppercasehead` | `false` | 当该选项存在或设置为真时，将页眉转换为全大写。否则，保留原始大小写。 |
 | `openright` | `false` | 当该选项存在或设置为真时，强制章节从右页开始（符合双面打印规范）。否则，允许章节从左页开始。 |
 | `frontmatterintoc` | `false` | 当该选项存在或设置为真时，前置部分（如摘要、前言等）会被添加到目录中。否则，前置部分不会出现在目录中。 |
+| `lang` | `zh` | 论文语言。可选项为 `zh`（中文）或 `en`（英文）。`language` 为等价别名。 |
 
 ## 详细使用说明
 

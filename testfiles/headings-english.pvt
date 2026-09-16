@@ -1,0 +1,52 @@
+% Regression test: lang=en mode-2 (Chapter 1 / Section 1 / 1.1) heading structure
+% + cleveref English formats.
+\documentclass[lang=en]{nkthesis}
+\begin{document}
+\frontmatter
+\begin{abstract}
+摘要。
+\end{abstract}
+\mainmatter
+
+\chapter{章标题}
+正文内容。\label{chap:a}
+\section{节标题}\label{sec:a}
+节内容。
+\subsection{小节标题}\label{subsec:a}
+小节内容。
+\subsubsection{子节标题}\label{subsubsec:a}
+子节内容。
+
+\begin{equation} E = mc^2 \label{eqn:a} \end{equation}
+
+\begin{figure}[htbp]\centering\rule{2cm}{1cm}\caption{图题}\label{fig:a}\end{figure}
+\begin{table}[htbp]\centering\begin{tabular}{c}表内容\end{tabular}\caption{表题}\label{tab:a}\end{table}
+
+交叉引用：\cref{chap:a}、\cref{sec:a}、\cref{subsec:a}、\cref{subsubsec:a}、
+\cref{fig:a}、\cref{tab:a}、\cref{eqn:a}。
+范围引用：\crefrange{sec:a}{subsec:a}。
+多重引用：\cref{fig:a,tab:a,eqn:a}。
+
+\begin{inlineenumerate}
+\item 第一项
+\item 第二项
+\end{inlineenumerate}
+
+\begin{inlineitemize}
+\item 要点一
+\item 要点二
+\end{inlineitemize}
+
+\backmatter
+\begin{acknowledgments}
+致谢内容。
+\end{acknowledgments}
+
+\appendix
+\chapter{附录标题}
+附录内容：图~\ref{fig:b}、表~\ref{tab:b}、式~\eqref{eqn:b}。
+\begin{equation} a^2 + b^2 = c^2 \label{eqn:b} \end{equation}
+\begin{figure}[htbp]\centering\rule{2cm}{1cm}\caption{附录图题}\label{fig:b}\end{figure}
+\begin{table}[htbp]\centering\begin{tabular}{c}附录表内容\end{tabular}\caption{附录表题}\label{tab:b}\end{table}
+
+\end{document}

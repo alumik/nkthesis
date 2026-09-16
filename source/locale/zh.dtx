@@ -1,0 +1,189 @@
+% \iffalse meta-comment
+%
+% Copyright 2025-2026 Zhenyu Zhong
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% \fi
+%
+% \subsubsection{中文语言数据}
+%
+% 中文是论文的默认语言，除模式二标题外的设置均与 \cls{ctexbook} 的默认值一致。
+%
+% \begin{macro}{\@@_lang_zh_names:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_zh_names:
+    {
+        \cs_set:Npn \prefacename         { 前言 }
+        \cs_set:Npn \symabbrname         { 符号和缩略语说明 }
+        \cs_set:Npn \acknowledgmentsname { 致谢 }
+        \cs_set:Npn \resumename
+            { 个人简历、在学期间发表的学术论文及研究成果 }
+        \cs_set:Npn \anonymousresumename
+            { 在学期间发表的学术论文及研究成果 }
+        \ctexset
+            {
+                contentsname   = 目录,
+                figurename     = 图,
+                tablename      = 表,
+                listfigurename = 插图清单,
+                listtablename  = 附表清单,
+                appendixname   = 附录,
+                bibname        = 参考文献,
+            }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_zh_mode_two:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_zh_mode_two:
+    {
+        \ctexset
+            {
+                chapter/format = {
+                    \mslinespread { 1 }
+                    \heiti
+                    \zihao { 3 }
+                    \bfseries
+                    \centering
+                },
+                section = {
+                    name      = { 第, 节 },
+                    number    = \chinese{section},
+                    format    = {
+                        \mslinespread { 1 }
+                        \heiti
+                        \zihao { 4 }
+                        \bfseries
+                        \centering
+                    },
+                },
+                subsection = {
+                    name      = { , 、 },
+                    number    = \chinese{subsection},
+                    indent    = \parindent,
+                    aftername = { },
+                    tocline   = {
+                        \CTEXifname
+                            { \protect { \csname CTEXthe##1 \endcsname } }
+                            { }
+                        ##2
+                    },
+                },
+                subsubsection = {
+                    name      = { （, ） },
+                    number    = \chinese{subsubsection},
+                    indent    = \parindent,
+                    aftername = { },
+                },
+            }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_lang_zh_crefname_prop}
+%
+% 引用类型到中文名称的映射。
+%
+%    \begin{macrocode}
+\prop_const_from_keyval:Nn \c_@@_lang_zh_crefname_prop
+    {
+        equation      = 式,
+        figure        = 图,
+        subfigure     = 子图,
+        table         = 表,
+        page          = 页,
+        chapter       = 章,
+        section       = 节,
+        subsection    = 小节,
+        subsubsection = 子节,
+        appendix      = 附录,
+        theorem       = 定理,
+        lemma         = 引理,
+        corollary     = 推论,
+        proposition   = 命题,
+        definition    = 定义,
+        example       = 例,
+        algorithm     = 算法,
+        listing       = 列表,
+        line          = 行,
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_lang_zh_cref_counting_clist}
+%
+% 采用“第\meta{编号}\meta{量词}”表达方式的引用类型及其量词。
+%
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_lang_zh_cref_counting_clist
+    {
+        { page          } { 页   },
+        { chapter       } { 章   },
+        { section       } { 节   },
+        { subsection    } { 小节 },
+        { subsubsection } { 子节 },
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_lang_zh_cref_set_counting:nn}
+%
+% 为一个“第\meta{编号}\meta{量词}”类型生成全部四组格式设置。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_zh_cref_set_counting:nn
+    {
+        \crefformat      {#1} { ##2第##1#2##3                }
+        \crefrangeformat {#1} { ##3第##1#2##4至##5第##2#2##6 }
+        \crefmultiformat {#1}
+            { ##2第##1#2##3   } { 和##2第##1#2##3 }
+            { ，##2第##1#2##3 } { 和##2第##1#2##3 }
+        \crefrangemultiformat {#1}
+            { ##3第##1#2##4至##5第##2#2##6   }
+            { 和##3第##1#2##4至##5第##2#2##6 }
+            { ，##3第##1#2##4至##5第##2#2##6 }
+            { 和##3第##1#2##4至##5第##2#2##6 }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_zh_cref:}
+%
+% 设置中文的交叉引用格式。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_zh_cref:
+    {
+        \labelformat { subfigure } { \thefigure（\thesubfigure） }
+        \labelformat { equation  } { （\theequation）            }
+        \prop_map_inline:Nn \c_@@_lang_zh_crefname_prop
+            { \crefname {##1} {##2} {##2} }
+        \clist_map_inline:Nn \c_@@_lang_zh_cref_counting_clist
+            { \@@_lang_zh_cref_set_counting:nn ##1 }
+%    \end{macrocode}
+%
+% 以下两个类型的量词位于编号之前，与“第\meta{编号}\meta{量词}”不同，因此单独设置。
+%
+%    \begin{macrocode}
+        \crefformat { equation  } { 式##2##1##3 }
+        \crefformat { subfigure } { 图##2##1##3 }
+        \cs_set:Npn \crefpairconjunction        { ~和~ }
+        \cs_set:Npn \crefmiddleconjunction      { ，   }
+        \cs_set:Npn \creflastconjunction        { ~和~ }
+        \cs_set:Npn \crefpairgroupconjunction   { ~和~ }
+        \cs_set:Npn \crefmiddlegroupconjunction { ，   }
+        \cs_set:Npn \creflastgroupconjunction   { ~和~ }
+        \cs_set:Npn \crefrangeconjunction       { ~至~ }
+    }
+%    \end{macrocode}
+% \end{macro}

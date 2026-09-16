@@ -1,0 +1,198 @@
+% \iffalse meta-comment
+%
+% Copyright 2025-2026 Zhenyu Zhong
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% \fi
+%
+% \subsubsection{英文语言数据}
+%
+% \begin{macro}{\@@_lang_en_names:}
+%
+% 西文环境下，图表名称与编号之间、公式编号的括号等需要显式空格和半角括号，
+% 因此这里同时覆盖中文模式下的图表标签格式与公式标签格式。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_en_names:
+    {
+        \cs_set:Npn \prefacename         { Preface         }
+        \cs_set:Npn \acknowledgmentsname { Acknowledgments }
+        \cs_set:Npn \symabbrname
+            { List~of~Symbols~and~Abbreviations }
+        \cs_set:Npn \resumename
+            { Resume~and~Academic~Achievements }
+        \cs_set:Npn \anonymousresumename
+            { Academic~Achievements }
+        \ctexset
+            {
+                contentsname   = Table~of~Contents,
+                figurename     = Figure,
+                tablename      = Table,
+                listfigurename = List~of~Figures,
+                listtablename  = List~of~Tables,
+                appendixname   = Appendix,
+                bibname        = Bibliography,
+            }
+        \DeclareCaptionLabelFormat { @@-en     } { ##1~##2 }
+        \DeclareCaptionLabelFormat { @@-en-sub } { (##2)   }
+        \captionsetup    { labelformat = @@-en     }
+        \subcaptionsetup { labelformat = @@-en-sub }
+        \newtagform { @@-en }
+            { \mslinespread { 1 } \songti \zihao { 5 } ( }
+            { ) }
+        \usetagform { @@-en }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_en_mode_two:}
+%
+% 模式二标题的英文设置。
+% 采用英文名称与数字编号混排的样式：章标题“Chapter 1”、节标题“Section 1”（居中），
+% 下级标题回到纯数字点分编号“1.1”“1.1.1”（左缩进）。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_en_mode_two:
+    {
+        \ctexset
+            {
+                chapter = {
+                    name      = { Chapter\ , },
+                    number    = \arabic { chapter },
+                    format    = {
+                        \mslinespread { 1 }
+                        \zihao { 3 }
+                        \bfseries
+                        \centering
+                    },
+                },
+                section = {
+                    name      = { Section\ , },
+                    number    = \arabic { section },
+                    format    = {
+                        \mslinespread { 1 }
+                        \zihao { 4 }
+                        \bfseries
+                        \centering
+                    },
+                },
+                subsection = {
+                    indent    = \parindent,
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}
+                    },
+                    aftername = \hspace { \ccwd },
+                    tocline   = {
+                        \CTEXifname
+                            {
+                                \protect
+                                    {
+                                        \csname CTEXthe##1 \endcsname
+                                        \hspace { \ccwd }
+                                    }
+                            }
+                            { }
+                        ##2
+                    },
+                },
+                subsubsection = {
+                    indent    = \parindent,
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}.\arabic{subsubsection}
+                    },
+                    aftername = \hspace { \ccwd },
+                },
+            }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_lang_en_crefname_prop}
+%    \begin{macrocode}
+\prop_const_from_keyval:Nn \c_@@_lang_en_crefname_prop
+    {
+        equation      = Eq.,
+        figure        = Figure,
+        subfigure     = Figure,
+        table         = Table,
+        page          = page,
+        chapter       = Chapter,
+        section       = Section,
+        subsection    = Subsection,
+        subsubsection = Subsubsection,
+        appendix      = Appendix,
+        theorem       = Theorem,
+        lemma         = Lemma,
+        corollary     = Corollary,
+        proposition   = Proposition,
+        definition    = Definition,
+        example       = Example,
+        algorithm     = Algorithm,
+        listing       = Listing,
+        line          = line,
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_lang_en_cref_counting_clist}
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_lang_en_cref_counting_clist
+    {
+        { page          } { page          },
+        { chapter       } { Chapter       },
+        { section       } { Section       },
+        { subsection    } { Subsection    },
+        { subsubsection } { Subsubsection },
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_lang_en_cref_set_counting:nn}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_en_cref_set_counting:nn
+    {
+        \crefformat      {#1} { ##2#2~##1##3                 }
+        \crefrangeformat {#1} { ##3#2~##1##4~to~##5#2~##2##6 }
+        \crefmultiformat {#1}
+            { ##2#2~##1##3   } { and~##2#2~##1##3 }
+            { ,~##2#2~##1##3 } { and~##2#2~##1##3 }
+        \crefrangemultiformat {#1}
+            { ##3#2~##1##4~to~##5#2~##2##6   }
+            { and~##3#2~##1##4~to~##5#2~##2##6 }
+            { ,~##3#2~##1##4~to~##5#2~##2##6 }
+            { and~##3#2~##1##4~to~##5#2~##2##6 }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_en_cref:}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_en_cref:
+    {
+        \labelformat { subfigure } { \thefigure~(\thesubfigure) }
+        \labelformat { equation  } { (\theequation)             }
+        \prop_map_inline:Nn \c_@@_lang_en_crefname_prop
+            { \crefname {##1} {##2} {##2} }
+        \clist_map_inline:Nn \c_@@_lang_en_cref_counting_clist
+            { \@@_lang_en_cref_set_counting:nn ##1 }
+        \crefformat { equation  } { Eq.~##2##1##3  }
+        \crefformat { subfigure } { Fig.~##2##1##3 }
+        \cs_set:Npn \crefpairconjunction        { ~and~ }
+        \cs_set:Npn \crefmiddleconjunction      { ,     }
+        \cs_set:Npn \creflastconjunction        { ~and~ }
+        \cs_set:Npn \crefpairgroupconjunction   { ~and~ }
+        \cs_set:Npn \crefmiddlegroupconjunction { ,     }
+        \cs_set:Npn \creflastgroupconjunction   { ~and~ }
+        \cs_set:Npn \crefrangeconjunction       { ~to~  }
+    }
+%    \end{macrocode}
+% \end{macro}

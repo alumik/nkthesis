@@ -1,0 +1,14 @@
+% Regression test (log-based): lang option selects localized names.
+% Values are kept ASCII so the .tlg stays readable.
+\input{regression-test.tex}
+\documentclass[lang=en]{nkthesis}
+\begin{document}
+\START
+\TYPE{preface: \prefacename}
+\TYPE{symabbr: \symabbrname}
+\TYPE{acknowledgments: \acknowledgmentsname}
+\TYPE{resume: \resumename}
+\TYPE{anonymous-resume: \anonymousresumename}
+\TYPE{en-abstract: \enabstractname}
+\END
+\end{document}

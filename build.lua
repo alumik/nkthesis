@@ -12,6 +12,8 @@ unpackfiles = { "nkthesis.ins" }
 sourcefiles = {
   "nkthesis.dtx",
   "nkthesis-logo.dtx",
+  "locale/zh.dtx",
+  "locale/en.dtx",
   "nkthesis.ins",
   "nkthesis.ist",
 }
@@ -63,11 +65,11 @@ checkruns = 2
   Note that l3build's --date option is parsed as a second tag name and is
   rejected ("Too many tags specified"), so pass the tag name only.
 
-  The license year in the copyright notices is rolled forward at the same time: 
+  The license year in the copyright notices is rolled forward at the same time:
   the release year is merged into the existing year list, consecutive years
   collapse into ranges and gaps become comma-separated fields.
 --]]
-tagfiles = { "*.dtx", "*.ins", "*.ist", "README.md" }
+tagfiles = { "*.dtx", "locale/*.dtx", "*.ins", "*.ist", "README.md" }
 
 -- Expand a copyright year field into a sorted list of years.
 local function parse_years(text)

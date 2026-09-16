@@ -19,8 +19,8 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[2024/11/01]
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/09/14}
-%<class>    {v2026.7.1}
+%<class>    {2026/09/15}
+%<class>    {v2026.7.2}
 %<class>    {Template for Master's and Doctoral Theses of Nankai University}
 %
 %<*driver>
@@ -66,7 +66,7 @@
 % \fi
 %
 % \DoNotIndex{
-%     \\, \AddToHook, \AtBeginBibliography, \CJKfamily, \CTEXifname,
+%     \ , \\, \AddToHook, \AtBeginBibliography, \CJKfamily, \CTEXifname,
 %     \DeclareCaptionFont, \DeclareCaptionLabelFormat,
 %     \DeclareCaptionLabelSeparator, \LoadClass, \MakeUppercase,
 %     \NewDocumentCommand, \NewDocumentEnvironment, \NewEnvironmentCopy,
@@ -98,9 +98,9 @@
 %     \hspace, \hypersetup, \ignorespaces, \includegraphics, \int_compare:nNnT,
 %     \int_compare:nNnTF, \int_new:N, \int_set:Nn, \intextsep, \kern,
 %     \keys_define:nn, \keys_if_exist:nnTF, \keys_set:nn, \labelformat,
-%     \leftmark, \leq, \linespread, \linewidth, \listfigurename,
-%     \listtablename, \makebox, \markboth, \mbox, \msg_expandable_error:nnn,
-%     \msg_fatal:nn, \msg_new:nnn, \newfontfamily, \newlist, \newtagform,
+%     \leftmark, \leq, \linespread, \linewidth, \listfigurename, \listtablename,
+%     \makebox, \markboth, \mbox, \msg_expandable_error:nnn, \msg_fatal:nn,
+%     \msg_fatal:nnn, \msg_new:nnn, \newfontfamily, \newlist, \newtagform,
 %     \newunicodechar, \noindent, \nouppercase, \null, \pagenumbering,
 %     \pagestyle, \paperwidth, \par, \parbox, \parindent, \parskip,
 %     \printbibliography, \prop_const_from_keyval:Nn, \prop_gput:Nnn,
@@ -109,14 +109,14 @@
 %     \scalebox, \selectfont, \setCJKfamilyfont, \setCJKmainfont,
 %     \setCJKmonofont, \setCJKsansfont, \setcounter, \setlist, \setmainfont,
 %     \skip_horizontal:n, \skip_set:Nn, \skip_vertical:n, \square,
-%     \str_case:nnF, \str_if_eq:eeF, \str_if_eq:eeTF, \str_if_eq:nnTF,
-%     \str_if_in:NnTF, \str_lowercase:n, \str_new:N, \str_set:Ne,
-%     \subcaptionsetup, \sys_if_engine_xetex:F, \tabcolsep, \tablename,
-%     \tex_hbadness:D, \tex_hfuzz:D, \tex_hsize:D, \textbf, \textbullet,
-%     \textfloatsep, \thechapter, \theequation, \thefigure, \thepage,
-%     \thesubfigure, \thetable, \thispagestyle, \tl_if_empty:eTF,
-%     \tl_if_empty:nTF, \tocloftpagestyle, \underline, \usetagform, \vfill,
-%     \vphantom, \vrule, \vspace, \zihao, \ziju,
+%     \str_case:nnF, \str_case_e:nnF, \str_if_eq:eeF, \str_if_eq:eeTF,
+%     \str_if_eq:nnTF, \str_if_in:NnTF, \str_casefold:n, \str_new:N,
+%     \str_gset:Nn, \str_set:Ne, \subcaptionsetup, \sys_if_engine_xetex:F,
+%     \tabcolsep, \tablename, \tex_hbadness:D, \tex_hfuzz:D, \tex_hsize:D,
+%     \textbf, \textbullet, \textfloatsep, \thechapter, \theequation,
+%     \thefigure, \thepage, \thesubfigure, \thetable, \thispagestyle,
+%     \tl_if_empty:eTF, \tl_if_empty:nTF, \tocloftpagestyle, \underline, \use:c,
+%     \usetagform, \vfill, \vphantom, \vrule, \vspace, \zihao, \ziju,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -133,7 +133,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/09/14\qquad v2026.7.1}
+% \date{2026/09/15\qquad v2026.7.2}
 % \maketitle
 %
 % \begin{abstract}
@@ -210,13 +210,13 @@
 %
 % \begin{table}[H]
 %     \begin{tabular}{@{}rllll}
-%         中易字体： & simsun.ttc & simfang.ttf & simhei.ttf & simkai.ttf \\
-%         Times New Roman 字体： & times.ttf & timesbd.ttf & timesi.ttf & timesbi.ttf \\
-%         Arial 字体： & arial.ttf & arialbd.ttf & ariali.ttf & arialbi.ttf \\
+%         中易字体： & \file{simsun.ttc} & \file{simfang.ttf} & \file{simhei.ttf} & \file{simkai.ttf} \\
+%         Times New Roman 字体： & \file{times.ttf} & \file{timesbd.ttf} & \file{timesi.ttf} & \file{timesbi.ttf} \\
+%         Arial 字体： & \file{arial.ttf} & \file{arialbd.ttf} & \file{ariali.ttf} & \file{arialbi.ttf} \\
 %     \end{tabular}
 % \end{table}
 %
-% 一般情况下，这些字体文件可以在 Windows 系统的 C:\textbackslash Windows\textbackslash Fonts 目录下找到。
+% 一般情况下，这些字体文件可以在 Windows 系统的 \file{\detokenize{C:\Windows\Fonts}} 目录下找到。
 %
 % \subsection{文档类选项}
 %
@@ -279,6 +279,26 @@
 %     当该选项存在时，或设置为真时，前置部分（如摘要、前言等）会被添加到目录中。
 %     否则，前置部分不会出现在目录中。
 % \end{function}
+%
+% \begin{function}[added=2026/09/15]{lang, language}
+%     \begin{syntax}
+%         lang = <(zh)|en>
+%     \end{syntax}
+%     指定论文使用的语言，默认为中文（zh）。
+%     该选项仅影响前言、目录及其后的章节名称（如插图清单、附表清单、参考文献、附录、致谢等）、图表名称与交叉引用格式。
+%     按照写作规范，中文封面、题名页、原创性声明、授权书以及中英文摘要不受该选项影响。
+%     别名 |language| 与 |lang| 等价。
+% \end{function}
+%     \begin{optdesc}[itemsep=\medskipamount]
+%         \item[zh] 中文。
+%         \item[en] 英文。
+%                   模式二标题采用英文名称与数字编号混排：“Chapter 1”“Section 1”（居中），下级标题为“1.1”“1.1.1”（左缩进）。
+%                   交叉引用形如 “Chapter 1”“Figure 1.1”“Eq. (1.1)”，连接词为 “and”“to”。
+%     \end{optdesc}
+%
+% \begin{nkthesisexam}
+%     \documentclass[lang=en]{nkthesis}
+% \end{nkthesisexam}
 %
 % \section{设置和读取论文基本信息}
 %
@@ -938,7 +958,9 @@
 %
 % 本模板提供了一些命令存储模板元素的名称。
 % 这些名称已经按照写作规范设置好，一般情况下不需要改动。
-% 如有必要，可以使用相应命令重新定义这些名称。
+% 除英文摘要固定为“Abstract”外，下列名称的默认值取决于 |lang| 选项：
+% 本节列出的是中文（|lang=zh|，默认）取值。
+% 如有必要，可以使用相应命令重新定义这些名称，覆盖方式与语言无关。
 %
 % 只能使用 \cs[no-index]{renewcommand*} 命令重新定义的标题名称如下：
 %
@@ -1357,6 +1379,36 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% \begin{variable}{\g_@@_lang_str}
+%
+% 当前语言，取值 |zh| 或 |en|。
+%
+%    \begin{macrocode}
+\str_new:N \g_@@_lang_str
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_lang_set:n}
+%
+% 设置语言，取值大小写不敏感，未知语言报错。
+% 语言选项在 \cs{ProcessKeyOptions} 时即被处理，
+% 因此本命令必须在此之前完成定义。
+%
+%    \begin{macrocode}
+\msg_new:nnn { nkthesis } { unknown-language }
+    { Unknown~language~'#1'.~Supported~languages:~zh,~en. }
+\cs_new_protected:Nn \@@_lang_set:n
+    {
+        \str_case_e:nnF { \str_casefold:n {#1} }
+            {
+                { zh } { \str_gset:Nn \g_@@_lang_str { zh } }
+                { en } { \str_gset:Nn \g_@@_lang_str { en } }
+            }
+            { \msg_fatal:nnn { nkthesis } { unknown-language } {#1} }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
 %    \begin{macrocode}
 \keys_define:nn { @@ / options }
     {
@@ -1414,6 +1466,17 @@
 %    \begin{macrocode}
         frontmatterintoc .bool_set:N = \l_@@_frontmatterintoc_bool,
         frontmatterintoc .initial:n  = false,
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{options/lang, options/language}
+%
+% 论文语言，可选 |zh|（中文，默认）或 |en|（英语）。
+%
+%    \begin{macrocode}
+        lang     .code:n    = \@@_lang_set:n {#1},
+        lang     .initial:n = zh,
+        language .meta:n    = { lang = {#1} },
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -2045,6 +2108,7 @@
 %
 % \changes{v2.4}{2026/01/06}{使用大写字母作为封面页和声明页的页码编号，避免正文中产生重复页码对象。}
 % \changes{v2026.7}{2026/08/13}{通过 \pkg{hyperref} 的 \texttt{hypertexnames=false} 消除重复页码对象，封面页码不再需要使用 \texttt{Alph} 编号。}
+% \changes{v2026.7}{2026/09/16}{封面页码的设置时机从文档开始迁移至类加载结束。}
 %
 % 封面页和声明页的页码需要与正文分开，否则 \pkg{hyperref} 会产生重复的页码对象。
 % \pkg{hyperref} 默认以 \cs[no-index]{thepage} 的值命名页面锚点（|page.\meta{页码}|），
@@ -2057,7 +2121,7 @@
 % 超出后 \LaTeX{} 会报错。
 %
 %    \begin{macrocode}
-\AddToHook { begindocument } [ nkthesis ] { \pagenumbering { roman } }
+\AddToHook { class/nkthesis/after } { \pagenumbering { roman } }
 %    \end{macrocode}
 %
 % \begin{macro}{\frontmatter}
@@ -2118,42 +2182,15 @@
 %
 % \subsection{标题名称}
 %
+% \changes{v2.0}{2025/04/30}{将《符号、标志、缩略语等的注释表》的命令从 \cs{symbolsandabbreviationsname} 改为 \cs{symabbrname}。}
+% \changes{v2026.7}{2026/09/16}{除英文摘要外，标题名称的默认值随 \texttt{lang} 选项切换。}
+%
 % \begin{macro}{\enabstractname}
+%
+% 英文摘要的名称固定为“Abstract”，不随语言切换。
+%
 %    \begin{macrocode}
 \cs_new:Npn \enabstractname { Abstract }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\prefacename}
-%    \begin{macrocode}
-\cs_new:Npn \prefacename { 前言 }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\symabbrname}
-%
-% \changes{v2.0}{2025/04/30}{将《符号、标志、缩略语等的注释表》的命令从 \cs{symbolsandabbreviationsname} 改为 \cs{symabbrname}。}
-%
-%    \begin{macrocode}
-\cs_new:Npn \symabbrname { 符号和缩略语说明 }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\acknowledgmentsname}
-%    \begin{macrocode}
-\cs_new:Npn \acknowledgmentsname { 致谢 }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\resumename}
-%    \begin{macrocode}
-\cs_new:Npn \resumename { 个人简历、在学期间发表的学术论文及研究成果 }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\anonymousresumename}
-%    \begin{macrocode}
-\cs_new:Npn \anonymousresumename { 在学期间发表的学术论文及研究成果 }
 %    \end{macrocode}
 % \end{macro}
 %
@@ -2161,103 +2198,16 @@
 %
 % \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs[no-index]{simpleref} 等命令。}
 % \changes{v2026.7}{2026/09/09}{用循环生成 \pkg{cleveref} 的格式设置。}
+% \changes{v2026.7}{2026/09/16}{交叉引用名称与格式随 \texttt{lang} 选项切换。}
 %
-%    \begin{macrocode}
-\labelformat { subfigure } { \thefigure（\thesubfigure） }
-\labelformat { equation  } { （\theequation）            }
-%    \end{macrocode}
-%
-% \begin{variable}{\c_@@_crefname_prop}
-%
-% 引用类型到中文名称的映射。
-%
-%    \begin{macrocode}
-\prop_const_from_keyval:Nn \c_@@_crefname_prop
-    {
-        equation      = 式,
-        figure        = 图,
-        subfigure     = 子图,
-        table         = 表,
-        page          = 页,
-        chapter       = 章,
-        section       = 节,
-        subsection    = 小节,
-        subsubsection = 子节,
-        appendix      = 附录,
-        theorem       = 定理,
-        lemma         = 引理,
-        corollary     = 推论,
-        proposition   = 命题,
-        definition    = 定义,
-        example       = 例,
-        algorithm     = 算法,
-        listing       = 列表,
-        line          = 行,
-    }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{variable}{\c_@@_cref_counting_clist}
-%
-% 采用“第\meta{编号}\meta{量词}”表达方式的引用类型及其量词。
-%
-%    \begin{macrocode}
-\clist_const:Nn \c_@@_cref_counting_clist
-    {
-        { page          } { 页   },
-        { chapter       } { 章   },
-        { section       } { 节   },
-        { subsection    } { 小节 },
-        { subsubsection } { 子节 },
-    }
-%    \end{macrocode}
-% \end{variable}
-%
-% \begin{macro}{\@@_cref_set_counting:nn}
-%
-% 为一个“第\meta{编号}\meta{量词}”类型生成全部四组格式设置。
-%
-%    \begin{macrocode}
-\cs_new_protected:Nn \@@_cref_set_counting:nn
-    {
-        \crefformat {#1} { ##2第##1#2##3 }
-        \crefrangeformat {#1} { ##3第##1#2##4至##5第##2#2##6 }
-        \crefmultiformat {#1}
-            { ##2第##1#2##3   } { 和##2第##1#2##3 }
-            { ，##2第##1#2##3 } { 和##2第##1#2##3 }
-        \crefrangemultiformat {#1}
-            { ##3第##1#2##4至##5第##2#2##6   }
-            { 和##3第##1#2##4至##5第##2#2##6 }
-            { ，##3第##1#2##4至##5第##2#2##6 }
-            { 和##3第##1#2##4至##5第##2#2##6 }
-    }
-%    \end{macrocode}
-% \end{macro}
-%
-% \cs[no-index]{crefname} 等设置需要在 \pkg{cleveref} 完成初始化之后进行。
+% 由于 \pkg{cleveref} 自身也在 \cs[no-index]{AtBeginDocument} 中调用 \cs[no-index]{@crefcopyformats}，
+% 只要目标类型已带有任何自定义设置，\pkg{cleveref} 就会用该类型当前的名称重建整套引用格式。
+% 若在类加载结束时设置交叉引用格式，这些格式会被该步骤覆盖，导致“第一小节”退化为“小节~⟨编号⟩”。
+% 因此，\cs[no-index]{crefname} 等设置必须在 \pkg{cleveref} 完成初始化之后进行，即在文档开始时执行。
 %
 %    \begin{macrocode}
 \AddToHook { begindocument } [ nkthesis ]
-    {
-        \prop_map_inline:Nn \c_@@_crefname_prop
-            { \crefname {#1} {#2} {#2} }
-        \clist_map_inline:Nn \c_@@_cref_counting_clist
-            { \@@_cref_set_counting:nn #1 }
-%    \end{macrocode}
-%
-% 以下两个类型的量词位于编号之前，与上面的“第\meta{编号}\meta{量词}”不同，因此单独设置。
-%
-%    \begin{macrocode}
-        \crefformat { equation  } { 式#2#1#3 }
-        \crefformat { subfigure } { 图#2#1#3 }
-        \cs_set:Npn \crefpairconjunction        { ~和~ }
-        \cs_set:Npn \crefmiddleconjunction      { ，   }
-        \cs_set:Npn \creflastconjunction        { ~和~ }
-        \cs_set:Npn \crefpairgroupconjunction   { ~和~ }
-        \cs_set:Npn \crefmiddlegroupconjunction { ，   }
-        \cs_set:Npn \creflastgroupconjunction   { ~和~ }
-        \cs_set:Npn \crefrangeconjunction       { ~至~ }
-    }
+    { \use:c { @@_lang_ \g_@@_lang_str _cref: } }
 \creflabelformat { equation } { #2#1#3 }
 %    \end{macrocode}
 %
@@ -2358,11 +2308,11 @@
 %
 % \subsection{\CTeX 设置}
 %
+% \changes{v2026.7}{2026/09/16}{目录及图表名称随 \texttt{lang} 选项切换。}
+%
 %    \begin{macrocode}
 \ctexset
     {
-        listfigurename = 插图清单,
-        listtablename  = 附表清单,
         chapter = {
             fixskip    = true,
             beforeskip = 24bp,
@@ -2422,92 +2372,72 @@
 %
 % 根据标题模式设置不同格式。
 %
+% \begin{macro}{\@@_headings:}
+%
 % \changes{v2026.3}{2026/03/15}{修复使用模式一标题时目录中 subsection 编号后无空格的问题。}
+% \changes{v2026.7}{2026/09/16}{将标题模式分支迁移至 \cs{@@_headings:}，模式二样式由当前语言提供。}
+%
+% 根据标题模式应用格式。
+% 模式一的纯数字编号与语言无关；模式二由当前语言提供设置。
 %
 %    \begin{macrocode}
-\int_compare:nNnTF \l_@@_headingmode_int = 1
+\cs_new_protected:Nn \@@_headings:
     {
-        \ctexset
+        \int_compare:nNnTF \l_@@_headingmode_int = 1
             {
-                chapter = {
-                    name   = { },
-                    number = \arabic { chapter },
-                    format = \mslinespread { 1 } \heiti \zihao { 3 } \bfseries,
-                },
-                section = {
-                    number = \arabic{chapter}.\arabic{section},
-                    format = \mslinespread { 1 } \heiti \zihao { 4 } \bfseries,
-                },
-                subsection = {
-                    number    = {
-                        \arabic{chapter}.\arabic{section}.
-                        \arabic{subsection}
-                    },
-                    aftername = \hspace { \ccwd },
-                    tocline   = {
-                        \CTEXifname
-                            {
-                                \protect
+                \ctexset
+                    {
+                        chapter = {
+                            name   = { },
+                            number = \arabic { chapter },
+                            format = {
+                                \mslinespread { 1 }
+                                \heiti
+                                \zihao { 3 }
+                                \bfseries
+                            },
+                        },
+                        section = {
+                            number = \arabic{chapter}.\arabic{section},
+                            format = {
+                                \mslinespread { 1 }
+                                \heiti
+                                \zihao { 4 }
+                                \bfseries
+                            },
+                        },
+                        subsection = {
+                            number    = {
+                                \arabic{chapter}.\arabic{section}.
+                                \arabic{subsection}
+                            },
+                            aftername = \hspace { \ccwd },
+                            tocline   = {
+                                \CTEXifname
                                     {
-                                        \csname CTEXthe#1 \endcsname
-                                        \hspace { \ccwd }
+                                        \protect
+                                            {
+                                                \csname CTEXthe##1 \endcsname
+                                                \hspace { \ccwd }
+                                            }
                                     }
-                            }
-                            { }
-                        #2
-                    },
-                },
-                subsubsection = {
-                    number    = {
-                        \arabic{chapter}.\arabic{section}.
-                        \arabic{subsection}.\arabic{subsubsection}
-                    },
-                    aftername = \hspace { \ccwd },
-                },
+                                    { }
+                                ##2
+                            },
+                        },
+                        subsubsection = {
+                            number    = {
+                                \arabic{chapter}.\arabic{section}.
+                                \arabic{subsection}.\arabic{subsubsection}
+                            },
+                            aftername = \hspace { \ccwd },
+                        },
+                    }
             }
-    }
-    {
-        \ctexset
-            {
-                chapter/format = {
-                    \mslinespread { 1 }
-                    \heiti
-                    \zihao { 3 }
-                    \bfseries
-                    \centering
-                },
-                section = {
-                    name      = { 第, 节 },
-                    number    = \chinese{section},
-                    format    = {
-                        \mslinespread { 1 }
-                        \heiti
-                        \zihao { 4 }
-                        \bfseries
-                        \centering
-                    },
-                },
-                subsection = {
-                    name      = { , 、 },
-                    number    = \chinese{subsection},
-                    indent    = \parindent,
-                    aftername = { },
-                    tocline   = {
-                        \CTEXifname
-                            { \protect { \csname CTEXthe#1 \endcsname } }
-                            { }
-                        #2
-                    },
-                },
-                subsubsection = {
-                    name      = { （, ） },
-                    number    = \chinese{subsubsection},
-                    indent    = \parindent,
-                    aftername = { },
-                },
-            }
+            { \use:c { @@_lang_ \g_@@_lang_str _mode_two: } }
     }
 %    \end{macrocode}
+% \end{macro}
 %
 % \subsection{图表}
 %
@@ -2656,11 +2586,12 @@
 % \begin{environment}{abstract}
 %
 % \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
+% \changes{v2026.7}{2026/09/16}{使用 \cs[no-index]{str_casefold:n} 代替 \cs[no-index]{str_lowercase:n} 进行字符串比较。}
 %
 %    \begin{macrocode}
 \NewDocumentEnvironment { abstract } { O{ } }
     {
-        \str_if_eq:eeTF { \str_lowercase:n { #1 } } { en }
+        \str_if_eq:eeTF { \str_casefold:n {#1} } { en }
             {
                 \@@_special_chapter:nnn
                     { \arial \zihao { -2 } \bfseries }
@@ -2683,7 +2614,7 @@
 %    \begin{macrocode}
 \NewDocumentEnvironment { keywords } { O{ } }
     {
-        \str_if_eq:eeTF { \str_lowercase:n { #1 } } { en }
+        \str_if_eq:eeTF { \str_casefold:n {#1} } { en }
             { \textbf { Key~Words:~ } \ignorespaces }
             { \textbf { 关键词： } \ignorespaces    }
     }
@@ -3507,6 +3438,30 @@
     { \printbibliography [ heading = bibintoc, title = \bibname ] }
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsection{多语言支持}
+%
+% \changes{v2026.7}{2026/09/16}{增加多语言拓展支持。支持英文论文。}
+%
+% \begin{macro}{\@@_lang_select:}
+%
+% 在类加载结束时应用所选语言。
+% 标题名称和模式二标题的设置需要在 \cls{ctexbook} 载入之后进行，因此在类加载结束时延迟执行。
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_select:
+    {
+        \use:c { @@_lang_ \g_@@_lang_str _names: }
+        \@@_headings:
+    }
+\AddToHook { class/nkthesis/after } { \@@_lang_select: }
+%    \end{macrocode}
+% \end{macro}
+%
+% 各语言的具体数据定义于 \file{locale} 目录下独立的源文件中，由 \file{nkthesis.ins} 在生成 \file{nkthesis.cls} 时合入，因此用户拿到的仍然是单个类文件。
+%
+% \input{zh.dtx}
+% \input{en.dtx}
 %
 % \end{implementation}
 %
