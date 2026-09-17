@@ -84,7 +84,7 @@ checkruns = 2
   the release year is merged into the existing year list, consecutive years
   collapse into ranges and gaps become comma-separated fields.
 --]]
-tagfiles = { "*.dtx", "locale/*.dtx", "*.ins", "*.ist", "README.md" }
+tagfiles = { "*.dtx", "locale/*.dtx", "*.ins", "*.ist", "README.md", "README.en.md" }
 
 -- Expand a copyright year field into a sorted list of years.
 local function parse_years(text)

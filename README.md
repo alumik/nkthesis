@@ -3,6 +3,8 @@
 ![version 2026.7.2](https://img.shields.io/badge/version-2026.7.2-blue)
 ![license-LPPL-1.3c](https://img.shields.io/badge/license-LPPL--1.3c-orange)
 
+中文 | [English](README.en.md)
+
 `nkthesis` 是南开大学硕士、博士学位论文 LaTeX 模板，符合《研究生学位论文写作规范（2026版）》，目前支持中文、英语、西班牙语、日语、德语、法语、巴西葡萄牙语、意大利语和俄语论文。
 
 如果你刚开始接触 LaTeX，建议先不要急着理解所有命令。先让示例论文成功编译，再把示例中的个人信息、摘要、正文和参考文献逐步替换成自己的内容。
