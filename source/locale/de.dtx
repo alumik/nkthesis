@@ -1,0 +1,197 @@
+% \iffalse meta-comment
+%
+% Copyright 2025-2026 Zhenyu Zhong
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license, or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% \fi
+%
+% \subsubsection{德语语言数据}
+%
+% \begin{macro}{\@@_lang_de_names:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_de_names:
+    {
+        \cs_set:Npn \prefacename         { Vorwort    }
+        \cs_set:Npn \acknowledgmentsname { Danksagung }
+        \cs_set:Npn \symabbrname
+            { Verzeichnis~der~Symbole~und~Abkürzungen }
+        \cs_set:Npn \resumename
+            { Lebenslauf~und~wissenschaftliche~Leistungen }
+        \cs_set:Npn \anonymousresumename
+            { Wissenschaftliche~Leistungen }
+        \ctexset
+            {
+                contentsname   = Inhaltsverzeichnis,
+                figurename     = Abbildung,
+                tablename      = Tabelle,
+                listfigurename = Abbildungsverzeichnis,
+                listtablename  = Tabellenverzeichnis,
+                appendixname   = Anhang,
+                bibname        = Literaturverzeichnis,
+            }
+        \DeclareCaptionLabelFormat { @@-de     } { ##1~##2 }
+        \DeclareCaptionLabelFormat { @@-de-sub } { (##2)   }
+        \captionsetup    { labelformat = @@-de     }
+        \subcaptionsetup { labelformat = @@-de-sub }
+        \newtagform { @@-de }
+            { \mslinespread { 1 } \songti \zihao { 5 } ( }
+            { ) }
+        \usetagform { @@-de }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_de_mode_two:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_de_mode_two:
+    {
+        \ctexset
+            {
+                chapter = {
+                    name      = { Kapitel\ , },
+                    number    = \arabic { chapter },
+                    format    = {
+                        \mslinespread { 1 }
+                        \zihao { 3 }
+                        \bfseries
+                        \centering
+                    },
+                },
+                section = {
+                    name      = { Abschnitt\ , },
+                    number    = \arabic { section },
+                    format    = {
+                        \mslinespread { 1 }
+                        \zihao { 4 }
+                        \bfseries
+                        \centering
+                    },
+                },
+                subsection = {
+                    indent    = \parindent,
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}
+                    },
+                    aftername = \hspace { \ccwd },
+                    tocline   = {
+                        \CTEXifname
+                            {
+                                \protect
+                                    {
+                                        \csname CTEXthe##1 \endcsname
+                                        \hspace { \ccwd }
+                                    }
+                            }
+                            { }
+                        ##2
+                    },
+                },
+                subsubsection = {
+                    indent    = \parindent,
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}.\arabic{subsubsection}
+                    },
+                    aftername = \hspace { \ccwd },
+                },
+            }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_lang_de_crefname_prop}
+%    \begin{macrocode}
+\prop_const_from_keyval:Nn \c_@@_lang_de_crefname_prop
+    {
+        equation      = Gl.,
+        figure        = Abbildung,
+        subfigure     = Abbildung,
+        table         = Tabelle,
+        page          = S.,
+        chapter       = Kapitel,
+        section       = Abschnitt,
+        subsection    = Unterabschnitt,
+        subsubsection = Unterunterabschnitt,
+        appendix      = Anhang,
+        theorem       = Satz,
+        lemma         = Lemma,
+        corollary     = Korollar,
+        proposition   = Proposition,
+        definition    = Definition,
+        example       = Beispiel,
+        algorithm     = Algorithmus,
+        listing       = Listing,
+        line          = Zeile,
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_lang_de_cref_counting_clist}
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_lang_de_cref_counting_clist
+    {
+        { page          } { S.                   },
+        { chapter       } { Kapitel              },
+        { section       } { Abschnitt            },
+        { subsection    } { Unterabschnitt       },
+        { subsubsection } { Unterunterabschnitt  },
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_lang_de_cref_set_counting:nn}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_de_cref_set_counting:nn
+    {
+        \crefformat      {#1} { ##2#2~##1##3                   }
+        \crefrangeformat {#1} { ##3#2~##1##4~bis~##5#2~##2##6 }
+        \crefmultiformat {#1}
+            { ##2#2~##1##3   } { und~##2#2~##1##3 }
+            { ,~##2#2~##1##3 } { und~##2#2~##1##3 }
+        \crefrangemultiformat {#1}
+            { ##3#2~##1##4~bis~##5#2~##2##6   }
+            { und~##3#2~##1##4~bis~##5#2~##2##6 }
+            { ,~##3#2~##1##4~bis~##5#2~##2##6 }
+            { und~##3#2~##1##4~bis~##5#2~##2##6 }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_de_cref:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_de_cref:
+    {
+        \labelformat { subfigure } { \thefigure~(\thesubfigure) }
+        \labelformat { equation  } { (\theequation)             }
+        \prop_map_inline:Nn \c_@@_lang_de_crefname_prop
+            {
+                \crefname {##1} {##2} {##2}
+                \Crefname {##1}
+                    { \text_titlecase_first:n {##2} }
+                    { \text_titlecase_first:n {##2} }
+            }
+        \clist_map_inline:Nn \c_@@_lang_de_cref_counting_clist
+            { \@@_lang_de_cref_set_counting:nn ##1 }
+        \crefformat { equation  } { Gl.~##2##1##3  }
+        \crefformat { subfigure } { Abb.~##2##1##3 }
+        \cs_set:Npn \crefpairconjunction        { ~und~ }
+        \cs_set:Npn \crefmiddleconjunction      { ,     }
+        \cs_set:Npn \creflastconjunction        { ~und~ }
+        \cs_set:Npn \crefpairgroupconjunction   { ~und~ }
+        \cs_set:Npn \crefmiddlegroupconjunction { ,     }
+        \cs_set:Npn \creflastgroupconjunction   { ~und~ }
+        \cs_set:Npn \crefrangeconjunction       { ~bis~ }
+    }
+%    \end{macrocode}
+% \end{macro}

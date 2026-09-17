@@ -1,0 +1,20 @@
+% Regression test (log-based): lang=es option selects localized names.
+\input{regression-test.tex}
+\documentclass[lang=es]{nkthesis}
+\begin{document}
+\START
+\TYPE{preface: \prefacename}
+\TYPE{symabbr: \symabbrname}
+\TYPE{acknowledgments: \acknowledgmentsname}
+\TYPE{resume: \resumename}
+\TYPE{anonymous-resume: \anonymousresumename}
+\TYPE{en-abstract: \enabstractname}
+\TYPE{contents: \contentsname}
+\TYPE{figure: \figurename}
+\TYPE{table: \tablename}
+\TYPE{listfigure: \listfigurename}
+\TYPE{listtable: \listtablename}
+\TYPE{appendix: \appendixname}
+\TYPE{bib: \bibname}
+\END
+\end{document}

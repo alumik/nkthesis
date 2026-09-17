@@ -181,7 +181,12 @@
         \labelformat { subfigure } { \thefigure~(\thesubfigure) }
         \labelformat { equation  } { (\theequation)             }
         \prop_map_inline:Nn \c_@@_lang_en_crefname_prop
-            { \crefname {##1} {##2} {##2} }
+            {
+                \crefname {##1} {##2} {##2}
+                \Crefname {##1}
+                    { \text_titlecase_first:n {##2} }
+                    { \text_titlecase_first:n {##2} }
+            }
         \clist_map_inline:Nn \c_@@_lang_en_cref_counting_clist
             { \@@_lang_en_cref_set_counting:nn ##1 }
         \crefformat { equation  } { Eq.~##2##1##3  }

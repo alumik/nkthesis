@@ -1,0 +1,247 @@
+% \iffalse meta-comment
+%
+% Copyright 2025-2026 Zhenyu Zhong
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license, or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% \fi
+%
+% \subsubsection{日语语言数据}
+%
+% \begin{macro}{\@@_lang_ja_names:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_ja_names:
+    {
+        \cs_set:Npn \prefacename         { まえがき }
+        \cs_set:Npn \acknowledgmentsname { 謝辞     }
+        \cs_set:Npn \symabbrname         { 記号・略号一覧 }
+        \cs_set:Npn \resumename          { 略歴および研究業績 }
+        \cs_set:Npn \anonymousresumename { 研究業績 }
+        \ctexset
+            {
+                contentsname   = 目次,
+                figurename     = 図,
+                tablename      = 表,
+                listfigurename = 図目次,
+                listtablename  = 表目次,
+                appendixname   = 付録,
+                bibname        = 参考文献,
+            }
+        \DeclareCaptionLabelFormat { @@-ja     } { ##1##2 }
+        \DeclareCaptionLabelFormat { @@-ja-sub } { (##2)  }
+        \captionsetup    { labelformat = @@-ja     }
+        \subcaptionsetup { labelformat = @@-ja-sub }
+        \newtagform { @@-ja }
+            { \mslinespread { 1 } \songti \zihao { 5 } ( }
+            { ) }
+        \usetagform { @@-ja }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_ja_mode_two:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_ja_mode_two:
+    {
+        \ctexset
+            {
+                chapter = {
+                    name      = { 第,章 },
+                    number    = \arabic { chapter },
+                    format    = {
+                        \mslinespread { 1 }
+                        \zihao { 3 }
+                        \bfseries
+                        \centering
+                    },
+                },
+                section = {
+                    number    = \arabic{chapter}.\arabic{section},
+                    aftername = \hspace { \ccwd },
+                    tocline   = {
+                        \CTEXifname
+                            {
+                                \protect
+                                    {
+                                        \csname CTEXthe##1 \endcsname
+                                        \hspace { \ccwd }
+                                    }
+                            }
+                            { }
+                        ##2
+                    },
+                    format    = {
+                        \mslinespread { 1 }
+                        \zihao { 4 }
+                        \bfseries
+                        \centering
+                    },
+                },
+                subsection = {
+                    indent    = \parindent,
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}
+                    },
+                    aftername = \hspace { \ccwd },
+                    tocline   = {
+                        \CTEXifname
+                            {
+                                \protect
+                                    {
+                                        \csname CTEXthe##1 \endcsname
+                                        \hspace { \ccwd }
+                                    }
+                            }
+                            { }
+                        ##2
+                    },
+                },
+                subsubsection = {
+                    indent    = \parindent,
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}.\arabic{subsubsection}
+                    },
+                    aftername = \hspace { \ccwd },
+                },
+            }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_lang_ja_crefname_prop}
+%    \begin{macrocode}
+\prop_const_from_keyval:Nn \c_@@_lang_ja_crefname_prop
+    {
+        equation      = 式,
+        figure        = 図,
+        subfigure     = 子図,
+        table         = 表,
+        page          = ページ,
+        chapter       = 章,
+        section       = 節,
+        subsection    = 小節,
+        subsubsection = 項,
+        appendix      = 付録,
+        theorem       = 定理,
+        lemma         = 補題,
+        corollary     = 系,
+        proposition   = 命題,
+        definition    = 定義,
+        example       = 例,
+        algorithm     = アルゴリズム,
+        listing       = リスト,
+        line          = 行,
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_lang_ja_cref_counting_clist}
+%
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_lang_ja_cref_counting_clist
+    {
+        { page          } { ページ },
+        { section       } { 節     },
+        { subsection    } { 小節   },
+        { subsubsection } { 項     },
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_lang_ja_cref_set_counting:nn}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_ja_cref_set_counting:nn
+    {
+        \crefformat      {#1} { ##2##1#2##3                }
+        \crefrangeformat {#1} { ##3##1#2##4から##5##2#2##6 }
+        \crefmultiformat {#1}
+            { ##2##1#2##3   } { と##2##1#2##3 }
+            { 、##2##1#2##3 } { と##2##1#2##3 }
+        \crefrangemultiformat {#1}
+            { ##3##1#2##4から##5##2#2##6   }
+            { と##3##1#2##4から##5##2#2##6 }
+            { 、##3##1#2##4から##5##2#2##6 }
+            { と##3##1#2##4から##5##2#2##6 }
+        \Crefformat      {#1} { ##2##1#2##3                }
+        \Crefrangeformat {#1} { ##3##1#2##4から##5##2#2##6 }
+        \Crefmultiformat {#1}
+            { ##2##1#2##3   } { と##2##1#2##3 }
+            { 、##2##1#2##3 } { と##2##1#2##3 }
+        \Crefrangemultiformat {#1}
+            { ##3##1#2##4から##5##2#2##6   }
+            { と##3##1#2##4から##5##2#2##6 }
+            { 、##3##1#2##4から##5##2#2##6 }
+            { と##3##1#2##4から##5##2#2##6 }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_ja_cref:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_ja_cref:
+    {
+        \labelformat { subfigure } { \thefigure(\thesubfigure) }
+        \labelformat { equation  } { (\theequation)            }
+        \prop_map_inline:Nn \c_@@_lang_ja_crefname_prop
+            {
+                \crefname {##1} {##2} {##2}
+                \Crefname {##1} {##2} {##2}
+            }
+        \clist_map_inline:Nn \c_@@_lang_ja_cref_counting_clist
+            { \@@_lang_ja_cref_set_counting:nn ##1 }
+%    \end{macrocode}
+%
+% 章的“第\meta{编号}章”式格式。
+%
+%    \begin{macrocode}
+        \crefformat      { chapter } { ##2第##1章##3                  }
+        \crefrangeformat { chapter } { ##3第##1章##4から##5第##2章##6 }
+        \crefmultiformat { chapter }
+            { ##2第##1章##3   } { と##2第##1章##3 }
+            { 、##2第##1章##3 } { と##2第##1章##3 }
+        \crefrangemultiformat { chapter }
+            { ##3第##1章##4から##5第##2章##6   }
+            { と##3第##1章##4から##5第##2章##6 }
+            { 、##3第##1章##4から##5第##2章##6 }
+            { と##3第##1章##4から##5第##2章##6 }
+        \Crefformat      { chapter } { ##2第##1章##3                  }
+        \Crefrangeformat { chapter } { ##3第##1章##4から##5第##2章##6 }
+        \Crefmultiformat { chapter }
+            { ##2第##1章##3   } { と##2第##1章##3 }
+            { 、##2第##1章##3 } { と##2第##1章##3 }
+        \Crefrangemultiformat { chapter }
+            { ##3第##1章##4から##5第##2章##6   }
+            { と##3第##1章##4から##5第##2章##6 }
+            { 、##3第##1章##4から##5第##2章##6 }
+            { と##3第##1章##4から##5第##2章##6 }
+%    \end{macrocode}
+%
+% 公式与子图的量词位于编号之前。
+%
+%    \begin{macrocode}
+        \crefformat  { equation  } { 式##2##1##3 }
+        \crefformat  { subfigure } { 図##2##1##3 }
+        \Crefformat  { equation  } { 式##2##1##3 }
+        \Crefformat  { subfigure } { 図##2##1##3 }
+        \cs_set:Npn \crefpairconjunction        { と }
+        \cs_set:Npn \crefmiddleconjunction      { 、 }
+        \cs_set:Npn \creflastconjunction        { と }
+        \cs_set:Npn \crefpairgroupconjunction   { と }
+        \cs_set:Npn \crefmiddlegroupconjunction { 、 }
+        \cs_set:Npn \creflastgroupconjunction   { と }
+        \cs_set:Npn \crefrangeconjunction       { から }
+    }
+%    \end{macrocode}
+% \end{macro}

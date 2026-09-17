@@ -19,12 +19,12 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[2024/11/01]
 %<class>\ProvidesExplClass
 %<class>    {nkthesis}
-%<class>    {2026/09/15}
+%<class>    {2026/09/17}
 %<class>    {v2026.7.2}
 %<class>    {Template for Master's and Doctoral Theses of Nankai University}
 %
 %<*driver>
-\PassOptionsToPackage{AutoFakeBold=true, AutoFakeSlant=true}{xeCJK}
+\PassOptionsToPackage{AutoFakeBold=true, AutoFakeSlant=true, AutoFallBack}{xeCJK}
 \PassOptionsToPackage{hyphens}{url}
 \documentclass{ctxdoc}
 \usepackage{float}
@@ -34,6 +34,34 @@
 \usepackage[most]{tcolorbox}
 \newfontfamily{\dejavusans}{DejaVu Sans}
 \newunicodechar{★}{{\dejavusans\symbol{"2605}}}
+\newfontfamily{\cyrillicfont}{DejaVu Serif}
+\IfFileExists{fonts/simsun.ttc}
+    {
+        \setCJKfallbackfamilyfont{\CJKrmdefault}{simsun.ttc}[Path=fonts/]
+        \setCJKfallbackfamilyfont{\CJKsfdefault}{simsun.ttc}[Path=fonts/]
+        \setCJKfallbackfamilyfont{\CJKttdefault}{simsun.ttc}[Path=fonts/]
+    }
+    {
+        \IfFontExistsTF{SimSun}
+            {
+                \setCJKfallbackfamilyfont{\CJKrmdefault}{SimSun}
+                \setCJKfallbackfamilyfont{\CJKsfdefault}{SimSun}
+                \setCJKfallbackfamilyfont{\CJKttdefault}{SimSun}
+            }
+            { }
+    }
+\newcount\nktcyrloop
+\nktcyrloop="0400
+\loop
+    \edef\nkttemp
+        {
+            \noexpand\newunicodechar{\Uchar\nktcyrloop}
+                {{\noexpand\cyrillicfont\Uchar\nktcyrloop}}
+        }
+    \nkttemp
+    \ifnum\nktcyrloop<"04FF
+    \advance\nktcyrloop1
+\repeat
 \DefineVerbatimEnvironment{nkthesisexam}{Verbatim}{
     gobble=6,
     frame=single,
@@ -117,6 +145,8 @@
 %     \thefigure, \thepage, \thesubfigure, \thetable, \thispagestyle,
 %     \tl_if_empty:eTF, \tl_if_empty:nTF, \tocloftpagestyle, \underline, \use:c,
 %     \usetagform, \vfill, \vphantom, \vrule, \vspace, \zihao, \ziju,
+%     \text_titlecase_first:n, \Crefname, \Crefformat, \Crefmultiformat,
+%     \Crefrangeformat, \Crefrangemultiformat, \crefrangepreconjunction,
 % }
 %
 % \changes{v2.0}{2025/04/30}
@@ -133,7 +163,7 @@
 %     \thanks{适用于《研究生学位论文写作规范（2026版）》。}^^A
 % }
 % \author{钟震宇 \\ \texttt{zyzhong@mail.nankai.edu.cn}}
-% \date{2026/09/15\qquad v2026.7.2}
+% \date{2026/09/17\qquad v2026.7.2}
 % \maketitle
 %
 % \begin{abstract}
@@ -162,7 +192,7 @@
 % \begin{enumerate}
 %     \item 使用 \LaTeXiii 接口编写。
 %     \item 符合《研究生学位论文写作规范》。
-%           目前支持中文论文。
+%           目前支持中文、英语、西班牙语、日语、德语、法语、巴西葡萄牙语、意大利语和俄语论文。
 %     \item 支持本地与在线（Overleaf 等）编译。仅支持使用 \XeLaTeX 编译。
 %     \item 可按需添加需要的字体，保证不同平台编译结果的一致性。
 %     \item 实现了中文和数字两种标题编号样式。
@@ -280,20 +310,29 @@
 %     否则，前置部分不会出现在目录中。
 % \end{function}
 %
-% \begin{function}[added=2026/09/15]{lang, language}
+% \begin{function}[added=2026/09/17]{lang, language}
 %     \begin{syntax}
-%         lang = <(zh)|en>
+%         lang = <(zh)|en|es|ja|de|fr|ptbr|it|ru>
 %     \end{syntax}
 %     指定论文使用的语言，默认为中文（zh）。
 %     该选项仅影响前言、目录及其后的章节名称（如插图清单、附表清单、参考文献、附录、致谢等）、图表名称与交叉引用格式。
 %     按照写作规范，中文封面、题名页、原创性声明、授权书以及中英文摘要不受该选项影响。
+%     注意，该选项仅做字符串层面的本地化，不切换字体：
+%     西文及西里尔字母沿用默认的 Times 系列字体；
+%     日语需自行通过 \cs[no-index]{setCJKmainfont} 等命令设置相应的 CJK 字体。
+%     语言代码大小写不敏感，巴西葡萄牙语 |ptbr| 亦可写作 |pt-BR|。
 %     别名 |language| 与 |lang| 等价。
 % \end{function}
 %     \begin{optdesc}[itemsep=\medskipamount]
 %         \item[zh] 中文。
-%         \item[en] 英文。
-%                   模式二标题采用英文名称与数字编号混排：“Chapter 1”“Section 1”（居中），下级标题为“1.1”“1.1.1”（左缩进）。
-%                   交叉引用形如 “Chapter 1”“Figure 1.1”“Eq. (1.1)”，连接词为 “and”“to”。
+%         \item[en] 英语。
+%         \item[es] 西班牙语。
+%         \item[ja] 日语。
+%         \item[de] 德语。
+%         \item[fr] 法语。
+%         \item[ptbr] 巴西葡萄牙语。
+%         \item[it] 意大利语。
+%         \item[ru] 俄语。
 %     \end{optdesc}
 %
 % \begin{nkthesisexam}
@@ -1381,7 +1420,7 @@
 %
 % \begin{variable}{\g_@@_lang_str}
 %
-% 当前语言，取值 |zh| 或 |en|。
+% 当前语言的内部代码。
 %
 %    \begin{macrocode}
 \str_new:N \g_@@_lang_str
@@ -1396,13 +1435,24 @@
 %
 %    \begin{macrocode}
 \msg_new:nnn { nkthesis } { unknown-language }
-    { Unknown~language~'#1'.~Supported~languages:~zh,~en. }
+    {
+        Unknown~language~'#1'.~Supported~languages:~zh,~en,~es,~ja,~de,~fr,~ptbr
+        ~(pt-BR),~it,~ru.
+    }
 \cs_new_protected:Nn \@@_lang_set:n
     {
         \str_case_e:nnF { \str_casefold:n {#1} }
             {
-                { zh } { \str_gset:Nn \g_@@_lang_str { zh } }
-                { en } { \str_gset:Nn \g_@@_lang_str { en } }
+                { zh    } { \str_gset:Nn \g_@@_lang_str { zh    } }
+                { en    } { \str_gset:Nn \g_@@_lang_str { en    } }
+                { es    } { \str_gset:Nn \g_@@_lang_str { es    } }
+                { ja    } { \str_gset:Nn \g_@@_lang_str { ja    } }
+                { de    } { \str_gset:Nn \g_@@_lang_str { de    } }
+                { fr    } { \str_gset:Nn \g_@@_lang_str { fr    } }
+                { ptbr  } { \str_gset:Nn \g_@@_lang_str { ptbr  } }
+                { pt-br } { \str_gset:Nn \g_@@_lang_str { ptbr  } }
+                { it    } { \str_gset:Nn \g_@@_lang_str { it    } }
+                { ru    } { \str_gset:Nn \g_@@_lang_str { ru    } }
             }
             { \msg_fatal:nnn { nkthesis } { unknown-language } {#1} }
     }
@@ -1471,7 +1521,7 @@
 %
 % \begin{macro}{options/lang, options/language}
 %
-% 论文语言，可选 |zh|（中文，默认）或 |en|（英语）。
+% 论文语言，默认 |zh|，大小写不敏感。
 %
 %    \begin{macrocode}
         lang     .code:n    = \@@_lang_set:n {#1},
@@ -2108,7 +2158,7 @@
 %
 % \changes{v2.4}{2026/01/06}{使用大写字母作为封面页和声明页的页码编号，避免正文中产生重复页码对象。}
 % \changes{v2026.7}{2026/08/13}{通过 \pkg{hyperref} 的 \texttt{hypertexnames=false} 消除重复页码对象，封面页码不再需要使用 \texttt{Alph} 编号。}
-% \changes{v2026.7}{2026/09/16}{封面页码的设置时机从文档开始迁移至类加载结束。}
+% \changes{v2026.7}{2026/09/17}{封面页码的设置时机从文档开始迁移至类加载结束。}
 %
 % 封面页和声明页的页码需要与正文分开，否则 \pkg{hyperref} 会产生重复的页码对象。
 % \pkg{hyperref} 默认以 \cs[no-index]{thepage} 的值命名页面锚点（|page.\meta{页码}|），
@@ -2183,7 +2233,7 @@
 % \subsection{标题名称}
 %
 % \changes{v2.0}{2025/04/30}{将《符号、标志、缩略语等的注释表》的命令从 \cs{symbolsandabbreviationsname} 改为 \cs{symabbrname}。}
-% \changes{v2026.7}{2026/09/16}{除英文摘要外，标题名称的默认值随 \texttt{lang} 选项切换。}
+% \changes{v2026.7}{2026/09/17}{除英文摘要外，标题名称的默认值随 \texttt{lang} 选项切换。}
 %
 % \begin{macro}{\enabstractname}
 %
@@ -2198,7 +2248,7 @@
 %
 % \changes{v2026.3}{2026/03/15}{使用 \pkg{cleveref} 宏包提供的接口设置交叉引用名称和格式。移除原有的 \cs[no-index]{simpleref} 等命令。}
 % \changes{v2026.7}{2026/09/09}{用循环生成 \pkg{cleveref} 的格式设置。}
-% \changes{v2026.7}{2026/09/16}{交叉引用名称与格式随 \texttt{lang} 选项切换。}
+% \changes{v2026.7}{2026/09/17}{交叉引用名称与格式随 \texttt{lang} 选项切换。}
 %
 % 由于 \pkg{cleveref} 自身也在 \cs[no-index]{AtBeginDocument} 中调用 \cs[no-index]{@crefcopyformats}，
 % 只要目标类型已带有任何自定义设置，\pkg{cleveref} 就会用该类型当前的名称重建整套引用格式。
@@ -2308,7 +2358,7 @@
 %
 % \subsection{\CTeX 设置}
 %
-% \changes{v2026.7}{2026/09/16}{目录及图表名称随 \texttt{lang} 选项切换。}
+% \changes{v2026.7}{2026/09/17}{目录及图表名称随 \texttt{lang} 选项切换。}
 %
 %    \begin{macrocode}
 \ctexset
@@ -2375,7 +2425,7 @@
 % \begin{macro}{\@@_headings:}
 %
 % \changes{v2026.3}{2026/03/15}{修复使用模式一标题时目录中 subsection 编号后无空格的问题。}
-% \changes{v2026.7}{2026/09/16}{将标题模式分支迁移至 \cs{@@_headings:}，模式二样式由当前语言提供。}
+% \changes{v2026.7}{2026/09/17}{将标题模式分支迁移至 \cs{@@_headings:}，模式二样式由当前语言提供。}
 %
 % 根据标题模式应用格式。
 % 模式一的纯数字编号与语言无关；模式二由当前语言提供设置。
@@ -2586,7 +2636,7 @@
 % \begin{environment}{abstract}
 %
 % \changes{v2026.2}{2026/03/14}{合并中英文摘要和关键词环境，通过可选参数 \texttt{[en]} 切换为英文。}
-% \changes{v2026.7}{2026/09/16}{使用 \cs[no-index]{str_casefold:n} 代替 \cs[no-index]{str_lowercase:n} 进行字符串比较。}
+% \changes{v2026.7}{2026/09/17}{使用 \cs[no-index]{str_casefold:n} 代替 \cs[no-index]{str_lowercase:n} 进行字符串比较。}
 %
 %    \begin{macrocode}
 \NewDocumentEnvironment { abstract } { O{ } }
@@ -3441,7 +3491,7 @@
 %
 % \subsection{多语言支持}
 %
-% \changes{v2026.7}{2026/09/16}{增加多语言拓展支持。支持英文论文。}
+% \changes{v2026.7}{2026/09/17}{增加多语言拓展支持。支持中文、英语、西班牙语、日语、德语、法语、巴西葡萄牙语、意大利语、俄语。}
 %
 % \begin{macro}{\@@_lang_select:}
 %
@@ -3462,6 +3512,13 @@
 %
 % \input{zh.dtx}
 % \input{en.dtx}
+% \input{es.dtx}
+% \input{ja.dtx}
+% \input{de.dtx}
+% \input{fr.dtx}
+% \input{ptbr.dtx}
+% \input{it.dtx}
+% \input{ru.dtx}
 %
 % \end{implementation}
 %

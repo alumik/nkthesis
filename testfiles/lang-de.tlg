@@ -1,0 +1,15 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+preface: Vorwort
+symabbr: Verzeichnis der Symbole und Abk^^fcrzungen
+acknowledgments: Danksagung
+resume: Lebenslauf und wissenschaftliche Leistungen
+anonymous-resume: Wissenschaftliche Leistungen
+en-abstract: Abstract
+contents: Inhaltsverzeichnis
+figure: Abbildung
+table: Tabelle
+listfigure: Abbildungsverzeichnis
+listtable: Tabellenverzeichnis
+appendix: Anhang
+bib: Literaturverzeichnis

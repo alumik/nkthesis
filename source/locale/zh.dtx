@@ -167,7 +167,10 @@
         \labelformat { subfigure } { \thefigure（\thesubfigure） }
         \labelformat { equation  } { （\theequation）            }
         \prop_map_inline:Nn \c_@@_lang_zh_crefname_prop
-            { \crefname {##1} {##2} {##2} }
+            {
+                \crefname {##1} {##2} {##2}
+                \Crefname {##1} {##2} {##2}
+            }
         \clist_map_inline:Nn \c_@@_lang_zh_cref_counting_clist
             { \@@_lang_zh_cref_set_counting:nn ##1 }
 %    \end{macrocode}

@@ -1,0 +1,15 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+preface: まえがき
+symabbr: 記号・略号一覧
+acknowledgments: 謝辞
+resume: 略歴および研究業績
+anonymous-resume: 研究業績
+en-abstract: Abstract
+contents: 目次
+figure: 図
+table: 表
+listfigure: 図目次
+listtable: 表目次
+appendix: 付録
+bib: 参考文献

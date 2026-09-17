@@ -14,6 +14,13 @@ sourcefiles = {
   "nkthesis-logo.dtx",
   "locale/zh.dtx",
   "locale/en.dtx",
+  "locale/es.dtx",
+  "locale/ja.dtx",
+  "locale/de.dtx",
+  "locale/fr.dtx",
+  "locale/ptbr.dtx",
+  "locale/it.dtx",
+  "locale/ru.dtx",
   "nkthesis.ins",
   "nkthesis.ist",
 }
@@ -35,6 +42,14 @@ end
 
 docfiles = { "demo" }
 demofiles = { "demo" }
+
+-- The manual's CJK fallback font (Japanese kanji) loads the bundled
+-- fonts/simsun.ttc via Path = fonts/, so make it available in the doc
+-- typesetting directory before the manual is compiled.
+function docinit_hook()
+  mkdir(typesetdir .. "/fonts")
+  return cp("simsun.ttc", maindir .. "/fonts", typesetdir .. "/fonts")
+end
 
 -- gind.ist supplies docstrip's conventional index layout; nkthesis.ist adds
 -- the Chinese collation and heading settings required by this documentation.

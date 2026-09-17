@@ -1,0 +1,198 @@
+% \iffalse meta-comment
+%
+% Copyright 2025-2026 Zhenyu Zhong
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license, or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% \fi
+%
+% \subsubsection{俄语语言数据}
+%
+% \begin{macro}{\@@_lang_ru_names:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_ru_names:
+    {
+        \cs_set:Npn \prefacename         { Предисловие  }
+        \cs_set:Npn \acknowledgmentsname { Благодарности }
+        \cs_set:Npn \symabbrname
+            { Список~обозначений~и~сокращений }
+        \cs_set:Npn \resumename
+            { Сведения~об~авторе~и~опубликованных~работах }
+        \cs_set:Npn \anonymousresumename
+            { Опубликованные~работы }
+        \ctexset
+            {
+                contentsname   = Содержание,
+                figurename     = Рисунок,
+                tablename      = Таблица,
+                listfigurename = Список~иллюстраций,
+                listtablename  = Список~таблиц,
+                appendixname   = Приложение,
+                bibname        = Список~литературы,
+            }
+        \DeclareCaptionLabelFormat { @@-ru     } { ##1~##2 }
+        \DeclareCaptionLabelFormat { @@-ru-sub } { (##2)   }
+        \captionsetup    { labelformat = @@-ru     }
+        \subcaptionsetup { labelformat = @@-ru-sub }
+        \newtagform { @@-ru }
+            { \mslinespread { 1 } \songti \zihao { 5 } ( }
+            { ) }
+        \usetagform { @@-ru }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_ru_mode_two:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_ru_mode_two:
+    {
+        \ctexset
+            {
+                chapter = {
+                    name      = { Глава\ , },
+                    number    = \arabic { chapter },
+                    format    = {
+                        \mslinespread { 1 }
+                        \zihao { 3 }
+                        \bfseries
+                        \centering
+                    },
+                },
+                section = {
+                    name      = { Раздел\ , },
+                    number    = \arabic { section },
+                    format    = {
+                        \mslinespread { 1 }
+                        \zihao { 4 }
+                        \bfseries
+                        \centering
+                    },
+                },
+                subsection = {
+                    indent    = \parindent,
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}
+                    },
+                    aftername = \hspace { \ccwd },
+                    tocline   = {
+                        \CTEXifname
+                            {
+                                \protect
+                                    {
+                                        \csname CTEXthe##1 \endcsname
+                                        \hspace { \ccwd }
+                                    }
+                            }
+                            { }
+                        ##2
+                    },
+                },
+                subsubsection = {
+                    indent    = \parindent,
+                    number    = {
+                        \arabic{chapter}.\arabic{section}.
+                        \arabic{subsection}.\arabic{subsubsection}
+                    },
+                    aftername = \hspace { \ccwd },
+                },
+            }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\c_@@_lang_ru_crefname_prop}
+%    \begin{macrocode}
+\prop_const_from_keyval:Nn \c_@@_lang_ru_crefname_prop
+    {
+        equation      = форм.,
+        figure        = рис.,
+        subfigure     = рис.,
+        table         = табл.,
+        page          = с.,
+        chapter       = глава,
+        section       = раздел,
+        subsection    = подраздел,
+        subsubsection = подподраздел,
+        appendix      = приложение,
+        theorem       = теорема,
+        lemma         = лемма,
+        corollary     = следствие,
+        proposition   = предложение,
+        definition    = определение,
+        example       = пример,
+        algorithm     = алгоритм,
+        listing       = листинг,
+        line          = строка,
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_lang_ru_cref_counting_clist}
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_lang_ru_cref_counting_clist
+    {
+        { page          } { с.            },
+        { chapter       } { глава         },
+        { section       } { раздел        },
+        { subsection    } { подраздел     },
+        { subsubsection } { подподраздел  },
+    }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\@@_lang_ru_cref_set_counting:nn}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_ru_cref_set_counting:nn
+    {
+        \crefformat      {#1} { ##2#2~##1##3              }
+        \crefrangeformat {#1} { ##3#2~##1##4–##5##2##6  }
+        \crefmultiformat {#1}
+            { ##2#2~##1##3   } { и~##2#2~##1##3 }
+            { ,~##2#2~##1##3 } { и~##2#2~##1##3 }
+        \crefrangemultiformat {#1}
+            { ##3#2~##1##4–##5##2##6    }
+            { и~##3#2~##1##4–##5##2##6  }
+            { ,~##3#2~##1##4–##5##2##6  }
+            { и~##3#2~##1##4–##5##2##6  }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_lang_ru_cref:}
+%
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_lang_ru_cref:
+    {
+        \labelformat { subfigure } { \thefigure~(\thesubfigure) }
+        \labelformat { equation  } { (\theequation)             }
+        \prop_map_inline:Nn \c_@@_lang_ru_crefname_prop
+            {
+                \crefname {##1} {##2} {##2}
+                \Crefname {##1}
+                    { \text_titlecase_first:n {##2} }
+                    { \text_titlecase_first:n {##2} }
+            }
+        \clist_map_inline:Nn \c_@@_lang_ru_cref_counting_clist
+            { \@@_lang_ru_cref_set_counting:nn ##1 }
+        \crefformat { equation  } { форм.~##2##1##3 }
+        \crefformat { subfigure } { рис.~##2##1##3  }
+        \cs_set:Npn \crefpairconjunction        { ~и~ }
+        \cs_set:Npn \crefmiddleconjunction      { ,   }
+        \cs_set:Npn \creflastconjunction        { ~и~ }
+        \cs_set:Npn \crefpairgroupconjunction   { ~и~ }
+        \cs_set:Npn \crefmiddlegroupconjunction { ,   }
+        \cs_set:Npn \creflastgroupconjunction   { ~и~ }
+        \cs_set:Npn \crefrangeconjunction       { –   }
+    }
+%    \end{macrocode}
+% \end{macro}
