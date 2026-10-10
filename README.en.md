@@ -5,7 +5,7 @@
 
 [中文](README.md) | English
 
-`nkthesis` is a LaTeX template for master's and doctoral theses at Nankai University, conforming to the *Graduate Thesis Writing Standards (2026 Edition)*. It currently supports papers in nine languages, including Chinese and English.
+`nkthesis` is a LaTeX template for master's and doctoral theses at Nankai University, conforming to the *Graduate Thesis Writing Standards (2026 Edition)*. It currently supports papers in Chinese and English.
 
 If you are new to LaTeX, it is recommended not to rush into understanding every command. First get the sample thesis to compile successfully, then gradually replace the personal information, abstract, main text, and bibliography in the sample with your own content.
 
@@ -145,7 +145,7 @@ This template provides the following options, which can be passed as arguments t
 | `uppercasehead` | `false` | When this option is present or set to true, page headers are converted to all uppercase. Otherwise, the original capitalization is preserved. |
 | `openright` | `false` | When this option is present or set to true, chapters are forced to start on a right-hand page (in line with duplex printing standards). Otherwise, chapters may start on a left-hand page. |
 | `frontmatterintoc` | `false` | When this option is present or set to true, the front matter (such as the abstract, preface, etc.) is added to the table of contents. Otherwise, the front matter does not appear in the table of contents. |
-| `lang` | `zh` | Thesis language. Available codes: `zh` (Chinese), `en` (English), `es` (Spanish), `ja` (Japanese), `de` (German), `fr` (French), `ptbr` (Brazilian Portuguese, may also be written as `pt-BR`), `it` (Italian), `ru` (Russian). `language` is an equivalent alias. |
+| `lang` | `zh` | Thesis language. Available codes: `zh` (Chinese), `en` (English). `language` is an equivalent alias. |
 
 ## Detailed Usage Instructions
 

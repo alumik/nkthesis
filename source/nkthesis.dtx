@@ -24,7 +24,7 @@
 %<class>    {Template for Master's and Doctoral Theses of Nankai University}
 %
 %<*driver>
-\PassOptionsToPackage{AutoFakeBold=true, AutoFakeSlant=true, AutoFallBack}{xeCJK}
+\PassOptionsToPackage{AutoFakeBold=true, AutoFakeSlant=true}{xeCJK}
 \PassOptionsToPackage{hyphens}{url}
 \documentclass{ctxdoc}
 \usepackage{float}
@@ -34,34 +34,6 @@
 \usepackage[most]{tcolorbox}
 \newfontfamily{\dejavusans}{DejaVu Sans}
 \newunicodechar{★}{{\dejavusans\symbol{"2605}}}
-\newfontfamily{\cyrillicfont}{DejaVu Serif}
-\IfFileExists{fonts/simsun.ttc}
-    {
-        \setCJKfallbackfamilyfont{\CJKrmdefault}{simsun.ttc}[Path=fonts/]
-        \setCJKfallbackfamilyfont{\CJKsfdefault}{simsun.ttc}[Path=fonts/]
-        \setCJKfallbackfamilyfont{\CJKttdefault}{simsun.ttc}[Path=fonts/]
-    }
-    {
-        \IfFontExistsTF{SimSun}
-            {
-                \setCJKfallbackfamilyfont{\CJKrmdefault}{SimSun}
-                \setCJKfallbackfamilyfont{\CJKsfdefault}{SimSun}
-                \setCJKfallbackfamilyfont{\CJKttdefault}{SimSun}
-            }
-            { }
-    }
-\newcount\nktcyrloop
-\nktcyrloop="0400
-\loop
-    \edef\nkttemp
-        {
-            \noexpand\newunicodechar{\Uchar\nktcyrloop}
-                {{\noexpand\cyrillicfont\Uchar\nktcyrloop}}
-        }
-    \nkttemp
-    \ifnum\nktcyrloop<"04FF
-    \advance\nktcyrloop1
-\repeat
 \DefineVerbatimEnvironment{nkthesisexam}{Verbatim}{
     gobble=6,
     frame=single,
@@ -192,7 +164,7 @@
 % \begin{enumerate}
 %     \item 使用 \LaTeXiii 接口编写。
 %     \item 符合《研究生学位论文写作规范》。
-%           目前支持中文、英语、西班牙语、日语、德语、法语、巴西葡萄牙语、意大利语和俄语论文。
+%           目前支持中文、英文论文。
 %     \item 支持本地与在线（Overleaf 等）编译。仅支持使用 \XeLaTeX 编译。
 %     \item 可按需添加需要的字体，保证不同平台编译结果的一致性。
 %     \item 实现了中文和数字两种标题编号样式。
@@ -312,27 +284,16 @@
 %
 % \begin{function}[added=2026/09/17]{lang, language}
 %     \begin{syntax}
-%         lang = <(zh)|en|es|ja|de|fr|ptbr|it|ru>
+%         lang = <(zh)|en>
 %     \end{syntax}
 %     指定论文使用的语言，默认为中文（zh）。
 %     该选项仅影响前言、目录及其后的章节名称（如插图清单、附表清单、参考文献、附录、致谢等）、图表名称与交叉引用格式。
 %     按照写作规范，中文封面、题名页、原创性声明、授权书以及中英文摘要不受该选项影响。
-%     注意，该选项仅做字符串层面的本地化，不切换字体：
-%     西文及西里尔字母沿用默认的 Times 系列字体；
-%     日语需自行通过 \cs[no-index]{setCJKmainfont} 等命令设置相应的 CJK 字体。
-%     语言代码大小写不敏感，巴西葡萄牙语 |ptbr| 亦可写作 |pt-BR|。
-%     别名 |language| 与 |lang| 等价。
+%     语言代码大小写不敏感，别名 |language| 与 |lang| 等价。
 % \end{function}
 %     \begin{optdesc}[itemsep=\medskipamount]
 %         \item[zh] 中文。
-%         \item[en] 英语。
-%         \item[es] 西班牙语。
-%         \item[ja] 日语。
-%         \item[de] 德语。
-%         \item[fr] 法语。
-%         \item[ptbr] 巴西葡萄牙语。
-%         \item[it] 意大利语。
-%         \item[ru] 俄语。
+%         \item[en] 英文。
 %     \end{optdesc}
 %
 % \begin{nkthesisexam}
@@ -1436,8 +1397,7 @@
 %    \begin{macrocode}
 \msg_new:nnn { nkthesis } { unknown-language }
     {
-        Unknown~language~'#1'.~Supported~languages:~zh,~en,~es,~ja,~de,~fr,~ptbr
-        ~(pt-BR),~it,~ru.
+        Unknown~language~'#1'.~Supported~languages:~zh,~en.
     }
 \cs_new_protected:Nn \@@_lang_set:n
     {
@@ -1445,14 +1405,6 @@
             {
                 { zh    } { \str_gset:Nn \g_@@_lang_str { zh    } }
                 { en    } { \str_gset:Nn \g_@@_lang_str { en    } }
-                { es    } { \str_gset:Nn \g_@@_lang_str { es    } }
-                { ja    } { \str_gset:Nn \g_@@_lang_str { ja    } }
-                { de    } { \str_gset:Nn \g_@@_lang_str { de    } }
-                { fr    } { \str_gset:Nn \g_@@_lang_str { fr    } }
-                { ptbr  } { \str_gset:Nn \g_@@_lang_str { ptbr  } }
-                { pt-br } { \str_gset:Nn \g_@@_lang_str { ptbr  } }
-                { it    } { \str_gset:Nn \g_@@_lang_str { it    } }
-                { ru    } { \str_gset:Nn \g_@@_lang_str { ru    } }
             }
             { \msg_fatal:nnn { nkthesis } { unknown-language } {#1} }
     }
@@ -3491,7 +3443,7 @@
 %
 % \subsection{多语言支持}
 %
-% \changes{v2026.7}{2026/09/17}{增加多语言拓展支持。支持中文、英语、西班牙语、日语、德语、法语、巴西葡萄牙语、意大利语、俄语。}
+% \changes{v2026.7}{2026/09/17}{增加多语言拓展支持。支持中文、英文。}
 %
 % \begin{macro}{\@@_lang_select:}
 %
@@ -3512,13 +3464,6 @@
 %
 % \input{zh.dtx}
 % \input{en.dtx}
-% \input{es.dtx}
-% \input{ja.dtx}
-% \input{de.dtx}
-% \input{fr.dtx}
-% \input{ptbr.dtx}
-% \input{it.dtx}
-% \input{ru.dtx}
 %
 % \end{implementation}
 %

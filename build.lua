@@ -14,13 +14,6 @@ sourcefiles = {
   "nkthesis-logo.dtx",
   "locale/zh.dtx",
   "locale/en.dtx",
-  "locale/es.dtx",
-  "locale/ja.dtx",
-  "locale/de.dtx",
-  "locale/fr.dtx",
-  "locale/ptbr.dtx",
-  "locale/it.dtx",
-  "locale/ru.dtx",
   "nkthesis.ins",
   "nkthesis.ist",
 }
