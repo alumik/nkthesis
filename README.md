@@ -1,11 +1,11 @@
-# nkthesis：南开大学硕士博士毕业论文 LaTeX 模板（2026）
+# nkthesis：南开大学硕士博士毕业论文 LaTeX 模板（2026年9月修订版）
 
 ![version 2026.7.2](https://img.shields.io/badge/version-2026.7.2-blue)
 ![license-LPPL-1.3c](https://img.shields.io/badge/license-LPPL--1.3c-orange)
 
 中文 | [English](README.en.md)
 
-`nkthesis` 是南开大学硕士、博士学位论文 LaTeX 模板，符合《研究生学位论文写作规范（2026版）》，目前支持中文、英文论文。
+`nkthesis` 是南开大学硕士、博士学位论文 LaTeX 模板，符合《研究生学位论文写作规范（2026年9月修订版）》，目前支持中文、英文论文。
 
 如果你刚开始接触 LaTeX，建议先不要急着理解所有命令。先让示例论文成功编译，再把示例中的个人信息、摘要、正文和参考文献逐步替换成自己的内容。
 
@@ -103,7 +103,7 @@ Package fontspec Error:
   论文题目（中文） = {你的中文题目},
   论文题目（英文） = {Your English Title},
   论文作者 = {你的姓名},
-  指导教师 = {导师姓名},
+  校内指导教师 = {校内导师姓名},
   培养单位 = {你的学院},
 }
 
