@@ -15,7 +15,7 @@ If you are new to LaTeX, it is recommended not to rush into understanding every 
 > [!TIP]
 > If you find this template useful, please give it a free Star ⭐ so that more people can discover this project. Thank you!
 
-![](https://pic1.imgdb.cn/item/6a30f58d6f828650a6e61ac1.png)
+![](https://pic.imgdd.cc/i/034rnEaRpkFfAwx1J42lcC.png)
 
 ## Downloading the Template
 
