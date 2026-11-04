@@ -584,6 +584,23 @@
 %     默认值为 7em。
 % \end{function}
 %
+% \begin{function}[added=2026/11/04]{授权书/导师电子签名路径}
+%     \begin{syntax}
+%         授权书/导师电子签名路径 = <路径>
+%     \end{syntax}
+%     《南开大学学位论文使用授权书》中导师的电子签名路径。
+%     电子签名需要背景透明的图片。
+%     默认值为空。
+% \end{function}
+%
+% \begin{function}[added=2026/11/04]{授权书/导师电子签名宽度}
+%     \begin{syntax}
+%         授权书/导师电子签名宽度 = <宽度>
+%     \end{syntax}
+%     《南开大学学位论文使用授权书》中导师的电子签名宽度。
+%     默认值为 7em。
+% \end{function}
+%
 % \begin{function}{授权书/签字日期}
 %     \begin{syntax}
 %         授权书/签字日期 = <日期>
@@ -1595,6 +1612,8 @@
         原创性声明/签字日期,
         授权书/电子签名路径,
         授权书/电子签名宽度,
+        授权书/导师电子签名路径,
+        授权书/导师电子签名宽度,
         授权书/签字日期,
         学号,
         答辩日期,
@@ -1627,6 +1646,7 @@
         原创性声明/电子签名宽度      .initial:n  = 7em,
         原创性声明/签字日期          .initial:n  = 年 \qquad 月 \qquad 日,
         授权书/电子签名宽度          .initial:n  = 7em,
+        授权书/导师电子签名宽度      .initial:n  = 7em,
         授权书/签字日期              .initial:n  =
             { 20 \qquad 年 \qquad 月 \qquad 日 },
         答辩日期                     .initial:n  =
@@ -3205,6 +3225,7 @@
 % \changes{v2026.1}{2026/03/13}{设置《南开大学研究生学位论文作者信息》表中答辩日期的值的对齐方式为两端对齐，且拓宽单元格可输入文字的区域。}
 % \changes{v2026.3}{2026/03/17}{修复《南开大学研究生学位论文作者信息》表中内容过长时单元格会溢出的问题。}
 % \changes{v2026.4}{2026/05/31}{添加《南开大学学位论文使用授权书》中的电子签名设置。}
+% \changes{v2026b.0}{2026/11/04}{在《南开大学学位论文使用授权书》中作者签字行下方新增“导师（亲笔）签字”一行及其电子签名设置。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \authorizationpage { }
@@ -3256,6 +3277,36 @@
                                 \includegraphics
                                     [ width = \nktget { 授权书/电子签名宽度 } ]
                                     { \nktget { 授权书/电子签名路径 } }
+                            }
+                        }
+                }
+            \par
+%    \end{macrocode}
+%
+% 导师签字行的标签与作者签字行的标签居中对齐：
+% 先量出两个标签的宽度，取两者平均值，即可得到导师标签的起始位置。
+% 
+%    \begin{macrocode}
+            \hbox_set:Nn \l_@@_temp_box { 导师（亲笔）签字： }
+            \dim_set:Nn \l_@@_temp_dim { \box_wd:N \l_@@_temp_box }
+            \hbox_set:Nn \l_@@_temp_box { 学位论文作者暨授权人（亲笔）签字： }
+            \dim_set:Nn \l_@@_temp_dim
+                { ( \box_wd:N \l_@@_temp_box + \l_@@_temp_dim ) / 2 }
+            \noindent
+            \hspace* { \dim_eval:n { \linewidth - 35.2mm - \l_@@_temp_dim } }
+            导师（亲笔）签字：
+            \makebox [ 35.2mm ]
+                {
+                    \tl_if_empty:eTF { \nktget { 授权书/导师电子签名路径 } }
+                        { }
+                        {
+                            \raisebox { 0pt } [ 0pt ] [ 0pt ]
+                            {
+                                \includegraphics
+                                    [ width = \nktget {
+                                        授权书/导师电子签名宽度
+                                    } ]
+                                    { \nktget { 授权书/导师电子签名路径 } }
                             }
                         }
                 }
