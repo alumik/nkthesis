@@ -1686,6 +1686,7 @@
 % \changes{v2026.0}{2026/03/12}{删除不必要或重复引入的宏包。}
 % \changes{v2026.6}{2026/06/04}{将参考文献的对齐方式改为段落环境，与国标示例保持一致。}
 % \changes{v2026.7}{2026/08/13}{显式载入 \pkg{graphicx}，不再依赖间接引入。}
+% \changes{v2026b.0}{2026/11/04}{将参考文献的格式升级为 GB/T 7714-2025 规范。}
 %
 %    \begin{macrocode}
 \RequirePackage [ a4paper ] { geometry }
@@ -1701,7 +1702,7 @@
 \RequirePackage
     [
         backend = biber,
-        style   = gb7714-2015,
+        style   = gb7714-2025,
         url     = false,
         gbalign = gb7714,
     ]
