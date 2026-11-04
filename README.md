@@ -1,6 +1,6 @@
 # nkthesis：南开大学硕士博士毕业论文 LaTeX 模板（2026年9月修订版）
 
-![version 2026.7.2](https://img.shields.io/badge/version-2026.7.2-blue)
+![version 2026b.0.0](https://img.shields.io/badge/version-2026b.0.0-blue)
 ![license-LPPL-1.3c](https://img.shields.io/badge/license-LPPL--1.3c-orange)
 
 中文 | [English](README.en.md)

@@ -152,7 +152,7 @@ function update_tag(filename, content, tagname, tagdate)
   local bareversion = string.gsub(tagname, "^v", "")
   local version = "v" .. bareversion
 
-  if filename == "README.md" then
+  if filename == "README.md" or filename == "README.en.md" then
     -- ![version X.Y.Z](https://img.shields.io/badge/version-X.Y.Z-blue)
     content = string.gsub(content,
       "!%[version [^%]]*%]%(https://img%.shields%.io/badge/version%-[^%-]*%-blue%)",

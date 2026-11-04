@@ -1,6 +1,6 @@
 # nkthesis: Nankai University Master's and Doctoral Thesis LaTeX Template (2026)
 
-![version 2026.7.2](https://img.shields.io/badge/version-2026.7.2-blue)
+![version 2026b.0.0](https://img.shields.io/badge/version-2026b.0.0-blue)
 ![license-LPPL-1.3c](https://img.shields.io/badge/license-LPPL--1.3c-orange)
 
 [中文](README.md) | English
