@@ -1,11 +1,11 @@
 % Regression test: 授权书与作者信息表 (\authorizationpage).
-% Page 1: 学术硕士 with author info filled; Page 2: 专业学位博士 variant.
+% Page 1: 学术学位硕士 with author info filled; Page 2: 专业学位博士 variant.
 \documentclass{nkthesis}
 \begin{document}
 
 \nktset{
     论文题目（中文） = 现代绿色化学中的物理有机问题,
-    论文作者 = 张三,
+    学生姓名 = 张三,
     学号 = 1234567890,
     答辩日期 = \textbf{20}~26\textbf{年}5\textbf{月}25\textbf{日},
     培养单位 = 化学学院,
@@ -14,7 +14,7 @@
     联系电话 = 00000000000,
     电子邮箱 = user@example.com,
     通讯地址 = 天津市南开区卫津路94号，300071,
-    作者信息/论文类别 = 学术硕士,
+    作者信息/论文类别 = 学术学位硕士,
     非公开论文/审批表编号 = NKSH-2026-001,
     作者信息/备注 = 无,
     授权书/签字日期 = 2026年5月25日,

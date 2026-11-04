@@ -75,7 +75,8 @@
 %     \RequirePackage, \abstractname, \addcontentsline, \arabic,
 %     \arraybackslash, \arraystretch, \baselineskip, \begin, \bfseries,
 %     \biblabelsep, \bibname, \bool_if:NF, \bool_if:NT, \bool_if:NTF,
-%     \bool_new:N, \c_max_dim, \captionsetup, \ccwd, \centering,
+%     \bool_new:N, \box_new:N, \box_wd:N, \c_max_dim, \captionsetup,
+%     \ccwd, \centering,
 %     \cftbeforechapskip, \cftbeforefigskip, \cftbeforesecskip,
 %     \cftbeforesubsecskip, \cftbeforetabskip, \cftchapfont, \cftchapleader,
 %     \cftchappagefont, \cftdotfill, \cftdotsep, \cftfigfont, \cftfigindent,
@@ -94,13 +95,15 @@
 %     \dim_set:Nn, \draw, \end, \endcsname, \ensuremath, \fancyfoot,
 %     \fancyhead, \fancyhf, \fancyhfoffset, \figurename, \floatsep, \fontsize,
 %     \fontspec_font_if_exist:nTF, \fp_eval:n, \geometry, \group_begin:,
-%     \group_end:, \headrulewidth, \hfill, \hline, \hook_gput_code:nnn,
+%     \group_end:, \hbox_set:Nn, \headrulewidth, \hfill, \hline,
+%     \hook_gput_code:nnn,
 %     \hspace, \hypersetup, \ignorespaces, \includegraphics, \int_compare:nNnT,
 %     \int_compare:nNnTF, \int_new:N, \int_set:Nn, \intextsep, \kern,
 %     \keys_define:nn, \keys_if_exist:nnTF, \keys_set:nn, \labelformat,
 %     \leftmark, \leq, \linespread, \linewidth, \listfigurename, \listtablename,
 %     \makebox, \markboth, \mbox, \msg_expandable_error:nnn, \msg_fatal:nn,
-%     \msg_fatal:nnn, \msg_new:nnn, \newfontfamily, \newlist, \newtagform,
+%     \msg_fatal:nnn, \msg_new:nnn, \multicolumn, \newfontfamily,
+%     \newlist, \newtagform,
 %     \newunicodechar, \noindent, \nouppercase, \null, \pagenumbering,
 %     \pagestyle, \paperwidth, \par, \parbox, \parindent, \parskip,
 %     \printbibliography, \prop_const_from_keyval:Nn, \prop_gput:Nnn,
@@ -111,7 +114,8 @@
 %     \skip_horizontal:n, \skip_set:Nn, \skip_vertical:n, \square,
 %     \str_case:nnF, \str_case_e:nnF, \str_if_eq:eeF, \str_if_eq:eeTF,
 %     \str_if_eq:nnTF, \str_if_in:NnTF, \str_casefold:n, \str_new:N,
-%     \str_gset:Nn, \str_set:Ne, \subcaptionsetup, \sys_if_engine_xetex:F,
+%     \str_gset:Nn, \str_replace_all:Nnn, \str_set:Ne, \subcaptionsetup,
+%     \sys_if_engine_xetex:F,
 %     \tabcolsep, \tablename, \tex_hbadness:D, \tex_hfuzz:D, \tex_hsize:D,
 %     \textbf, \textbullet, \textfloatsep, \thechapter, \theequation,
 %     \thefigure, \thepage, \thesubfigure, \thetable, \thispagestyle,
@@ -317,7 +321,7 @@
 %     \begin{nkthesisexam}
 %         \nktset{
 %             论文题目（中文） = {现代绿色化学中的物理有机问题},
-%             论文作者         = {张三}
+%             学生姓名         = {张三}
 %         }
 %     \end{nkthesisexam}
 % \end{function}
@@ -361,7 +365,7 @@
 %     非公开论文标注“限制”、“秘密”或“机密”，同时还应注明相应的保密年限（具体标注要求见《研究生学位论文写作规范》）。
 % \end{function}
 %
-% \begin{function}{题名页/论文类别}
+% \begin{function}[updated=2026/11/04]{题名页/论文类别}
 %     \begin{syntax}
 %         题名页/论文类别 = <(硕士)|博士|硕士专业|博士专业>
 %     \end{syntax}
@@ -369,10 +373,10 @@
 %     默认值为“硕士”。
 % \end{function}
 %     \begin{optdesc}[itemsep=\medskipamount]
-%         \item[硕士] 题名页论文类别为“硕士学位论文”。
-%         \item[博士] 题名页论文类别为“博士学位论文”。
-%         \item[硕士专业] 题名页论文类别为“硕士专业学位论文”。
-%         \item[博士专业] 题名页论文类别为“博士专业学位论文”。
+%         \item[硕士] 题名页论文类别为“硕士学位论文”，下方另起一行标注“（学术学位）”。
+%         \item[博士] 题名页论文类别为“博士学位论文”，下方另起一行标注“（学术学位）”。
+%         \item[硕士专业] 题名页论文类别为“硕士学位论文”，下方另起一行标注“（专业学位）”。
+%         \item[博士专业] 题名页论文类别为“博士学位论文”，下方另起一行标注“（专业学位）”。
 %     \end{optdesc}
 %
 % \begin{function}{题名页/论文题目字号}
@@ -400,15 +404,17 @@
 %     默认值为空。
 % \end{function}
 %
-% \begin{function}{论文作者,指导教师,指导教师职称}
+% \begin{function}[updated=2026/11/04]{学生姓名,校内导师姓名及职称,校外导师姓名及职称}
 %     \begin{syntax}
-%         论文作者 = <姓名>
-%         指导教师 = <姓名>
-%         指导教师职称 = <职称>
+%         学生姓名 = <姓名>
+%         校内导师姓名及职称 = <姓名职称>
+%         校外导师姓名及职称 = <姓名职称>
 %     \end{syntax}
 %     论文责任者信息。
 %     默认值为空。
-%     责任者信息包括论文作者姓名，指导教师姓名、职称等。
+%     责任者信息包括学生姓名，校内、校外导师的姓名及职称等。
+%     导师姓名与职称合写为一个值，两者之间一般使用 \cs[no-index]{quad} 连接，
+%     例如“某某某\quad 教授”。
 %     如责任者姓名有必要附注汉语拼音时，遵照GB/T16159-2012《汉语拼音正词法基本规则》著录。
 % \end{function}
 %
@@ -462,22 +468,6 @@
 %     研究方向名称。
 %     默认值为空。
 %     指本学科专业范畴下的研究方向。
-% \end{function}
-%
-% \begin{function}{答辩委员会主席}
-%     \begin{syntax}
-%         答辩委员会主席 = <姓名>
-%     \end{syntax}
-%     答辩委员会主席姓名。
-%     默认值为空。
-% \end{function}
-%
-% \begin{function}{评阅人}
-%     \begin{syntax}
-%         评阅人 = <姓名列表>
-%     \end{syntax}
-%     评阅人姓名列表。
-%     默认值为空。
 % \end{function}
 %
 % \begin{function}{论文完成时间}
@@ -647,17 +637,17 @@
 %     默认值为空。
 % \end{function}
 %
-% \begin{function}{作者信息/论文类别}
+% \begin{function}[updated=2026/11/04]{作者信息/论文类别}
 %     \begin{syntax}
-%         作者信息/论文类别 = <学术博士|专业学位博士|(学术硕士)|专业学位硕士|同等学力硕士>
+%         作者信息/论文类别 = <学术学位博士|专业学位博士|(学术学位硕士)|专业学位硕士|同等学力硕士>
 %     \end{syntax}
 %     《南开大学研究生学位论文作者信息》中的论文类别。
-%     默认值为“学术硕士”。
+%     默认值为“学术学位硕士”。
 % \end{function}
 %     \begin{optdesc}[itemsep=\medskipamount]
-%         \item[学术博士] 在《南开大学研究生学位论文作者信息》中勾选“学术博士”。
+%         \item[学术学位博士] 在《南开大学研究生学位论文作者信息》中勾选“学术学位博士”。
 %         \item[专业学位博士] 在《南开大学研究生学位论文作者信息》中勾选“专业学位博士”。
-%         \item[学术硕士] 在《南开大学研究生学位论文作者信息》中勾选“学术硕士”。
+%         \item[学术学位硕士] 在《南开大学研究生学位论文作者信息》中勾选“学术学位硕士”。
 %         \item[专业学位硕士] 在《南开大学研究生学位论文作者信息》中勾选“专业学位硕士”。
 %         \item[同等学力硕士] 在《南开大学研究生学位论文作者信息》中勾选“同等学力硕士”。
 %     \end{optdesc}
@@ -1408,7 +1398,7 @@
 % \begin{macro}{\@@_lang_set:n}
 %
 % 设置语言，取值大小写不敏感，未知语言报错。
-% 语言选项在 \cs{ProcessKeyOptions} 时即被处理，
+% 语言选项在 \cs[no-index]{ProcessKeyOptions} 时即被处理，
 % 因此本命令必须在此之前完成定义。
 %
 %    \begin{macrocode}
@@ -1577,6 +1567,11 @@
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“一级学科”改为“一级学科或专业学位类别”。}
 % \changes{v2026.4}{2026/03/23}{将论文基本信息设置中的“二级学科”改为“二级学科或专业领域”。}
 % \changes{v2026.7}{2026/08/13}{用循环生成纯文本键的定义，避免大量重复样板代码。}
+% \changes{v2026b.0}{2026/11/04}{将论文基本信息设置中的“论文作者”改为“学生姓名”。}
+% \changes{v2026b.0}{2026/11/04}{将论文基本信息设置中的“指导教师”与“指导教师职称”合并为“校内导师姓名及职称”。}
+% \changes{v2026b.0}{2026/11/04}{在论文基本信息设置中新增“校外导师姓名及职称”。}
+% \changes{v2026b.0}{2026/11/04}{删除论文基本信息设置中不再使用的“答辩委员会主席”和“评阅人”。}
+% \changes{v2026b.0}{2026/11/04}{将“作者信息/论文类别”选项中的“学术博士”和“学术硕士”改名为“学术学位博士”和“学术学位硕士”。}
 %
 % 绝大多数论文信息键的行为完全相同：把用户输入原样存入属性列表。
 % 因此这里先用一个键名列表批量生成，随后再单独补充默认值和特殊键。
@@ -1591,16 +1586,14 @@
         题名页/论文题目字号,
         论文题目（中文）,
         论文题目（英文）,
-        论文作者,
-        指导教师,
-        指导教师职称,
+        学生姓名,
+        校内导师姓名及职称,
+        校外导师姓名及职称,
         申请学位,
         培养单位,
         一级学科或专业学位类别,
         二级学科或专业领域,
         研究方向,
-        答辩委员会主席,
-        评阅人,
         论文完成时间,
         论文编号,
         非公开论文/保密期限/起始日期,
@@ -1656,9 +1649,15 @@
             { \@@_config_set:nn { info / 题名页 / 论文类别 } {#1} },
         题名页/论文类别              .initial:n  = 硕士,
         作者信息/论文类别            .choices:nn =
-            { 学术博士, 专业学位博士, 学术硕士, 专业学位硕士, 同等学力硕士 }
+            { 
+                学术学位博士,
+                专业学位博士,
+                学术学位硕士,
+                专业学位硕士,
+                同等学力硕士,
+            }
             { \@@_config_set:nn { info / 作者信息 / 论文类别 } {#1} },
-        作者信息/论文类别            .initial:n  = 学术硕士,
+        作者信息/论文类别            .initial:n  = 学术学位硕士,
         非公开论文/申请密级          .choices:nn =
             { 公开, 限制, 秘密, 机密 }
             { \@@_config_set:nn { info / 非公开论文 / 申请密级 } {#1} },
@@ -1792,7 +1791,7 @@
         \hypersetup
             {
                 pdftitle  = \nktget{ 论文题目（中文） },
-                pdfauthor = \nktget{ 论文作者         },
+                pdfauthor = \nktget{ 学生姓名         },
             }
     }
 %    \end{macrocode}
@@ -1928,7 +1927,7 @@
 %
 % \changes{v2026.7}{2026/08/13}{将临时变量的声明提至顶层，修复重复调用页面命令时报错的问题。}
 %
-% \begin{variable}{\l_@@_temp_str, \l_@@_temp_dim}
+% \begin{variable}{\l_@@_temp_str, \l_@@_temp_dim, \l_@@_temp_box}
 %
 % 临时变量。
 % 变量声明是全局的，且带有重复定义检查，因此必须放在顶层而不是命令体内。
@@ -1936,6 +1935,16 @@
 %    \begin{macrocode}
 \str_new:N \l_@@_temp_str
 \dim_new:N \l_@@_temp_dim
+\box_new:N \l_@@_temp_box
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_item_width_dim}
+%
+% 题名页信息条目的总宽度（标签、间距与下划线三者之和）。
+%
+%    \begin{macrocode}
+\dim_new:N \l_@@_item_width_dim
 %    \end{macrocode}
 % \end{variable}
 %
@@ -2021,14 +2030,26 @@
 % \begin{macro}{\@@_item:nnn}
 %
 % \changes{v2.1}{2025/05/09}{如果题名页键值对中某个条目为空，则显示空的下划线。}
+% \changes{v2026b.0}{2026/11/04}{第三个参数改为标签与下划线的总宽度，下划线宽度按标签实际宽度自动补足，使各条目左右两端分别对齐。}
 %
 % 带下划线的题名页键值对样式。
+% 第三个参数为标签、间距与下划线三者的总宽度，
+% 下划线宽度由此总宽度减去标签实际宽度得到，
+% 因此只要各条目传入相同的总宽度，标签起点和下划线终点就分别对齐。
+% 值过长时在下划线的固定宽度内自动换行，行距会因此不均，但不会溢出。
 %
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_item:nnn
     {
+        \hbox_set:Nn \l_@@_temp_box {#1}
+        \dim_set:Nn \l_@@_temp_dim { \box_wd:N \l_@@_temp_box }
         #1 \hspace { 0.5em }
-        \underline { \parbox [ b ] {#3} { \centering \vphantom { 字 } #2 } }
+        \underline
+            {
+                \parbox [ b ]
+                    { \dim_eval:n { #3 - \l_@@_temp_dim - 0.5 em } }
+                    { \centering \vphantom { 字 } #2 }
+            }
     }
 %    \end{macrocode}
 % \end{macro}
@@ -2768,6 +2789,8 @@
 % \begin{macro}{\maintitlepage}
 %
 % \changes{v2026.7}{2026/08/13}{将 \cs[no-index]{titlepage} 改名为 \cs{maintitlepage}，避免破坏 \env{titlepage} 环境。}
+% \changes{v2026b.0}{2026/11/04}{题名页论文类别统一显示为“博士/硕士学位论文”，并在下方另起一行标注“（学术学位）”或“（专业学位）”。}
+% \changes{v2026b.0}{2026/11/04}{题名页信息表按学位类型显示不同字段。}
 %
 %    \begin{macrocode}
 \NewDocumentCommand \maintitlepage { }
@@ -2809,13 +2832,24 @@
             \@@_nankai_logo:n { 1 }
             \par
             \vspace { -1.2mm }
+            \str_set:Ne \l_@@_temp_str { \nktget { 题名页/论文类别 } }
             {
                 \mslinespread { 1 }
                 \songti
                 \zihao { 2 }
                 \bfseries
-                \ziju { 0.5 }
-                \nktget { 题名页/论文类别 } 学位论文
+                \str_if_in:NnTF \l_@@_temp_str { 专业 }
+                    {
+                        \str_replace_all:Nnn \l_@@_temp_str { 专业 } { }
+                        { \ziju { 0.5 } \l_@@_temp_str 学位论文 }
+                        \par
+                        （专业学位）
+                    }
+                    {
+                        { \ziju { 0.5 } \l_@@_temp_str 学位论文 }
+                        \par
+                        （学术学位）
+                    }
                 \par
             }
             \par
@@ -2839,39 +2873,70 @@
                 \zihao { -4 }
                 \cs_set:Npn \arraystretch { 2 }
                 \dim_set:Nn \tabcolsep { 0pt }
+                \dim_set:Nn \l_@@_item_width_dim { 13 \ccwd + 1.5 em }
                 \begin { tabular }
                     {
-                        > { \raggedright \arraybackslash } p { 66.7mm }
-                        > { \raggedleft  \arraybackslash } p { 66.7mm }
+                        > { \raggedright \arraybackslash } p { 70mm }
+                        > { \raggedleft  \arraybackslash } p { 70mm }
                     }
-                    \@@_item:nnn { 论文作者 }
-                        { \nktget { 论文作者 } }
-                        { 38.2mm } &
-                    \@@_item:nnn { 指导教师 }
-                        { \nktget { 指导教师 } \quad \nktget { 指导教师职称 } }
-                        { 38.2mm } \\
-                    \@@_item:nnn { 申请学位 }
-                        { \nktget { 申请学位 } }
-                        { 38.2mm } &
-                    \@@_item:nnn { 培养单位 }
-                        { \nktget { 培养单位 } }
-                        { 38.2mm } \\
-                    \@@_item:nnn { 学科专业 }
+                    \str_if_in:NnTF \l_@@_temp_str { 专业 }
                         {
-                            \tl_if_empty:eTF { \nktget { 二级学科或专业领域 } }
-                                { \nktget { 一级学科或专业学位类别 } }
-                                { \nktget { 二级学科或专业领域 } }
+                            \@@_item:nnn { 学生姓名 }
+                                { \nktget { 学生姓名 } }
+                                { \l_@@_item_width_dim } &
+                            \@@_item:nnn { 培养单位 }
+                                { \nktget { 培养单位 } }
+                                { \l_@@_item_width_dim } \\
+                            \@@_item:nnn { 校内指导教师 }
+                                { \nktget { 校内导师姓名及职称 } }
+                                { \l_@@_item_width_dim } &
+                            \@@_item:nnn { 校外指导教师 }
+                                { \nktget { 校外导师姓名及职称 } }
+                                { \l_@@_item_width_dim } \\
+                            \@@_item:nnn { 申请学位 }
+                                { \nktget { 申请学位 } }
+                                { \l_@@_item_width_dim } &
+                            \@@_item:nnn { 类别领域 }
+                                {
+                                    \tl_if_empty:eTF
+                                        { \nktget { 二级学科或专业领域 } }
+                                        { \nktget { 一级学科或专业学位类别 } }
+                                        { \nktget { 二级学科或专业领域 } }
+                                }
+                                { \l_@@_item_width_dim } \\
+                            \multicolumn { 2 }
+                                { > { \raggedright \arraybackslash } p { 140mm } }
+                                {
+                                    \@@_item:nnn { 研究方向 }
+                                        { \nktget { 研究方向 } }
+                                        { 140mm }
+                                } \\
                         }
-                        { 38.2mm } &
-                    \@@_item:nnn { 研究方向 }
-                        { \nktget { 研究方向 } }
-                        { 38.2mm } \\
-                    \@@_item:nnn { 答辩委员会主席 }
-                        { \nktget { 答辩委员会主席 } }
-                        { 25.5mm } &
-                    \@@_item:nnn { 评阅人 }
-                        { \nktget{ 评阅人 } }
-                        { 42.4mm } \\
+                        {
+                            \@@_item:nnn { 学生姓名 }
+                                { \nktget { 学生姓名 } }
+                                { \l_@@_item_width_dim } &
+                            \@@_item:nnn { 导师姓名、职称 }
+                                { \nktget { 校内导师姓名及职称 } }
+                                { \l_@@_item_width_dim } \\
+                            \@@_item:nnn { 申请学位 }
+                                { \nktget { 申请学位 } }
+                                { \l_@@_item_width_dim } &
+                            \@@_item:nnn { 培养单位 }
+                                { \nktget { 培养单位 } }
+                                { \l_@@_item_width_dim } \\
+                            \@@_item:nnn { 学科专业 }
+                                {
+                                    \tl_if_empty:eTF
+                                        { \nktget { 二级学科或专业领域 } }
+                                        { \nktget { 一级学科或专业学位类别 } }
+                                        { \nktget { 二级学科或专业领域 } }
+                                }
+                                { \l_@@_item_width_dim } &
+                            \@@_item:nnn { 研究方向 }
+                                { \nktget { 研究方向 } }
+                                { \l_@@_item_width_dim } \\
+                        }
                 \end { tabular }
                 \par
             }
@@ -3357,7 +3422,7 @@
                     { \textbf { 姓名 } }
                 \vrule
                 \@@_make_cell:nnnnn { 30.9mm  } { 6.4mm } { 1.9mm } { l }
-                    { \nktget { 论文作者 } }
+                    { \nktget { 学生姓名 } }
                 \vrule
                 \@@_make_cell:nnnnn { 19.6mm  } { 6.4mm } { 1.9mm } { s }
                     { \textbf { 学号 } }
@@ -3383,17 +3448,17 @@
                         \parbox [ c ] { 0.85\linewidth }
                             {
                                 \centering
-                                \textbf { 学术博士 } ~ \@@_checkbox:en
+                                \textbf { 学术学位博士 } ~ \@@_checkbox:en
                                     { \nktget { 作者信息/论文类别 } }
-                                    { 学术博士 }
+                                    { 学术学位博士 }
                                 \hspace { 2.5em }
                                 \textbf { 专业学位博士 } ~ \@@_checkbox:en
                                     { \nktget { 作者信息/论文类别 } }
                                     { 专业学位博士 }
                                 \hspace { 2.5em }
-                                \textbf { 学术硕士 } ~ \@@_checkbox:en
+                                \textbf { 学术学位硕士 } ~ \@@_checkbox:en
                                     { \nktget { 作者信息/论文类别 } }
-                                    { 学术硕士 }
+                                    { 学术学位硕士 }
                                 \\
                                 \textbf { 专业学位硕士 } ~ \@@_checkbox:en
                                     { \nktget { 作者信息/论文类别 } }

@@ -102,8 +102,8 @@ The general structure of the sample file is as follows:
 \nktset{
   论文题目（中文） = {Your Chinese Title},
   论文题目（英文） = {Your English Title},
-  论文作者 = {Your Name},
-  指导教师 = {Your Supervisor},
+  学生姓名 = {Your Name},
+  校内导师姓名及职称 = {Supervisor's Name\quad Professor},
   培养单位 = {Your School},
 }
 
