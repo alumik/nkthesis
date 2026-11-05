@@ -15,7 +15,7 @@
 > [!TIP]
 > 如果您觉得本模板好用，请点一个免费的 Star ⭐，让更多的人看到本项目，谢谢！
 
-![](https://pic.imgdd.cc/i/034rnEaRpkFfAwx1J42lcC.png)
+![](doc/preview/preview.png)
 
 ## 模板下载
 
